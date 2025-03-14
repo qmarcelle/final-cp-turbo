@@ -1,2 +1,4 @@
 packages:
-    - 'src/**'
+    - "apps/broker-portal"
+    - "packages/ui"
+    - "packages/router"
