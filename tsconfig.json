@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "./packages/tsconfig/base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "incremental": true,
+    "skipLibCheck": true,
+    "paths": {
+      "@/*": ["./src/*"],
+      "@components/*": ["./src/components/*"],
+      "@features/*": ["./src/features/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@types/*": ["./src/types/*"],
+      "@styles/*": ["./src/styles/*"],
+      "@cp/auth/*": ["./packages/auth/src/*"],
+      "@cp/router/*": ["./packages/router/src/*"],
+      "@cp/ui/*": ["./packages/ui/src/*"],
+      "@cp/testing/*": ["./packages/testing/src/*"],
+      "@cp/logger/*": ["./packages/logger/src/*"],
+      "@cp/tsconfig/*": ["./packages/tsconfig/*"]
+    },
+    "types": ["node"],
+    "typeRoots": [
+      "./node_modules/.pnpm/@types",
+      "./node_modules/@types",
+      "./src/types"
+    ]
+  },
+  "exclude": ["node_modules", ".next", "out"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "src/types/**/*.d.ts"]
+}

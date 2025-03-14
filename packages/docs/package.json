@@ -1,0 +1,22 @@
+{
+  "name": "@cp/docs",
+  "version": "0.1.0",
+  "description": "Documentation for Consumer Portals packages",
+  "private": true,
+  "scripts": {
+    "build": "typedoc",
+    "dev": "typedoc --watch",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+  },
+  "devDependencies": {
+    "@cp/router": "workspace:*",
+    "@cp/testing": "workspace:*",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@types/react": "^19.0.10",
+    "@types/testing-library__jest-dom": "^6.0.0",
+    "eslint": "^9.22.0",
+    "typedoc": "^0.25.12",
+    "typedoc-plugin-markdown": "^3.17.1",
+    "typescript": "^5.1.6"
+  }
+}

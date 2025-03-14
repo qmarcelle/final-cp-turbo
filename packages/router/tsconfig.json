@@ -1,0 +1,24 @@
+{
+  // Router package TypeScript configuration
+  // Provides routing functionality for Next.js applications
+  "extends": "../../packages/tsconfig/react-library.json",
+  "compilerOptions": {
+    "incremental": true,
+    "tsBuildInfoFile": "./dist/.tsbuildinfo",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "skipLibCheck": true,
+    "paths": {
+      "react": ["./node_modules/react"]
+    },
+    "types": ["node"],
+    "typeRoots": [
+      "../../node_modules/.pnpm/@types",
+      "../../node_modules/@types",
+      "./node_modules/@types",
+      "./src/types"
+    ]
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/types/**/*.d.ts"],
+  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.test.tsx", "src/**/__tests__/**/*.ts", "src/**/__tests__/**/*.tsx"]
+} 

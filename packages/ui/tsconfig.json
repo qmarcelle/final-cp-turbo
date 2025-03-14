@@ -1,0 +1,18 @@
+{
+  // UI package TypeScript configuration
+  // Provides shared UI components and design system
+  "extends": "../../packages/tsconfig/react-library.json",
+  "compilerOptions": {
+    "types": ["node", "jest"],
+    "baseUrl": ".",
+    "skipLibCheck": true,
+    "typeRoots": [
+      "../../node_modules/.pnpm/@types",
+      "../../node_modules/@types",
+      "./node_modules/@types",
+      "./src/types"
+    ]
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/types/**/*.d.ts"],
+  "exclude": ["node_modules", "dist"]
+} 

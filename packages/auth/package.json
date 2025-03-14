@@ -1,0 +1,37 @@
+{
+  "name": "@cp/auth",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --external react",
+    "dev": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
+    "lint": "eslint \"src/**/*.ts*\"",
+    "test": "jest",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+  },
+  "peerDependencies": {
+    "next": "^14.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "dependencies": {
+    "jose": "^5.1.3"
+  },
+  "devDependencies": {
+    "@cp/tsconfig": "workspace:*",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@types/jest": "^29.5.14",
+    "@types/next-auth": "^3.15.0",
+    "@types/node": "^22.13.10",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^18.3.5",
+    "@types/testing-library__jest-dom": "^6.0.0",
+    "eslint": "^9.22.0",
+    "eslint-config-custom": "workspace:*",
+    "next-auth": "^4.24.11",
+    "tsup": "^8.4.0",
+    "typescript": "^5.1.6"
+  }
+}

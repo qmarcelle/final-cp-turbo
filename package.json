@@ -1,0 +1,101 @@
+{
+  "name": "consumer-portals",
+  "version": "0.0.1",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "pnpm build:packages",
+    "build:packages": "pnpm build:ui && pnpm build:router",
+    "dev": "turbo dev --no-daemon",
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
+    "lint:all": "turbo lint --no-daemon",
+    "test": "turbo test --no-daemon",
+    "test:watch": "turbo test:watch --no-daemon",
+    "test:coverage": "turbo test:coverage --no-daemon",
+    "e2e": "turbo e2e --no-daemon",
+    "e2e:headless": "turbo e2e:headless --no-daemon",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
+    "clean": "pnpm -r exec -- rimraf dist .turbo node_modules && rimraf node_modules",
+    "clean:install": "pnpm clean && pnpm install",
+    "install:fast": "pnpm install --network-concurrency=16 --child-concurrency=16",
+    "install:ci": "pnpm install --frozen-lockfile",
+    "docs": "turbo build --filter=@cp/docs --no-daemon",
+    "check-types": "pnpm -r --filter=\"@cp/*\" exec -- tsc --noEmit",
+    "analyze": "turbo analyze --no-daemon",
+    "prune": "turbo prune --no-daemon",
+    "gen:workspace": "turbo gen workspace --no-daemon",
+    "build:ui": "cd packages/ui && pnpm build",
+    "build:router": "cd packages/router && pnpm build",
+    "deploy:dev": "turbo build --filter=broker-portal --filter=employer-portal --no-daemon && pnpm deploy:dev:broker && pnpm deploy:dev:employer",
+    "deploy:dev:broker": "cd apps/broker-portal && pnpm deploy:dev",
+    "deploy:dev:employer": "cd apps/employer-portal && pnpm deploy:dev",
+    "deploy:staging": "turbo build --filter=broker-portal --filter=employer-portal --no-daemon && pnpm deploy:staging:broker && pnpm deploy:staging:employer",
+    "deploy:staging:broker": "cd apps/broker-portal && pnpm deploy:staging",
+    "deploy:staging:employer": "cd apps/employer-portal && pnpm deploy:staging",
+    "deploy:prod": "turbo build --filter=broker-portal --filter=employer-portal --no-daemon && pnpm deploy:prod:broker && pnpm deploy:prod:employer",
+    "deploy:prod:broker": "cd apps/broker-portal && pnpm deploy:prod",
+    "deploy:prod:employer": "cd apps/employer-portal && pnpm deploy:prod"
+  },
+  "devDependencies": {
+    "@headlessui/react": "^2.2.0",
+    "@heroicons/react": "^2.2.0",
+    "@hookform/resolvers": "^4.1.3",
+    "@jest/globals": "^29.7.0",
+    "@turbo/gen": "^2.4.4",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.13.10",
+    "@types/react": "^18.2.0",
+    "@types/testing-library__jest-dom": "^6.0.0",
+    "chalk": "^4.1.2",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "concurrently": "^9.1.2",
+    "cross-env": "^7.0.3",
+    "esbuild": "^0.25.1",
+    "eslint": "^8.57.1",
+    "glob": "^11.0.1",
+    "lint-staged": "^15.4.3",
+    "npm-check-updates": "^17.1.15",
+    "prettier": "^3.5.3",
+    "react-datepicker": "^8.2.0",
+    "react-hook-form": "^7.54.2",
+    "react-imask": "^7.6.1",
+    "rimraf": "^6.0.1",
+    "tailwind-merge": "^3.0.2",
+    "ts-node": "^10.9.2",
+    "turbo": "^2.4.4",
+    "typescript": "^5.8.2",
+    "zod": "^3.22.4"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "packageManager": "pnpm@10.5.2",
+  "pnpm": {
+    "overrides": {
+      "axios": "^1.8.2",
+      "esbuild": "^0.25.0",
+      "typescript": "^5.4.2",
+      "react": "^18.2.0",
+      "react-dom": "^18.2.0"
+    },
+    "packageExtensions": {
+      "@cp/router": {
+        "peerDependencies": {
+          "next": "^14.0.0",
+          "react": "^18.2.0",
+          "react-dom": "^18.2.0"
+        }
+      }
+    },
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "react": "18",
+        "react-dom": "18"
+      }
+    }
+  }
+}

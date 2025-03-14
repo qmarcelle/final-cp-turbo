@@ -1,0 +1,29 @@
+{
+  "name": "@cp/api-client",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts",
+    "dev": "tsup src/index.ts --format esm,cjs --watch --dts",
+    "lint": "eslint \"src/**/*.ts*\"",
+    "test": "jest",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+  },
+  "dependencies": {
+    "axios": "^1.6.3",
+    "swr": "^2.2.4"
+  },
+  "devDependencies": {
+    "@cp/tsconfig": "workspace:*",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@types/node": "^20.10.5",
+    "@types/react": "^19.0.10",
+    "@types/testing-library__jest-dom": "^6.0.0",
+    "eslint": "^9.22.0",
+    "eslint-config-custom": "workspace:*",
+    "tsup": "^8.4.0",
+    "typescript": "^5.3.3"
+  }
+}

@@ -1,0 +1,67 @@
+trigger: none
+
+pool: Self hosted pool
+
+resources:
+  repositories:
+    - repository: templates
+      type: git
+      name: "Consumer_Portals/DevOps-Repo"
+      ref: refs/heads/dev
+
+variables:
+  PNPM_VERSION: 8.6.0
+  NODE_VERSION: 18.x
+  # For Turbo caching
+  TURBO_TOKEN: $(TURBO_TOKEN)
+  TURBO_TEAM: $(TURBO_TEAM)
+
+steps:
+  - template: jobs/next-pipeline.yml@templates
+  
+  # Install pnpm for workspace management
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script: |
+        npm install -g pnpm@$env:PNPM_VERSION
+        pnpm --version
+    displayName: 'Install PNPM'
+  
+  # Install dependencies
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script: |
+        pnpm install --frozen-lockfile
+    displayName: 'Install Dependencies'
+  
+  # Build all packages and apps with Turborepo
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script: |
+        pnpm build
+    displayName: 'Build All Packages and Apps'
+  
+  # Run tests
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script: |
+        pnpm test
+    displayName: 'Run Tests'
+  
+  # Output directory contents
+  - task: PowerShell@2
+    inputs:
+      targetType: "inline"
+      script: "dir $(System.DefaultWorkingDirectory)"
+    displayName: Output Source Directory
+  
+  # Publish artifacts
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: "$(System.DefaultWorkingDirectory)"
+      artifact: "BCBSTPortals"
+    displayName: Publish Code Snapshot 

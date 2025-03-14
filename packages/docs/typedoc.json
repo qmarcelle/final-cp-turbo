@@ -1,0 +1,28 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": [
+    "../router/src/index.ts",
+    "../testing/src/index.ts"
+  ],
+  "out": "dist",
+  "plugin": ["typedoc-plugin-markdown"],
+  "theme": "markdown",
+  "readme": "none",
+  "name": "Consumer Portals API Documentation",
+  "includeVersion": true,
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "excludeExternals": true,
+  "categorizeByGroup": true,
+  "categoryOrder": [
+    "Navigation",
+    "Routing",
+    "Middleware",
+    "Server",
+    "Logging",
+    "Testing",
+    "*"
+  ],
+  "sort": ["source-order"],
+  "gitRevision": "main"
+} 
