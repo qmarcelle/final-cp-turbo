@@ -1,10 +1,10 @@
-apps:
-    - "apps/broker-portal"
-
 packages:
-    - "packages/testing"
-    - "packages/tsconfig"
-    - "packages/eslint-config-custom"
-    - "packages/auth"
-    - "packages/ui"
-    - "packages/router"
+  # All app directories
+  - 'apps/*'
+  # All package directories
+  - 'packages/*'
+  # Exclude build artifacts and dependencies
+  - '!**/node_modules'
+  - '!**/.next'
+  - '!**/dist'
+  - '!**/build'
