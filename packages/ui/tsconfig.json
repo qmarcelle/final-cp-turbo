@@ -3,6 +3,10 @@
   // Provides shared UI components and design system
   "extends": "../../packages/tsconfig/react-library.json",
   "compilerOptions": {
+    "incremental": true,
+    "outDir": "dist",
+    "composite": "true",
+    "tsBuildInfoFile": "dist/.tsbuildinfo",
     "types": ["node", "jest"],
     "baseUrl": ".",
     "skipLibCheck": true,
