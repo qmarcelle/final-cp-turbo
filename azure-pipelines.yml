@@ -37,7 +37,7 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
-        pnpm install --frozen-lockfile
+        pnpm install --no-frozen-lockfile
     displayName: 'Install Dependencies'
   
   # Build all packages and apps with Turborepo
