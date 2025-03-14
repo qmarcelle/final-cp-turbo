@@ -19,13 +19,13 @@ variables:
 steps:
   
   # Install pnpm for workspace management
-  # - task: PowerShell@2
-  #   inputs:
-  #     targetType: 'inline'
-  #     script: |
-  #       npm install -g pnpm@$env:PNPM_VERSION
-  #       pnpm --version
-  #   displayName: 'Install PNPM'
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script: |
+        npm install -g pnpm@$env:PNPM_VERSION
+        pnpm --version
+    displayName: 'Install PNPM'
   
   # Install dependencies
   - task: PowerShell@2
