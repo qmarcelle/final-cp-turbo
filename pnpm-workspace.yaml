@@ -1,4 +1,6 @@
-packages:
+apps:
     - "apps/broker-portal"
+
+packages:
     - "packages/ui"
     - "packages/router"
