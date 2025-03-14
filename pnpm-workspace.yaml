@@ -6,3 +6,5 @@ packages:
     - "packages/router"
     - "packages/testing"
     - "packages/tsconfig"
+    - "packages/eslint-config-custom"
+    - "packages/auth"
