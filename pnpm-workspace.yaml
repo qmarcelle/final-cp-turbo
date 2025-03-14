@@ -4,3 +4,5 @@ apps:
 packages:
     - "packages/ui"
     - "packages/router"
+    - "packages/testing"
+    - "packages/tsconfig"
