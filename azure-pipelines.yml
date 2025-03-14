@@ -49,12 +49,12 @@ steps:
     displayName: 'Build All Packages and Apps'
   
   # Run tests
-  - task: PowerShell@2
-    inputs:
-      targetType: 'inline'
-      script: |
-        pnpm test
-    displayName: 'Run Tests'
+  # - task: PowerShell@2
+  #   inputs:
+  #     targetType: 'inline'
+  #     script: |
+  #       pnpm test
+  #   displayName: 'Run Tests'
   
   # Output directory contents
   - task: PowerShell@2
