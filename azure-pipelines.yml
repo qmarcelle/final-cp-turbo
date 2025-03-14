@@ -17,6 +17,11 @@ variables:
   # TURBO_TEAM: $(TURBO_TEAM)
 
 steps:
+
+  - task: NodeTool@0
+    inputs:
+      versionSpec: "20.x"
+    displayName: "Install Node.js"
   
   # Install pnpm for workspace management
   - task: PowerShell@2
