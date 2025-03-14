@@ -45,7 +45,6 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
-        turbo clean
         pnpm build
     displayName: 'Build All Packages and Apps'
   
