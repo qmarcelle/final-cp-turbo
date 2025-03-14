@@ -2,9 +2,9 @@ apps:
     - "apps/broker-portal"
 
 packages:
-    - "packages/ui"
-    - "packages/router"
     - "packages/testing"
     - "packages/tsconfig"
     - "packages/eslint-config-custom"
     - "packages/auth"
+    - "packages/ui"
+    - "packages/router"
