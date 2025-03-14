@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "build": "pnpm build:packages",
-    "build:packages": "pnpm build:ui && pnpm build:router",
+    "build:packages": "pnpm build:router",
     "dev": "turbo dev --no-daemon",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
     "lint:all": "turbo lint --no-daemon",
