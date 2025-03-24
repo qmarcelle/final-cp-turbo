@@ -1,224 +1,129 @@
-# @cp/auth
+# Auth Package
 
-Authentication and authorization library for Consumer Portals applications.
-
-## Overview
-
-This package provides a centralized authentication system for all portal applications, built on top of NextAuth.js. It handles token management, session handling, and integration with various identity providers.
+This package provides core authentication functionality for the Member Portal application.
 
 ## Features
 
-- **Secure Authentication**: Implementation of secure authentication protocols
-- **OAuth Integration**: Support for OAuth 2.0 and OpenID Connect
-- **JWT Handling**: Secure handling of JWT tokens
-- **Session Management**: User session management and persistence
-- **Role-Based Access Control**: Authorization based on user roles and permissions
-- **Error Handling**: Comprehensive error management for auth failures
+- Session management
+- Authentication flows
+- Basic permission checks
+- Impersonation support
+- MFA support
+- Configurable session timeouts
+- JWT-based authentication
 
 ## Installation
 
 ```bash
-# Install in a portal application
-pnpm add @cp/auth
-```
-
-## Usage
-
-### Basic Setup
-
-```tsx
-// pages/api/auth/[...nextauth].ts
-import { authOptions } from '@cp/auth';
-import NextAuth from 'next-auth';
-
-export default NextAuth(authOptions);
-```
-
-### Protecting Routes
-
-```tsx
-// pages/protected.tsx
-import { useSession, getServerSession } from '@cp/auth';
-import { GetServerSideProps } from 'next';
-import { authOptions } from '@cp/auth';
-
-export default function ProtectedPage() {
-  const { data: session } = useSession();
-  
-  return (
-    <div>
-      <h1>Protected Page</h1>
-      <p>Welcome {session?.user?.name}</p>
-    </div>
-  );
-}
-
-// Server-side protection
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getServerSession(context.req, context.res, authOptions);
-  
-  if (!session) {
-    return {
-      redirect: {
-        destination: '/api/auth/signin',
-        permanent: false,
-      },
-    };
-  }
-  
-  return {
-    props: { session },
-  };
-};
-```
-
-### Using Authentication Hook
-
-```tsx
-// components/ProfileButton.tsx
-import { useSession, signIn, signOut } from '@cp/auth';
-
-export function ProfileButton() {
-  const { data: session, status } = useSession();
-  
-  if (status === 'loading') {
-    return <div>Loading...</div>;
-  }
-  
-  if (status === 'unauthenticated') {
-    return (
-      <button onClick={() => signIn()}>
-        Sign in
-      </button>
-    );
-  }
-  
-  return (
-    <div>
-      <p>Signed in as {session.user.email}</p>
-      <button onClick={() => signOut()}>
-        Sign out
-      </button>
-    </div>
-  );
-}
+npm install @memberportal/auth
 ```
 
 ## Configuration
 
-The auth package can be configured with various options:
+The auth package requires configuration to work properly. At minimum, you must provide `loginUrl` and `logoutUrl`:
 
 ```typescript
-// In your Next.js app
-import { configureAuth } from '@cp/auth';
+import { mergeAuthConfig } from '@memberportal/auth';
 
-export const { authOptions } = configureAuth({
-  providers: ['azure-ad'],
-  callbacks: {
-    // Custom callbacks
+const authConfig = mergeAuthConfig({
+  loginUrl: '/custom/login',
+  logoutUrl: '/custom/logout',
+  // Optional overrides
+  baseUrl: process.env.NEXTAUTH_URL,
+  apiAuthPrefix: '/api/auth',
+  sessionTimeout: {
+    enabled: true,
+    timeoutMinutes: 30,
+    warningMinutes: 5,
   },
-  pages: {
-    signIn: '/custom-signin',
-    error: '/auth-error',
-  },
-  logger: {
-    level: 'info',
-  },
+  // Additional paths
+  loginPath: '/auth/login',
+  homePath: '/',
+  mfaPath: '/auth/mfa',
+  resetPasswordPath: '/auth/reset-password',
+  verifyEmailPath: '/auth/verify-email',
+  accountSelectionPath: '/auth/account-selection',
 });
 ```
 
-## API Reference
+### Environment Variables
 
-### Core Functions
+The following environment variables are supported:
 
-- `configureAuth(options)`: Configure the authentication system
-- `getServerSession(req, res, options)`: Get the session on the server
-- `useSession()`: React hook for accessing the session
-- `signIn(provider, options)`: Programmatically sign in
-- `signOut(options)`: Sign the user out
-- `getSession(options)`: Get the session client-side
+- `NEXTAUTH_URL`: Base URL for authentication (default: http://localhost:3000)
+- `JWT_SESSION_EXPIRY_SECONDS`: JWT token expiry time in seconds (default: 1800)
+- `NEXT_PUBLIC_JWT_SESSION_EXPIRY_SECONDS`: Alternative JWT expiry time variable
 
-### Types
+## Usage
 
-```typescript
-interface User {
-  id: string;
-  name?: string;
-  email?: string;
-  image?: string;
-  roles?: string[];
-}
-
-interface Session {
-  user: User;
-  expires: string;
-  accessToken?: string;
-}
-
-interface AuthOptions {
-  providers: string[];
-  callbacks?: {
-    signIn?: (user: User) => Promise<boolean>;
-    redirect?: (url: string) => Promise<string>;
-    session?: (session: Session) => Promise<Session>;
-    jwt?: (token: JWT) => Promise<JWT>;
-  };
-  pages?: {
-    signIn?: string;
-    signOut?: string;
-    error?: string;
-    verifyRequest?: string;
-  };
-  logger?: {
-    level?: 'error' | 'warn' | 'info' | 'debug';
-    prefix?: string;
-  };
-}
-```
-
-## Integration with Logger
-
-This package uses the `@cp/logger` package for consistent logging:
+### Basic Authentication
 
 ```typescript
-import { createLogger } from '@cp/logger';
+import { authServiceImpl } from '@memberportal/auth';
 
-const logger = createLogger({
-  name: 'auth',
-  level: 'info',
+// Sign in
+await authServiceImpl.signIn({
+  email: 'user@example.com',
+  password: 'password',
 });
 
-// Used in authentication flows
-logger.info('User authenticated successfully', { userId: 'user123' });
+// Get current session
+const session = await authServiceImpl.getSession();
+
+// Sign out
+await authServiceImpl.signOut();
 ```
+
+### Impersonation
+
+```typescript
+import { impersonationService } from '@memberportal/auth';
+
+// Start impersonation
+await impersonationService.startImpersonation({
+  targetUserId: 'user-to-impersonate',
+  originalUser: currentUser,
+});
+
+// End impersonation
+await impersonationService.endImpersonation();
+```
+
+### Session Types
+
+The package exports TypeScript types for working with sessions:
+
+```typescript
+import type { Session, SessionUser, PortalUser } from '@memberportal/auth';
+
+// Example session user
+const user: SessionUser = {
+  id: 'user-id',
+  email: 'user@example.com',
+  role: UserRole.USER,
+  // ... other properties
+};
+```
+
+## Security
+
+- Sessions are JWT-based with configurable expiry
+- MFA support built-in
+- Secure cookie handling based on environment
+- CSRF protection via Next.js built-in mechanisms
 
 ## Error Handling
 
-The package provides standardized error handling:
+The package provides custom error types for different scenarios:
 
-```typescript
-import { AuthError } from '@cp/auth';
-
-try {
-  // Authentication code
-} catch (error) {
-  if (error instanceof AuthError) {
-    console.error('Authentication error:', error.message, error.code);
-  }
-}
-```
-
-## Security Considerations
-
-- All tokens are stored securely using encrypted cookies
-- CSRF protection is enabled by default
-- JWT tokens are signed and verified
-- Session data is minimized to reduce exposure
+- `AuthenticationError`: General authentication failures
+- `ImpersonationError`: Issues with impersonation
+- `MFAError`: Multi-factor authentication issues
 
 ## Contributing
 
-Please refer to the main repository's contributing guidelines.
+Please see CONTRIBUTING.md for guidelines on contributing to this package.
 
 ## License
 
-Proprietary and Confidential 
+MIT
