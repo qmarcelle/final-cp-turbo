@@ -7,28 +7,27 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "pnpm build:packages",
+    "build": "turbo build",
     "build:packages": "pnpm build:router",
-    "dev": "turbo dev --no-daemon",
+    "dev": "turbo dev",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
-    "lint:all": "turbo lint --no-daemon",
-    "test": "turbo test --no-daemon",
-    "test:watch": "turbo test:watch --no-daemon",
-    "test:coverage": "turbo test:coverage --no-daemon",
-    "e2e": "turbo e2e --no-daemon",
-    "e2e:headless": "turbo e2e:headless --no-daemon",
-    "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
+    "lint:all": "turbo lint",
+    "test": "turbo test",
+    "test:watch": "turbo test:watch",
+    "test:coverage": "turbo test:coverage",
+    "e2e": "turbo e2e",
+    "e2e:headless": "turbo e2e:headless",
+    "format": "prettier --write",
     "clean": "pnpm -r exec -- rimraf dist .turbo node_modules && rimraf node_modules",
     "clean:install": "pnpm clean && pnpm install",
     "install:fast": "pnpm install --network-concurrency=16 --child-concurrency=16",
     "install:ci": "pnpm install --frozen-lockfile",
-    "docs": "turbo build --filter=@cp/docs --no-daemon",
-    "check-types": "pnpm -r --filter=\"@cp/*\" exec -- tsc --noEmit",
-    "analyze": "turbo analyze --no-daemon",
-    "prune": "turbo prune --no-daemon",
-    "gen:workspace": "turbo gen workspace --no-daemon",
+    "docs": "turbo build --filter=@cp/docs",
+    "check-types": "turbo check-types",
+    "analyze": "turbo analyze",
+    "prune": "turbo prune",
+    "gen:workspace": "turbo gen workspace",
     "build:ui": "cd packages/ui && pnpm build",
-    "build:router": "cd packages/router && pnpm build",
     "deploy:dev": "turbo build --filter=broker-portal --filter=employer-portal --no-daemon && pnpm deploy:dev:broker && pnpm deploy:dev:employer",
     "deploy:dev:broker": "cd apps/broker-portal && pnpm deploy:dev",
     "deploy:dev:employer": "cd apps/employer-portal && pnpm deploy:dev",
@@ -47,7 +46,7 @@
     "@turbo/gen": "^2.4.4",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.13.10",
-    "@types/react": "^18.2.0",
+    "@types/react": "^18.3.18",
     "@types/testing-library__jest-dom": "^6.0.0",
     "chalk": "^4.1.2",
     "class-variance-authority": "^0.7.1",
@@ -66,7 +65,6 @@
     "rimraf": "^6.0.1",
     "tailwind-merge": "^3.0.2",
     "ts-node": "^10.9.2",
-    "turbo": "^2.4.4",
     "typescript": "^5.8.2",
     "zod": "^3.22.4"
   },
@@ -82,20 +80,15 @@
       "react": "^18.2.0",
       "react-dom": "^18.2.0"
     },
-    "packageExtensions": {
-      "@cp/router": {
-        "peerDependencies": {
-          "next": "^14.0.0",
-          "react": "^18.2.0",
-          "react-dom": "^18.2.0"
-        }
-      }
-    },
     "peerDependencyRules": {
       "allowedVersions": {
         "react": "18",
         "react-dom": "18"
       }
     }
+  },
+  "dependencies": {
+    "@radix-ui/react-slot": "^1.2.0",
+    "turbo": "^2.4.4"
   }
 }

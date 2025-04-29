@@ -12,8 +12,6 @@
       "@utils/*": ["./src/utils/*"],
       "@types/*": ["./src/types/*"],
       "@styles/*": ["./src/styles/*"],
-      "@cp/auth/*": ["./packages/auth/src/*"],
-      "@cp/router/*": ["./packages/router/src/*"],
       "@cp/ui/*": ["./packages/ui/src/*"],
       "@cp/testing/*": ["./packages/testing/src/*"],
       "@cp/logger/*": ["./packages/logger/src/*"],

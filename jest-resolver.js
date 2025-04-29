@@ -9,9 +9,7 @@ const { createResolver } = require('jest-resolve');
 
 // Map of package name prefixes to their directories
 const packageMap = {
-  '@cp/auth': path.resolve(__dirname, 'packages/auth/src'),
   '@cp/types': path.resolve(__dirname, 'packages/types/src'),
-  '@cp/router': path.resolve(__dirname, 'packages/router/src'),
   '@cp/testing': path.resolve(__dirname, 'packages/testing/src'),
   '@cp/ui': path.resolve(__dirname, 'packages/ui/src'),
 };
