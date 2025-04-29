@@ -28,15 +28,6 @@
     "prune": "turbo prune",
     "gen:workspace": "turbo gen workspace",
     "build:ui": "cd packages/ui && pnpm build",
-    "deploy:dev": "turbo build --filter=broker-portal --filter=employer-portal --no-daemon && pnpm deploy:dev:broker && pnpm deploy:dev:employer",
-    "deploy:dev:broker": "cd apps/broker-portal && pnpm deploy:dev",
-    "deploy:dev:employer": "cd apps/employer-portal && pnpm deploy:dev",
-    "deploy:staging": "turbo build --filter=broker-portal --filter=employer-portal --no-daemon && pnpm deploy:staging:broker && pnpm deploy:staging:employer",
-    "deploy:staging:broker": "cd apps/broker-portal && pnpm deploy:staging",
-    "deploy:staging:employer": "cd apps/employer-portal && pnpm deploy:staging",
-    "deploy:prod": "turbo build --filter=broker-portal --filter=employer-portal --no-daemon && pnpm deploy:prod:broker && pnpm deploy:prod:employer",
-    "deploy:prod:broker": "cd apps/broker-portal && pnpm deploy:prod",
-    "deploy:prod:employer": "cd apps/employer-portal && pnpm deploy:prod"
   },
   "devDependencies": {
     "@headlessui/react": "^2.2.0",
@@ -46,7 +37,7 @@
     "@turbo/gen": "^2.4.4",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.13.10",
-    "@types/react": "^18.3.18",
+    "@types/react": "^18.2.0",
     "@types/testing-library__jest-dom": "^6.0.0",
     "chalk": "^4.1.2",
     "class-variance-authority": "^0.7.1",
@@ -65,6 +56,7 @@
     "rimraf": "^6.0.1",
     "tailwind-merge": "^3.0.2",
     "ts-node": "^10.9.2",
+    "turbo": "^2.4.4",
     "typescript": "^5.8.2",
     "zod": "^3.22.4"
   },
@@ -86,9 +78,5 @@
         "react-dom": "18"
       }
     }
-  },
-  "dependencies": {
-    "@radix-ui/react-slot": "^1.2.0",
-    "turbo": "^2.4.4"
   }
 }
