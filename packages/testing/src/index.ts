@@ -4,7 +4,7 @@
  */
 
 // Import jest-dom types
-import './types/testing-library__jest-dom';
+import '@testing-library/jest-dom'; 
 
 // Export Next.js mocks
 export * from './mocks/next';

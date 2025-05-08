@@ -3,7 +3,7 @@ import {
   downIcon,
   upGrayIcon,
   upIcon,
-} from '@/components/foundation/Icons';
+} from '@/components/foundation/Icons/Icons';
 import Image from 'next/image';
 import { KeyboardEvent, useState } from 'react';
 import { IComponent } from '../IComponent';

@@ -5,11 +5,11 @@
  * It's used by both the development server and Cypress component tests.
  */
 
-import { setupWorker } from 'msw/browser';
+import { setupServer  } from 'msw/node';
 import { handlers } from './handlers';
 
 // Create the MSW worker instance with default handlers
-export const worker = setupWorker(...handlers);
+export const worker = setupServer(...handlers);
 
 // Export a convenience function to add handlers dynamically
 export function addHandlers(customHandlers: any[]) {

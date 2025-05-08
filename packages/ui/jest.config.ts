@@ -8,8 +8,11 @@ const config: Config = {
   setupFilesAfterEnv: [
     '<rootDir>/jest.setup.ts'
   ],
+  moduleNameMapper: {
+   '\\.svg$': '<rootDir>/packages/ui/src/tests/__mocks__/svg.js',
+  },
   transform: {
-    '^.+\\.(ts|tsx)$': 'ts-jest'
+    '^.+\\.(ts|tsx)$': 'ts-jest',
   },
   testEnvironment: 'jsdom'
 };
