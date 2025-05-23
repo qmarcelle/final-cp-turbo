@@ -1,5 +1,5 @@
 {
-  "extends": "@cp/tsconfig/nextjs.json",
+  "extends": "@portals/typescript-config/nextjs.json",
   "compilerOptions": {
     "jsx": "preserve",
     "plugins": [{ "name": "next" }],

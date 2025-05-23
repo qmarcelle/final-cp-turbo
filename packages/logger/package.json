@@ -1,5 +1,5 @@
 {
-  "name": "@cp/logger",
+  "name": "@portals/logger",
   "version": "0.1.0",
   "description": "Shared logging utilities for consumer portal applications",
   "main": "dist/index.js",
@@ -16,12 +16,12 @@
     "pino-pretty": "^10.2.3"
   },
   "devDependencies": {
-    "@cp/tsconfig": "workspace:*",
+    "@portals/typescript-config": "workspace:*",
     "@testing-library/jest-dom": "^6.6.3",
     "@types/react": "^19.0.10",
     "@types/testing-library__jest-dom": "^6.0.0",
     "eslint": "^9.22.0",
-    "eslint-config-custom": "workspace:*",
+    "@portals/eslint-config": "workspace:*",
     "tsup": "^8.0.0",
     "typescript": "^5.1.6"
   },

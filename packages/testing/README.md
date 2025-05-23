@@ -1,6 +1,6 @@
-# Testing Strategies for Consumer Portals
+# @portals/testing
 
-This document outlines the recommended testing strategies and best practices for the Consumer Portals application.
+This package provides shared testing utilities, configurations, and mocks for all applications and packages within the Consumer Portals monorepo.
 
 ## Overview
 
@@ -129,7 +129,7 @@ MSW is set up and ready to use in both Jest and Cypress tests. The package inclu
 // Import the http and HttpResponse from MSW
 import { http, HttpResponse } from 'msw';
 // Import the test server
-import { server } from '@cp/testing/msw';
+import { server } from '@portals/testing/msw';
 
 describe('API Testing Example', () => {
   // Start the server before all tests
@@ -308,7 +308,7 @@ describe('UserProfile Component', () => {
 
 ```typescript
 // Import the worker from the browser MSW setup
-import { worker } from '@cp/testing/msw/browser';
+import { worker } from '@portals/testing/msw/browser';
 import { http, HttpResponse } from 'msw';
 import ClientList from './ClientList';
 
@@ -500,7 +500,7 @@ To use MSW during local development:
 ```typescript
 // In your app's entry point (e.g., main.tsx)
 if (process.env.NODE_ENV === 'development') {
-  import('@cp/testing/msw/init-msw').then(({ initMswForDevelopment }) => {
+  import('@portals/testing/msw/init-msw').then(({ initMswForDevelopment }) => {
     initMswForDevelopment({
       // Enable console logging of intercepted requests
       enableLogging: true,
@@ -567,7 +567,7 @@ export const handlers = [
 ```typescript
 // In your test file
 import { http, HttpResponse } from 'msw';
-import { server } from '@cp/testing/msw';
+import { server } from '@portals/testing/msw';
 
 beforeEach(() => {
   // Add custom handlers just for this test suite
@@ -722,3 +722,56 @@ Configure your CI pipeline to:
 - [Jest Documentation](https://jestjs.io/docs/getting-started)
 - [Testing Library Documentation](https://testing-library.com/docs/)
 - [MSW Documentation](https://mswjs.io/docs/)
+
+### Shared Mocks & Utilities
+
+- **MSW (Mock Service Worker) Handlers**: Located in `packages/testing/src/msw/handlers.ts`. These can be imported and used in both Jest and Cypress tests to mock API requests.
+- **Mock Data Factories**: Example: `packages/testing/src/mocks/factories/userFactory.ts`. Create consistent mock data for your tests.
+- **Custom Jest Matchers**: If needed, can be added to `packages/testing/src/jest/matchers.ts`.
+- **Cypress Custom Commands**: `packages/testing/src/cypress/commands.ts`.
+
+### Adding `@portals/testing` to a Package/App
+
+```bash
+pnpm add @portals/testing --filter <your-app-or-package-name> -D
+```
+
+### Example: Using MSW mocks in a Jest test
+
+```typescript
+// packages/my-feature/__tests__/some.test.ts
+import { server } from '@portals/testing/msw'; // Adjust path based on your setup
+import { rest } from 'msw';
+
+// Establish API mocking before all tests.
+beforeAll(() => server.listen());
+// Reset any request handlers that we may add during the tests,
+// so they don't affect other tests.
+afterEach(() => server.resetHandlers());
+// Clean up after the tests are finished.
+afterAll(() => server.close());
+
+it('handles server error', async () => {
+  server.use(
+    rest.get('/api/user', (req, res, ctx) => {
+      return res(ctx.status(500));
+    })
+  );
+  // ... your test logic
+});
+```
+
+### Example: Using Cypress commands
+
+```typescript
+// apps/my-app/cypress/e2e/login.cy.ts
+import '@portals/testing/cypress/commands'; // Ensures commands are registered
+
+describe('Login Flow', () => {
+  it('should login a user', () => {
+    cy.login('testuser@example.com', 'password123');
+    cy.visit('/dashboard');
+    cy.contains('Welcome, Test User').should('be.visible');
+  });
+});
+```

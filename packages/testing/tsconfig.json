@@ -1,7 +1,7 @@
 {
   // Testing package TypeScript configuration
   // Provides testing utilities and configurations for the monorepo
-  "extends": "../../packages/tsconfig/base.json",
+  "extends": "@portals/typescript-config/base.json",
   "compilerOptions": {
     "outDir": "./dist",
     "declaration": true,

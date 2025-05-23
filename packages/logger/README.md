@@ -1,6 +1,6 @@
-# @cp/logger
+# @portals/logger
 
-A shared logging library for Consumer Portals applications.
+This package is responsible for providing a standardized and configurable logging solution across all portal applications (e.g., `@portals/member-portal`, `@portals/broker-portal`). It leverages Pino for efficient and structured logging.
 
 ## Overview
 
@@ -19,7 +19,7 @@ This package provides a centralized, consistent logging solution for all portal 
 
 ```bash
 # Install in a portal application
-pnpm add @cp/logger
+pnpm add @portals/logger
 ```
 
 ## Usage
@@ -27,7 +27,7 @@ pnpm add @cp/logger
 ### Basic Usage
 
 ```typescript
-import { createLogger } from '@cp/logger';
+import { createLogger } from '@portals/logger';
 
 // Create a logger instance
 const logger = createLogger({
@@ -44,7 +44,7 @@ logger.debug('Debug information', { requestId: '123', userId: 'user-456' });
 ### With Request Context
 
 ```typescript
-import { createLogger, withRequest } from '@cp/logger';
+import { createLogger, withRequest } from '@portals/logger';
 import type { NextApiRequest } from 'next';
 
 const logger = createLogger({ name: 'api' });
@@ -70,7 +70,7 @@ export default function handler(req: NextApiRequest, res) {
 
 ```typescript
 // app/api/example/route.ts
-import { createLogger } from '@cp/logger';
+import { createLogger } from '@portals/logger';
 import { NextRequest, NextResponse } from 'next/server';
 
 const logger = createLogger({ name: 'api-route' });
@@ -93,24 +93,49 @@ export async function GET(request: NextRequest) {
 }
 ```
 
-## Configuration
+### Client-Side (React Components / Next.js)
 
-The logger can be configured with various options:
+```tsx
+import { useLogger } from '@portals/logger';
+
+function MyComponent() {
+  const logger = useLogger();
+  logger.info('Component rendered');
+  // ...
+}
+```
+
+### Server-Side (Next.js API Routes, Server Components)
 
 ```typescript
-import { createLogger } from '@cp/logger';
+import { logger } from '@portals/logger';
 
-const logger = createLogger({
-  name: 'service-name',       // Service name for log identification
-  level: 'debug',             // Log level (trace, debug, info, warn, error, fatal)
-  pretty: true,               // Enable pretty printing for development
-  baseContext: {              // Base context added to all logs
-    environment: process.env.NODE_ENV,
-    version: process.env.APP_VERSION,
-  },
-  destination: process.stdout // Output destination
-});
+export async function GET(request: Request) {
+  logger.info('API route hit');
+  // ...
+}
 ```
+
+## Configuration
+
+The logger can be configured via environment variables. Refer to the main `README.md` for environment variable conventions.
+
+Key configurations (e.g., log level) can be set using:
+
+- `LOG_LEVEL`: (e.g., `info`, `debug`, `warn`, `error`, `fatal`, `trace`, `silent`)
+
+## Development
+
+When running locally, logs will be pretty-printed to the console by default.
+In production, logs should be formatted as JSON for easier parsing by log management systems.
+
+## Adding to a new App/Package
+
+1.  Install the package:
+    ```bash
+    pnpm add @portals/logger --filter <your-app-or-package-name>
+    ```
+2.  Import and use as shown in the examples above.
 
 ## API Reference
 

@@ -1,5 +1,5 @@
 {
-  "name": "@cp/types",
+  "name": "@portals/shared-types",
   "version": "0.0.1",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
@@ -13,13 +13,13 @@
     "test:coverage": "jest --coverage"
   },
   "devDependencies": {
-    "@cp/tsconfig": "workspace:*",
+    "@portals/typescript-config": "workspace:*",
     "@testing-library/jest-dom": "^6.6.3",
     "@types/jest": "^29.5.11",
     "@types/react": "^19.0.10",
     "@types/testing-library__jest-dom": "^6.0.0",
     "eslint": "^9.22.0",
-    "eslint-config-custom": "workspace:*",
+    "@portals/eslint-config": "workspace:*",
     "jest": "^29.7.0",
     "tsup": "^8.4.0",
     "typescript": "^5.3.3"
