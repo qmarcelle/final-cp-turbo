@@ -156,7 +156,9 @@ src/
 │   │   ├── crud-table/      # Full CRUD operations
 │   │   ├── wizard/          # Multi-step forms
 │   │   └── dashboard-shell/ # Layout patterns
-│   └── domain/              # Business-specific components
+│   ├── candidate/           # Components targeted for refactor & promotion
+│   │   └── member-portal/   # Currently specific to Member Portal, migrating to common
+│   └── domain/              # Business-specific components (already common or not migrating)
 │       ├── member-card/
 │       ├── benefits-comparison/
 │       └── claims-status/
@@ -164,6 +166,16 @@ src/
     ├── globals.css          # Global styles and CSS variables
     └── themes/              # Theme configurations
 ```
+
+**Layer Definitions & Rationale:**
+
+*   **`lib/`**: Core utilities, hooks, and primitive setups (like Radix) that underpin the component library but are not components themselves.
+*   **`components/ui/`**: These are the direct, largely unmodified, "copy-paste" components from shadcn/ui. They form the foundational building blocks. We keep them here to distinguish from our own enhancements or compositions.
+*   **`components/enhanced/`**: Components that take a base `ui/` component (or multiple) and add significant new functionality, state management, or integrations, making them more powerful out-of-the-box for common portal needs (e.g., a `DataTable` with built-in sorting, filtering, pagination).
+*   **`components/patterns/`**: More complex compositions of multiple `ui/` and `enhanced/` components to solve recurring high-level UI problems or represent entire sections/features (e.g., a `Wizard` for multi-step forms, a `CrudTable` for full create-read-update-delete interfaces).
+*   **`components/candidate/`**: This directory houses components that are currently specific to a particular application (e.g., `member-portal/`) and may have originated from legacy code or app-specific needs. They are identified as **candidates for refactoring** according to the new shadcn/ui and design system standards. The goal is to eventually migrate these components (or their refactored equivalents) into the `ui/`, `enhanced/`, or `patterns/` directories once they are generalized and meet the common component standards. This serves as a staging area for progressive enhancement and migration.
+*   **`components/domain/`**: These are components that encapsulate specific business logic or represent unique concepts tied directly to the enterprise domain (e.g., healthcare plans, claims). They might be built from `ui/`, `enhanced/`, or `patterns/` components but are highly specialized for business functions. These are generally already considered "common" in terms of their domain specificity across portals.
+*   **`styles/`**: Global styles, Tailwind CSS setup, CSS variables, and theme definitions.
 
 ### Component Anatomy
 
