@@ -1,14 +1,20 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import type { Meta, StoryObj } from '@storybook/react'
 import { useForm, FormProvider } from 'react-hook-form'
-import { DatePicker } from './DatePicker'
+import { DatePicker, type DatePickerProps, type DateRange as ImportedDateRange } from './date-picker'
 
 type DateValue = Date | null
-type DateRangeValue = { start: DateValue; end: DateValue }
+// Renamed to avoid conflict with imported DateRange type
+type StoryDateRangeValue = { start: DateValue; end: DateValue }
 
-const meta = {
-  title: 'Foundation/DatePicker',
-  component: DatePicker,
+// Define a specific type for form values used in stories
+interface StoryFormValues {
+  storyDateField: Date | StoryDateRangeValue | null;
+}
+
+const meta: Meta<DatePickerProps<StoryFormValues>> = {
+  title: 'Foundation/date-picker',
+  component: DatePicker as React.FC<DatePickerProps<StoryFormValues>>,
   parameters: {
     layout: 'centered',
     docs: {
@@ -19,36 +25,34 @@ const meta = {
   },
   tags: ['autodocs'],
   argTypes: {
-    value: { 
-      control: 'date',
-      table: {
-        type: { summary: 'Date | DateRangeValue | null' }
-      }
-    },
-    placeholder: { control: 'text' },
-    mode: { control: 'select', options: ['single', 'range'] },
-    showTime: { control: 'boolean' },
-    minDate: { 
-      control: 'date',
-      table: {
-        type: { summary: 'Date | null' }
-      }
-    },
-    maxDate: { 
-      control: 'date',
-      table: {
-        type: { summary: 'Date | null' }
-      }
-    },
-    className: { control: 'text' },
-    label: { control: 'text' },
-    required: { control: 'boolean' },
-    error: { control: 'text' },
+    name: { control: 'text', description: 'Form field name (must be keyof StoryFormValues)', defaultValue: 'storyDateField' },
+    label: { control: 'text', description: 'Label for the date picker' },
+    required: { control: 'boolean', description: 'Is the field required?' },
+    disabled: { control: 'boolean', description: 'Is the field disabled?' },
+    placeholder: { control: 'text', description: 'Placeholder text' },
+    className: { control: 'text', description: 'Custom CSS classes' },
+    minDate: { control: 'date', description: 'Minimum selectable date' },
+    maxDate: { control: 'date', description: 'Maximum selectable date' },
+    showTime: { control: 'boolean', description: 'Show time selection?' },
+    mode: { control: 'select', options: ['single', 'range'], description: 'Single date or range selection' },
+    isClearable: { control: 'boolean', description: 'Show clear button?' },
+    hint: { control: 'text', description: 'Hint text below the input' },
+    dateFormat: { control: 'text', description: 'Custom date format string' },
+    control: { table: { disable: true } }, // Injected by form wrapper
   },
-} satisfies Meta<typeof DatePicker>
+} satisfies Meta<DatePickerProps<StoryFormValues>>
 
 export default meta
-type Story = StoryObj<typeof DatePicker>
+
+// Args for the InteractiveDatePicker wrapper, extending DatePickerProps
+interface InteractiveDatePickerStoryArgs extends DatePickerProps<StoryFormValues> {
+  initialValue?: Date | StoryDateRangeValue | null; // Value to initialize the form with
+  storyTitle?: string;
+  description?: string;
+  name: keyof StoryFormValues; // Ensure name is a valid key
+}
+
+type Story = StoryObj<InteractiveDatePickerStoryArgs>
 
 // Helper function to safely convert string to Date
 const toDate = (dateStr: string | Date | null | undefined): Date | null => {
@@ -59,7 +63,7 @@ const toDate = (dateStr: string | Date | null | undefined): Date | null => {
 }
 
 // Helper function to handle both single date and date range values
-const convertValue = (value: any): Date | DateRangeValue | null => {
+const convertValue = (value: any): Date | StoryDateRangeValue | null => {
   if (!value) return null
   if (typeof value === 'string' || value instanceof Date) return toDate(value)
   if (typeof value === 'object' && ('start' in value || 'end' in value)) {
@@ -71,53 +75,39 @@ const convertValue = (value: any): Date | DateRangeValue | null => {
   return null
 }
 
-// Define a type for the story args
-type DatePickerStoryArgs = {
-  value?: Date | null | { start: Date | null; end: Date | null };
-  placeholder?: string;
-  mode?: 'single' | 'range';
-  showTime?: boolean;
-  minDate?: Date | null;
-  maxDate?: Date | null;
-  className?: string;
-  label?: string;
-  required?: boolean;
-  error?: string;
-  storyTitle?: string;
-  description?: string;
-  [key: string]: any;
-};
-
 // Interactive wrapper component for stories with FormProvider
-const InteractiveDatePicker = (args: DatePickerStoryArgs) => {
-  const [value, setValue] = useState(convertValue(args.value))
-  const methods = useForm({
+const InteractiveDatePicker = (args: InteractiveDatePickerStoryArgs) => {
+  const { initialValue, storyTitle, description, name, ...restDatePickerProps } = args;
+  
+  const methods = useForm<StoryFormValues>({
     defaultValues: {
-      dateValue: value
-    }
-  })
+      [name]: convertValue(initialValue),
+    } as StoryFormValues,
+  });
 
-  // Update state when control value changes
   useEffect(() => {
-    setValue(convertValue(args.value))
-    methods.setValue('dateValue', convertValue(args.value))
-  }, [args.value, methods])
+    methods.setValue(name, convertValue(initialValue));
+  }, [initialValue, methods, name]);
+
+  const fieldError = methods.formState.errors[name];
 
   return (
     <FormProvider {...methods}>
-      <div className="storybook-form-container">
-        <h3 className="text-lg font-medium text-neutral-800 mb-4">{args.storyTitle || 'Date Picker'}</h3>
+      <div className="storybook-form-container w-full max-w-md p-4">
+        {storyTitle && <h3 className="text-lg font-medium text-neutral-800 dark:text-white mb-4">{storyTitle}</h3>}
         <DatePicker 
-          {...args} 
-          name="dateValue"
-          control={methods.control}
-          minDate={toDate(args.minDate) || undefined}
+          {...restDatePickerProps} // Pass through relevant DatePickerProps
+          name={name} // name is a key prop for react-hook-form
+          control={methods.control} // control is essential for react-hook-form
+          minDate={toDate(args.minDate) || undefined} // Ensure dates are Date objects or undefined
           maxDate={toDate(args.maxDate) || undefined}
-          className={args.className}
           data-cy="date-picker-demo"
         />
-        {args.description && (
-          <p className="text-sm text-neutral-600 mt-4">{args.description}</p>
+        {description && !fieldError && (
+          <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-2">{description}</p>
+        )}
+        {fieldError && (
+          <p className="text-sm text-red-600 dark:text-red-400 mt-1">{fieldError.message}</p>
         )}
       </div>
     </FormProvider>
@@ -126,53 +116,87 @@ const InteractiveDatePicker = (args: DatePickerStoryArgs) => {
 
 export const Default: Story = {
   args: {
+    name: 'storyDateField',
     placeholder: 'Select a date',
-    value: null,
+    initialValue: null,
     label: 'Event Date',
     storyTitle: 'Default Date Picker',
     description: 'Basic date picker with label for selecting a single date',
   },
-  render: (args: DatePickerStoryArgs) => <InteractiveDatePicker {...args} />
+  render: InteractiveDatePicker,
 }
 
 export const WithValue: Story = {
   args: {
-    value: new Date(),
+    name: 'storyDateField',
+    initialValue: new Date(),
     placeholder: 'Select a date',
     label: 'Start Date',
     storyTitle: 'Pre-selected Date',
     description: 'Date picker with a pre-selected value',
   },
-  render: (args: DatePickerStoryArgs) => <InteractiveDatePicker {...args} />
+  render: InteractiveDatePicker,
 }
 
-export const Required: Story = {
+export const RequiredStory: Story = {
+  name: 'Required Field',
   args: {
-    value: null,
+    name: 'storyDateField',
+    initialValue: null,
     placeholder: 'Select a date',
     label: 'Appointment Date',
     required: true,
     storyTitle: 'Required Date Field',
     description: 'Date picker marked as required field with visual indicator',
   },
-  render: (args: DatePickerStoryArgs) => <InteractiveDatePicker {...args} />
+  render: InteractiveDatePicker,
 }
 
 export const WithError: Story = {
   args: {
-    value: null,
+    name: 'storyDateField',
+    initialValue: null,
     placeholder: 'Select a date',
     label: 'Birth Date',
-    error: 'Please select a valid date',
-    storyTitle: 'Error State',
-    description: 'Date picker showing an error message',
+    storyTitle: 'Error State (Simulated)',
+    description: 'Date picker showing a validation error message.',
   },
-  render: (args: DatePickerStoryArgs) => <InteractiveDatePicker {...args} />
+  render: (args: InteractiveDatePickerStoryArgs) => {
+    const methods = useForm<StoryFormValues>({
+      defaultValues: { [args.name]: convertValue(args.initialValue) } as StoryFormValues,
+    });
+
+    useEffect(() => {
+      methods.setError(args.name, { type: "manual", message: "This birth date is invalid." });
+    }, [methods, args.name]);
+
+    const fieldError = methods.formState.errors[args.name];
+
+    return (
+      <FormProvider {...methods}>
+        <div className="storybook-form-container w-full max-w-md p-4">
+          {args.storyTitle && <h3 className="text-lg font-medium text-neutral-800 dark:text-white mb-4">{args.storyTitle}</h3>}
+          <DatePicker 
+            {...args} // Pass all args, DatePicker will pick what it needs
+            control={methods.control} // Override control
+            data-cy="date-picker-demo-error"
+          />
+          {args.description && !fieldError && (
+            <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-2">{args.description}</p>
+          )}
+          {fieldError && (
+            <p className="text-sm text-red-600 dark:text-red-400 mt-1">{fieldError.message}</p>
+          )}
+        </div>
+      </FormProvider>
+    );
+  },
 }
 
 export const WithMinMaxDate: Story = {
   args: {
-    value: null,
+    name: 'storyDateField',
+    initialValue: null,
     minDate: new Date(new Date().setMonth(new Date().getMonth() - 1)),
     maxDate: new Date(new Date().setMonth(new Date().getMonth() + 1)),
     placeholder: 'Select a date (±1 month)',
@@ -180,41 +204,45 @@ export const WithMinMaxDate: Story = {
     storyTitle: 'Date Range Restrictions',
     description: 'Date picker with minimum and maximum selectable dates (current month ±1)',
   },
-  render: (args: DatePickerStoryArgs) => <InteractiveDatePicker {...args} />
+  render: InteractiveDatePicker,
 }
 
 export const WithTimeSelection: Story = {
   args: {
-    value: null,
+    name: 'storyDateField',
+    initialValue: null,
     showTime: true,
     placeholder: 'Select date and time',
     label: 'Meeting Schedule',
     storyTitle: 'Date & Time Picker',
     description: 'Date picker with additional time selection capability',
   },
-  render: (args: DatePickerStoryArgs) => <InteractiveDatePicker {...args} />
+  render: InteractiveDatePicker,
 }
 
-export const DateRange: Story = {
+export const DateRangeStory: Story = {
+  name: 'Date Range Picker', 
   args: {
-    value: null,
+    name: 'storyDateField',
+    initialValue: null,
     mode: 'range',
     placeholder: 'Select date range',
     label: 'Vacation Period',
     storyTitle: 'Date Range Picker',
     description: 'Date picker configured for selecting a range of dates',
   },
-  render: (args: DatePickerStoryArgs) => <InteractiveDatePicker {...args} />
+  render: InteractiveDatePicker,
 }
 
 export const WithCustomClass: Story = {
   args: {
-    value: null,
+    name: 'storyDateField',
+    initialValue: null,
     placeholder: 'Select a date',
-    className: 'w-64',
-    label: 'Custom Width',
+    className: 'w-full md:w-80 border-blue-500', 
+    label: 'Custom Styled Picker',
     storyTitle: 'Custom Styling',
-    description: 'Date picker with custom width applied via className',
+    description: 'Date picker with custom width and border color applied via className.',
   },
-  render: (args: DatePickerStoryArgs) => <InteractiveDatePicker {...args} />
+  render: InteractiveDatePicker,
 } 

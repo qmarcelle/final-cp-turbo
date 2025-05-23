@@ -1,1 +1,1 @@
-export * from './FormActions';
+export * from './form-actions';

@@ -1,5 +1,6 @@
+/// <reference types="cypress" />
 import React from 'react'
-import { FormColumn } from './FormColumn'
+import { FormColumn } from '.' // Corrected import
 
 describe('FormColumn', () => {
   it('renders children in a single column', () => {
@@ -12,7 +13,7 @@ describe('FormColumn', () => {
       </FormColumn>
     )
 
-    cy.getByCy('test-column')
+    cy.get('[data-cy="test-column"]')
       .should('exist')
       .and('have.class', 'grid-cols-1')
     

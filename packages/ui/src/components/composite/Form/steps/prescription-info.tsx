@@ -1,8 +1,8 @@
 import { FieldValues } from 'react-hook-form';
-import { Input  } from '../../../foundation/Input/Input';
-import { RadioGroup  } from '../../../foundation/Radio';
-import { BaseStep, type BaseStepProps, getFieldName } from './BaseStep';
-import { FormSection } from '../FormSection';
+import { Input } from '@/components/foundation/input';
+import { RadioGroup } from '@/components/foundation/radio';
+import { BaseStep, type BaseStepProps, getFieldName } from './base-step';
+import { FormSection } from '../form-section';
 
 const requestTypeOptions = [
   { value: "NOT_ON_LIST", label: "I need a drug that is not on the plan's list of covered drugs (formulary exception)." },

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { ReactElement } from 'react';
-import { Button } from '../foundation/Button';
+import { Button } from '../foundation/button';
 import { Column } from '../foundation/Column';
 import { Header } from '../foundation/Header';
 import { successIcon } from '../foundation/Icons';

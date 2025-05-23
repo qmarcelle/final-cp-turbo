@@ -1,6 +1,6 @@
 import { FieldValues, Path } from 'react-hook-form';
-import { Input  } from '../../../foundation/Input';
-import { BaseStepProps } from '../BaseForm';
+import { Input } from '@/components/foundation/input';
+import { BaseStepProps } from '../base-form';
 
 interface SignatureStepProps<T extends FieldValues> extends BaseStepProps<T> {
   fieldPrefix?: string;
@@ -31,14 +31,14 @@ export function SignatureStep<T extends FieldValues>({
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Input<T>
+        <Input
           name={getFieldName('signatureData')}
           control={control}
           label="Signature"
           required={required}
           placeholder="Type your full name"
         />
-        <Input<T>
+        <Input
           name={getFieldName('date')}
           control={control}
           label="Date"

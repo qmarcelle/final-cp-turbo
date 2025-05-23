@@ -1,8 +1,8 @@
 import React from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
-import { FormActions } from './FormActions'
-import { Button  } from '../../foundation/Button'
-import type { FormActionsProps } from './FormActions'
+import { FormActions } from '.'
+import { Button } from '../../foundation/button'
+import type { FormActionsProps } from '.'
 
 const meta = {
   title: 'Composite/FormActions',
@@ -19,8 +19,8 @@ A flexible container component for form action buttons that handles different al
 #### Usage
 
 \`\`\`tsx
-import { FormActions  } from '../FormActions'
-import { Button  } from '../../foundation/Button'
+import { FormActions  } from '.'
+import { Button } from '../../foundation/button'
 
 function MyForm() {
   return (

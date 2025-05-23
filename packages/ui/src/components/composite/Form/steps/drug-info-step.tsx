@@ -1,8 +1,8 @@
 import { FieldValues, Path } from 'react-hook-form';
-import { Input  } from '../../../foundation/Input';
-import { RadioGroup  } from '../../../foundation/Radio';
-import { Checkbox  } from '../../../foundation/Checkbox';
-import { BaseStepProps } from '../BaseForm';
+import { Input, InputProps } from '@/components/foundation/input';
+import { RadioGroup } from '@/components/foundation/radio';
+import { Checkbox } from '@/components/foundation/checkbox';
+import { BaseStepProps } from '../base-form';
 
 interface DrugInfoStepProps<T extends FieldValues> extends BaseStepProps<T> {
   fieldPrefix?: string;
@@ -39,27 +39,27 @@ export function DrugInfoStep<T extends FieldValues>({
     <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="md:col-span-2">
-          <Input<T>
+          <Input
             name={getFieldName('name')}
             control={control}
             label="Drug Name"
             required={required}
           />
         </div>
-        <Input<T>
+        <Input
           name={getFieldName('strength')}
           control={control}
           label="Drug Strength"
           required={required}
         />
-        <Input<T>
+        <Input
           name={getFieldName('quantity')}
           control={control}
           label="Quantity"
           required={required}
         />
         {showQuantityPerMonth && (
-          <Input<T>
+          <Input
             name={getFieldName('quantityPerMonth')}
             control={control}
             label="Quantity Requested per Month"
@@ -75,20 +75,20 @@ export function DrugInfoStep<T extends FieldValues>({
             control={control}
             label="Have you already purchased this drug?"
           />
-          <Input<T>
+          <Input
             name={getFieldName('datePurchased')}
             control={control}
             type="text"
             placeholder="MM/DD/YYYY"
             label="Date Purchased"
           />
-          <Input<T>
+          <Input
             name={getFieldName('amountPaid')}
             control={control}
             type="text"
             label="Amount Paid"
           />
-          <Input<T>
+          <Input
             name={getFieldName('pharmacyInfo')}
             control={control}
             label="Pharmacy Information"

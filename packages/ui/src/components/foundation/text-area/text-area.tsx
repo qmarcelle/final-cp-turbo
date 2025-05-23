@@ -1,7 +1,7 @@
 import React from 'react';
 import { FieldValues, Controller, Control, type Path } from 'react-hook-form';
 import { cn } from '../../../utils/cn';
-import type { FormFieldProps, FormFieldValues } from '@cp/types';
+import type { FormFieldProps, FormFieldValues } from '@portals/shared-types';
 
 export interface TextAreaProps<T extends FormFieldValues = FieldValues> 
 extends Omit<FormFieldProps<T>, 'control'> {

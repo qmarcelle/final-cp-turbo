@@ -1,6 +1,6 @@
 import * as React from 'react';
 import type { Meta, StoryObj } from '@storybook/react'
-import { Input } from './Input'
+import { Input, type InputProps } from './input'
 import { useForm, FormProvider, Control, FieldValues } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -78,7 +78,7 @@ type InputProps<T extends FormFieldValues = FormFieldValues> = {
 }
 
 const meta = {
-  title: 'Foundation/Input',
+  title: 'Foundation/input',
   component: Input,
   parameters: {
     layout: 'centered',

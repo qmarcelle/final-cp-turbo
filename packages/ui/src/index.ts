@@ -13,19 +13,19 @@ import './utils/styles.css';
  */
 
 // Foundation Components
-export * from './components/foundation/Button';
-export * from './components/foundation/Input';
+export * from './components/foundation/button';
+export * from './components/foundation/input';
 
 // Composite Components (Layout)
-export * from './components/composite/FormLayout';
-export * from './components/composite/FormGrid';
-export * from './components/composite/FormColumn';
+export * from './components/composite/form-layout';
+export * from './components/composite/form-grid';
+export * from './components/composite/form-column';
 
 // Export Types
-export type { ButtonProps } from './components/foundation/Button';
-export type { InputProps } from './components/foundation/Input';
-export type { FormLayoutProps, FormLayoutVariant, FormLayoutColumns, FormLayoutGap } from './components/composite/FormLayout/FormLayout';
-export type { FormGridProps } from './components/composite/FormGrid/FormGrid';
+export type { ButtonProps } from './components/foundation/button';
+export type { InputProps } from './components/foundation/input';
+export type { FormLayoutProps, FormLayoutVariant, FormLayoutColumns, FormLayoutGap } from './components/composite/form-layout';
+export type { FormGridProps } from './components/composite/form-grid';
 export type { FormColumnProps } from './components/composite/types';
 
 // Utilities

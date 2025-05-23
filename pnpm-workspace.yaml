@@ -3,6 +3,8 @@ packages:
   - 'apps/*'
   # All package directories
   - 'packages/*'
+  # All tooling directories
+  - 'tooling/*'
   # Exclude build artifacts and dependencies
   - '!**/node_modules'
   - '!**/.next'

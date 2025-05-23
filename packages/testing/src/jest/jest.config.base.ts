@@ -10,10 +10,11 @@ import { resolve } from 'path';
 /**
  * Creates a Jest configuration for a package
  * @param rootDir - The root directory of the package
+ * @param tsConfigForPaths - Optional path to tsconfig for moduleNameMapper paths
  * @returns A Jest configuration object
  */
-export function createJestConfig(rootDir: string): Config {
-  const paths = getTsConfigPaths('./tsconfig.json');
+export function createJestConfig(rootDir: string, tsConfigForPaths?: string): Config {
+  const paths = getTsConfigPaths(tsConfigForPaths || './tsconfig.json');
   
   return {
     preset: 'ts-jest',
@@ -54,7 +55,12 @@ export function createJestConfig(rootDir: string): Config {
     // Transform configuration
     transform: {
       '^.+\\.(ts|tsx)$': ['ts-jest', {
-        tsconfig: './tsconfig.json',
+        // This tsconfig is for ts-jest to transform files.
+        // It should be specified by the consuming jest.config.ts (e.g., packages/ui/jest.config.ts)
+        // or default to a convention if not overridden by the spread ...createJestConfig().
+        // For now, let's assume the consuming config handles its transform tsconfig.
+        // The important part is that `createJestConfig` itself doesn't hardcode a relative path for this.
+        // If the consuming jest.config.ts provides its own transform, it will override this empty {} or a default.
       }],
     },
     
@@ -76,12 +82,13 @@ export function createJestConfig(rootDir: string): Config {
 // Function to get TypeScript paths from tsconfig
 const getTsConfigPaths = (tsconfigPath: string) => {
   try {
-    const tsConfig = JSON.parse(
-      readFileSync(resolve(process.cwd(), tsconfigPath), 'utf-8')
-    );
+    // Resolve path relative to the CWD of the jest process for the specific package
+    const absoluteTsConfigPath = resolve(process.cwd(), tsconfigPath);
+    const fileContent = readFileSync(absoluteTsConfigPath, 'utf-8');
+    const tsConfig = JSON.parse(fileContent.trim());
     return tsConfig.compilerOptions?.paths || {};
   } catch (e) {
-    console.error(`Error reading tsconfig at ${tsconfigPath}:`, e);
+    console.error(`Error reading tsconfig at ${resolve(process.cwd(), tsconfigPath)} (resolved from ${tsconfigPath}):`, e);
     return {};
   }
 };

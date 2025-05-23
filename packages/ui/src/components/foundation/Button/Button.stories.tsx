@@ -1,7 +1,7 @@
 import * as React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Button } from './Button';
-import type { ButtonProps } from './Button';
+import { Button } from './button';
+import type { ButtonProps } from './button';
 
 /**
  * Interface extending ButtonProps to include props specific to Storybook documentation or potentially missing from the base type.
@@ -20,7 +20,7 @@ interface ButtonStoryProps extends ButtonProps {
  * It supports multiple variants, sizes, and states, and can be rendered as either a button or a link.
  */
 const meta = {
-  title: 'Components/Foundation/Button',
+  title: 'Components/Foundation/button',
   component: Button as any, // Cast to any to resolve type conflict
   parameters: {
     layout: 'centered',
@@ -104,11 +104,7 @@ const meta = {
       control: 'text',
       description: 'Test attribute (deprecated, use standard data-cy attribute instead)',
     },
-  },
-} satisfies Meta<ButtonStoryProps>;
-
-export default meta;
-type Story = StoryObj<ButtonStoryProps>;
+    asChild: {
       control: 'boolean',
       description: 'Whether to render as a child component',
       table: { 
@@ -117,10 +113,10 @@ type Story = StoryObj<ButtonStoryProps>;
       },
     },
   },
-} satisfies Meta<ButtonProps>;
+} satisfies Meta<ButtonStoryProps>;
 
 export default meta;
-type Story = StoryObj<ButtonProps>;
+type Story = StoryObj<ButtonStoryProps>;
 
 /**
  * The default state of the Button component.

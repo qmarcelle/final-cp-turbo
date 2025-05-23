@@ -1,9 +1,9 @@
 import React from 'react'
-import { Button, ButtonProps  } from '../../foundation/Button/Button'
+import { Button, ButtonProps } from '../../foundation/button'
 
 export interface FormButtonProps extends ButtonProps {}
 
-export const FormButton: React.FC<FormButtonProps> = ({ children, ...props }) => {
+export const FormButton = ({ children, ...props }: FormButtonProps) => {
   return <Button {...props}>{children}</Button>
 }
 

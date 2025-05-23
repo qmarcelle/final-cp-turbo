@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { FormButton } from './FormButton'
+import { FormButton, FormButtonProps } from '.'
 
 const meta = {
   title: 'Composite/FormButton',
@@ -15,11 +15,12 @@ const meta = {
     },
     disabled: { control: 'boolean' },
     children: { control: 'text' },
+    className: { control: 'text' },
   },
-} satisfies Meta<typeof FormButton>
+} satisfies Meta<FormButtonProps>
 
 export default meta
-type Story = StoryObj<typeof FormButton>
+type Story = StoryObj<FormButtonProps>
 
 export const Primary: Story = {
   args: {

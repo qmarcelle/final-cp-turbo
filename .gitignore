@@ -8,8 +8,14 @@ node_modules
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# pnpm cache and store
 .pnpm-store/
 .pnpm/
+.pnpm-cache/
+**/.pnpm-store/
+**/.pnpm/
+**/.pnpm-cache/
 
 # Testing
 coverage
@@ -19,11 +25,11 @@ cypress/videos
 **/.cypress-cache/
 
 # Build files
-dist
-build
-.next
-out
-storybook-static
+dist/
+build/
+.next/
+out/
+storybook-static/
 **/*.tsbuildinfo
 
 # Turborepo
@@ -79,6 +85,41 @@ tmp
 *.swp
 *.swo
 *~
+
+# Ignore bcbst-portals and all cursor rules
+bcbst-portals/
+.cursor/
+.cursor/rules/
+
+# Ignore reference and enhanced config files
+enhanced_turbo_json.json
+enhanced_pnpm_workspace.txt
+
+# Ignore all .json files in build, cache, and dependency folders
+node_modules/**/*.json
+.next/**/*.json
+dist/**/*.json
+build/**/*.json
+.turbo/**/*.json
+.cache/**/*.json
+coverage/**/*.json
+.nyc_output/**/*.json
+cypress/screenshots/**/*.json
+cypress/videos/**/*.json
+**/.cypress-cache/**/*.json
+
+# Ignore test output and temp files
+**/__tests__/**/*.json
+**/__mocks__/**/*.json
+**/.tmp/**/*.json
+**/.temp/**/*.json
+tmp/**/*.json
+
+# Ignore IDE/editor config caches (optional)
+.vscode/*.json
+.idea/*.json
+*.sublime-workspace
+*.sublime-project
 
 # Next.js specific
 .next/

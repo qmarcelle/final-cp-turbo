@@ -14,19 +14,20 @@ export function withLogging<T = any>(
     
     const log = createLogger({
       name: 'api',
+
       reqId: typeof requestId === 'string' ? requestId : requestId[0],
+
       req: {
         id: requestId,
         method: req.method,
         url: req.url,
-        // Only include basic headers to avoid leaking sensitive information
         headers: {
           host: req.headers.host,
           referer: req.headers.referer,
           'user-agent': req.headers['user-agent']
         }
       }
-    });
+    } as any);
 
     // Start timer for response time calculation
     const startTime = performance.now();
@@ -44,16 +45,25 @@ export function withLogging<T = any>(
     res.on('finish', () => {
       const responseTime = Math.round(performance.now() - startTime);
       
-      const logMethod = res.statusCode >= 400 ? log.error : log.info;
-      
-      logMethod.call(log, { 
-        msg: `Request completed: ${req.method} ${req.url} ${res.statusCode} (${responseTime}ms)`,
-        type: 'request_complete',
-        res: {
-          statusCode: res.statusCode,
-          responseTime
-        }
-      });
+      if (res.statusCode >= 400) {
+        (log as any).error({
+          msg: `Request completed: ${req.method} ${req.url} ${res.statusCode} (${responseTime}ms)`,
+          type: 'request_complete',
+          res: {
+            statusCode: res.statusCode,
+            responseTime
+          }
+        });
+      } else {
+        (log as any).info({
+          msg: `Request completed: ${req.method} ${req.url} ${res.statusCode} (${responseTime}ms)`,
+          type: 'request_complete',
+          res: {
+            statusCode: res.statusCode,
+            responseTime
+          }
+        });
+      }
     });
 
     // Execute the API route handler

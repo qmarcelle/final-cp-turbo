@@ -1,0 +1,12 @@
+{
+  "name": "@portals/feature-flags",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Feature flag utilities for consumer portals.",
+  "keywords": ["feature-flags", "typescript", "monorepo"],
+  "license": "MIT",
+  "exports": {
+    ".": "./dist/index.js",
+    "./*": "./dist/*"
+  }
+}

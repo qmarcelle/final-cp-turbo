@@ -1,11 +1,10 @@
 import React from 'react'
 import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
-import { FormGrid  } from '../FormGrid'
+import { FormGrid  } from '.'
 import { useForm, FormProvider } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import type { FormFieldValues  } from '../../../utils/../types/form'
 
 const schema = z.object({
   firstName: z.string(),

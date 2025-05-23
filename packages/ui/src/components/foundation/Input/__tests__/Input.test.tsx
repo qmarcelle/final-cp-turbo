@@ -2,12 +2,12 @@
  * @jest-environment jsdom
  */
 
-import * as React from 'react';
+import React from 'react';
 import { screen, fireEvent, waitFor, render as rtlRender } from '@testing-library/react';
 import { FormProvider, useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Input  } from '../../../foundation/Input/Input';
-import type { InputProps } from '../Input';
+import { Input, InputProps } from '../input';
+import { Input as CustomInput } from '@/components/foundation/input';
 import { z } from 'zod';
 import '@testing-library/jest-dom';
 
@@ -49,7 +49,7 @@ const schema = z.object({
 const SimpleInput: React.FC<Partial<InputProps<TestFormValues>>> = (props) => {
   return (
     <div data-testid="input-wrapper">
-      <Input<TestFormValues>
+      <Input
         name="testInput"
         label="Test Label"
         data-cy="test-input"

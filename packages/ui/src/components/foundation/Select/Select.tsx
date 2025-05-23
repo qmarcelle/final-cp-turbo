@@ -2,11 +2,17 @@ import * as React from 'react';
 import { useController, Control, FieldValues, Path } from 'react-hook-form'
 import { cn } from '../../../utils/cn'
 
+export interface SelectOption {
+  value: string;
+  label: string;
+  disabled?: boolean;
+}
+
 export interface SelectProps<TFieldValues extends FieldValues = FieldValues> {
   name: Path<TFieldValues>
   control: Control<TFieldValues>
   label?: string
-  options: Array<{ value: string; label: string }>
+  options: SelectOption[]
   required?: boolean
   disabled?: boolean
   placeholder?: string
@@ -76,8 +82,8 @@ export const Select = React.forwardRef<
             {placeholder}
           </option>
         )}
-        {options.map(({ value, label }) => (
-          <option key={value} value={value}>
+        {options.map(({ value, label, disabled }) => (
+          <option key={value} value={value} disabled={disabled}>
             {label}
           </option>
         ))}

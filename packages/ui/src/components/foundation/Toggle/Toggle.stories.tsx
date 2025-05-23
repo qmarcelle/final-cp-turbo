@@ -1,7 +1,9 @@
 import React from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
 import { useForm, FormProvider } from 'react-hook-form'
-import { Toggle } from './Toggle'
+import { Toggle } from './toggle'
+import type { ToggleProps } from './toggle'
+import { Button } from '../button'
 
 // Create a wrapper component to provide form context with better styling
 const FormWrapper = ({ 

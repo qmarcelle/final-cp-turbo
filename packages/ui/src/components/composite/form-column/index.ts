@@ -1,1 +1,1 @@
-export * from './FormColumn';
+export * from './form-column';

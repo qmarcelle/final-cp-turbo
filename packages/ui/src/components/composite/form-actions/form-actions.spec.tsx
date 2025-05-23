@@ -1,8 +1,7 @@
 import React from 'react'
 import '@testing-library/jest-dom'
 import { render, screen, fireEvent } from '@testing-library/react'
-import { FormActions  } from '../FormActions'
-import { FormButton  } from '../FormButton'
+import { FormActions, FormButton  } from '.'
 
 describe('FormActions Component', () => {
   it('renders children correctly', () => {

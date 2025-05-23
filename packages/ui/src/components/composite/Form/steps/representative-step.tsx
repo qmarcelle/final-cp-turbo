@@ -1,8 +1,8 @@
-import { FieldValues, Path } from 'react-hook-form';
-import { Input  } from '../../../foundation/Input';
-import { RadioGroup  } from '../../../foundation/Radio';
-import { Checkbox  } from '../../../foundation/Checkbox';
-import { BaseStepProps } from '../BaseForm';
+import type { FieldValues, Path } from 'react-hook-form';
+import { Input } from '@/components/foundation/input';
+import { RadioGroup } from '@/components/foundation/radio';
+import { Checkbox } from '@/components/foundation/checkbox';
+import { BaseStepProps } from '../base-form';
 
 interface RepresentativeStepProps<T extends FieldValues> extends BaseStepProps<T> {
   fieldPrefix?: string;
@@ -49,30 +49,30 @@ export function RepresentativeStep<T extends FieldValues>({
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Input<T>
+        <Input
           name={getFieldName('firstName')}
           control={control}
           label="First Name"
           required={required}
         />
-        <Input<T>
+        <Input
           name={getFieldName('middleInitial')}
           control={control}
           label="Middle Initial"
         />
-        <Input<T>
+        <Input
           name={getFieldName('lastName')}
           control={control}
           label="Last Name"
           required={required}
         />
-        <Input<T>
+        <Input
           name={getFieldName('relationship')}
           control={control}
           label="Relationship to Enrollee"
           required={required}
         />
-        <Input<T>
+        <Input
           name={getFieldName('phone')}
           control={control}
           label="Phone"
@@ -80,7 +80,7 @@ export function RepresentativeStep<T extends FieldValues>({
           required={required}
         />
         <div className="md:col-span-3">
-          <Input<T>
+          <Input
             name={getFieldName('address1')}
             control={control}
             label="Address 1"
@@ -88,25 +88,25 @@ export function RepresentativeStep<T extends FieldValues>({
           />
         </div>
         <div className="md:col-span-3">
-          <Input<T>
+          <Input
             name={getFieldName('address2')}
             control={control}
             label="Address 2"
           />
         </div>
-        <Input<T>
+        <Input
           name={getFieldName('city')}
           control={control}
           label="City"
           required={required}
         />
-        <Input<T>
+        <Input
           name={getFieldName('state')}
           control={control}
           label="State"
           required={required}
         />
-        <Input<T>
+        <Input
           name={getFieldName('zipCode')}
           control={control}
           label="Zip Code"

@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, screen, fireEvent } from '@testing-library/react'
-import { Alert  } from '../../../foundation/Alert/Alert'
+import { Alert } from '../alert'
 import '@testing-library/jest-dom'
 import { PencilIcon } from '@heroicons/react/24/outline'
 

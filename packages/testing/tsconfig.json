@@ -3,11 +3,12 @@
   // Provides testing utilities and configurations for the monorepo
   "extends": "@portals/typescript-config/base.json",
   "compilerOptions": {
+    // Basic compiler options for the testing package
     "outDir": "./dist",
     "declaration": true,
     "sourceMap": true,
     "rootDir": "./src",
-    "baseUrl": "./",
+    "baseUrl": ".",
     "isolatedModules": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
@@ -20,6 +21,6 @@
       "./src/types"
     ]
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules", "dist", "**/*.spec.ts", "**/*.test.ts", "**/*.cy.ts"]
 } 

@@ -1,7 +1,7 @@
 import React from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
-import { Radio, RadioGroup } from './Radio'
-import type { RadioOption } from './Radio'
+import { Radio, RadioGroup, RadioGroupProps, RadioProps } from './radio'
+import type { RadioOption } from './radio'
 import { useForm, FormProvider } from 'react-hook-form'
 
 // Create a wrapper component to provide form context with better styling
@@ -59,9 +59,9 @@ const RadioGroupWithForm = (props: any) => {
   )
 }
 
-const meta: Meta<typeof RadioWithForm> = {
-  title: 'Foundation/Radio',
-  component: RadioWithForm,
+const meta: Meta<RadioGroupProps> = {
+  title: 'Foundation/radio',
+  component: RadioGroup,
   parameters: {
     layout: 'centered',
     docs: {

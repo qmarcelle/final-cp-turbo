@@ -1,9 +1,9 @@
 import { FieldValues } from 'react-hook-form'
-import { Input  } from '../../../foundation/Input/Input'
-import { BaseStep, type BaseStepProps, getFieldName } from './BaseStep'
-import { FormSection } from '../FormSection'
-import { FormLayout  } from '../../../composite/FormLayout/FormLayout'
-import { FormField  } from '../../../composite/FormField/FormField'
+import { Input  } from '../../../foundation/input/input'
+import { BaseStep, type BaseStepProps, getFieldName } from './base-step'
+import { FormSection } from '../form-section'
+import { FormLayout  } from '../../../composite/form-layout'
+import { FormField  } from '../../../composite/form-field'
 
 interface EnrolleeInfoProps<T extends FieldValues> extends BaseStepProps<T> {
   fieldPrefix?: string;

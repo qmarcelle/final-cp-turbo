@@ -1,7 +1,8 @@
 import React from 'react'
 import { render, screen, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom'
-import { Input } from '../Input'
+import { Input } from '../input'
+import type { InputProps } from '../input'
 
 describe('Input Component', () => {
   it('renders with basic props', () => {

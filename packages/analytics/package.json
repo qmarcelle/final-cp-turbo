@@ -1,0 +1,12 @@
+{
+  "name": "@portals/analytics",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Analytics utilities for consumer portals.",
+  "keywords": ["analytics", "typescript", "monorepo"],
+  "license": "MIT",
+  "exports": {
+    ".": "./dist/index.js",
+    "./*": "./dist/*"
+  }
+}

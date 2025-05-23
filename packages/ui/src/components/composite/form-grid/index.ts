@@ -1,1 +1,1 @@
-export * from './FormGrid';
+export * from './form-grid';

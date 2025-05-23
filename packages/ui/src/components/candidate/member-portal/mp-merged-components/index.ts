@@ -12,7 +12,7 @@ export * from './Layout';
 export * from './Typography';
 
 // Button Component
-export * from './Button';
+export * from './button';
 
 // Modal Components
 export * from './Modal';

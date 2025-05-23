@@ -1,0 +1,187 @@
+{
+  "name": "@portals/ui",
+  "version": "1.0.0",
+  "private": false,
+  "description": "Enterprise component library built on shadcn/ui for BCBST portal applications",
+  "type": "module",
+  "exports": {
+    "./package.json": "./package.json",
+    "./globals.css": "./src/styles/globals.css",
+    "./tailwind-preset": "./src/lib/tailwind-preset.js",
+    "./components/*": {
+      "types": "./src/components/*/index.d.ts",
+      "import": "./src/components/*/index.js",
+      "default": "./src/components/*/index.tsx"
+    },
+    "./lib/*": {
+      "types": "./src/lib/*/index.d.ts", 
+      "import": "./src/lib/*/index.js",
+      "default": "./src/lib/*/index.ts"
+    },
+    "./hooks/*": {
+      "types": "./src/hooks/*/index.d.ts",
+      "import": "./src/hooks/*/index.js", 
+      "default": "./src/hooks/*/index.ts"
+    }
+  },
+  "scripts": {
+    "build": "turbo run build:components build:types build:css",
+    "build:components": "tsup",
+    "build:types": "tsc --build",
+    "build:css": "tailwindcss -i ./src/styles/globals.css -o ./dist/globals.css --minify",
+    
+    "dev": "turbo run dev:components dev:storybook --parallel",
+    "dev:components": "tsup --watch",
+    "dev:storybook": "storybook dev -p 6006",
+    
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest run --coverage",
+    
+    "lint": "eslint src/ --ext .ts,.tsx",
+    "lint:fix": "eslint src/ --ext .ts,.tsx --fix",
+    "typecheck": "tsc --noEmit",
+    
+    "storybook": "storybook dev -p 6006",
+    "storybook:build": "storybook build",
+    "storybook:test": "test-storybook",
+    
+    "ui:add": "pnpm dlx shadcn@latest add",
+    "ui:add-all": "pnpm dlx shadcn@latest add -a -y -o",
+    "ui:init": "pnpm dlx shadcn@latest init",
+    "ui:manage": "tsx scripts/manage-radix-versions.ts",
+    "ui:update": "for file in src/components/ui/*.tsx; do pnpm dlx shadcn@latest add -y -o $(basename \"$file\" .tsx); done",
+    "ui:registry": "pnpm ui:manage registry",
+    "ui:validate": "pnpm ui:manage validate",
+    
+    "format": "prettier --write \"src/**/*.{ts,tsx,md,json}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,md,json}\"",
+    
+    "clean": "rm -rf dist .turbo node_modules/.cache",
+    "reset": "pnpm clean && rm -rf node_modules && pnpm install",
+    
+    "analyze": "turbo run analyze",
+    "bundle-analyzer": "ANALYZE=true pnpm build",
+    
+    "prepare": "pnpm build",
+    "prepublishOnly": "pnpm test && pnpm lint && pnpm build",
+    
+    "gen:component": "turbo gen react-component",
+    "gen:hook": "turbo gen react-hook"
+  },
+  "dependencies": {
+    "@radix-ui/react-accordion": "catalog:",
+    "@radix-ui/react-alert-dialog": "catalog:",
+    "@radix-ui/react-aspect-ratio": "catalog:",
+    "@radix-ui/react-avatar": "catalog:", 
+    "@radix-ui/react-checkbox": "catalog:",
+    "@radix-ui/react-collapsible": "catalog:",
+    "@radix-ui/react-dialog": "catalog:",
+    "@radix-ui/react-dropdown-menu": "catalog:",
+    "@radix-ui/react-hover-card": "catalog:",
+    "@radix-ui/react-label": "catalog:",
+    "@radix-ui/react-menubar": "catalog:",
+    "@radix-ui/react-navigation-menu": "catalog:",
+    "@radix-ui/react-popover": "catalog:",
+    "@radix-ui/react-progress": "catalog:",
+    "@radix-ui/react-radio-group": "catalog:",
+    "@radix-ui/react-scroll-area": "catalog:",
+    "@radix-ui/react-select": "catalog:",
+    "@radix-ui/react-separator": "catalog:",
+    "@radix-ui/react-sheet": "catalog:",
+    "@radix-ui/react-slider": "catalog:",
+    "@radix-ui/react-slot": "catalog:",
+    "@radix-ui/react-switch": "catalog:",
+    "@radix-ui/react-tabs": "catalog:",
+    "@radix-ui/react-toast": "catalog:",
+    "@radix-ui/react-toggle": "catalog:",
+    "@radix-ui/react-toggle-group": "catalog:",
+    "@radix-ui/react-tooltip": "catalog:",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.0.0",
+    "lucide-react": "^0.400.0",
+    "tailwind-merge": "^2.0.0",
+    "tailwindcss-animate": "^1.0.7"
+  },
+  "devDependencies": {
+    "@storybook/addon-essentials": "^8.0.0",
+    "@storybook/addon-interactions": "^8.0.0",
+    "@storybook/addon-links": "^8.0.0",
+    "@storybook/blocks": "^8.0.0",
+    "@storybook/nextjs": "^8.0.0",
+    "@storybook/react": "^8.0.0",
+    "@storybook/test": "^8.0.0",
+    "@storybook/test-runner": "^0.17.0",
+    "@testing-library/jest-dom": "^6.0.0",
+    "@testing-library/react": "^15.0.0",
+    "@testing-library/user-event": "^14.5.0",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "@vitejs/plugin-react": "^4.2.0",
+    "autoprefixer": "^10.4.0",
+    "eslint": "catalog:",
+    "eslint-config-next": "catalog:",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-react": "^7.33.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-storybook": "^0.8.0",
+    "glob": "^10.3.0",
+    "jsdom": "^24.0.0",
+    "next": "catalog:",
+    "postcss": "^8.4.0",
+    "prettier": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "storybook": "^8.0.0",
+    "tailwindcss": "catalog:",
+    "tsup": "^8.0.0",
+    "tsx": "^4.7.0",
+    "turbo": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "^1.4.0"
+  },
+  "peerDependencies": {
+    "next": "^15.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tailwindcss": "^4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "next": {
+      "optional": true
+    }
+  },
+  "files": [
+    "dist/**",
+    "src/**", 
+    "components.json",
+    "tailwind-preset.js",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "restricted",
+    "registry": "https://npm.bcbst.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bcbst/portals-ui.git"
+  },
+  "keywords": [
+    "react",
+    "typescript", 
+    "tailwindcss",
+    "shadcn-ui",
+    "radix-ui",
+    "component-library",
+    "design-system",
+    "nextjs",
+    "react19",
+    "sitecore"
+  ],
+  "author": "BCBST Portal Team",
+  "license": "MIT"
+}

@@ -1,9 +1,9 @@
 import React from 'react'
 import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
-import { FormSection  } from '../FormSection'
-import { FormGroup  } from '../FormGroup'
-import { Input  } from '../../foundation/Input'
+import { FormSection  } from '../form-section'
+import { FormGroup  } from '../form-group'
+import { Input  } from '../../foundation/input'
 
 describe('FormSection Component', () => {
   it('renders title and description', () => {

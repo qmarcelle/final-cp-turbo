@@ -1,11 +1,12 @@
 import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
-import { FormGroup } from './FormGroup'
-import { Input  } from '../../foundation/Input'
+import { FormGroup } from '.'
+import React from 'react'
+import { Input  } from '../../foundation/input'
 import { FormProvider, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-const TestWrapper = ({ children }: { children: React.ReactNode }) => {
+function TestWrapper({ children }: { children: React.ReactNode }): React.ReactNode {
   const schema = z.object({
     test: z.string(),
   })
@@ -14,7 +15,7 @@ const TestWrapper = ({ children }: { children: React.ReactNode }) => {
       test: '',
     },
   })
-  return <FormProvider {...form}>{children}</FormProvider>
+  return <FormProvider {...form}>{children}</FormProvider>;
 }
 
 describe('FormGroup Component', () => {

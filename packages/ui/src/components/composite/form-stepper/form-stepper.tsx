@@ -1,10 +1,11 @@
 import { CheckIcon } from '@heroicons/react/24/outline'
-import { cn } from '../../../utils/cn'
+import { cn } from '@/utils/cn'
 import * as React from 'react';
+import { useState, useCallback } from 'react';
 import { Control, DefaultValues, FieldValues, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { FormProvider } from '../FormContext/FormContext'
+import { FormProvider } from '@/components/composite/form-context'
 
 export interface Step<T extends FieldValues> {
   id: string
@@ -175,7 +176,7 @@ export function FormStepper<T extends FieldValues>({
       </nav>
 
       <div className="mt-8" data-cy={`${dataCy}-content`}>
-        <FormProvider {...form}>
+        <FormProvider {...form} schema={currentStepData.schema}>
           <form onSubmit={form.handleSubmit(handleStepSubmit)} className="space-y-8">
             {currentStepData.component({ control: form.control })}
             

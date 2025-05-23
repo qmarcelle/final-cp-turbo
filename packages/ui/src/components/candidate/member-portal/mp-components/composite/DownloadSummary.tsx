@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import downloadIcon from '../../../public/assets/download.svg';
-import { Button } from '../foundation/Button';
+import { Button } from '../foundation/button';
 import { Card } from '../foundation/Card';
 import { Column } from '../foundation/Column';
 import { Header } from '../foundation/Header';

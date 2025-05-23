@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { FormColumn } from './FormColumn'
-import { Input  } from '../../foundation/Input/Input'
+import { FormColumn } from '.' // Corrected import
+import { Input  } from '../../foundation/input' // Corrected path
 import { useForm, Control, FieldValues } from 'react-hook-form'
 import { ReactNode } from 'react'
 
@@ -56,7 +56,7 @@ const PersonalInfoForm = ({ control }: { control: Control<FieldValues> }) => (
 export const Default: Story = {
   args: {
     'data-cy': 'personal-info',
-    children: null,
+    children: null, // Children are provided by the render function for this component
   },
   render: () => (
     <FormWrapper>
@@ -92,7 +92,7 @@ export const WithCustomSpacing: Story = {
   args: {
     className: 'space-y-6',
     'data-cy': 'address-info',
-    children: null,
+    children: null, // Children are provided by the render function
   },
   render: () => (
     <FormWrapper>
@@ -137,7 +137,7 @@ const ReadOnlyForm = () => {
 export const WithDisabledFields: Story = {
   args: {
     'data-cy': 'readonly-info',
-    children: null,
+    children: null, // Children are provided by the render function
   },
   render: () => (
     <div className="w-[600px]">

@@ -1,13 +1,14 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { Toggle  } from '../../../foundation/Toggle/Toggle';
+import userEvent from '@testing-library/user-event';
+import { Toggle, type ToggleProps  } from '../../../foundation/toggle/toggle';
 import { FormProvider, useForm } from 'react-hook-form';
 
 describe('Toggle Component', () => {
   // Test component that properly uses react-hook-form
-  const TestToggle = (props) => {
-    const methods = useForm({
+  const TestToggle: React.FC<Partial<ToggleProps<any>>> = (props) => {
+    const methods = useForm<{ test: boolean }>({
       defaultValues: { test: false }
     });
     

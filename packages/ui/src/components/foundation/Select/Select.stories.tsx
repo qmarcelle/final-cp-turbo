@@ -1,11 +1,10 @@
 import React from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
-import { Select, ControlledSelect } from './Select'
-import type { SelectProps, ControlledSelectProps } from './Select'
-import { useForm } from 'react-hook-form'
+import { Select, type SelectProps, type SelectOption } from './select'
+import { useForm, FormProvider } from 'react-hook-form'
 
-const meta = {
-  title: 'Foundation/Select',
+const meta: Meta<SelectProps> = {
+  title: 'Foundation/select',
   component: Select,
   parameters: {
     layout: 'padded',
@@ -98,11 +97,11 @@ function CountrySelector() {
       description: 'Placeholder text when no option is selected',
     },
   },
-} satisfies Meta<SelectProps>
+}
 
 export default meta
 type Story = StoryObj<SelectProps>
-type ControlledStory = StoryObj<ControlledSelectProps>
+type ControlledStory = StoryObj<SelectProps>
 
 const sampleOptions = [
   { value: 'react', label: 'React' },

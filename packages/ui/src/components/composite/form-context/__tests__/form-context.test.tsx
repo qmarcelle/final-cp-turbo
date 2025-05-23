@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, screen, renderHook } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { FormProvider  } from '../../../composite/FormContext/FormContext'
+import { FormProvider  } from '..' // Corrected path
 import { useForm, FormProvider as RHFFormProvider, useFormContext } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -60,8 +60,9 @@ const TestWrapper = ({ children }: { children: React.ReactNode }) => {
     defaultValues: { name: '', email: '' }
   })
   
+  // We need to pass the schema to our custom FormProvider
   return (
-    <FormProvider {...methods}>
+    <FormProvider {...methods} schema={schema}>
       {children}
     </FormProvider>
   )
@@ -161,10 +162,23 @@ describe('FormContext', () => {
       )
     }
     
+    // TestWrapper needs to pass the schema to FormProvider
+    const TestWrapperWithSubmit = ({ children }: { children: React.ReactNode }) => {
+      const methods = useForm<FormData>({
+        resolver: zodResolver(schema),
+        defaultValues: { name: '', email: '' }
+      });
+      return (
+        <FormProvider {...methods} schema={schema}>
+          {children}
+        </FormProvider>
+      );
+    };
+        
     render(
-      <TestWrapper>
+      <TestWrapperWithSubmit>
         <TestFormWithSubmit />
-      </TestWrapper>
+      </TestWrapperWithSubmit>
     )
     
     // Fill in valid data

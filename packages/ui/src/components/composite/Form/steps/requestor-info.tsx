@@ -1,7 +1,7 @@
 import { Control, FieldValues, Path } from 'react-hook-form';
-import { Input  } from '../../../foundation/Input';
-import { BaseStep, type BaseStepProps, getFieldName } from './BaseStep';
-import { FormSection } from '../FormSection';
+import { Input } from '@/components/foundation/input';
+import { BaseStep, type BaseStepProps, getFieldName } from './base-step';
+import { FormSection } from '../form-section';
 
 interface RequestorInfoProps<T extends FieldValues = FieldValues> extends BaseStepProps<T> {
   fieldPrefix?: string;

@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { ReactElement } from 'react';
 import { IComponent } from '../IComponent';
-import { Button } from '../foundation/Button';
+import { Button } from '../foundation/button';
 import { Column } from '../foundation/Column';
 import { Header } from '../foundation/Header';
 import { modalAlertIcon } from '../foundation/Icons';

@@ -2,12 +2,14 @@ import React from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { Input  } from '../../foundation/Input/Input'
-import { TextArea  } from '../../foundation/TextArea/TextArea'
-import { FormLayout  } from '../../composite/FormLayout/FormLayout'
-import { FormField  } from '../../composite/FormField/FormField'
-import type { TypedControl  } from '../../../utils/../types/form'
+import { Input  } from '../../foundation/input/input'
+import { TextArea  } from '../../foundation/text-area/text-area'
+import { FormLayout  } from '../../composite/form-layout'
+import { FormField  } from '../../composite/form-field'
+// import type { TypedControl  } from '../../../../shared-types/src/form' // Commenting out for now
 import { cn } from '../../../utils/cn'
+import { FormStep, FormStepper } from '../form-stepper'
+import { RadioGroup } from '../../foundation/radio'
 
 const beneficiarySchema = z.object({
   firstName: z.string().min(1, 'First name is required'),

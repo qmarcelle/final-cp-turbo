@@ -12,6 +12,7 @@
 - [Storybook Guidelines](#storybook-guidelines)
 - [Accessibility](#accessibility)
 - [Performance](#performance)
+- [React 19 Patterns](#react-19-patterns)
 - [Contributing](#contributing)
 
 ## 🎯 Philosophy
@@ -839,6 +840,31 @@ function onRenderCallback(id, phase, actualDuration) {
   <Button>Profile Me</Button>
 </Profiler>
 ```
+
+## ⚛️ React 19 Patterns
+
+The `src/components/enhanced/react19-patterns.tsx` file provides advanced component patterns leveraging new React 19 features, including:
+
+- `useActionState` for enhanced form handling and optimistic UI
+- `useOptimistic` for immediate UI feedback
+- The new `use` hook for async data and Suspense integration
+- Enhanced button and resource loader patterns
+- Sitecore-ready HOC for CMS integration
+
+**Example usage:**
+
+```tsx
+import { EnhancedForm, React19Button, ResourceLoader } from '@portals/ui/enhanced/react19-patterns'
+
+<EnhancedForm action={myAction} optimistic>
+  <input name="name" />
+  <React19Button type="submit" showPending>Submit</React19Button>
+</EnhancedForm>
+```
+
+See the file for more advanced usage and documentation.
+
+[View react19-patterns.tsx on GitHub](./src/components/enhanced/react19-patterns.tsx)
 
 ## 🤝 Contributing
 

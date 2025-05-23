@@ -39,6 +39,30 @@ steps:
       script: |
         pnpm install --no-frozen-lockfile
     displayName: 'Install Dependencies'
+
+  # Lint code
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script: |
+        pnpm lint
+    displayName: 'Run ESLint'
+
+  # Check Prettier formatting
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script: |
+        pnpm format:check
+    displayName: 'Check Prettier Formatting'
+
+  # TypeScript type checking
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script: |
+        pnpm typecheck
+    displayName: 'TypeScript Type Checking'
   
   # Build all packages and apps with Turborepo
   - task: PowerShell@2
@@ -47,14 +71,6 @@ steps:
       script: |
         pnpm build
     displayName: 'Build All Packages and Apps'
-  
-  # Run tests
-  # - task: PowerShell@2
-  #   inputs:
-  #     targetType: 'inline'
-  #     script: |
-  #       pnpm test
-  #   displayName: 'Run Tests'
   
   # Output directory contents
   - task: PowerShell@2

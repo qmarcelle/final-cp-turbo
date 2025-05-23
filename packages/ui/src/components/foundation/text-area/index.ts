@@ -1,4 +1,4 @@
-import { TextArea, ControlledTextArea } from './TextArea';
+import { TextArea, ControlledTextArea } from './text-area';
 
 export { TextArea, ControlledTextArea };
-export type { TextAreaProps, ControlledTextAreaProps } from './TextArea';
+export type { TextAreaProps, ControlledTextAreaProps } from './text-area';

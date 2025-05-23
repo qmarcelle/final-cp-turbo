@@ -8,7 +8,7 @@ import { DEFAULT_LOGOUT_REDIRECT } from '@/utils/routes';
 import { useRouter } from 'next/navigation';
 import { IComponent } from '../IComponent';
 import { ProfileHeaderCardItem } from './ProfileHeaderCardItem';
-import { Button } from '../foundation/Button';
+import { Button } from '../foundation/button';
 import { Column } from '../foundation/Column';
 import { useSideBarModalStore } from '../foundation/SideBarModal';
 

@@ -1,9 +1,9 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "extends": "./packages/tsconfig/base.json",
+  "extends": "./packages/typescript-config/base.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "incremental": true,
+
     "skipLibCheck": true,
     "paths": {
       "@/*": ["./src/*"],
@@ -12,10 +12,11 @@
       "@utils/*": ["./src/utils/*"],
       "@types/*": ["./src/types/*"],
       "@styles/*": ["./src/styles/*"],
-      "@cp/ui/*": ["./packages/ui/src/*"],
-      "@cp/testing/*": ["./packages/testing/src/*"],
-      "@cp/logger/*": ["./packages/logger/src/*"],
-      "@cp/tsconfig/*": ["./packages/tsconfig/*"]
+      "@portals/ui/*": ["./packages/ui/src/*"],
+      "@portals/testing/*": ["./packages/testing/src/*"],
+      "@portals/logger/*": ["./packages/logger/src/*"],
+      "@portals/shared-types/*": ["./packages/shared-types/src/*"],
+      "@portals/tsconfig/*": ["./packages/tsconfig/*"]
     },
     "types": ["node"],
     "typeRoots": [

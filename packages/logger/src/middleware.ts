@@ -45,15 +45,25 @@ export function withRequestLogging(middleware: (request: NextRequest) => NextRes
       const responseTime = Math.round(performance.now() - startTime);
       
       // Log the response
-      const logMethod = response.status >= 400 ? requestLogger.error : requestLogger.info;
-      logMethod.call(requestLogger, {
-        msg: `Response: ${request.method} ${request.nextUrl.pathname} ${response.status} (${responseTime}ms)`,
-        type: 'http_response',
-        res: {
-          status: response.status,
-          responseTime
-        }
-      });
+      if (response.status >= 400) {
+        requestLogger.error({
+          msg: `Response: ${request.method} ${request.nextUrl.pathname} ${response.status} (${responseTime}ms)`,
+          type: 'http_response',
+          res: {
+            status: response.status,
+            responseTime
+          }
+        });
+      } else {
+        requestLogger.info({
+          msg: `Response: ${request.method} ${request.nextUrl.pathname} ${response.status} (${responseTime}ms)`,
+          type: 'http_response',
+          res: {
+            status: response.status,
+            responseTime
+          }
+        });
+      }
       
       // Add the request ID to the response headers
       response.headers.set('x-request-id', requestId.toString());

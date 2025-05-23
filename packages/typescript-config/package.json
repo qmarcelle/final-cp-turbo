@@ -1,20 +1,13 @@
 {
   "name": "@portals/typescript-config",
-  "version": "0.0.1",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Shared TypeScript configuration for consumer portals.",
+  "keywords": ["typescript", "config", "monorepo"],
   "license": "MIT",
-  "files": [
-    "base.json",
-    "nextjs.json",
-    "react-library.json"
-  ],
-  "publishConfig": {
-    "access": "public"
-  },
-  "devDependencies": {
-    "@testing-library/jest-dom": "^6.6.3",
-    "@types/react": "^19.0.10",
-    "@types/testing-library__jest-dom": "^6.0.0",
-    "eslint": "^9.22.0",
-    "tsup": "^8.4.0"
+  "exports": {
+    "./base.json": "./base.json",
+    "./nextjs.json": "./nextjs.json",
+    "./react-library.json": "./react-library.json"
   }
 }

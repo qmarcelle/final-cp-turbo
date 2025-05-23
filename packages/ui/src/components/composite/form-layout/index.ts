@@ -1,1 +1,1 @@
-export * from './FormLayout';
+export * from './form-layout';

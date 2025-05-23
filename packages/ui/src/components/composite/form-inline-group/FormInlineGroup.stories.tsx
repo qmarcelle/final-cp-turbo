@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { FormInlineGroup } from './FormInlineGroup'
-import { Input  } from '../../foundation/Input/Input'
+import { Input } from '../../foundation/input/input'
 import { useForm, Control, FieldValues } from 'react-hook-form'
 import { ReactNode } from 'react'
+import React from 'react'
 
 const meta = {
   title: 'Composite/FormInlineGroup',

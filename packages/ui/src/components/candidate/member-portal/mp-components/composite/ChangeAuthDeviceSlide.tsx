@@ -1,7 +1,7 @@
 import { AnalyticsData } from '@/models/app/analyticsData';
 import { googleAnalytics } from '@/utils/analytics';
 import { ReactElement } from 'react';
-import { Button } from '../foundation/Button';
+import { Button } from '../foundation/button';
 import { Column } from '../foundation/Column';
 import { Header } from '../foundation/Header';
 import { Spacer } from '../foundation/Spacer';

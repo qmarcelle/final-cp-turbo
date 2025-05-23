@@ -14,7 +14,7 @@ export {
 // Auth.js integration exports
 export {
   authEventLogger,
-  impersonationLogger,
+
   authCallbacks,
   getSessionLogger
 } from './auth';

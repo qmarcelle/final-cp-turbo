@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { IComponent } from '../IComponent';
 import { AppLink } from '../foundation/AppLink';
-import { Button } from '../foundation/Button';
-import { Checkbox } from '../foundation/Checkbox';
+import { Button } from '../foundation/button';
+import { Checkbox } from '../foundation/checkbox';
 import { Column } from '../foundation/Column';
 import { Header } from '../foundation/Header';
 import { Spacer } from '../foundation/Spacer';

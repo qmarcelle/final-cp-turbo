@@ -36,7 +36,7 @@ type CheckboxStoryProps = {
 }
 
 const meta = {
-  title: 'Foundation/Checkbox',
+  title: 'Foundation/checkbox',
   component: Checkbox,
   parameters: {
     layout: 'centered',

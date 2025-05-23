@@ -1,7 +1,7 @@
 import { FieldValues } from 'react-hook-form';
-import { Checkbox  } from '../../../foundation/Checkbox';
-import { BaseStep, type BaseStepProps, getFieldName } from './BaseStep';
-import { FormSection } from '../FormSection';
+import { Checkbox } from '@/components/foundation/checkbox';
+import { BaseStep, type BaseStepProps, getFieldName } from './base-step';
+import { FormSection } from '../form-section';
 
 interface UrgencyInfoProps<T extends FieldValues> extends BaseStepProps<T> {
   fieldPrefix?: string;

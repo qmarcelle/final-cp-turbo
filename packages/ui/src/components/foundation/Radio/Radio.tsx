@@ -3,7 +3,7 @@
 import { RadioGroup as HeadlessRadioGroup } from '@headlessui/react'
 import clsx from 'clsx'
 import { useController, Control, FieldValues, Path, RegisterOptions } from 'react-hook-form'
-import { cn } from '../../../utils/cn'
+import { cn } from '@/utils/cn'
 
 export interface RadioOption {
   value: string | number

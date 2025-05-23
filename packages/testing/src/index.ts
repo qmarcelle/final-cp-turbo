@@ -3,8 +3,6 @@
  * @packageDocumentation
  */
 
-// Import jest-dom types
-import './types/testing-library__jest-dom';
 
 // Export Next.js mocks
 export * from './mocks/next';

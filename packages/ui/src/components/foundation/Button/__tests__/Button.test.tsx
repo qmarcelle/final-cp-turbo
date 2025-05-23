@@ -1,13 +1,14 @@
 /**
  * @jest-environment jsdom
  */
-import React from 'react'
+import * as React from 'react'
 import { render, screen, fireEvent, cleanup } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import { expect } from '@jest/globals'
 import type { RenderResult } from '@testing-library/react'
-import { Button  } from '../../../foundation/Button/Button'
-import type { ButtonProps } from '../Button'
+import { Button } from '../button'
+import type { ButtonProps } from '../button'
+import userEvent from '@testing-library/user-event'
 
 
 describe('Button Component', () => {
@@ -175,8 +176,6 @@ describe('Button Component', () => {
       expect(button).toHaveAttribute('role', 'button')
       expect(button).toHaveAttribute('aria-disabled', 'true')
     })
-
-
 
     it('should be keyboard accessible', () => {
       renderButton()

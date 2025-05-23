@@ -6,18 +6,18 @@
  */
 
 // Export all foundation components
-export * from './Alert';
-export * from './AutoComplete';
-export * from './Button';
-export * from './Checkbox';
-export * from './DatePicker';
-export * from './FileUpload';
-export * from './Input';
-export * from './InputGroup';
-export * from './NumberInput';
-export * from './Radio';
-export * from './SearchBar';
-export * from './Select';
-export * from './TagInput';
-export * from './TextArea';
-export * from './Toggle'; 
+export * from './alert';
+export * from './auto-complete';
+export * from './button';
+export * from './checkbox';
+export * from './date-picker';
+export * from './file-upload';
+export * from './input';
+export * from './input-group';
+export * from './number-input';
+export * from './radio';
+export * from './search-bar';
+export * from './select';
+export * from './tag-input';
+export * from './text-area';
+export * from './toggle'; 

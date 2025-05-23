@@ -2,25 +2,30 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { Input  } from '../../foundation/Input'
-import { FormLayout  } from '../../composite/FormLayout/FormLayout'
-import { FormField  } from '../../composite/FormField/FormField'
-import { fieldBuilders } from '@/utils/form-validation'
-import type { FormFieldValues  } from '../../../utils/../types/form'
+import { Input  } from '../../foundation/input'
+import { FormLayout  } from '../../composite/form-layout'
+import { FormField  } from '../../composite/form-field'
+// import { fieldBuilders } from '../../utils/form-validation'
+// import type { FormFieldValues  } from '../../../../shared-types/src/form'
+import { StepProgress } from './step-progress'
+import { TextArea } from '../../foundation/text-area'
+// const { firstName, lastName, email, phone, dateOfBirth } = fieldBuilders;
 
-const enrolleeSchema = z.object({
-  ...fieldBuilders.name('Enrollee'),
-  ...fieldBuilders.contact('Enrollee'),
-  dateOfBirth: z.string().min(1, 'Date of birth is required'),
-  memberId: z.string().min(1, 'Member ID is required'),
-})
+// const enrolleeSchema = z.object({
+//   [firstName.name]: firstName.schema,
+//   [lastName.name]: lastName.schema,
+//   [email.name]: email.schema,
+//   [phone.name]: phone.schema,
+//   [dateOfBirth.name]: dateOfBirth.schema,
+//   // ... other fields
+// });
 
-const requestorSchema = z.object({
-  ...fieldBuilders.name('Requestor'),
-  ...fieldBuilders.address('Requestor'),
-  ...fieldBuilders.contact('Requestor'),
-  relationship: z.string().min(1, 'Relationship is required'),
-})
+// const requestorSchema = z.object({
+//   ...fieldBuilders.name('Requestor'),
+//   ...fieldBuilders.address('Requestor'),
+//   ...fieldBuilders.contact('Requestor'),
+//   relationship: z.string().min(1, 'Relationship is required'),
+// })
 
 const drugSchema = z.object({
   name: z.string().min(1, 'Drug name is required'),
@@ -34,8 +39,8 @@ const prescriberSchema = z.object({
 })
 
 const coverageRequestSchema = z.object({
-  enrollee: enrolleeSchema,
-  requestor: requestorSchema,
+  // enrollee: enrolleeSchema,
+  // requestor: requestorSchema,
   drug: drugSchema,
   prescriber: prescriberSchema,
 })
@@ -43,7 +48,7 @@ const coverageRequestSchema = z.object({
 type CoverageRequestFormData = z.infer<typeof coverageRequestSchema>
 
 export default function CoverageRequestForm() {
-  const methods = useForm<CoverageRequestFormData & FormFieldValues>({
+  const methods = useForm<CoverageRequestFormData /* & FormFieldValues */>({
     resolver: zodResolver(coverageRequestSchema),
   })
 

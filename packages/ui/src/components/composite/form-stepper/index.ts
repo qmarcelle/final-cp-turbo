@@ -1,1 +1,1 @@
-export * from './FormStepper';
+export * from './form-stepper';

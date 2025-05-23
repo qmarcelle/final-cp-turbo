@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '../../../utils';
+import { cn } from '../../../../utils';
 import { Slot } from '@radix-ui/react-slot';
 
 // Typography variants with comprehensive options
@@ -139,7 +139,7 @@ const typographyVariants = cva(
 );
 
 export interface TypographyProps
-  extends React.HTMLAttributes<HTMLElement>,
+  extends Omit<React.HTMLAttributes<HTMLElement>, 'color'>,
     VariantProps<typeof typographyVariants> {
   /** The underlying HTML element to render */
   as?: React.ElementType;
@@ -166,19 +166,19 @@ export interface TypographyProps
  * Replaces various text and heading components with a unified API
  */
 export const Typography = React.forwardRef<HTMLElement, TypographyProps>(
-  ({ 
-    className, 
-    variant, 
-    weight, 
+  ({
+    className,
+    variant,
+    weight,
     weightSm,
     weightMd,
     weightLg,
-    align, 
+    align,
     alignSm,
     alignMd,
     alignLg,
-    decoration, 
-    transform, 
+    decoration,
+    transform,
     truncate,
     maxWidth,
     color,
@@ -188,3 +188,38 @@ export const Typography = React.forwardRef<HTMLElement, TypographyProps>(
     'data-testid': dataTestId,
     'data-cy': dataCy,
     ...props
+  }, ref) => {
+    const Comp = asChild ? Slot : as || 'p'; // Default to 'p' if 'as' is not provided
+    return (
+      <Comp
+        ref={ref}
+        className={cn(
+          typographyVariants({
+            variant,
+            weight,
+            weightSm,
+            weightMd,
+            weightLg,
+            align,
+            alignSm,
+            alignMd,
+            alignLg,
+            decoration,
+            transform,
+            truncate,
+            maxWidth,
+            color,
+            className,
+          })
+        )}
+        data-testid={dataTestId}
+        data-cy={dataCy}
+        {...props}
+      >
+        {children}
+      </Comp>
+    );
+  }
+);
+
+Typography.displayName = 'Typography';

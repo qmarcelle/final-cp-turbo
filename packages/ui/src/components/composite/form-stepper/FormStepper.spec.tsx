@@ -1,10 +1,12 @@
 import React from 'react'
 import '@testing-library/jest-dom'
-import { render, screen, fireEvent } from '@testing-library/react'
-import { FormStepper, Step  } from '../FormStepper'
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { FormStepper, Step  } from '../form-stepper'
 import { z } from 'zod'
-import { FormGroup  } from '../FormGroup'
-import { Input  } from '../../foundation/Input'
+import { FormGroup  } from '../form-group'
+import { Input  } from '../../foundation/input'
+import { FormProvider, useForm } from 'react-hook-form'
+import { Button } from '../../foundation/button'
 
 type FormData = {
   name: string
@@ -17,21 +19,21 @@ const mockSteps: Step<FormData>[] = [
     id: 'step1',
     title: 'Step 1',
     description: 'First step',
-    schema: z.object({ name: z.string() }),
-    component: (
-      <FormGroup name="name" label="Name">
-        <Input data-cy="name-input" />
+    schema: z.object({ name: z.string() }) as unknown as z.ZodType<FormData>,
+    component: ({ control }) => (
+      <FormGroup label="Name">
+        <Input name="name" data-cy="name-input" />
       </FormGroup>
-    ),
+    ) as React.ReactNode,
   },
   {
     id: 'step2',
     title: 'Step 2',
     description: 'Second step',
-    schema: z.object({ city: z.string() }),
-    component: (
-      <FormGroup name="city" label="City">
-        <Input data-cy="city-input" />
+    schema: z.object({ city: z.string() }) as unknown as z.ZodType<FormData>,
+    component: ({ control }) => (
+      <FormGroup label="City">
+        <Input name="city" data-cy="city-input" />
       </FormGroup>
     ),
   },
@@ -39,8 +41,8 @@ const mockSteps: Step<FormData>[] = [
     id: 'step3',
     title: 'Step 3',
     description: 'Third step',
-    schema: z.object({ confirm: z.boolean().optional() }),
-    component: <div>Step 3 Content</div>,
+    schema: z.object({ confirm: z.boolean().optional() }) as unknown as z.ZodType<FormData>,
+    component: () => <div>Step 3 Content</div> as React.ReactNode,
     isOptional: true,
   },
 ]
