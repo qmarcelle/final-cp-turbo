@@ -12,4 +12,4 @@
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules", ".next", "dist", "**/*.stories.tsx", "**/*.test.tsx", "**/*.spec.tsx", "cypress"]
-}
+} 

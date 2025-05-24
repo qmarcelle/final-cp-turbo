@@ -1,20 +1,16 @@
 {
   // UI package TypeScript configuration
   // Provides shared UI components and design system
-  "extends": "../typescript-config/react-library.json",
+  "extends": "@portals/typescript-config/react-library.json",
   "compilerOptions": {
     "baseUrl": ".", // Base URL for path resolution
-    "outDir": "dist",
-    "rootDir": "src",
-    "composite": true,
-    "tsBuildInfoFile": "dist/.tsbuildinfo",
-    "types": ["node", "jest"],
-    "skipLibCheck": true,
-    "moduleResolution": "node",
-    "emitDeclarationOnly": false,
+    // outDir, rootDir, composite, tsBuildInfoFile, emitDeclarationOnly are handled by react-library.json and tsup
+    // moduleResolution will be "bundler" from base.json via react-library.json
+    "types": ["node", "jest"], // Keep specific types
+    "skipLibCheck": true, // Already in base.json, but explicit here is fine
     "paths": {
       "@/*": ["./src/*"],
-      "@portals/shared-types/*": ["../shared-types/src/*"]
+      "@portals/shared-types/*": ["../shared-types/src/*"] // This relative path might need adjustment if shared-types is also a tsup package
     },
     "typeRoots": [
       "../../node_modules/.pnpm/@types",

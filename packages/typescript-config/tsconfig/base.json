@@ -18,6 +18,6 @@
     "jsx": "preserve",
     "types": ["node", "jest"]
   },
-  "files": ["./global.d.ts"],
+  "files": ["../typings/global.d.ts"],
   "exclude": ["node_modules", ".next", "dist"]
-}
+} 

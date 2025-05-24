@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "main": "src/index.ts",
   "license": "MIT",
+  "scripts": {
+    "typecheck": "tsc --noEmit --pretty"
+  },
   "dependencies": {
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "main": "src/index.ts",
   "license": "MIT",
+  "scripts": {
+    "typecheck": "tsc --noEmit --pretty"
+  },
   "dependencies": {
     "axios": "^1.7.9"
   }

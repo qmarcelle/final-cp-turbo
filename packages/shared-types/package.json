@@ -5,6 +5,9 @@
   "description": "Shared TypeScript types for consumer portals.",
   "keywords": ["types", "typescript", "monorepo"],
   "license": "MIT",
+  "scripts": {
+    "typecheck": "tsc --noEmit --pretty"
+  },
   "exports": {
     ".": "./dist/index.js",
     "./*": "./dist/*"

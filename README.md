@@ -98,45 +98,35 @@ graph TB
 ### Prerequisites
 
 - Node.js 20.x (use `nvm` for version management)
-- pnpm 8.x (`npm install -g pnpm@8`)
 - Git 2.x
 - Docker Desktop (for local services)
 
-### Initial Setup
+> **Note on pnpm**: The project uses `pnpm` for package management. If you don't have `pnpm` installed globally, the `npm start` command will attempt to install it locally for the project.
 
-1. **Clone and Install**
-   ```bash
-   git clone git@github.com:bcbst/portals-monorepo.git
-   cd portals-monorepo
-   pnpm install
-   ```
+### Initial Setup & Starting the Project
 
-2. **Configure NPM Proxy**
-   ```bash
-   # Set proxy for npm/pnpm (required for BCBST network)
-   pnpm config set proxy http://www.webproxy.bcbst.com:80
-   pnpm config set https-proxy https://www.webproxy.bcbst.com:443
-   
-   # Alternatively, set in .npmrc
-   echo "proxy=http://www.webproxy.bcbst.com:80" >> .npmrc
-   echo "https-proxy=https://www.webproxy.bcbst.com:443" >> .npmrc
-   ```
+1.  **Clone the repository:**
+    ```bash
+    git clone git@github.com:bcbst/portals-monorepo.git
+    # or your repository URL
+    ```
 
-3. **Environment Setup**
-   ```bash
-   # Copy example env files
-   cp .env.example .env.local
-   
-   # For each app
-   cp apps/member-portal/.env.example apps/member-portal/.env.local
-   ```
+2.  **Navigate into the project directory:**
+    ```bash
+    cd portals-monorepo
+    ```
 
-4. **Verify Setup**
-   ```bash
-   pnpm doctor        # Check system requirements
-   pnpm build         # Build all packages
-   pnpm test          # Run all tests
-   ```
+3.  **Start the project:**
+    ```bash
+    npm start
+    ```
+    This command will:
+    *   Check for `pnpm` and install it locally if not found.
+    *   Install all workspace dependencies using `pnpm install`.
+    *   Build all packages and applications using `pnpm turbo run build`.
+    *   Start the `broker-portal` (by default) in development mode.
+
+    You can then access the `broker-portal` at `http://localhost:3000` (or the port indicated in the console output).
 
 ### IDE Configuration
 
@@ -1413,3 +1403,83 @@ logger.info({
 **Last Updated**: June 2024
 **Maintained By**: BCBST Portal Team
 **Version**: 2.1.0
+
+## 🛠️ Tooling Overview
+
+This project leverages a suite of modern development tools to ensure a consistent, efficient, and high-quality development experience across the monorepo. Understanding these tools is key to navigating and contributing to the codebase effectively.
+
+### Package Management: `pnpm`
+
+- **Why `pnpm`?**
+    - **Efficiency:** `pnpm` uses a content-addressable store for `node_modules`, meaning packages are downloaded once and hard-linked or symlinked into projects. This saves significant disk space and speeds up installations, especially in a monorepo.
+    - **Strictness:** By default, `pnpm` creates a non-flat `node_modules` directory. This means your code can only access dependencies explicitly listed in its `package.json`, preventing phantom dependencies and improving reliability.
+    - **Workspace Support:** `pnpm` has excellent built-in support for monorepos (workspaces), which is fundamental to this project's structure.
+
+- **Version Management with Corepack:**
+    - This project uses [Corepack](https://nodejs.org/api/corepack.html) (bundled with Node.js v16.10+) to manage the `pnpm` version. The specific version is defined in the root `package.json` under the `packageManager` field (e.g., `"packageManager": "pnpm@9.15.1"`).
+    - **Action Required:** If you haven't already, enable Corepack on your system by running:
+      ```bash
+      corepack enable
+      ```
+    - Once enabled, Corepack will automatically use the `pnpm` version specified in `package.json` when you run `pnpm` commands within this project, ensuring all team members use the same version.
+
+- **Key `pnpm` commands:**
+    - `pnpm install`: Install all dependencies for all workspace packages.
+    - `pnpm --filter <package-name> add <dependency>`: Add a dependency to a specific package (e.g., `pnpm --filter @portals/ui add lodash`).
+    - `pnpm --filter <package-name> run <script-name>`: Run a script in a specific package.
+    - See `pnpm` documentation for more commands and features.
+
+### Build System & Monorepo Orchestration: `Turborepo`
+
+- **Why `Turborepo`?**
+    - **High-Performance Builds:** Turborepo speeds up build times by caching build outputs and only re-running tasks for packages that have changed (incremental builds).
+    - **Task Parallelization:** It can run tasks across multiple packages in parallel while respecting their dependencies.
+    - **Remote Caching:** Build caches can be shared across the team and CI environments, meaning if one person (or CI) has built something, others can often download the artifacts instead of rebuilding.
+    - **Simplified Scripting:** Works with `scripts` defined in each package's `package.json`.
+
+- **Key `Turborepo` concepts:**
+    - `turbo.json`: Configures tasks, their dependencies, and caching behavior.
+    - `pnpm turbo run <task-name>`: Runs a defined task across all relevant packages in the monorepo (e.g., `pnpm turbo run build`, `pnpm turbo run lint`).
+    - `--filter=<package-name>`: Scope a Turborepo command to a specific package.
+
+### Code Quality & Formatting
+
+- **Linting: `ESLint`**
+    - **Purpose:** Statically analyzes code to quickly find problems, enforce coding standards, and improve code quality.
+    - **Configuration:** Shared ESLint configurations are located in `packages/eslint-config/` and extended by individual applications and packages.
+    - **Usage:**
+        - `pnpm turbo run lint`: Check for linting errors across the monorepo.
+        - Many IDEs (like VS Code with the ESLint extension) provide real-time linting feedback.
+
+- **Formatting: `Prettier`**
+    - **Purpose:** An opinionated code formatter that ensures consistent code style across the entire codebase. This eliminates debates about style and makes code easier to read and maintain.
+    - **Configuration:** Prettier configuration is typically found in the root `package.json` or a dedicated `.prettierrc.js` file.
+    - **Usage:**
+        - `pnpm turbo run format`: Format all applicable files.
+        - `pnpm turbo run format:check`: Check if files are formatted correctly (useful in CI).
+        - It's highly recommended to configure your IDE to format on save using Prettier.
+
+### Language: `TypeScript`
+
+- **Why `TypeScript`?**
+    - **Type Safety:** Adds static types to JavaScript, catching many common errors during development rather than at runtime.
+    - **Improved Readability & Maintainability:** Types make code easier to understand and refactor.
+    - **Better Tooling:** Enables richer autocompletion, navigation, and refactoring capabilities in IDEs.
+    - **Configuration:** Shared TypeScript configurations (`tsconfig.json` presets) are located in `packages/typescript-config/` and extended by individual applications and packages.
+    - **Usage:**
+        - `pnpm turbo run typecheck`: Perform type checking across the monorepo.
+
+### Library Bundling: `tsup`
+
+- **Why `tsup`?**
+    - **Simplicity & Speed:** `tsup` uses esbuild under the hood, making it very fast for bundling TypeScript (and JavaScript) libraries.
+    - **Multiple Output Formats:** Easily configure output for ESM (ECMAScript Modules), CJS (CommonJS), and IIFE, which is crucial for library packages intended for various consumers.
+    - **Type Declaration Generation:** Can automatically generate `.d.ts` files.
+    - **Minimal Configuration:** Often works with zero-config for basic libraries but is flexible enough for more complex setups.
+
+- **Typical Usage Scenario:**
+    - Used in shared library packages within `packages/` (e.g., `@portals/ui`, `@portals/shared-utils`) to produce distributable versions.
+    - A common `tsup.config.ts` can be defined in a shared config package or at the root and extended by individual libraries.
+    - Scripts in a library's `package.json` would invoke `tsup` (e.g., `"build": "tsup src/index.ts --format esm,cjs --dts"`).
+
+Understanding and utilizing these tools effectively will contribute to a smoother development workflow and a more robust, maintainable codebase. Please refer to the individual documentation of these tools for more in-depth information.

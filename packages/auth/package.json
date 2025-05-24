@@ -5,6 +5,9 @@
   "description": "Authentication utilities for consumer portals.",
   "keywords": ["auth", "typescript", "monorepo"],
   "license": "MIT",
+  "scripts": {
+    "typecheck": "tsc --noEmit --pretty"
+  },
   "exports": {
     ".": "./dist/index.js",
     "./*": "./dist/*"

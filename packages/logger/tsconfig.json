@@ -3,15 +3,14 @@
   // Provides standardized logging utilities for the application
   "extends": "@portals/typescript-config/base.json",
   "compilerOptions": {
-    "outDir": "dist",
-    "rootDir": "src",
-    "moduleResolution": "node",
     "declaration": true,
-    "sourceMap": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "types": ["node"],
-    "typeRoots": [
+    "noEmit": false,
+    "emitDeclarationOnly": true,
+    // moduleResolution is "bundler" from base.json
+    // esModuleInterop is true from base.json
+    // skipLibCheck is true from base.json
+    "types": ["node"], // Keep specific types
+    "typeRoots": [ // Keep specific typeRoots
       "../../node_modules/.pnpm/@types",
       "../../node_modules/@types",
       "./node_modules/@types"

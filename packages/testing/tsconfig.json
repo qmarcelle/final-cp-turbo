@@ -1,18 +1,13 @@
 {
   // Testing package TypeScript configuration
   // Provides testing utilities and configurations for the monorepo
-  "extends": "@portals/typescript-config/base.json",
+  "extends": "@portals/typescript-config/react-library.json",
   "compilerOptions": {
     // Basic compiler options for the testing package
-    "outDir": "./dist",
-    "declaration": true,
-    "sourceMap": true,
-    "rootDir": "./src",
     "baseUrl": ".",
     "isolatedModules": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "jsx": "react-jsx",
     "types": ["node", "jest"],
     "typeRoots": [
       "../../node_modules/.pnpm/@types",

@@ -1,5 +1,5 @@
 {
-  "extends": "@portals/typescript-config/base.json",
+  "extends": "@portals/typescript-config/tsconfig/base",
   "compilerOptions": {
     "outDir": "./dist",
     "declaration": true,

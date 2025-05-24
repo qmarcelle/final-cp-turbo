@@ -1,9 +1,27 @@
 {
-  "name": "shared-utils",
-  "version": "0.0.1",
-  "main": "src/index.ts",
+  "name": "@portals/shared-utils",
+  "version": "0.1.0",
+  "private": true,
   "license": "MIT",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "typecheck": "tsc --noEmit --pretty",
+    "build": "tsup",
+    "clean": "rm -rf dist"
+  },
   "dependencies": {
     "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@portals/typescript-config": "workspace:*",
+    "@types/lodash": "^4.17.0",
+    "@types/node": "^20.11.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.1.6"
   }
 }

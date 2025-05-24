@@ -5,6 +5,9 @@
   "description": "Logger utilities for consumer portals.",
   "keywords": ["logger", "typescript", "monorepo"],
   "license": "MIT",
+  "scripts": {
+    "typecheck": "tsc --noEmit --pretty"
+  },
   "exports": {
     ".": "./dist/index.js",
     "./*": "./dist/*"
