@@ -11,5 +11,13 @@
   "exports": {
     ".": "./dist/index.js",
     "./*": "./dist/*"
+  },
+  "devDependencies": {
+    "@portals/typescript-config": "workspace:*",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.11.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.2",
+    "@testing-library/jest-dom": "^6.4.2"
   }
 }

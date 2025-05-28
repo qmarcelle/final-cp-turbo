@@ -1,0 +1,3119 @@
+{
+	"info": {
+		"_postman_id": "fb5c568f-7967-424b-bd96-39060dd9a56d",
+		"name": "Member API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "V1 (Portal)",
+			"item": [
+				{
+					"name": "Common",
+					"item": [
+						{
+							"name": "Other Insurance Company List",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Portal-Login",
+										"value": "g100000",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/v1/otherInsuranceCompanies",
+									"host": [
+										"{{pingServiceHost}}{{pingApiContext}}"
+									],
+									"path": [
+										"{{memberServiceContextRoot}}",
+										"api",
+										"v1",
+										"otherInsuranceCompanies"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Claim Search (C)",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "t4InXqeRhTqtroB8diyafWlZc9ud",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Portal-Login",
+										"type": "text",
+										"value": "g100000"
+									}
+								],
+								"url": {
+									"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/v1/claims?subscriberCk=91722400&memberCk=91722401&fromDate=01/01/2017&toDate=05/13/2020&maxResult=20&productType=M",
+									"host": [
+										"{{pingServiceHost}}{{pingApiContext}}"
+									],
+									"path": [
+										"{{memberServiceContextRoot}}",
+										"api",
+										"v1",
+										"claims"
+									],
+									"query": [
+										{
+											"key": "subscriberCk",
+											"value": "91722400"
+										},
+										{
+											"key": "memberCk",
+											"value": "91722401"
+										},
+										{
+											"key": "fromDate",
+											"value": "01/01/2017"
+										},
+										{
+											"key": "toDate",
+											"value": "05/13/2020"
+										},
+										{
+											"key": "maxResult",
+											"value": "20"
+										},
+										{
+											"key": "productType",
+											"value": "M"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Claim By Claim ID (C)",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "t4InXqeRhTqtroB8diyafWlZc9ud",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Portal-Login",
+										"type": "text",
+										"value": "m902218823"
+									}
+								],
+								"url": {
+									"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/v1/claims/:subscriberCk/:claimId/:claimType",
+									"host": [
+										"{{pingServiceHost}}{{pingApiContext}}"
+									],
+									"path": [
+										"{{memberServiceContextRoot}}",
+										"api",
+										"v1",
+										"claims",
+										":subscriberCk",
+										":claimId",
+										":claimType"
+									],
+									"variable": [
+										{
+											"key": "subscriberCk",
+											"value": ""
+										},
+										{
+											"key": "claimId",
+											"value": ""
+										},
+										{
+											"key": "claimType",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Claim Line Items (C)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/v1/claimdetails?claimId=CDH044215800&productType=F",
+									"host": [
+										"{{pingServiceHost}}{{pingApiContext}}"
+									],
+									"path": [
+										"{{memberServiceContextRoot}}",
+										"api",
+										"v1",
+										"claimdetails"
+									],
+									"query": [
+										{
+											"key": "claimId",
+											"value": "CDH044215800"
+										},
+										{
+											"key": "productType",
+											"value": "F"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Benefit Details (C)",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Portal-Login",
+										"value": "g100000",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/v1/benefitDetails?subscriberCk=91722400&memberCk=91722401&groupCk=21908&productType=M&planId=MBSSOV2E&displayMode=3&indicator=W",
+									"host": [
+										"{{pingServiceHost}}{{pingApiContext}}"
+									],
+									"path": [
+										"{{memberServiceContextRoot}}",
+										"api",
+										"v1",
+										"benefitDetails"
+									],
+									"query": [
+										{
+											"key": "subscriberCk",
+											"value": "91722400"
+										},
+										{
+											"key": "memberCk",
+											"value": "91722401"
+										},
+										{
+											"key": "groupCk",
+											"value": "21908"
+										},
+										{
+											"key": "productType",
+											"value": "M"
+										},
+										{
+											"key": "planId",
+											"value": "MBSSOV2E"
+										},
+										{
+											"key": "displayMode",
+											"value": "3",
+											"description": "Optional binary flag, default = 0\n1 = Group benefit details by service class\n2 = Group benefit details by network tier\n4 = Sort benefit details on backend"
+										},
+										{
+											"key": "indicator",
+											"value": "W"
+										},
+										{
+											"key": "asOfDate",
+											"value": "now",
+											"description": "Lookup benefits as of the supplied date. If not specified, today's date is used.",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Benefit Summary Info (C)",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Portal-Login",
+										"value": "g100000",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/v1/benefitDetails?subscriberCk=91722400&memberCk=91722401&groupCk=21908&productType=M&planId=MBSSOV2E&displayMode=3&indicator=W",
+									"host": [
+										"{{pingServiceHost}}{{pingApiContext}}"
+									],
+									"path": [
+										"{{memberServiceContextRoot}}",
+										"api",
+										"v1",
+										"benefitDetails"
+									],
+									"query": [
+										{
+											"key": "subscriberCk",
+											"value": "91722400"
+										},
+										{
+											"key": "memberCk",
+											"value": "91722401"
+										},
+										{
+											"key": "groupCk",
+											"value": "21908"
+										},
+										{
+											"key": "productType",
+											"value": "M"
+										},
+										{
+											"key": "planId",
+											"value": "MBSSOV2E"
+										},
+										{
+											"key": "displayMode",
+											"value": "3",
+											"description": "Optional binary flag, default = 0\n1 = Group benefit details by service class\n2 = Group benefit details by network tier\n4 = Sort benefit details on backend"
+										},
+										{
+											"key": "indicator",
+											"value": "W"
+										},
+										{
+											"key": "asOfDate",
+											"value": "now",
+											"description": "Lookup benefits as of the supplied date. If not specified, today's date is used.",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Employer Context",
+					"item": [
+						{
+							"name": "Update COB",
+							"item": [
+								{
+									"name": "All No Other (E)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Portal-Login",
+												"type": "text",
+												"value": "g100000"
+											},
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"noOtherInsurance\": true,\n\t\"applyToAll\": false\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/employer/v1/members/:lookup/:memberId/otherInsurance",
+											"host": [
+												"{{pingServiceHost}}{{pingApiContext}}"
+											],
+											"path": [
+												"{{memberServiceContextRoot}}",
+												"api",
+												"employer",
+												"v1",
+												"members",
+												":lookup",
+												":memberId",
+												"otherInsurance"
+											],
+											"variable": [
+												{
+													"key": "lookup",
+													"value": "byMemberCk",
+													"description": "byMemberCk OR byMemberId"
+												},
+												{
+													"key": "memberId",
+													"value": "91722409"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Indiv. No Other (E)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Portal-Login",
+												"type": "text",
+												"value": "b621003926"
+											},
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"applyToAll\": false,\n\t\"noOtherInsurance\": true\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/employer/v1/members/:lookup/:memberId/otherInsurance",
+											"host": [
+												"{{pingServiceHost}}{{pingApiContext}}"
+											],
+											"path": [
+												"{{memberServiceContextRoot}}",
+												"api",
+												"employer",
+												"v1",
+												"members",
+												":lookup",
+												":memberId",
+												"otherInsurance"
+											],
+											"variable": [
+												{
+													"key": "lookup",
+													"value": "byMemberCk"
+												},
+												{
+													"key": "memberId",
+													"value": "647978302"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Other Insurance (Basic) (E)",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "PcO2rwimjT7AjuWT6HwEA6E9xCoL",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Portal-Login",
+												"value": "g100000",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"applyToAll\": false,\n\t\"otherInsurance\": [\n\t\t{\n\t\t\t\"noOtherInsurance\": false,\n\t\t\t\"coverageType\": \"C\",\n\t\t\t\"companyId\": \"ALASKA BC\",\n\t\t\t\"companyPhone\": \"1-800-AAAAAAA\",\n\t\t\t\"policyEffectiveDate\": \"06-01-2019\",\n\t\t\t\"policyTermDate\": \"12-31-2021\",\n\t\t\t\"policyHolderFirstName\": \"CHRIS\",\n\t\t\t\"policyHolderLastName\": \"HALL\",\n\t\t\t\"policyHolderBirthDate\": \"07-04-1776\",\n\t\t\t\"courtOrdered\": false,\n\t\t\t\"policyIdNum\": \"8675309\",\n\t\t\t\"memberEmail\": \"ebsd@bcbst.com\"\n\t\t}\n\t]\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/employer/v1/members/:lookup/:memberId/otherInsurance",
+											"host": [
+												"{{pingServiceHost}}{{pingApiContext}}"
+											],
+											"path": [
+												"{{memberServiceContextRoot}}",
+												"api",
+												"employer",
+												"v1",
+												"members",
+												":lookup",
+												":memberId",
+												"otherInsurance"
+											],
+											"variable": [
+												{
+													"key": "lookup",
+													"value": "byMemberCk"
+												},
+												{
+													"key": "memberId",
+													"value": "91722401"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Claims",
+							"item": [
+								{
+									"name": "Claim Search (E)",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "t4InXqeRhTqtroB8diyafWlZc9ud",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "X-Portal-Login",
+												"type": "text",
+												"value": "g100000"
+											}
+										],
+										"url": {
+											"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/employer/v1/members/:lookup/:memberId/claims?from=01-01-2020&to=05-29-2022&type=MDF",
+											"host": [
+												"{{pingServiceHost}}{{pingApiContext}}"
+											],
+											"path": [
+												"{{memberServiceContextRoot}}",
+												"api",
+												"employer",
+												"v1",
+												"members",
+												":lookup",
+												":memberId",
+												"claims"
+											],
+											"query": [
+												{
+													"key": "from",
+													"value": "01-01-2020"
+												},
+												{
+													"key": "to",
+													"value": "05-29-2022"
+												},
+												{
+													"key": "type",
+													"value": "MDF"
+												}
+											],
+											"variable": [
+												{
+													"key": "lookup",
+													"value": "byMemberCk"
+												},
+												{
+													"key": "memberId",
+													"value": "91722401"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Claim by Claim ID (E)",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "t4InXqeRhTqtroB8diyafWlZc9ud",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "X-Portal-Login",
+												"type": "text",
+												"value": "g100000"
+											}
+										],
+										"url": {
+											"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/employer/v1/members/:lookup/:memberId/claims?claimId=DENTESTCLM00",
+											"host": [
+												"{{pingServiceHost}}{{pingApiContext}}"
+											],
+											"path": [
+												"{{memberServiceContextRoot}}",
+												"api",
+												"employer",
+												"v1",
+												"members",
+												":lookup",
+												":memberId",
+												"claims"
+											],
+											"query": [
+												{
+													"key": "claimId",
+													"value": "DENTESTCLM00"
+												}
+											],
+											"variable": [
+												{
+													"key": "lookup",
+													"value": "byMemberCk"
+												},
+												{
+													"key": "memberId",
+													"value": "91722401"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Claim Line Items (E)",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "t4InXqeRhTqtroB8diyafWlZc9ud",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "X-Portal-Login",
+												"type": "text",
+												"value": "g100000"
+											}
+										],
+										"url": {
+											"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/employer/v1/members/:lookup/:memberId/claims/:type/:claimId/lineItems",
+											"host": [
+												"{{pingServiceHost}}{{pingApiContext}}"
+											],
+											"path": [
+												"{{memberServiceContextRoot}}",
+												"api",
+												"employer",
+												"v1",
+												"members",
+												":lookup",
+												":memberId",
+												"claims",
+												":type",
+												":claimId",
+												"lineItems"
+											],
+											"variable": [
+												{
+													"key": "lookup",
+													"value": "byMemberCk"
+												},
+												{
+													"key": "memberId",
+													"value": "91722401"
+												},
+												{
+													"key": "type",
+													"value": "dental"
+												},
+												{
+													"key": "claimId",
+													"value": "DENTESTCLM00"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Member Search",
+							"item": [
+								{
+									"name": "Member Search (E)",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "X-Portal-Login",
+												"value": "g100000",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/employer/v1/members?subscriberId=902218823",
+											"host": [
+												"{{pingServiceHost}}{{pingApiContext}}"
+											],
+											"path": [
+												"{{memberServiceContextRoot}}",
+												"api",
+												"employer",
+												"v1",
+												"members"
+											],
+											"query": [
+												{
+													"key": "subscriberId",
+													"value": "902218823"
+												},
+												{
+													"key": "suffix",
+													"value": "0",
+													"disabled": true
+												},
+												{
+													"key": "ssn",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "groupId",
+													"value": "130299",
+													"disabled": true
+												},
+												{
+													"key": "departmentId",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "subGroupId",
+													"value": "0001",
+													"disabled": true
+												},
+												{
+													"key": "firstName",
+													"value": "chris",
+													"disabled": true
+												},
+												{
+													"key": "lastName",
+													"value": "hall",
+													"disabled": true
+												},
+												{
+													"key": "birthDate",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "city",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "state",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "zip",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "hicn",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "medicaidId",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "asOfDate",
+													"value": "09-18-2019",
+													"disabled": true
+												},
+												{
+													"key": "page",
+													"value": "1",
+													"disabled": true
+												},
+												{
+													"key": "pageSize",
+													"value": "20",
+													"disabled": true
+												},
+												{
+													"key": "relation",
+													"value": "M",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Subscriber Roster (E)",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "X-Portal-Login",
+												"value": "g100000",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/employer/v1/subscriberRoster?groupId=100000",
+											"host": [
+												"{{pingServiceHost}}{{pingApiContext}}"
+											],
+											"path": [
+												"{{memberServiceContextRoot}}",
+												"api",
+												"employer",
+												"v1",
+												"subscriberRoster"
+											],
+											"query": [
+												{
+													"key": "groupId",
+													"value": "100000"
+												},
+												{
+													"key": "subGroupId",
+													"value": "0001",
+													"disabled": true
+												},
+												{
+													"key": "departmentId",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "subscriberId",
+													"value": "902218823",
+													"disabled": true
+												},
+												{
+													"key": "asOfDate",
+													"value": "01-01-2022",
+													"disabled": true
+												},
+												{
+													"key": "page",
+													"value": "1",
+													"disabled": true
+												},
+												{
+													"key": "pageSize",
+													"value": "500",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Preflight / Page Count (E)",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "X-Portal-Login",
+												"value": "g100000",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/employer/v1/memberSearchPageCount?groupId=100000&relation=M&active=true",
+											"host": [
+												"{{pingServiceHost}}{{pingApiContext}}"
+											],
+											"path": [
+												"{{memberServiceContextRoot}}",
+												"api",
+												"employer",
+												"v1",
+												"memberSearchPageCount"
+											],
+											"query": [
+												{
+													"key": "groupId",
+													"value": "100000"
+												},
+												{
+													"key": "subGroupId",
+													"value": "0001",
+													"disabled": true
+												},
+												{
+													"key": "departmentId",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "subscriberId",
+													"value": "902218823",
+													"disabled": true
+												},
+												{
+													"key": "asOfDate",
+													"value": "01-01-2022",
+													"disabled": true
+												},
+												{
+													"key": "relation",
+													"value": "M"
+												},
+												{
+													"key": "active",
+													"value": "true"
+												},
+												{
+													"key": "page",
+													"value": "1",
+													"disabled": true
+												},
+												{
+													"key": "pageSize",
+													"value": "500",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Groups",
+							"item": [
+								{
+									"name": "Group Details (E)",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "MiNRZUcqHYgGsBP3Rb4A4HoxZWrv",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "X-Portal-Login",
+												"type": "text",
+												"value": "g100050"
+											},
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Bearer t4InXqeRhTqtroB8diyafWlZc9ud",
+												"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+												"disabled": true
+											}
+										],
+										"url": {
+											"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/employer/v1/groups/:groupId",
+											"host": [
+												"{{pingServiceHost}}{{pingApiContext}}"
+											],
+											"path": [
+												"{{memberServiceContextRoot}}",
+												"api",
+												"employer",
+												"v1",
+												"groups",
+												":groupId"
+											],
+											"variable": [
+												{
+													"key": "groupId",
+													"value": "100000"
+												}
+											]
+										},
+										"description": "Get information about a logged-in employer. This URI returns all groups tied to the given login. Employers have access to members only at the group level, but they may not have access to PHI for some groups, while having it for others."
+									},
+									"response": []
+								},
+								{
+									"name": "Subgroups (E)",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "MiNRZUcqHYgGsBP3Rb4A4HoxZWrv",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "X-Portal-Login",
+												"type": "text",
+												"value": "g100000"
+											},
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Bearer t4InXqeRhTqtroB8diyafWlZc9ud",
+												"disabled": true
+											}
+										],
+										"url": {
+											"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/employer/v1/groups/:groupId/subgroups?asOfDate=01-01-2022",
+											"host": [
+												"{{pingServiceHost}}{{pingApiContext}}"
+											],
+											"path": [
+												"{{memberServiceContextRoot}}",
+												"api",
+												"employer",
+												"v1",
+												"groups",
+												":groupId",
+												"subgroups"
+											],
+											"query": [
+												{
+													"key": "asOfDate",
+													"value": "01-01-2022"
+												}
+											],
+											"variable": [
+												{
+													"key": "groupId",
+													"value": "100000"
+												}
+											]
+										},
+										"description": "Get information about a logged-in employer. This URI returns all groups tied to the given login. Employers have access to members only at the group level, but they may not have access to PHI for some groups, while having it for others."
+									},
+									"response": []
+								},
+								{
+									"name": "Group Contact Info",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "MiNRZUcqHYgGsBP3Rb4A4HoxZWrv",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "X-Portal-Login",
+												"value": "g100000",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer t4InXqeRhTqtroB8diyafWlZc9ud",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"url": {
+											"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/employer/v1/groups/:groupId/contacts",
+											"host": [
+												"{{pingServiceHost}}{{pingApiContext}}"
+											],
+											"path": [
+												"{{memberServiceContextRoot}}",
+												"api",
+												"employer",
+												"v1",
+												"groups",
+												":groupId",
+												"contacts"
+											],
+											"variable": [
+												{
+													"key": "groupId",
+													"value": "100000"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Employer",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "MiNRZUcqHYgGsBP3Rb4A4HoxZWrv",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Portal-Login",
+										"value": "g100050",
+										"type": "text"
+									},
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "Bearer t4InXqeRhTqtroB8diyafWlZc9ud",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/employer/v1/employers/:userId",
+									"host": [
+										"{{pingServiceHost}}{{pingApiContext}}"
+									],
+									"path": [
+										"{{memberServiceContextRoot}}",
+										"api",
+										"employer",
+										"v1",
+										"employers",
+										":userId"
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "g100050"
+										}
+									]
+								},
+								"description": "Get information about a logged-in employer. This URI returns all groups tied to the given login. Employers have access to members only at the group level, but they may not have access to PHI for some groups, while having it for others."
+							},
+							"response": []
+						},
+						{
+							"name": "Member (E)",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Portal-Login",
+										"type": "text",
+										"value": "g100000"
+									}
+								],
+								"url": {
+									"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/employer/v1/members/:lookup/:memberId/",
+									"host": [
+										"{{pingServiceHost}}{{pingApiContext}}"
+									],
+									"path": [
+										"{{memberServiceContextRoot}}",
+										"api",
+										"employer",
+										"v1",
+										"members",
+										":lookup",
+										":memberId",
+										""
+									],
+									"variable": [
+										{
+											"key": "lookup",
+											"value": "byMemberCk"
+										},
+										{
+											"key": "memberId",
+											"value": "91722401"
+										}
+									]
+								},
+								"description": "Use one type of member ID to retrieve other types of ID data for a member, such as subscriber ID, suffix, member CK, and subscriber CK."
+							},
+							"response": []
+						},
+						{
+							"name": "Member Data (E)",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Portal-Login",
+										"type": "text",
+										"value": "g129800"
+									}
+								],
+								"url": {
+									"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/employer/v1/members/:lookup/:memberId/data",
+									"host": [
+										"{{pingServiceHost}}{{pingApiContext}}"
+									],
+									"path": [
+										"{{memberServiceContextRoot}}",
+										"api",
+										"employer",
+										"v1",
+										"members",
+										":lookup",
+										":memberId",
+										"data"
+									],
+									"variable": [
+										{
+											"key": "lookup",
+											"value": "byMemberCk",
+											"description": "Allowed values: byLoginId, byMemberId, byMemberCk, bySubscriberCk, bySubscriberId."
+										},
+										{
+											"key": "memberId",
+											"value": "664815001"
+										}
+									]
+								},
+								"description": "Use one type of member ID to retrieve other types of ID data for a member, such as subscriber ID, suffix, member CK, and subscriber CK."
+							},
+							"response": []
+						},
+						{
+							"name": "Member Eligibility (E)",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Portal-Login",
+										"type": "text",
+										"value": "g100000"
+									}
+								],
+								"url": {
+									"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/employer/v1/members/:lookup/:memberId/eligibility",
+									"host": [
+										"{{pingServiceHost}}{{pingApiContext}}"
+									],
+									"path": [
+										"{{memberServiceContextRoot}}",
+										"api",
+										"employer",
+										"v1",
+										"members",
+										":lookup",
+										":memberId",
+										"eligibility"
+									],
+									"query": [
+										{
+											"key": "asOfDate",
+											"value": "01-01-2022",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "lookup",
+											"value": "byMemberCk",
+											"description": "Allowed values: byLoginId, byMemberId, byMemberCk, bySubscriberCk, bySubscriberId."
+										},
+										{
+											"key": "memberId",
+											"value": "91722401"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Benefit Details (E)",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Portal-Login",
+										"value": "g100000",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/employer/v1/members/:lookup/:memberId/benefits/:productType/:planId?displayMode=7&indicator=W",
+									"host": [
+										"{{pingServiceHost}}{{pingApiContext}}"
+									],
+									"path": [
+										"{{memberServiceContextRoot}}",
+										"api",
+										"employer",
+										"v1",
+										"members",
+										":lookup",
+										":memberId",
+										"benefits",
+										":productType",
+										":planId"
+									],
+									"query": [
+										{
+											"key": "asOfDate",
+											"value": "",
+											"description": "Lookup benefits as of the supplied date. If not specified, today's date is used.",
+											"disabled": true
+										},
+										{
+											"key": "displayMode",
+											"value": "7",
+											"description": "Use this binary flag to group and sort benefit data to the needs of the UI. Allowed values 0-7.Default value is 0.\n1 = Group service details by class. If this is false, service classes and details will appear in separate arrays.\n2 = Group service details into pairs by in-network and out-of-network costs.\n4 = Sort data automatically. If this is false, a \"sortOrder\" property is returned in each object.\nCombine values to achieve the desired output. For example, to group details by class and sort automatically, deliver 5 for this value."
+										},
+										{
+											"key": "indicator",
+											"value": "W"
+										}
+									],
+									"variable": [
+										{
+											"key": "lookup",
+											"value": "byMemberCk"
+										},
+										{
+											"key": "memberId",
+											"value": "91722401"
+										},
+										{
+											"key": "productType",
+											"value": "M"
+										},
+										{
+											"key": "planId",
+											"value": "MBSSOV2E"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Other Insurance (E)",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "t4InXqeRhTqtroB8diyafWlZc9ud",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Portal-Login",
+										"type": "text",
+										"value": "g100000"
+									}
+								],
+								"url": {
+									"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/employer/v1/members/:lookup/:memberId/otherInsurance",
+									"host": [
+										"{{pingServiceHost}}{{pingApiContext}}"
+									],
+									"path": [
+										"{{memberServiceContextRoot}}",
+										"api",
+										"employer",
+										"v1",
+										"members",
+										":lookup",
+										":memberId",
+										"otherInsurance"
+									],
+									"variable": [
+										{
+											"key": "lookup",
+											"value": "byMemberCk"
+										},
+										{
+											"key": "memberId",
+											"value": "91722401"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Broker Context",
+					"item": [
+						{
+							"name": "Update COB",
+							"item": [
+								{
+									"name": "All No Other (B)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Portal-Login",
+												"type": "text",
+												"value": "b621003926"
+											},
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"noOtherInsurance\": true,\n\t\"applyToAll\": true\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/broker/v1/members/:lookup/:memberId/otherInsurance",
+											"host": [
+												"{{pingServiceHost}}{{pingApiContext}}"
+											],
+											"path": [
+												"{{memberServiceContextRoot}}",
+												"api",
+												"broker",
+												"v1",
+												"members",
+												":lookup",
+												":memberId",
+												"otherInsurance"
+											],
+											"variable": [
+												{
+													"key": "lookup",
+													"value": "byMemberCk",
+													"description": "byMemberCk OR byMemberId"
+												},
+												{
+													"key": "memberId",
+													"value": "91722401"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Indiv. No Other (B)",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Portal-Login",
+												"type": "text",
+												"value": "b621003926"
+											},
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"applyToAll\": false,\n\t\"otherInsurance\": [\n\t\t{\n\t\t\t\"coverageType\": \"M\",\n\t\t\t\"noOtherInsurance\": true\n\t\t}\n\t]\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/broker/v1/members/:lookup/:memberId/otherInsurance",
+											"host": [
+												"{{pingServiceHost}}{{pingApiContext}}"
+											],
+											"path": [
+												"{{memberServiceContextRoot}}",
+												"api",
+												"broker",
+												"v1",
+												"members",
+												":lookup",
+												":memberId",
+												"otherInsurance"
+											],
+											"variable": [
+												{
+													"key": "lookup",
+													"value": "byMemberCk"
+												},
+												{
+													"key": "memberId",
+													"value": "91722401"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Other Insurance (Basic) (B)",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "PcO2rwimjT7AjuWT6HwEA6E9xCoL",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Portal-Login",
+												"type": "text",
+												"value": "b621003926"
+											},
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"applyToAll\": false,\n\t\"otherInsurance\": [\n\t\t{\n\t\t\t\"noOtherInsurance\": false,\n\t\t\t\"coverageType\": \"C\",\n\t\t\t\"companyId\": \"ALASKA BC\",\n\t\t\t\"companyPhone\": \"1-800-AAAAAAA\",\n\t\t\t\"policyEffectiveDate\": \"06-01-2019\",\n\t\t\t\"policyTermDate\": \"12-31-2021\",\n\t\t\t\"policyHolderFirstName\": \"CHRIS\",\n\t\t\t\"policyHolderLastName\": \"HALL\",\n\t\t\t\"policyHolderBirthDate\": \"07-04-1776\",\n\t\t\t\"courtOrdered\": false,\n\t\t\t\"policyIdNum\": \"8675309\",\n\t\t\t\"memberEmail\": \"ebsd@bcbst.com\"\n\t\t}\n\t]\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/broker/v1/members/:lookup/:memberId/otherInsurance",
+											"host": [
+												"{{pingServiceHost}}{{pingApiContext}}"
+											],
+											"path": [
+												"{{memberServiceContextRoot}}",
+												"api",
+												"broker",
+												"v1",
+												"members",
+												":lookup",
+												":memberId",
+												"otherInsurance"
+											],
+											"variable": [
+												{
+													"key": "lookup",
+													"value": "byMemberCk"
+												},
+												{
+													"key": "memberId",
+													"value": "91722401"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Claims",
+							"item": [
+								{
+									"name": "Claim Search (B)",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "t4InXqeRhTqtroB8diyafWlZc9ud",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "X-Portal-Login",
+												"type": "text",
+												"value": "b621003926"
+											}
+										],
+										"url": {
+											"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/broker/v1/members/:lookup/:memberId/claims?from=01-01-2017&to=05-29-2020&type=MDF",
+											"host": [
+												"{{pingServiceHost}}{{pingApiContext}}"
+											],
+											"path": [
+												"{{memberServiceContextRoot}}",
+												"api",
+												"broker",
+												"v1",
+												"members",
+												":lookup",
+												":memberId",
+												"claims"
+											],
+											"query": [
+												{
+													"key": "from",
+													"value": "01-01-2017"
+												},
+												{
+													"key": "to",
+													"value": "05-29-2020"
+												},
+												{
+													"key": "type",
+													"value": "MDF"
+												}
+											],
+											"variable": [
+												{
+													"key": "lookup",
+													"value": "byMemberCk"
+												},
+												{
+													"key": "memberId",
+													"value": "91722401"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Claim by Claim ID (B)",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "t4InXqeRhTqtroB8diyafWlZc9ud",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "X-Portal-Login",
+												"type": "text",
+												"value": "b621003926"
+											}
+										],
+										"url": {
+											"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/broker/v1/members/:lookup/:memberId/claims?claimId=DENTESTCLM00",
+											"host": [
+												"{{pingServiceHost}}{{pingApiContext}}"
+											],
+											"path": [
+												"{{memberServiceContextRoot}}",
+												"api",
+												"broker",
+												"v1",
+												"members",
+												":lookup",
+												":memberId",
+												"claims"
+											],
+											"query": [
+												{
+													"key": "claimId",
+													"value": "DENTESTCLM00"
+												}
+											],
+											"variable": [
+												{
+													"key": "lookup",
+													"value": "byMemberCk"
+												},
+												{
+													"key": "memberId",
+													"value": "91722401"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Claim Line Items (B)",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "t4InXqeRhTqtroB8diyafWlZc9ud",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "X-Portal-Login",
+												"type": "text",
+												"value": "b621003926"
+											}
+										],
+										"url": {
+											"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/broker/v1/members/:lookup/:memberId/claims/:type/:claimId/lineItems",
+											"host": [
+												"{{pingServiceHost}}{{pingApiContext}}"
+											],
+											"path": [
+												"{{memberServiceContextRoot}}",
+												"api",
+												"broker",
+												"v1",
+												"members",
+												":lookup",
+												":memberId",
+												"claims",
+												":type",
+												":claimId",
+												"lineItems"
+											],
+											"variable": [
+												{
+													"key": "lookup",
+													"value": "byMemberCk"
+												},
+												{
+													"key": "memberId",
+													"value": "91722401"
+												},
+												{
+													"key": "type",
+													"value": "dental"
+												},
+												{
+													"key": "claimId",
+													"value": "DENTESTCLM00"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Member Search",
+							"item": [
+								{
+									"name": "Member Search (B)",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "X-Portal-Login",
+												"type": "text",
+												"value": "b621003926"
+											}
+										],
+										"url": {
+											"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/broker/v1/members?subscriberId=902218823",
+											"host": [
+												"{{pingServiceHost}}{{pingApiContext}}"
+											],
+											"path": [
+												"{{memberServiceContextRoot}}",
+												"api",
+												"broker",
+												"v1",
+												"members"
+											],
+											"query": [
+												{
+													"key": "subscriberId",
+													"value": "902218823"
+												},
+												{
+													"key": "suffix",
+													"value": "0",
+													"disabled": true
+												},
+												{
+													"key": "ssn",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "groupId",
+													"value": "130299",
+													"disabled": true
+												},
+												{
+													"key": "departmentId",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "subGroupId",
+													"value": "0001",
+													"disabled": true
+												},
+												{
+													"key": "firstName",
+													"value": "chris",
+													"disabled": true
+												},
+												{
+													"key": "lastName",
+													"value": "hall",
+													"disabled": true
+												},
+												{
+													"key": "birthDate",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "city",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "state",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "zip",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "hicn",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "medicaidId",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "asOfDate",
+													"value": "09-18-2019",
+													"disabled": true
+												},
+												{
+													"key": "page",
+													"value": "1",
+													"disabled": true
+												},
+												{
+													"key": "pageSize",
+													"value": "20",
+													"disabled": true
+												},
+												{
+													"key": "relation",
+													"value": "M",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Subscriber Roster (B)",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "X-Portal-Login",
+												"type": "text",
+												"value": "b621003926"
+											}
+										],
+										"url": {
+											"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/broker/v1/subscriberRoster?groupId=100000",
+											"host": [
+												"{{pingServiceHost}}{{pingApiContext}}"
+											],
+											"path": [
+												"{{memberServiceContextRoot}}",
+												"api",
+												"broker",
+												"v1",
+												"subscriberRoster"
+											],
+											"query": [
+												{
+													"key": "groupId",
+													"value": "100000"
+												},
+												{
+													"key": "subGroupId",
+													"value": "0001",
+													"disabled": true
+												},
+												{
+													"key": "departmentId",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "subscriberId",
+													"value": "902218823",
+													"disabled": true
+												},
+												{
+													"key": "asOfDate",
+													"value": "01-01-2022",
+													"disabled": true
+												},
+												{
+													"key": "page",
+													"value": "1",
+													"disabled": true
+												},
+												{
+													"key": "pageSize",
+													"value": "500",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Preflight / Page Count (B)",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "X-Portal-Login",
+												"type": "text",
+												"value": "b621003926"
+											}
+										],
+										"url": {
+											"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/broker/v1/memberSearchPageCount?groupId=100000&relation=M&active=true",
+											"host": [
+												"{{pingServiceHost}}{{pingApiContext}}"
+											],
+											"path": [
+												"{{memberServiceContextRoot}}",
+												"api",
+												"broker",
+												"v1",
+												"memberSearchPageCount"
+											],
+											"query": [
+												{
+													"key": "groupId",
+													"value": "100000"
+												},
+												{
+													"key": "subGroupId",
+													"value": "0001",
+													"disabled": true
+												},
+												{
+													"key": "departmentId",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "subscriberId",
+													"value": "902218823",
+													"disabled": true
+												},
+												{
+													"key": "asOfDate",
+													"value": "01-01-2022",
+													"disabled": true
+												},
+												{
+													"key": "relation",
+													"value": "M"
+												},
+												{
+													"key": "active",
+													"value": "true"
+												},
+												{
+													"key": "page",
+													"value": "1",
+													"disabled": true
+												},
+												{
+													"key": "pageSize",
+													"value": "500",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Groups",
+							"item": [
+								{
+									"name": "Group Details (B)",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "MiNRZUcqHYgGsBP3Rb4A4HoxZWrv",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "X-Portal-Login",
+												"type": "text",
+												"value": "b621003926"
+											},
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Bearer t4InXqeRhTqtroB8diyafWlZc9ud",
+												"disabled": true
+											}
+										],
+										"url": {
+											"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/broker/v1/groups/:groupId",
+											"host": [
+												"{{pingServiceHost}}{{pingApiContext}}"
+											],
+											"path": [
+												"{{memberServiceContextRoot}}",
+												"api",
+												"broker",
+												"v1",
+												"groups",
+												":groupId"
+											],
+											"variable": [
+												{
+													"key": "groupId",
+													"value": "100000"
+												}
+											]
+										},
+										"description": "Details for a group. User must have access to the group in Xperm. For subgroup listing, use /subgroups."
+									},
+									"response": []
+								},
+								{
+									"name": "Subgroups (B)",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "MiNRZUcqHYgGsBP3Rb4A4HoxZWrv",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "X-Portal-Login",
+												"type": "text",
+												"value": "b621003926"
+											},
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Bearer t4InXqeRhTqtroB8diyafWlZc9ud",
+												"disabled": true
+											}
+										],
+										"url": {
+											"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/broker/v1/groups/:groupId/subgroups",
+											"host": [
+												"{{pingServiceHost}}{{pingApiContext}}"
+											],
+											"path": [
+												"{{memberServiceContextRoot}}",
+												"api",
+												"broker",
+												"v1",
+												"groups",
+												":groupId",
+												"subgroups"
+											],
+											"query": [
+												{
+													"key": "asOfDate",
+													"value": "01-01-2022",
+													"disabled": true
+												}
+											],
+											"variable": [
+												{
+													"key": "groupId",
+													"value": "100000"
+												}
+											]
+										},
+										"description": "List subgroups. Only subgroups that are active as of the specified date will be displayed."
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Broker",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Portal-Login",
+										"value": "b621003926",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/broker/v1/brokers/:userId",
+									"host": [
+										"{{pingServiceHost}}{{pingApiContext}}"
+									],
+									"path": [
+										"{{memberServiceContextRoot}}",
+										"api",
+										"broker",
+										"v1",
+										"brokers",
+										":userId"
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "b621003926"
+										}
+									]
+								},
+								"description": "Get information about a logged-in broker. This URI lists all the active commission arrangements tied to the broker login. Commission arrangements give a broker access to either individuals at the subscriber level, or to entire groups. There may be some overlap between active commissions. Broker permissions are **time-sensitive** with regards to PHI - only claims & authorizations from the time period the broker is active should be shown."
+							},
+							"response": []
+						},
+						{
+							"name": "Group Commissions",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/broker/v1/brokers/:userId/commissions/byGroupId/:groupId",
+									"host": [
+										"{{pingServiceHost}}{{pingApiContext}}"
+									],
+									"path": [
+										"{{memberServiceContextRoot}}",
+										"api",
+										"broker",
+										"v1",
+										"brokers",
+										":userId",
+										"commissions",
+										"byGroupId",
+										":groupId"
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "b621003926"
+										},
+										{
+											"key": "groupId",
+											"value": "95800"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Member Commissions",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Portal-Login",
+										"value": "b621003926",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/broker/v1/brokers/:userId/commissions/:lookup/:id",
+									"host": [
+										"{{pingServiceHost}}{{pingApiContext}}"
+									],
+									"path": [
+										"{{memberServiceContextRoot}}",
+										"api",
+										"broker",
+										"v1",
+										"brokers",
+										":userId",
+										"commissions",
+										":lookup",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "b621003926"
+										},
+										{
+											"key": "lookup",
+											"value": "byMemberCk"
+										},
+										{
+											"key": "id",
+											"value": "91722401"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Member (B)",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Portal-Login",
+										"type": "text",
+										"value": "b621003926"
+									}
+								],
+								"url": {
+									"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/broker/v1/members/:lookup/:memberId/",
+									"host": [
+										"{{pingServiceHost}}{{pingApiContext}}"
+									],
+									"path": [
+										"{{memberServiceContextRoot}}",
+										"api",
+										"broker",
+										"v1",
+										"members",
+										":lookup",
+										":memberId",
+										""
+									],
+									"variable": [
+										{
+											"key": "lookup",
+											"value": "byMemberCk"
+										},
+										{
+											"key": "memberId",
+											"value": "91722401"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Member Data (B)",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Portal-Login",
+										"type": "text",
+										"value": "b621003926"
+									}
+								],
+								"url": {
+									"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/broker/v1/members/:lookup/:memberId/data",
+									"host": [
+										"{{pingServiceHost}}{{pingApiContext}}"
+									],
+									"path": [
+										"{{memberServiceContextRoot}}",
+										"api",
+										"broker",
+										"v1",
+										"members",
+										":lookup",
+										":memberId",
+										"data"
+									],
+									"variable": [
+										{
+											"key": "lookup",
+											"value": "byMemberCk"
+										},
+										{
+											"key": "memberId",
+											"value": "91722401"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Member Eligibility (B)",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Portal-Login",
+										"type": "text",
+										"value": "b621003926"
+									}
+								],
+								"url": {
+									"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/broker/v1/members/:lookup/:memberId/eligibility",
+									"host": [
+										"{{pingServiceHost}}{{pingApiContext}}"
+									],
+									"path": [
+										"{{memberServiceContextRoot}}",
+										"api",
+										"broker",
+										"v1",
+										"members",
+										":lookup",
+										":memberId",
+										"eligibility"
+									],
+									"query": [
+										{
+											"key": "asOfDate",
+											"value": "01-01-2022",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "lookup",
+											"value": "byMemberCk",
+											"description": "Allowed values: byLoginId, byMemberId, byMemberCk, bySubscriberCk, bySubscriberId."
+										},
+										{
+											"key": "memberId",
+											"value": "91722401"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Benefit Details (B)",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Portal-Login",
+										"value": "b621003926",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/broker/v1/members/:lookup/:memberId/benefits/:productType/:planId?displayMode=0",
+									"host": [
+										"{{pingServiceHost}}{{pingApiContext}}"
+									],
+									"path": [
+										"{{memberServiceContextRoot}}",
+										"api",
+										"broker",
+										"v1",
+										"members",
+										":lookup",
+										":memberId",
+										"benefits",
+										":productType",
+										":planId"
+									],
+									"query": [
+										{
+											"key": "asOfDate",
+											"value": "",
+											"description": "Lookup benefits as of the supplied date. If not specified, today's date is used.",
+											"disabled": true
+										},
+										{
+											"key": "displayMode",
+											"value": "0",
+											"description": "Use this binary flag to group and sort benefit data to the needs of the UI. Allowed values 0-7.Default value is 0.\n1 = Group service details by class. If this is false, service classes and details will appear in separate arrays.\n2 = Group service details into pairs by in-network and out-of-network costs.\n4 = Sort data automatically. If this is false, a \"sortOrder\" property is returned in each object.\nCombine values to achieve the desired output. For example, to group details by class and sort automatically, deliver 5 for this value."
+										}
+									],
+									"variable": [
+										{
+											"key": "lookup",
+											"value": "byMemberCk"
+										},
+										{
+											"key": "memberId",
+											"value": "91722401"
+										},
+										{
+											"key": "productType",
+											"value": "M"
+										},
+										{
+											"key": "planId",
+											"value": "MBSSOV2E"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Other Insurance (B)",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "t4InXqeRhTqtroB8diyafWlZc9ud",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Portal-Login",
+										"type": "text",
+										"value": "b621003926"
+									}
+								],
+								"url": {
+									"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/broker/v1/members/:lookup/:memberId/otherInsurance",
+									"host": [
+										"{{pingServiceHost}}{{pingApiContext}}"
+									],
+									"path": [
+										"{{memberServiceContextRoot}}",
+										"api",
+										"broker",
+										"v1",
+										"members",
+										":lookup",
+										":memberId",
+										"otherInsurance"
+									],
+									"variable": [
+										{
+											"key": "lookup",
+											"value": "byMemberCk"
+										},
+										{
+											"key": "memberId",
+											"value": "91722401"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Internal Context",
+					"item": [
+						{
+							"name": "Member Search",
+							"item": [
+								{
+									"name": "Member Search (INT w/ Login Lookup)",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "X-Portal-Login",
+												"type": "text",
+												"value": "d16267e"
+											}
+										],
+										"url": {
+											"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/internal/v1/members?subscriberId=902218823",
+											"host": [
+												"{{pingServiceHost}}{{pingApiContext}}"
+											],
+											"path": [
+												"{{memberServiceContextRoot}}",
+												"api",
+												"internal",
+												"v1",
+												"members"
+											],
+											"query": [
+												{
+													"key": "subscriberId",
+													"value": "902218823"
+												},
+												{
+													"key": "suffix",
+													"value": "0",
+													"disabled": true
+												},
+												{
+													"key": "ssn",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "groupId",
+													"value": "130299",
+													"disabled": true
+												},
+												{
+													"key": "departmentId",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "subGroupId",
+													"value": "0001",
+													"disabled": true
+												},
+												{
+													"key": "firstName",
+													"value": "chris",
+													"disabled": true
+												},
+												{
+													"key": "lastName",
+													"value": "hall",
+													"disabled": true
+												},
+												{
+													"key": "birthDate",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "city",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "state",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "zip",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "hicn",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "medicaidId",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "asOfDate",
+													"value": "09-18-2019",
+													"disabled": true
+												},
+												{
+													"key": "page",
+													"value": "1",
+													"disabled": true
+												},
+												{
+													"key": "pageSize",
+													"value": "20",
+													"disabled": true
+												},
+												{
+													"key": "relation",
+													"value": "M",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Subscriber Roster (INT)",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "X-Portal-Login",
+												"type": "text",
+												"value": "d16267e"
+											}
+										],
+										"url": {
+											"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/internal/v1/subscriberRoster?groupId=100000",
+											"host": [
+												"{{pingServiceHost}}{{pingApiContext}}"
+											],
+											"path": [
+												"{{memberServiceContextRoot}}",
+												"api",
+												"internal",
+												"v1",
+												"subscriberRoster"
+											],
+											"query": [
+												{
+													"key": "groupId",
+													"value": "100000"
+												},
+												{
+													"key": "subGroupId",
+													"value": "0001",
+													"disabled": true
+												},
+												{
+													"key": "departmentId",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "subscriberId",
+													"value": "902218823",
+													"disabled": true
+												},
+												{
+													"key": "asOfDate",
+													"value": "01-01-2022",
+													"disabled": true
+												},
+												{
+													"key": "page",
+													"value": "1",
+													"disabled": true
+												},
+												{
+													"key": "pageSize",
+													"value": "500",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Preflight / Page Count (INT)",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "X-Portal-Login",
+												"type": "text",
+												"value": "d16267e"
+											}
+										],
+										"url": {
+											"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/internal/v1/memberSearchPageCount?groupId=100000&relation=M&active=true",
+											"host": [
+												"{{pingServiceHost}}{{pingApiContext}}"
+											],
+											"path": [
+												"{{memberServiceContextRoot}}",
+												"api",
+												"internal",
+												"v1",
+												"memberSearchPageCount"
+											],
+											"query": [
+												{
+													"key": "groupId",
+													"value": "100000"
+												},
+												{
+													"key": "subGroupId",
+													"value": "0001",
+													"disabled": true
+												},
+												{
+													"key": "departmentId",
+													"value": "",
+													"disabled": true
+												},
+												{
+													"key": "subscriberId",
+													"value": "902218823",
+													"disabled": true
+												},
+												{
+													"key": "asOfDate",
+													"value": "01-01-2022",
+													"disabled": true
+												},
+												{
+													"key": "relation",
+													"value": "M"
+												},
+												{
+													"key": "active",
+													"value": "true"
+												},
+												{
+													"key": "page",
+													"value": "1",
+													"disabled": true
+												},
+												{
+													"key": "pageSize",
+													"value": "500",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Groups",
+							"item": [
+								{
+									"name": "Group Details (I)",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "MiNRZUcqHYgGsBP3Rb4A4HoxZWrv",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "X-Portal-Login",
+												"type": "text",
+												"value": "d16267e"
+											},
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Bearer t4InXqeRhTqtroB8diyafWlZc9ud",
+												"disabled": true
+											}
+										],
+										"url": {
+											"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/internal/v1/groups/:groupId",
+											"host": [
+												"{{pingServiceHost}}{{pingApiContext}}"
+											],
+											"path": [
+												"{{memberServiceContextRoot}}",
+												"api",
+												"internal",
+												"v1",
+												"groups",
+												":groupId"
+											],
+											"variable": [
+												{
+													"key": "groupId",
+													"value": "100000"
+												}
+											]
+										},
+										"description": "Details for a group. User must have access to the group in Xperm. For subgroup listing, use /subgroups."
+									},
+									"response": []
+								},
+								{
+									"name": "Subgroups (I)",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "MiNRZUcqHYgGsBP3Rb4A4HoxZWrv",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "X-Portal-Login",
+												"type": "text",
+												"value": "d16267e"
+											},
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Bearer t4InXqeRhTqtroB8diyafWlZc9ud",
+												"disabled": true
+											}
+										],
+										"url": {
+											"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/internal/v1/groups/:groupId/subgroups",
+											"host": [
+												"{{pingServiceHost}}{{pingApiContext}}"
+											],
+											"path": [
+												"{{memberServiceContextRoot}}",
+												"api",
+												"internal",
+												"v1",
+												"groups",
+												":groupId",
+												"subgroups"
+											],
+											"query": [
+												{
+													"key": "asOfDate",
+													"value": "01-01-2022",
+													"disabled": true
+												}
+											],
+											"variable": [
+												{
+													"key": "groupId",
+													"value": "100000"
+												}
+											]
+										},
+										"description": "List subgroups. Only subgroups that are active as of the specified date will be displayed."
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "V2 (Enterprise Services)",
+			"item": [
+				{
+					"name": "ESI Eligible (TEMP)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Portal-Login",
+								"value": "g100000",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/v2/members/properties/esiPharmacyEligible?subscriberId=ZYX900644305",
+							"host": [
+								"{{pingServiceHost}}{{pingApiContext}}"
+							],
+							"path": [
+								"{{memberServiceContextRoot}}",
+								"api",
+								"v2",
+								"members",
+								"properties",
+								"esiPharmacyEligible"
+							],
+							"query": [
+								{
+									"key": "subscriberId",
+									"value": "ZYX900644305"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Utilities",
+			"item": [
+				{
+					"name": "Service Status",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "MiNRZUcqHYgGsBP3Rb4A4HoxZWrv",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Portal-Login",
+								"value": "d16267e",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/util/v1/status",
+							"host": [
+								"{{pingServiceHost}}{{pingApiContext}}"
+							],
+							"path": [
+								"{{memberServiceContextRoot}}",
+								"api",
+								"util",
+								"v1",
+								"status"
+							]
+						},
+						"description": "Check the values of important service settings and the status of server resources. This test point is more accurate than using the WAS console, as the connections are tested on the actual application server instead of the NodeAgent."
+					},
+					"response": []
+				},
+				{
+					"name": "CORS Test (status)",
+					"request": {
+						"method": "OPTIONS",
+						"header": [],
+						"url": {
+							"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/util/v1/status",
+							"host": [
+								"{{pingServiceHost}}{{pingApiContext}}"
+							],
+							"path": [
+								"{{memberServiceContextRoot}}",
+								"api",
+								"util",
+								"v1",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get AppSetting",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/util/v1/appsettings/:settingName",
+							"host": [
+								"{{pingServiceHost}}{{pingApiContext}}"
+							],
+							"path": [
+								"{{memberServiceContextRoot}}",
+								"api",
+								"util",
+								"v1",
+								"appsettings",
+								":settingName"
+							],
+							"variable": [
+								{
+									"key": "settingName",
+									"value": "EB_Endpoint_COMSvcBroker"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All AppSettings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/util/v1/appsettings",
+							"host": [
+								"{{pingServiceHost}}{{pingApiContext}}"
+							],
+							"path": [
+								"{{memberServiceContextRoot}}",
+								"api",
+								"util",
+								"v1",
+								"appsettings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset AppLogger",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Portal-Login",
+								"type": "text",
+								"value": "d16267e"
+							}
+						],
+						"url": {
+							"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/ResetAppLoggerServlet?print=true",
+							"host": [
+								"{{pingServiceHost}}{{pingApiContext}}"
+							],
+							"path": [
+								"{{memberServiceContextRoot}}",
+								"ResetAppLoggerServlet"
+							],
+							"query": [
+								{
+									"key": "print",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Cache",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Portal-Login",
+								"value": "d16267e",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{pingServiceHost}}{{pingApiContext}}/{{memberServiceContextRoot}}/api/util/v1/cache",
+							"host": [
+								"{{pingServiceHost}}{{pingApiContext}}"
+							],
+							"path": [
+								"{{memberServiceContextRoot}}",
+								"api",
+								"util",
+								"v1",
+								"cache"
+							]
+						},
+						"description": "Refresh the service's AppSettings cache and clear all DynaCaches.\n**NOTE:** If making changes to application settings, make sure to refresh SettingsManagement **before** calling this function."
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

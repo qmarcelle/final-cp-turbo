@@ -16,6 +16,7 @@
       "@portals/testing/*": ["./packages/testing/src/*"],
       "@portals/logger/*": ["./packages/logger/src/*"],
       "@portals/shared-types/*": ["./packages/shared-types/src/*"],
+      "@portals/typescript-config/*": ["./packages/typescript-config/*"],
       "@portals/tsconfig/*": ["./packages/tsconfig/*"]
     },
     "types": ["node"],

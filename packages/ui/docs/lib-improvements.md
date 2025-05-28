@@ -7,6 +7,7 @@ Based on current best practices, here are the valuable additions for your Turbor
 ### **1. Advanced pnpm Workspace Configuration**### **2. Enhanced Turborepo Configuration**### **3. Radix Version Management Strategy**### **4. React 19 Enhanced Component Patterns**### **5. Enhanced Package Scripts & Tooling**## 🎯 **Key Valuable Additions from Research**
 
 ### **1. pnpm Catalogs for Version Management**
+
 The latest pnpm v9.5+ introduces **catalogs** - a game-changing feature that allows you to define dependency version ranges as reusable constants. This is perfect for your copy-paste shadcn approach:
 
 ```yaml
@@ -17,11 +18,13 @@ catalog:
 ```
 
 **Benefits:**
+
 - **Centralized version control** for all Radix packages
 - **Selective updates** - upgrade specific components when ready
 - **Consistency** across all workspace packages
 
 ### **2. Enhanced Turborepo Tasks for UI Management**
+
 Turborepo's latest versions support more granular task dependencies and input tracking. Add these tasks to your `turbo.json`:
 
 ```json
@@ -33,6 +36,7 @@ Turborepo's latest versions support more granular task dependencies and input tr
 ```
 
 ### **3. React 19 forwardRef Migration Strategy**
+
 React 19 deprecates forwardRef, and shadcn/ui components need updates. Your copy-paste approach is **perfect** here - you can modify components directly:
 
 ```typescript
@@ -55,6 +59,7 @@ const Button = ({ className, ref, ...props }: ButtonProps) => (
 ```
 
 ### **4. Workspace Boundary Management**
+
 Turborepo best practices emphasize avoiding `../` imports across package boundaries. Structure your imports properly:
 
 ```typescript
@@ -66,6 +71,7 @@ import { Button } from '../../packages/ui/src/components/button'
 ```
 
 ### **5. Partial Prerendering Support**
+
 Next.js 15's partial prerendering requires specific Turborepo output configuration:
 
 ```json
@@ -80,6 +86,7 @@ Next.js 15's partial prerendering requires specific Turborepo output configurati
 ```
 
 ### **6. Component Registry System**
+
 Managing shadcn/ui updates is challenging with the copy-paste approach. The component management script I created addresses this by:
 
 - **Tracking** which Radix versions each component uses
@@ -88,6 +95,7 @@ Managing shadcn/ui updates is challenging with the copy-paste approach. The comp
 - **Version pinning** for stability
 
 ### **7. Advanced pnpm Workspace Features**
+
 pnpm's strict dependency resolution catches bugs that npm/yarn miss. Use these patterns:
 
 ```json
@@ -109,18 +117,21 @@ pnpm's strict dependency resolution catches bugs that npm/yarn miss. Use these p
 ## 🚀 **Implementation Recommendations**
 
 ### **Phase 1: Foundation Setup**
+
 1. **Implement pnpm catalogs** for Radix version control
 2. **Add component registry system** for tracking changes
 3. **Update Turborepo configuration** with new task definitions
 4. **Setup React 19 patterns** in your component library
 
 ### **Phase 2: Component Migration**
+
 1. **Use the copy-paste approach** with version control
 2. **Implement component validation** before deployment
 3. **Create update scripts** for selective component updates
 4. **Document customizations** for future maintenance
 
 ### **Phase 3: Sitecore Preparation**
+
 1. **Implement hybrid component patterns** (static + CMS)
 2. **Setup route group architecture** for content vs app routes
 3. **Create component factory system** for Sitecore integration

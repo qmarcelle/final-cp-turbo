@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@portals/api-client": "workspace:*",
+    "@portals/sitecore-integration": "workspace:*",
+    "@portals/ui": "workspace:*",
+    "next": "^15.0.0",
+    "react": "^19.0.0"
+  }
+} 

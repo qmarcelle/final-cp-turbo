@@ -1,0 +1,22 @@
+{
+  "extends": "../../tsconfig.json", // Or your specific base config for packages
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "module": "ESNext", // tsup will handle CJS/ESM output
+    "target": "ES2020",
+    "lib": ["DOM", "ES2020"],
+    "esModuleInterop": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "moduleResolution": "node",
+    "declaration": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts", "tests", "docs"]
+}

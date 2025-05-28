@@ -1,280 +1,186 @@
-# @cp/api-client
+# @portals/api-client
 
-API client library for Consumer Portals applications.
+API client for accessing backend services in the portals monorepo.
 
-## Overview
-
-This package provides a standardized way to communicate with backend APIs from portal applications. It's built on top of Axios and SWR, offering data fetching, caching, and error handling functionality.
+This package provides a set of clients and services to interact with various backend APIs, including REST and SOAP services.
 
 ## Features
 
-- **HTTP Client**: Axios-based HTTP client with request/response interceptors
-- **Data Fetching**: SWR hooks for efficient data fetching with caching
-- **Error Handling**: Consistent error handling and reporting
-- **Type Safety**: TypeScript interfaces for API responses
-- **Authentication**: Automatic token handling and refresh
-- **Request Transformation**: Consistent request formatting
-- **Response Normalization**: Standardized response parsing
+- **BaseClient**: Generic HTTP client with built-in support for retries, timeouts, and logging to Azure Application Insights.
+- **RestClient**: Extends `BaseClient` for easy interaction with JSON-based RESTful APIs, including path templating and query parameter helpers.
+- **SoapClient**: Extends `BaseClient` for SOAP-based services, handling XML to JavaScript conversion (using `xml-js`).
+- **EndpointResolver**: Resolves service URLs based on environment variables (e.g., `API_BASE_URL`, `SOAP_URL_SERVICENAME`).
+- **ServiceRegistry**: Maps service names to their base URLs and types, configurable per environment.
+- **Transformers**: Utilities for request/response transformation (e.g., snake_case to camelCase, string dates to Date objects).
+- **Service Classes**: Type-safe classes for specific backend services (e.g., `MemberService`, `PaymentService`) extending `RestClient` or `SoapClient`.
+- **Singleton `apiClient`**: A single export for easy access to all registered services.
+- **Runtime Validation**: Uses `zod` for runtime validation of API request inputs and response outputs where schemas are provided.
 
 ## Installation
 
+This package is part of a pnpm workspace. It should be automatically available to other packages within the monorepo.
+
+If you need to add it as a dependency to a new app or package within the workspace:
+
 ```bash
-# Install in a portal application
-pnpm add @cp/api-client
-```
-
-## Usage
-
-### Basic Data Fetching
-
-```typescript
-import { useQuery } from '@cp/api-client';
-
-function UserProfile() {
-  const { data, error, isLoading } = useQuery('/api/user/profile');
-  
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
-  
-  return (
-    <div>
-      <h1>{data.name}</h1>
-      <p>{data.email}</p>
-    </div>
-  );
-}
-```
-
-### Data Mutations
-
-```typescript
-import { useMutation, useQuery } from '@cp/api-client';
-
-function ProfileEditor() {
-  const { data, mutate } = useQuery('/api/user/profile');
-  const { trigger, isMutating } = useMutation('/api/user/profile');
-  
-  const updateProfile = async (formData) => {
-    try {
-      // Optimistically update the UI
-      mutate({ ...data, ...formData }, false);
-      
-      // Send the update to the server
-      await trigger(formData, { method: 'PUT' });
-      
-      // Refresh data after successful mutation
-      mutate();
-    } catch (error) {
-      console.error('Failed to update profile:', error);
-    }
-  };
-  
-  // Component implementation
-}
-```
-
-### Direct API Calls
-
-```typescript
-import { apiClient } from '@cp/api-client';
-
-// GET request
-const fetchUser = async (userId) => {
-  const response = await apiClient.get(`/api/users/${userId}`);
-  return response.data;
-};
-
-// POST request
-const createUser = async (userData) => {
-  const response = await apiClient.post('/api/users', userData);
-  return response.data;
-};
-
-// PUT request
-const updateUser = async (userId, userData) => {
-  const response = await apiClient.put(`/api/users/${userId}`, userData);
-  return response.data;
-};
-
-// DELETE request
-const deleteUser = async (userId) => {
-  const response = await apiClient.delete(`/api/users/${userId}`);
-  return response.data;
-};
-```
-
-### With TypeScript
-
-```typescript
-import { useQuery, useMutation } from '@cp/api-client';
-
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  role: 'admin' | 'user';
-}
-
-function UserProfile() {
-  const { data, error } = useQuery<User>('/api/user/profile');
-  const { trigger } = useMutation<User>('/api/user/profile');
-  
-  // Type-safe access to user data
-  return data ? <div>Hello, {data.name}</div> : null;
-}
+pnpm add @portals/api-client --workspace
 ```
 
 ## Configuration
 
-The API client can be configured globally:
+### Environment Variables
+
+The following environment variables are used by the `EndpointResolver`:
+
+- `API_BASE_URL`: The base URL for RESTful services (e.g., `https://api.example.com/v1`). Defaults to `http://localhost:3000/api`.
+- `SOAP_URL_SERVICENAME`: The specific URL for a SOAP service, where `SERVICENAME` is the uppercase name of the service (e.g., `SOAP_URL_AUTHENTICATIONSERVICE=https://soap.example.com/auth`). Defaults to `http://localhost:8080/soap/SERVICENAME`.
+- `APPINSIGHTS_INSTRUMENTATIONKEY`: Your Azure Application Insights instrumentation key for logging.
+
+Ensure these are set in your environment (e.g., via `.env` files loaded by your application).
+
+### Service Registration
+
+Services need to be registered with the `ServiceRegistry` if they are not implicitly discoverable or require specific configurations. While service constructors often handle their own registration, you can also do it explicitly:
 
 ```typescript
-// In your app's entry point
-import { configureApiClient } from '@cp/api-client';
+import { ServiceRegistry, EndpointResolver } from '@portals/api-client';
 
-configureApiClient({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
-  timeout: 10000,
-  headers: {
-    'X-App-Version': process.env.NEXT_PUBLIC_APP_VERSION,
-  },
-  loggerOptions: {
-    level: 'info',
-    enabled: process.env.NODE_ENV !== 'production',
-  },
-});
+// Early in your application setup (e.g., main app file or a dedicated config file)
+ServiceRegistry.registerService('MyRestService', 'REST');
+ServiceRegistry.registerService(
+  'MySoapService',
+  'SOAP',
+  EndpointResolver.getSoapServiceUrl('MySoapService') // Or a hardcoded URL
+);
 ```
 
-## API Reference
+## Usage
 
-### Core Functions
-
-#### `useQuery<T>(url, options?)`
-
-React hook for data fetching with SWR.
-
-**Options:**
-- `method`: HTTP method (default: 'GET')
-- `params`: URL parameters
-- `headers`: Custom headers
-- `body`: Request body
-- `...swrOptions`: All SWR options
-
-**Returns:**
-- `data`: The fetched data
-- `error`: Error object if the request failed
-- `isLoading`: True during initial loading
-- `isValidating`: True during revalidation
-- `mutate`: Function to mutate the data
-
-#### `useMutation<T>(url, options?)`
-
-React hook for data mutations.
-
-**Options:**
-- `method`: HTTP method (default: 'POST')
-- `headers`: Custom headers
-- `onSuccess`: Callback after successful mutation
-- `onError`: Callback after failed mutation
-
-**Returns:**
-- `trigger`: Function to trigger the mutation
-- `isMutating`: True during mutation
-- `error`: Error object if the mutation failed
-- `reset`: Function to reset the mutation state
-
-#### `apiClient`
-
-Axios instance for direct API calls.
-
-- `apiClient.get(url, config?)`
-- `apiClient.post(url, data?, config?)`
-- `apiClient.put(url, data?, config?)`
-- `apiClient.delete(url, config?)`
-- `apiClient.request(config)`
-
-#### `configureApiClient(config)`
-
-Configure the API client globally.
-
-**Config:**
-- `baseURL`: Base URL for all requests
-- `timeout`: Request timeout in milliseconds
-- `headers`: Default headers
-- `interceptors`: Custom request/response interceptors
-- `loggerOptions`: Options for request/response logging
-
-## Error Handling
-
-The API client provides standardized error handling:
+Once services are defined and registered (typically done within their respective class files), you can use the singleton `apiClient`:
 
 ```typescript
-import { useQuery, ApiError } from '@cp/api-client';
+import { apiClient } from '@portals/api-client';
+import { z } from 'zod';
 
-function UserProfile() {
-  const { data, error } = useQuery('/api/user/profile');
-  
-  if (error) {
-    if (error instanceof ApiError) {
-      if (error.status === 401) {
-        return <div>Please log in to view your profile</div>;
-      }
-      if (error.status === 403) {
-        return <div>You don't have permission to view this profile</div>;
-      }
-      return <div>Error: {error.message}</div>;
-    }
-    return <div>An unexpected error occurred</div>;
+// Define Zod schemas for request and response types for type safety and validation
+const UserSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  email: z.string().email(),
+  createdAt: z.date(), // ResponseTransformer will attempt to parse string to Date
+});
+
+type User = z.infer<typeof UserSchema>;
+
+const NewUserSchema = z.object({
+  name: z.string().min(1),
+  email: z.string().email(),
+});
+type NewUser = z.infer<typeof NewUserSchema>;
+
+async function fetchUser(userId: string): Promise<User | null> {
+  try {
+    // Assuming MemberService is defined and has a getUser method
+    // And getUser method is configured to use UserSchema for response validation
+    // const user = await apiClient.member.getUser(userId, {}, UserSchema);
+    // console.log('User:', user);
+    // return user;
+
+    // Placeholder until MemberService is implemented:
+    console.log(`Placeholder: Fetching user ${userId}`);
+    // Simulating API call
+    await new Promise(resolve => setTimeout(resolve, 500));
+    const mockUserData = {
+        id: userId,
+        name: 'Jane Doe',
+        email: 'jane.doe@example.com',
+        created_at: new Date().toISOString(), // Simulate snake_case from backend
+    };
+    // Manually use ResponseTransformer here for demonstration
+    const { ResponseTransformer } = await import('@portals/api-client');
+    return ResponseTransformer.transform(mockUserData, UserSchema);
+
+  } catch (error) {
+    console.error('Failed to fetch user:', error);
+    return null;
   }
-  
-  // Render profile
 }
+
+async function createUser(userData: NewUser): Promise<User | null> {
+  try {
+    // Assuming MemberService has a createUser method
+    // that uses NewUserSchema for request and UserSchema for response validation
+    // const newUser = await apiClient.member.createUser(userData, NewUserSchema, UserSchema);
+    // console.log('Created User:', newUser);
+    // return newUser;
+    
+    // Placeholder:
+    console.log('Placeholder: Creating user', userData);
+    const { RequestTransformer, ResponseTransformer } = await import('@portals/api-client');
+    const transformedRequest = RequestTransformer.transform(userData, NewUserSchema);
+    console.log('Transformed request for backend:', transformedRequest);
+    // Simulating API call and response
+    await new Promise(resolve => setTimeout(resolve, 500));
+    const mockNewUserData = {
+        id: 'user-' + Math.random().toString(36).substring(2),
+        ...transformedRequest, // Use the transformed (snake_case) data
+        created_at: new Date().toISOString(),
+    };
+    return ResponseTransformer.transform(mockNewUserData, UserSchema);
+
+  } catch (error) {
+    console.error('Failed to create user:', error);
+    return null;
+  }
+}
+
+// Example calls (uncomment and adapt when services are implemented)
+// fetchUser('user-123').then(user => user && console.log('Fetched via function:', user));
+// createUser({ name: 'John Doe', email: 'john.doe@example.com' }).then(user => user && console.log('Created via function:', user));
 ```
 
-## Integration with Logger
+### Direct Client Usage (Advanced)
 
-This package integrates with `@cp/logger` for request/response logging:
+While `apiClient` is recommended, you can also instantiate clients directly:
 
 ```typescript
-import { configureApiClient } from '@cp/api-client';
-import { createLogger } from '@cp/logger';
+import { RestClient, EndpointResolver } from '@portals/api-client';
 
-const logger = createLogger({ name: 'api' });
+const customRestClient = new RestClient(EndpointResolver.getApiBaseUrl());
 
-configureApiClient({
-  loggerOptions: {
-    logger, // Use the custom logger
-    level: 'debug',
-    includeTiming: true,
-    includeHeaders: false,
-  },
-});
+// async function getSomeData() {
+//   const data = await customRestClient.get<{ message: string }>('/some-endpoint');
+//   console.log(data.message);
+// }
 ```
 
-## Best Practices
+## Development
 
-### Data Fetching
+- Build: `pnpm build`
+- Watch mode: `pnpm dev`
+- Test: `pnpm test`
+- Lint: `pnpm lint`
+- Clean: `pnpm clean`
+- Generate Docs: `pnpm docs` (output to `docs/` directory)
 
-- Use `useQuery` for data that needs to be displayed
-- Use `useMutation` for data that needs to be modified
-- Use `apiClient` directly for one-off API calls
+## Testing
 
-### Error Handling
+Tests are written using Jest and Mock Service Worker (MSW). Test files are located under `tests/` or `src/**/__tests__`.
 
-- Always handle errors in components that use API calls
-- Use specific error types for different error conditions
-- Provide user-friendly error messages
-
-### Performance
-
-- Use SWR's caching capabilities for frequently accessed data
-- Invalidate cache appropriately after mutations
-- Use pagination for large data sets
+Run tests with `pnpm test`.
 
 ## Contributing
 
-Please refer to the main repository's contributing guidelines.
+Please follow the monorepo's contribution guidelines.
 
-## License
+## Documentation
 
-Proprietary and Confidential 
+TypeDoc generated documentation can be found in the `docs/` directory after running `pnpm docs`.
+
+Key modules:
+
+- `clients/`: Core HTTP client implementations.
+- `config/`: Configuration management (`EndpointResolver`, `ServiceRegistry`).
+- `services/`: Business-logic specific service classes.
+- `transformers/`: Data transformation utilities.
+- `index.ts`: Main package exports, including the `apiClient` singleton.
