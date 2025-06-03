@@ -6,12 +6,7 @@
     "sourceMap": true,
     "rootDir": "./src",
     "esModuleInterop": true,
-    "skipLibCheck": true,
-    "types": ["node"],
-    "typeRoots": [
-      "../../node_modules/@types",
-      "./node_modules/@types"
-    ]
+    "skipLibCheck": true
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules", "dist", "**/*.spec.ts", "**/*.test.ts", "**/*.cy.ts"]

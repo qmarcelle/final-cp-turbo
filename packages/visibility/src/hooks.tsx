@@ -1,26 +1,30 @@
 'use client'; // This directive is important for hooks using context
 
-import React, { createContext, useContext, useMemo, PropsWithChildren } from 'react';
+import React, { createContext, useContext, useMemo, PropsWithChildren, Context } from 'react';
 import { useSession, SessionContextValue } from 'next-auth/react';
-import type { SessionUser } from '@portals/auth/src/userManagement/models/sessionUser'; // Adjust path as needed
+import type { SessionUser } from '@portals/auth';
 import type { VisibilityContextType } from './types'; // Assuming types.ts defines this
 
-const VisibilityContext = createContext<VisibilityContextType | undefined>(undefined);
+// Explicitly type VisibilityContext
+const VisibilityContext: Context<VisibilityContextType | undefined> = createContext<VisibilityContextType | undefined>(undefined);
 
 export const VisibilityProvider: React.FC<PropsWithChildren<{}>> = ({ children }) => {
   const { data: session, status }: SessionContextValue = useSession();
   const isLoading = status === 'loading';
 
   const vRules = useMemo(() => {
-    // Ensure session.user and session.user.vRules exist
     const user = session?.user as SessionUser | undefined;
     return user?.vRules || {};
   }, [session, status]);
 
+  // Determine if there's an error state from next-auth session
+  // (e.g., 'RefreshAccessTokenError' if token refresh failed)
+  const sessionError = session?.error === 'RefreshAccessTokenError' ? new Error('Session token refresh failed') : undefined;
+
   const contextValue: VisibilityContextType = {
     vRules,
     isLoading,
-    error: session?.error as Error | undefined, // Propagate error if present
+    error: sessionError, // Propagate session error
   };
 
   return (
@@ -42,10 +46,13 @@ export function useFeatureFlag(featureKey: string): boolean {
   const { vRules, isLoading, error } = useVisibility();
   
   if (isLoading) {
-    return false; // Don't grant access while loading
+    // Potentially return a default or throw, depending on desired behavior for loading state
+    return false; 
   }
   if (error) {
-    return false; // Don't grant access if there was an error loading session/rules
+    // Handle error state, e.g., log it and deny access
+    console.error('Visibility error:', error);
+    return false;
   }
   return vRules[featureKey] === true;
 }
@@ -60,19 +67,22 @@ interface GuardProps extends PropsWithChildren {
 export const Guard: React.FC<GuardProps> = ({ 
   feature, 
   fallback = null, 
-  loadingFallback = <p>Loading feature access...</p>, // Default loading fallback
+  loadingFallback = <p>Loading...</p>, 
   children 
 }) => {
-  const { isLoading, error } = useVisibility();
-  const isAllowed = useFeatureFlag(feature); // This already handles isLoading internally
+  const { isLoading, error } = useVisibility(); // Get isLoading and error states
+  const isAllowed = useFeatureFlag(feature);   // This already incorporates isLoading and error logic
 
   if (isLoading) {
-    return <>{loadingFallback}</>; 
+    return <>{loadingFallback}</>;
   }
-  if (error) {
-    // If there was an error (e.g. refreshing token, loading rules), deny access or show specific error fallback
-    return <>{fallback}</>; 
-  }
+  
+  // If useFeatureFlag already handles the error state by returning false, 
+  // this specific error check might be redundant unless you want different UI for errors vs. denied.
+  // For now, relying on useFeatureFlag's handling.
+  // if (error) {
+  //   return <>{fallback}</>; // Or a specific error fallback
+  // }
 
   return isAllowed ? <>{children}</> : <>{fallback}</>;
 }; 

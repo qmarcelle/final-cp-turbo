@@ -132,3 +132,18 @@ jest-cache
 # Cypress
 .cypress-cache
 .github/copilot-instructions.md
+
+# Packages to ignore
+/packages/testing/
+/packages/sitecore-integration/
+/packages/shared-utils/
+/packages/shared-types/
+/packages/logger/
+/packages/auth/
+/packages/config/
+/packages/web/
+
+# Apps to ignore
+/apps/web/
+/apps/member/
+/apps/member-portal/

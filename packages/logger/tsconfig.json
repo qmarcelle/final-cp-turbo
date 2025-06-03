@@ -1,7 +1,7 @@
 {
   // Logger package TypeScript configuration
   // Provides standardized logging utilities for the application
-  "extends": "@portals/typescript-config/base.json",
+  "extends": "../typescript-config/tsconfig/base.json",
   "compilerOptions": {
     "declaration": true,
     "noEmit": false,

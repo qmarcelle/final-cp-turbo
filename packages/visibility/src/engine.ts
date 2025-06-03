@@ -1,27 +1,51 @@
 import { BaseEngine } from '@portals/visibility-core';
 import { RulesConfig, RulesConfigSchema, RuleDef } from './rules.schema';
-import { switchableEntitiesConfig, planSwitchServiceAdapter } from '@portals/auth/src';
+import type { SessionUser } from '@portals/auth';
+import { switchableEntitiesConfig, planSwitchServiceAdapter } from '@portals/auth';
 import fs from 'fs';
 import path from 'path';
 import yaml from 'js-yaml';
-import Jexl from 'jexl';
+import jexl from 'jexl';
 // import { fetchRulesFromSitecore } from '@portals/sitecore-integration/src/services'; // Correct path after sitecore-integration is scaffolded
+
+// Helper function to safely evaluate Jexl expressions to a boolean
+async function safeJexlEvalToBoolean(
+  engine: InstanceType<typeof jexl.Jexl>,
+  expression: string,
+  context: any
+): Promise<boolean> {
+  try {
+    const result = await engine.eval(expression, context);
+    if (typeof result === 'boolean') {
+      return result;
+    }
+    return Boolean(result);
+  } catch (evalError) {
+    console.error(`Jexl evaluation error for expression '${expression}':`, evalError);
+    return false;
+  }
+}
 
 // Placeholder for Sitecore fetch function until its package is scaffolded
 async function fetchRulesFromSitecore(): Promise<string> {
   console.warn("fetchRulesFromSitecore is using a placeholder implementation.");
-  // Simulate fetching YAML string, perhaps return a default minimal valid YAML
   return `rules:\n  fallbackFeature:\n    type: static\n    value: false`;
 }
 
-export class PolicyEngine extends BaseEngine<any, RulesConfig> {
-  private jexl: Jexl.Jexl;
+// Define a type for the context used in computeRules
+interface PolicyEvaluationContext {
+  userInfo: SessionUser | any; // Consider if 'any' can be narrowed
+  member: any; // Consider if 'any' can be narrowed
+}
+
+export class PolicyEngine extends BaseEngine<PolicyEvaluationContext, RulesConfig> {
+  private jexlEngine: InstanceType<typeof jexl.Jexl>;
 
   private constructor(config: RulesConfig) {
     super(config);
-    this.jexl = new Jexl.Jexl();
+    this.jexlEngine = new jexl.Jexl();
     // You can register custom Jexl transforms or functions here if needed
-    // this.jexl.addTransform('upper', (val: string) => val.toUpperCase());
+    // this.jexlEngine.addTransform('upper', (val: string) => val.toUpperCase());
   }
 
   static async loadConfig(): Promise<PolicyEngine> {
@@ -65,8 +89,10 @@ export class PolicyEngine extends BaseEngine<any, RulesConfig> {
     }
   }
 
-  async computeRules(userInfo: any, member: any): Promise<Record<string, boolean>> {
-    let currentMember = member;
+  async computeRules(ctx: PolicyEvaluationContext): Promise<Record<string, boolean>> {
+    let currentMember = ctx.member;
+    const userInfo = ctx.userInfo;
+
     // If user has switched plans in-session, update member data
     if (userInfo && userInfo.selectedPlan && switchableEntitiesConfig.plans.includes(userInfo.selectedPlan)) {
       try {
@@ -74,22 +100,27 @@ export class PolicyEngine extends BaseEngine<any, RulesConfig> {
         currentMember = await planSwitchServiceAdapter.fetchMemberForPlan(userInfo.id, userInfo.selectedPlan);
       } catch (error) {
         console.error(`Error fetching member data for switched plan ${userInfo.selectedPlan}:`, error);
-        // Decide on fallback behavior: use stale member data, or deny all, or specific error state?
-        // For now, we proceed with potentially stale `member` data passed in if fetch fails.
+        // Should currentMember be reset or error propagated further?
       }
     }
 
-    const context = { 
-      userInfo, // Make sure userInfo is what you expect (e.g., includes roles, lob, authFunctions)
-      member: currentMember, // Use potentially updated member data
+    // Define a type for evaluationContext for clarity and stricter typing
+    interface JexlEvaluationContext {
+      userInfo: SessionUser | any; // Match PolicyEvaluationContext or be more specific
+      member: any; // Match PolicyEvaluationContext or be more specific
+      today: Date;
+    }
+
+    const evaluationContext: JexlEvaluationContext = { 
+      userInfo,
+      member: currentMember,
       today: new Date(),
-      // Add other contextual data sources if needed
     };
     const output: Record<string, boolean> = {};
 
     if (!this.config || !this.config.rules) {
       console.warn("PolicyEngine has no rules configured or config is undefined.");
-      return {};
+      return {}; // Revert to simple empty object
     }
 
     for (const [key, ruleDefUntyped] of Object.entries(this.config.rules)) {
@@ -97,8 +128,9 @@ export class PolicyEngine extends BaseEngine<any, RulesConfig> {
       try {
         switch (ruleDef.type) {
           case 'attribute':
-            // Ensure path is a string and context is provided
-            output[key] = ruleDef.path ? Boolean(await this.jexl.eval(ruleDef.path, context)) : false;
+            output[key] = ruleDef.path 
+              ? await safeJexlEvalToBoolean(this.jexlEngine, ruleDef.path, evaluationContext) 
+              : false;
             break;
           case 'lob':
             output[key] = userInfo && userInfo.lob ? ruleDef.values.includes(userInfo.lob) : false;
@@ -109,16 +141,26 @@ export class PolicyEngine extends BaseEngine<any, RulesConfig> {
                             : false;
             break;
           case 'authFunction':
-            // Ensure userInfo.authFunctions is an array of { functionName: string, available: boolean }
+            let isAuthorized: boolean = false;
             if (userInfo && Array.isArray(userInfo.authFunctions)) {
-              const authFuncMap = new Map(userInfo.authFunctions.map((fn: {functionName: string; available: boolean}) => [fn.functionName, fn.available]));
-              output[key] = authFuncMap.get(ruleDef.name) || false;
-            } else {
-              output[key] = false;
+              // Explicitly type the map to ensure it stores booleans
+              const authFuncMap: Map<string, boolean> = new Map(
+                userInfo.authFunctions.map((fn: { functionName: string; available: unknown }) => [
+                  fn.functionName,
+                  Boolean(fn.available) // Ensure the stored value is a boolean
+                ])
+              );
+              const mapValue = authFuncMap.get(ruleDef.name);
+              if (typeof mapValue === 'boolean') {
+                isAuthorized = mapValue;
+              }
             }
+            output[key] = isAuthorized;
             break;
           case 'computed':
-            output[key] = ruleDef.expr ? Boolean(await this.jexl.eval(ruleDef.expr, context)) : false;
+            output[key] = ruleDef.expr 
+              ? await safeJexlEvalToBoolean(this.jexlEngine, ruleDef.expr, evaluationContext) 
+              : false;
             break;
           case 'static':
             output[key] = ruleDef.value;

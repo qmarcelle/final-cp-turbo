@@ -14,8 +14,8 @@
   "dependencies": {
     "@portals/api-client": "workspace:*",
     "@sitecore-jss/sitecore-jss-nextjs": "^22.0.0",
-    "@trpc/client": "^10.45.0",
-    "@trpc/react-query": "^10.45.0",
+    "@trpc/client": "^11.1.2",
+    "@trpc/react-query": "^11.1.2",
     "react": "^19.0.0",
     "react-error-boundary": "^4.0.0",
     "node-fetch": "^2.6.7",
@@ -25,12 +25,13 @@
     "@portals/ui": "workspace:*"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.12",
     "@types/node": "^20.11.24",
     "@types/react": "^19.0.0",
     "@types/node-fetch": "^2.6.7",
     "eslint": "^8.57.0",
     "tsup": "^8.0.2",
-    "typescript": "~5.6.0"
+    "typescript": "^5.7.2"
   },
   "exports": {
     ".": {

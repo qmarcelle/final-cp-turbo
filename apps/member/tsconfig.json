@@ -3,20 +3,28 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "@portals/*": ["../../packages/*"] // To help resolve workspace packages
+      "@/*": [
+        "./src/*"
+      ],
+      "@portals/*": [
+        "../../packages/*"
+      ] // To help resolve workspace packages
     },
     "plugins": [
       {
         "name": "next"
       }
-    ]
+    ],
+    "incremental": true
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "../../packages/auth/src/next-auth.d.ts"
   ],
-  "exclude": ["node_modules"]
-} 
+  "exclude": [
+    "node_modules"
+  ]
+}

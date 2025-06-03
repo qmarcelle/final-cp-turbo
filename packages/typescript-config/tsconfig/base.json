@@ -15,8 +15,7 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
-    "types": ["node", "jest"]
+    "jsx": "preserve"
   },
   "files": ["../typings/global.d.ts"],
   "exclude": ["node_modules", ".next", "dist"]

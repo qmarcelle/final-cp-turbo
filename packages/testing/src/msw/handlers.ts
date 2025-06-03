@@ -103,7 +103,7 @@ export const handlers = [
   }),
 
   // GET /api/claims/:id - Get a specific claim
-  http.get('/api/claims/:id', ({ params }) => {
+  http.get('/api/claims/:id', ({ params }: { params: { id: string } }) => {
     const { id } = params;
     const claim = mockClaims.find(c => c.id === id);
     
@@ -124,7 +124,7 @@ export const handlers = [
   }),
 
   // GET /api/claims/:id/eob - Get EOB document
-  http.get('/api/claims/:id/eob', ({ params }) => {
+  http.get('/api/claims/:id/eob', ({ params }: { params: { id: string } }) => {
     const { id } = params;
     const claim = mockClaims.find(c => c.id === id);
     

@@ -43,7 +43,8 @@
   "pnpm": {
     "overrides": {
       "glob": "^10.3.10",
-      "rimraf": "^5.0.5"
+      "rimraf": "^5.0.5",
+      "chalk": "4.1.2"
     }
   }
 }

@@ -1,4 +1,5 @@
-import NextAuth, { NextAuthOptions, User as NextAuthUser, Account, Profile, JWT, Session as NextAuthSession } from 'next-auth';
+import NextAuth, { NextAuthOptions, User as NextAuthUser, Account, Profile, Session as NextAuthSession } from 'next-auth';
+import type { JWT } from 'next-auth/jwt';
 // import { Provider } from 'next-auth/providers'; // Not a standard export path, CredentialsProvider is a Provider
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { verifyCredentials, getMfaDevices } from './authStore';

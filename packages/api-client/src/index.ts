@@ -27,8 +27,13 @@ export * from './clients/RestClient';
 export * from './clients/SoapClient';
 export * from './config/EndpointResolver';
 export * from './config/ServiceRegistry';
-export * from './transformers/RequestTransformer';
-export * from './transformers/ResponseTransformer';
+
+// Explicitly re-export problematic transformers
+import { RequestTransformer as RT } from './transformers/RequestTransformer';
+import { ResponseTransformer as ResT } from './transformers/ResponseTransformer';
+
+export { RT as RequestTransformer };
+export { ResT as ResponseTransformer };
 
 // Placeholder for the actual client when services are defined
 export const apiClient = {

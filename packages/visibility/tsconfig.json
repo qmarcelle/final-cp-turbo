@@ -9,6 +9,9 @@
     },
     "jsx": "react-jsx"
   },
-  "include": ["src"],
+  "include": [
+    "src",
+    "../../packages/auth/src/next-auth.d.ts"
+  ],
   "exclude": ["node_modules", "dist"]
 } 

@@ -7,8 +7,8 @@
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts --sourcemap",
-    "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
+    "build": "tsup src/index.ts --format cjs,esm --dts --sourcemap --dts-resolve",
+    "dev": "tsup src/index.ts --format cjs,esm --dts --watch --dts-resolve",
     "test": "jest --passWithNoTests",
     "test:watch": "jest --watch",
     "lint": "eslint . --ext .ts,.tsx --report-unused-disable-directives --max-warnings 0",

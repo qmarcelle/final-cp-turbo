@@ -23,7 +23,7 @@ export class SoapClient extends BaseClient {
     return js2xml(soapBody, { compact: true, spaces: 2 });
   }
 
-  protected async request<TResponse>(
+  protected async performSoapRequest<TResponse>(
     endpoint: string, // For SOAP, this might be fixed or part of the base URL
     soapAction: string, // The SOAPAction to be performed
     payload: object, // The JS object to be converted to XML for the SOAP body
@@ -69,7 +69,7 @@ export class SoapClient extends BaseClient {
                 // Attempt to parse XML error for more details
                 let errorDetails = errorText;
                 try {
-                    const parsedError = xml2js(errorText, { compact: true, alwaysChildren: true });
+                    const parsedError = xml2js(errorText, { compact: true, alwaysChildren: true }) as any;
                     // Extract relevant error message from parsedError, e.g., from soap:Fault
                     const fault = parsedError['soap:Envelope']?.['soap:Body']?.['soap:Fault'];
                     if (fault) {
@@ -124,7 +124,7 @@ export class SoapClient extends BaseClient {
   // public async someSoapOperation(params: SomeSoapParams, options?: Omit<RequestOptions, 'body' | 'method'>): Promise<SomeSoapResponse> {
   //   const payload = { 'ns1:SomeOperationRequest': { _attributes: { 'xmlns:ns1': 'http://example.com/your/namespace' }, 'ns1:Param1': params.param1 } };
   //   // This response extraction logic will be highly specific to your WSDL
-  //   const rawResponse = await this.request(
+  //   const rawResponse = await this.performSoapRequest(
   //     '/YourSoapServiceEndpoint', // Often fixed or part of baseUrl for SOAP
   //     'urn:YourNamespace:SomeOperation', // The SOAPAction
   //     payload,
