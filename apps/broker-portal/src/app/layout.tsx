@@ -1,8 +1,10 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import '../styles/globals.css';
 
-const inter = Inter({ subsets: ['latin'] });
+// import '@fontsource/inter/400.css'; // Regular
+// import '@fontsource/inter/500.css'; // Medium
+// import '@fontsource/inter/600.css'; // SemiBold
+// import '@fontsource/inter/700.css'; // Bold
 
 export const metadata: Metadata = {
   title: 'Broker Portal',
@@ -16,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className="font-sans">
         {children}
       </body>
     </html>

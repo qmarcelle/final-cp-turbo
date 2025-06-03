@@ -27,7 +27,7 @@
     "analyze": "turbo analyze",
     "prune": "turbo prune",
     "gen:workspace": "turbo gen workspace",
-    "build:ui": "cd packages/ui && pnpm build",
+    "build:ui": "cd packages/ui && pnpm build"
   },
   "devDependencies": {
     "@headlessui/react": "^2.2.0",
@@ -78,5 +78,8 @@
         "react-dom": "18"
       }
     }
+  },
+  "dependencies": {
+    "@fontsource/inter": "^5.2.5"
   }
 }

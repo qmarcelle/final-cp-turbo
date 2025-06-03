@@ -13,7 +13,7 @@
       "@types/*": ["./src/types/*"],
       "@styles/*": ["./src/styles/*"],
       "@cp/ui/*": ["./packages/ui/src/*"],
-      "@cp/testing/*": ["./packages/testing/src/*"],
+      "@cp/appSettings/*": ["./packages/testing/src/*"],
       "@cp/logger/*": ["./packages/logger/src/*"],
       "@cp/tsconfig/*": ["./packages/tsconfig/*"]
     },

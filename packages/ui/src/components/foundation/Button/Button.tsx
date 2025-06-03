@@ -2,6 +2,10 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../../../utils/cn';
 import Link from 'next/link';
+import { Slot } from '@radix-ui/react-slot';
+
+// First, install the required dependency
+// npm install @radix-ui/react-slot
 
 const buttonVariants = cva(
   "inline-flex items-center justify-center rounded-lg font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none",
@@ -55,31 +59,38 @@ export interface ButtonProps
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, href, url, type = "button", disabled, children, ...props }, ref) => {
     const linkHref = href || url;
+    const Comp = asChild ? Slot : "button";
 
     if (linkHref) {
-      // Only pass compatible props to Link component
       return (
         <Link 
           href={linkHref}
-          className={cn(buttonVariants({ variant, size }), className)}
-          aria-disabled={disabled ? true : undefined}
-          onClick={disabled ? (e: React.MouseEvent) => e.preventDefault() : undefined}
+          passHref
+          legacyBehavior
         >
-          <span>{children}</span>
+          <a 
+            className={cn(buttonVariants({ variant, size }), className)}
+            aria-disabled={disabled ? true : undefined}
+            onClick={disabled ? (e: React.MouseEvent) => e.preventDefault() : undefined}
+          >
+            {children}
+          </a>
         </Link>
       );
     }
 
     return (
-      <button
+      <Comp
         ref={ref}
-        type={type}
+        type={!asChild ? type : undefined}
         role="button"
         disabled={disabled}
         aria-disabled={disabled}
         className={cn(buttonVariants({ variant, size }), className)}
         {...props}
-      />
+      >
+        {children}
+      </Comp>
     );
   }
 );

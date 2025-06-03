@@ -6,7 +6,7 @@ import { Input  } from '../../foundation/Input'
 import { FormLayout  } from '../../composite/FormLayout/FormLayout'
 import { FormField  } from '../../composite/FormField/FormField'
 import { fieldBuilders } from '@/utils/form-validation'
-import type { FormFieldValues  } from '../../../utils/../types/form'
+import type { FormFieldValues  } from '../../types'
 
 const enrolleeSchema = z.object({
   ...fieldBuilders.name('Enrollee'),
