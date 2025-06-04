@@ -13,6 +13,10 @@
       ],
       "cache": true
     },
+    "@portals/types#build": {
+      "outputs": [],
+      "cache": false
+    },
     "lint": {
       "outputs": [],
       "cache": true,
