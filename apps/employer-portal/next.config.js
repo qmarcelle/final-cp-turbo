@@ -6,10 +6,10 @@ const nextConfig = {
   // Ensure assets are also served from this path
   assetPrefix: '/employer',
   transpilePackages: [
-    "@cp/ui",
-    "@cp/logger", 
-    "@cp/testing",
-    "@cp/utils"
+          "@portals/ui",
+      "@portals/logger",
+      "@portals/testing",
+      "@portals/utils"
   ],
   eslint: {
     // Allow production builds to successfully complete even with ESLint errors

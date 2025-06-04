@@ -20,23 +20,23 @@ The Consumer Portals platform is built as a monorepo using TurboRepo, containing
         │                        │
         v                        v
 ┌──────────────────────────────────────────┐
-│                  @cp/ui                   │
+│                  @portals/ui                   │
 ├──────────────────────────────────────────┤
-│                @cp/router                 │
+│                @portals/router                 │
 ├──────────────────────────────────────────┤
-│                 @cp/auth                  │
+│                 @portals/auth                  │
 ├──────────────────────────────────────────┤
-│              @cp/api-client               │
+│              @portals/api-client               │
 └──────────────────────────────────────────┘
                     │
                     v
 ┌──────────────────────────────────────────┐
-│                @cp/logger                 │
+│                @portals/logger                 │
 └──────────────────────────────────────────┘
 
 ┌──────────────────────────────────────────┐
 │           shared-configurations           │
-│    @cp/tsconfig, eslint-config-custom    │
+│    @portals/tsconfig, eslint-config-custom    │
 └──────────────────────────────────────────┘
 ```
 
@@ -82,7 +82,7 @@ The Consumer Portals platform is built as a monorepo using TurboRepo, containing
 
 The shared configuration packages ensure consistent development across all packages:
 
-### TypeScript Configuration (@cp/tsconfig)
+### TypeScript Configuration (@portals/tsconfig)
 
 - Provides base TypeScript settings for different project types
 - Ensures type consistency across the monorepo
@@ -115,7 +115,7 @@ The shared configuration packages ensure consistent development across all packa
 UI components are integrated into portal applications through direct imports:
 
 ```tsx
-import { Button, Input, FormLayout } from '@cp/ui';
+import { Button, Input, FormLayout } from '@portals/ui';
 
 function LoginForm() {
   return (
@@ -133,7 +133,7 @@ function LoginForm() {
 Auth is integrated with portal applications using hooks and providers:
 
 ```tsx
-import { useSession, signIn, signOut } from '@cp/auth';
+import { useSession, signIn, signOut } from '@portals/auth';
 
 function ProfileButton() {
   const { data: session, status } = useSession();
@@ -151,7 +151,7 @@ function ProfileButton() {
 API client is used for data fetching and mutations:
 
 ```tsx
-import { useQuery, useMutation } from '@cp/api-client';
+import { useQuery, useMutation } from '@portals/api-client';
 
 function UserProfile() {
   const { data, isLoading, error } = useQuery('/api/user/profile');
@@ -170,7 +170,7 @@ function UserProfile() {
 Logger is used for consistent logging across all packages:
 
 ```tsx
-import { createLogger } from '@cp/logger';
+import { createLogger } from '@portals/logger';
 
 const logger = createLogger({ name: 'user-service' });
 

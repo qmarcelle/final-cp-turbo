@@ -1,4 +1,4 @@
-# @cp/logger
+# @portals/logger
 
 A shared logging library for Consumer Portals applications.
 
@@ -19,7 +19,7 @@ This package provides a centralized, consistent logging solution for all portal 
 
 ```bash
 # Install in a portal application
-pnpm add @cp/logger
+pnpm add @portals/logger
 ```
 
 ## Usage
@@ -27,7 +27,7 @@ pnpm add @cp/logger
 ### Basic Usage
 
 ```typescript
-import { createLogger } from '@cp/logger';
+import { createLogger } from '@portals/logger';
 
 // Create a logger instance
 const logger = createLogger({
@@ -44,7 +44,7 @@ logger.debug('Debug information', { requestId: '123', userId: 'user-456' });
 ### With Request Context
 
 ```typescript
-import { createLogger, withRequest } from '@cp/logger';
+import { createLogger, withRequest } from '@portals/logger';
 import type { NextApiRequest } from 'next';
 
 const logger = createLogger({ name: 'api' });
@@ -70,7 +70,7 @@ export default function handler(req: NextApiRequest, res) {
 
 ```typescript
 // app/api/example/route.ts
-import { createLogger } from '@cp/logger';
+import { createLogger } from '@portals/logger';
 import { NextRequest, NextResponse } from 'next/server';
 
 const logger = createLogger({ name: 'api-route' });
@@ -98,7 +98,7 @@ export async function GET(request: NextRequest) {
 The logger can be configured with various options:
 
 ```typescript
-import { createLogger } from '@cp/logger';
+import { createLogger } from '@portals/logger';
 
 const logger = createLogger({
   name: 'service-name',       // Service name for log identification

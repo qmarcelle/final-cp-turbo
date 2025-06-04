@@ -37,7 +37,7 @@ function formatFileSize(bytes: number): string {
 }
 
 export const FileUpload = React.forwardRef<
-  HTMLElement,
+  HTMLInputElement,
   FileUploadProps<any>
 >(({
     name,

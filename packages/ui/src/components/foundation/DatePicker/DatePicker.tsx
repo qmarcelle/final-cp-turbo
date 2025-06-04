@@ -62,7 +62,7 @@ export interface DatePickerProps<TFieldValues extends FieldValues = FieldValues>
 }
 
 export const DatePicker = React.forwardRef<
-  HTMLElement,
+  ReactDatePicker,
   DatePickerProps<any>
 >(({
     name,

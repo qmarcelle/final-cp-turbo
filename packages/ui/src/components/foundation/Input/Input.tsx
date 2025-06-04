@@ -6,7 +6,7 @@ import { cn } from '../../../utils/cn'
 import clsx from 'clsx'
 import { debounce } from 'lodash'
 import { IMaskInput } from 'react-imask'
-import type { FormFieldProps, FormFieldValues  } from '@cp/types'
+import type { FormFieldProps, FormFieldValues  } from '@portals/types'
 import { z } from 'zod'
 
 // Define the mask options schema

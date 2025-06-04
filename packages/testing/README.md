@@ -129,7 +129,7 @@ MSW is set up and ready to use in both Jest and Cypress tests. The package inclu
 // Import the http and HttpResponse from MSW
 import { http, HttpResponse } from 'msw';
 // Import the test server
-import { server } from '@cp/testing/msw';
+import { server } from '@portals/testing/msw';
 
 describe('API Testing Example', () => {
   // Start the server before all tests
@@ -308,7 +308,7 @@ describe('UserProfile Component', () => {
 
 ```typescript
 // Import the worker from the browser MSW setup
-import { worker } from '@cp/testing/msw/browser';
+import { worker } from '@portals/testing/msw/browser';
 import { http, HttpResponse } from 'msw';
 import ClientList from './ClientList';
 
@@ -500,7 +500,7 @@ To use MSW during local development:
 ```typescript
 // In your app's entry point (e.g., main.tsx)
 if (process.env.NODE_ENV === 'development') {
-  import('@cp/testing/msw/init-msw').then(({ initMswForDevelopment }) => {
+  import('@portals/testing/msw/init-msw').then(({ initMswForDevelopment }) => {
     initMswForDevelopment({
       // Enable console logging of intercepted requests
       enableLogging: true,
@@ -567,7 +567,7 @@ export const handlers = [
 ```typescript
 // In your test file
 import { http, HttpResponse } from 'msw';
-import { server } from '@cp/testing/msw';
+import { server } from '@portals/testing/msw';
 
 beforeEach(() => {
   // Add custom handlers just for this test suite

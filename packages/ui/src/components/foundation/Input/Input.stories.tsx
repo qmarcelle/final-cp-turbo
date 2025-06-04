@@ -6,6 +6,7 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { EnvelopeIcon, PhoneIcon, CurrencyDollarIcon } from '@heroicons/react/24/outline'
 import type { IMaskInput } from 'react-imask'
+import { Controller } from 'react-hook-form'
 
 // Define the mask type based on IMaskInput type
 type MaskType = any // Simplified to avoid complex type extraction
@@ -236,12 +237,12 @@ export const WithCurrencyMask: Story = {
 }
 
 type TweetFormValues = {
-  tweet: string
-}
+  tweet: string;
+};
 
 export const WithCharacterCount: Story = {
   render: () => {
-    const defaultValues: TweetFormValues = { tweet: '' }
+    const defaultValues: TweetFormValues = { tweet: '' };
     return (
       <FormWrapper<TweetFormValues> 
         defaultValues={defaultValues}
@@ -249,245 +250,383 @@ export const WithCharacterCount: Story = {
         description="Text input with a character limit counter, perfect for social media posts"
       >
         {({ control }) => (
-          <Input
+          <Controller
             name="tweet"
             control={control}
-            label="Tweet"
-            maxLength={280}
-            showCount
-            placeholder="What's happening?"
+            rules={{ maxLength: { value: 140, message: 'Tweet too long' } }} // Example rule
+            render={({ field, fieldState: { error } }) => (
+              <Input<TweetFormValues>
+                {...field}
+                type="textarea"
+                label="Tweet"
+                placeholder="What's happening?"
+                maxLength={140}
+                showCount
+                error={error?.message}
+              />
+            )}
           />
         )}
       </FormWrapper>
-    )
+    );
   },
-}
+};
 
 type DescriptionFormValues = {
-  description: string
-}
+  description: string;
+};
 
-export const TextareaAutoResize: Story = {
+export const WithTextarea: Story = {
   render: () => {
-    const defaultValues: DescriptionFormValues = { description: '' }
+    const defaultValues: DescriptionFormValues = { description: '' };
     return (
-      <FormWrapper<DescriptionFormValues> 
+      <FormWrapper<DescriptionFormValues>
         defaultValues={defaultValues}
-        title="Auto-resizing Textarea"
-        description="Textarea that automatically adjusts its height as you type, with a character counter"
+        title="Textarea Input"
+        description="A multi-line text input for longer content, like descriptions or comments"
       >
         {({ control }) => (
-          <Input
+          <Controller
             name="description"
             control={control}
-            label="Description"
-            type="textarea"
-            autoResize
-            minRows={3}
-            maxRows={10}
-            showCount
-            maxLength={1000}
-            placeholder="Start typing to auto-resize..."
+            render={({ field, fieldState: { error } }) => (
+              <Input<DescriptionFormValues>
+                {...field}
+                type="textarea"
+                label="Description"
+                placeholder="Enter detailed description"
+                minRows={3}
+                error={error?.message}
+              />
+            )}
           />
         )}
       </FormWrapper>
-    )
+    );
   },
-}
+};
 
 type EmailFormValues = {
-  email: string
-}
+  email: string;
+};
 
 export const WithPrefixSuffix: Story = {
-  args: {
-    name: 'email',
-    label: 'Email',
-    type: 'email',
-    placeholder: 'username',
+  render: () => {
+    const defaultValues: EmailFormValues = { email: '' };
+    return (
+      <FormWrapper<EmailFormValues>
+        defaultValues={defaultValues}
+        title="Input with Prefix/Suffix"
+        description="Enhance inputs with icons or text labels for better context and usability"
+      >
+        {({ control }) => (
+          <Controller
+            name="email"
+            control={control}
+            rules={{ required: 'Email is required' }} // Example rule
+            render={({ field, fieldState: { error } }) => (
+              <Input<EmailFormValues>
+                {...field}
+                label="Email Address"
+                type="email"
+                required
+                placeholder="your.email"
+                prefix={<EnvelopeIcon className="h-5 w-5 text-neutral-400" />}
+                suffix="@example.com"
+                error={error?.message}
+              />
+            )}
+          />
+        )}
+      </FormWrapper>
+    );
   },
-  render: (args) => (
-    <FormWrapper<EmailFormValues>>
+};
+
+type SearchFormValues = {
+  search: string;
+};
+
+export const StateValidation: Story = {
+  render: () => {
+    const schema = z.object({
+      search: z.string().min(3, 'Search query must be at least 3 characters'),
+    });
+    const defaultValues: SearchFormValues = { search: '' };
+    return (
+      <FormWrapper<SearchFormValues>
+        schema={schema}
+        defaultValues={defaultValues}
+        title="Input with Validation States"
+        description="Demonstrates error and success states based on Zod validation schema"
+      >
+        {({ control }) => (
+            <Controller
+                name="search"
+                control={control}
+                render={({ field, fieldState: { error } }) => (
+                    <Input<SearchFormValues>
+                        {...field}
+                        label="Search Query"
+                        placeholder="Enter at least 3 characters"
+                        error={error?.message} // error message from Zod
+                    />
+                )}
+            />
+        )}
+      </FormWrapper>
+    );
+  },
+};
+
+// For simple stories like Disabled and ReadOnly, if they use control, they need wrapping too.
+// If they just pass props directly without control, they are fine.
+// Assuming these simple stories might also be wrapped in FormWrapper for consistency or to show them in a form context.
+
+export const Disabled: Story = {
+  render: () => (
+    <FormWrapper title="Disabled Input" description="Input field in a disabled state, not interactive">
       {({ control }) => (
-        <Input
-          {...args}
+        <Controller
+          name="disabledInput"
           control={control}
-          prefix={<EnvelopeIcon className="h-5 w-5" />}
-          suffix="@company.com"
+          defaultValue="Cannot change this"
+          render={({ field }) => (
+            <Input 
+              {...field}
+              label="Disabled Field"
+              disabled 
+            />
+          )}
         />
       )}
     </FormWrapper>
-  ),
-}
+  )
+};
 
-type SearchFormValues = {
-  search: string
-}
-
-export const DebouncedInput: Story = {
-  args: {
-    name: 'search',
-    label: 'Search (with 500ms debounce)',
-    debounceMs: 500,
-    placeholder: 'Start typing...',
-  },
-  render: (args) => {
-    const [value, setValue] = React.useState('')
-    
-    return (
-      <FormWrapper<SearchFormValues>>
+export const ReadOnly: Story = {
+    render: () => (
+      <FormWrapper title="Read-Only Input" description="Input field in read-only state, value is not editable">
         {({ control }) => (
-          <div className="space-y-4">
-            <Input
-              {...args}
-              control={control}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setValue(e.target.value)}
-            />
-            <div className="text-sm text-gray-500">
-              Debounced value: {value}
-            </div>
-          </div>
+          <Controller
+            name="readOnlyInput"
+            control={control}
+            defaultValue="This is a read-only value"
+            render={({ field }) => (
+              <Input 
+                {...field}
+                label="Read-Only Field" 
+                readOnly // Assuming Input supports readOnly, if not, disabled might be used visually
+              />
+            )}
+          />
         )}
       </FormWrapper>
     )
-  },
-}
+  };
+
 
 type UsernameFormValues = {
-  username: string
-}
-
-export const ValidationExample: Story = {
-  args: {
-    name: 'username',
-    label: 'Username',
-    required: true,
-    placeholder: 'Enter username',
-  },
-  render: (args) => {
-    const schema = z.object({
-      username: z.string()
-        .min(3, 'Username must be at least 3 characters')
-        .max(20, 'Username cannot exceed 20 characters')
-        .regex(/^[a-zA-Z0-9_]+$/, 'Username can only contain letters, numbers, and underscores'),
-    })
-
-    const form = useForm<UsernameFormValues>({
-      resolver: zodResolver(schema),
-    })
+  username: string;
+};
+export const WithDebounce: Story = {
+  render: () => {
+    const defaultValues: UsernameFormValues = { username: '' };
+    const [debouncedValue, setDebouncedValue] = React.useState('');
 
     return (
-      <div className="w-[400px]">
-        <Input
-          {...args}
-          control={form.control}
-          validation={{
-            pattern: {
-              value: /^[a-zA-Z0-9_]+$/,
-              message: 'Username can only contain letters, numbers, and underscores',
-            },
-          }}
-        />
-      </div>
-    )
+      <FormWrapper<UsernameFormValues>
+        defaultValues={defaultValues}
+        title="Input with Debounce"
+        description={`Demonstrates debounced input. Typed value will reflect after a delay. Debounced: ${debouncedValue}`}
+      >
+        {({ control }) => (
+          <Controller
+            name="username"
+            control={control}
+            render={({ field }) => (
+              <Input<UsernameFormValues>
+                {...field}
+                label="Username"
+                placeholder="Type to see debounce in action"
+                debounceMs={500}
+                onChange={(e) => {
+                  field.onChange(e); // Important to call RHF's onChange
+                  // If Input's onChange prop doesn't pass the event directly, adjust accordingly.
+                  // Assuming e.target.value is accessible or field.onChange handles it.
+                  // The custom `onChange` for debounce should ideally be handled inside the Input component itself
+                  // or the `field.onChange` should be debounced before being passed to the Input component.
+                  // For this story, we'll assume the Input handles its own debouncing logic for its internal state if needed
+                  // and RHF is updated. The description shows the effect.
+                  // A more direct way to show RHF debounced value might involve a debounced version of field.onChange or watch the field and debounce that.
+                  // Let's simulate a simple debounce effect for the display string:
+                  const val = (e.target as HTMLInputElement).value;
+                  setTimeout(() => setDebouncedValue(val), 500);
+                }}
+              />
+            )}
+          />
+        )}
+      </FormWrapper>
+    );
   },
+};
+
+type MessageFormValues = {
+  message: string;
 }
+export const TextAreaAutoResize: Story = {
+  render: () => {
+    const defaultValues: MessageFormValues = { message: '' };
+    return (
+      <FormWrapper<MessageFormValues>
+        defaultValues={defaultValues}
+        title="Auto-Resizing Textarea"
+        description="Textarea that automatically adjusts its height based on content"
+      >
+        {({ control }) => (
+          <Controller
+            name="message"
+            control={control}
+            render={({ field, fieldState: { error } }) => (
+              <Input<MessageFormValues>
+                {...field}
+                type="textarea"
+                label="Your Message"
+                placeholder="Start typing, and the textarea will grow..."
+                autoResize
+                minRows={2}
+                error={error?.message}
+              />
+            )}
+          />
+        )}
+      </FormWrapper>
+    );
+  },
+};
+
 
 type CompleteFormValues = {
-  name: string
-  email: string
-  phone: string
-  amount: string
-  message: string
-}
+  name: string;
+  email: string;
+  phone: string;
+  amount: string;
+  message: string;
+};
 
-// Example of a complete form with multiple input types
 export const CompleteFormExample: Story = {
-  args: {
-    name: 'form',
-    label: 'Complete Form Example',
-  },
-  render: (args) => {
+  render: () => {
     const schema = z.object({
-      name: z.string().min(2, 'Name must be at least 2 characters'),
-      email: z.string().email('Invalid email address'),
-      phone: z.string().min(10, 'Invalid phone number'),
-      amount: z.string().min(1, 'Amount is required'),
-      message: z.string().max(500, 'Message cannot exceed 500 characters'),
-    })
-
-    const form = useForm<CompleteFormValues>({
-      resolver: zodResolver(schema),
-    })
+      name: z.string().min(1, 'Name is required'),
+      email: z.string().email('Invalid email address').min(1, 'Email is required'),
+      phone: z.string().regex(/^\+1 \(\d{3}\) \d{3}-\d{4}$/, 'Invalid phone format'),
+      amount: z.string().min(1, 'Amount is required'), // Or use a more specific currency validation
+      message: z.string().max(500, 'Message too long'),
+    });
+    const defaultValues: Partial<CompleteFormValues> = { 
+        name: '', 
+        email: '', 
+        phone: '', 
+        amount: '', 
+        message: '' 
+    };
 
     return (
-      <div className="w-[500px] space-y-6 rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
-        <Input
-          name="name"
-          control={form.control}
-          label="Full Name"
-          required
-          placeholder="John Doe"
-        />
-        
-        <Input
-          name="email"
-          control={form.control}
-          label="Email"
-          type="email"
-          required
-          prefix={<EnvelopeIcon className="h-5 w-5" />}
-          placeholder="john@example.com"
-        />
-        
-        <Input
-          name="phone"
-          control={form.control}
-          label="Phone"
-          required
-          mask={{
-            mask: '+1 (000) 000-0000',
-          }}
-          prefix={<PhoneIcon className="h-5 w-5" />}
-          placeholder="(555) 555-5555"
-        />
-        
-        <Input
-          name="amount"
-          control={form.control}
-          label="Amount"
-          required
-          mask={{
-            mask: Number,
-            scale: 2,
-            signed: false,
-            thousandsSeparator: ',',
-            padFractionalZeros: true,
-            normalizeZeros: true,
-            radix: '.',
-          }}
-          prefix={<CurrencyDollarIcon className="h-5 w-5" />}
-          placeholder="0.00"
-        />
-        
-        <Input
-          name="message"
-          control={form.control}
-          label="Message"
-          type="textarea"
-          autoResize
-          maxLength={500}
-          showCount
-          placeholder="Enter your message here..."
-        />
-        
-        <button
-          type="submit"
-          className="w-full rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
-        >
-          Submit Form
-        </button>
-      </div>
-    )
+      <FormWrapper<CompleteFormValues>
+        schema={schema}
+        defaultValues={defaultValues}
+        title="Comprehensive Form Example"
+        description="Showcases multiple Input components with various configurations and validation in a single form"
+      >
+        {({ control }) => (
+          <div className="space-y-4">
+            <Controller
+              name="name"
+              control={control}
+              render={({ field, fieldState: { error } }) => (
+                <Input<CompleteFormValues>
+                  {...field}
+                  label="Full Name"
+                  placeholder="Enter your full name"
+                  required
+                  error={error?.message}
+                />
+              )}
+            />
+            <Controller
+              name="email"
+              control={control}
+              render={({ field, fieldState: { error } }) => (
+                <Input<CompleteFormValues>
+                  {...field}
+                  label="Email Address"
+                  type="email"
+                  placeholder="your.email@example.com"
+                  prefix={<EnvelopeIcon className="h-5 w-5" />}
+                  required
+                  error={error?.message}
+                />
+              )}
+            />
+            <Controller
+              name="phone"
+              control={control}
+              render={({ field, fieldState: { error } }) => (
+                <Input<CompleteFormValues>
+                  {...field}
+                  label="Phone Number"
+                  type="tel"
+                  placeholder="+1 (XXX) XXX-XXXX"
+                  mask={{ mask: '+1 (000) 000-0000' }}
+                  prefix={<PhoneIcon className="h-5 w-5" />}
+                  error={error?.message}
+                />
+              )}
+            />
+            <Controller
+              name="amount"
+              control={control}
+              render={({ field, fieldState: { error } }) => (
+                <Input<CompleteFormValues>
+                  {...field}
+                  label="Donation Amount"
+                  placeholder="Enter amount"
+                  mask={{
+                    mask: Number,
+                    scale: 2,
+                    signed: false,
+                    thousandsSeparator: ',',
+                    padFractionalZeros: true,
+                    normalizeZeros: true,
+                    radix: '.',
+                  }}
+                  prefix={<CurrencyDollarIcon className="h-5 w-5" />}
+                  required
+                  error={error?.message}
+                />
+              )}
+            />
+            <Controller
+              name="message"
+              control={control}
+              render={({ field, fieldState: { error } }) => (
+                <Input<CompleteFormValues>
+                  {...field}
+                  type="textarea"
+                  label="Message (Optional)"
+                  placeholder="Enter a brief message"
+                  maxLength={500}
+                  showCount
+                  autoResize
+                  minRows={3}
+                  error={error?.message}
+                />
+              )}
+            />
+          </div>
+        )}
+      </FormWrapper>
+    );
   },
-} 
+};

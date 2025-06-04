@@ -8,8 +8,12 @@ node_modules
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# pnpm
 .pnpm-store/
 .pnpm/
+.pnpm-debug.log*
+pnpm-lock.yaml*
 
 # Testing
 coverage
@@ -45,6 +49,14 @@ pnpm-debug.log*
 lerna-debug.log*
 .pnpm-debug.log*
 
+# Package manager caches
+.npm
+.yarn-cache
+.pnpm-cache
+.pnpm-store-v3/
+.pnpm-store/v3/
+node_modules/.cache/
+
 # Editor/IDE
 .idea
 .vscode/*
@@ -79,6 +91,39 @@ tmp
 *.swp
 *.swo
 *~
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Dependency directories
+jspm_packages/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Microbundle cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
 
 # Next.js specific
 .next/

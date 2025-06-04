@@ -11,7 +11,7 @@ All module aliases are centrally defined in the root `tsconfig.json` file. Indiv
 | Alias | Purpose | Example |
 |-------|---------|---------|
 | `@/*` | Imports within the current package/app | `import { Button } from '@/components/Button'` |
-| `@cp/*` | Cross-package imports within the monorepo | `import { useAuth } from '@cp/auth/hooks/useAuth'` |
+| `@portals/*` | Cross-package imports within the monorepo | `import { useAuth } from '@portals/auth/hooks/useAuth'` |
 
 ## Package Aliases
 
@@ -19,23 +19,23 @@ The following package aliases are available:
 
 | Package | Alias | Example Usage |
 |---------|-------|---------------|
-| Auth | `@cp/auth/*` | `import { useAuth } from '@cp/auth/hooks/useAuth'` |
-| Router | `@cp/router/*` | `import { useNavigation } from '@cp/router/hooks/useNavigation'` |
-| UI | `@cp/ui/*` | `import { Button } from '@cp/ui/components/Button'` |
-| Testing | `@cp/testing/*` | `import { createTestUser } from '@cp/testing/fixtures/users'` |
-| Logger | `@cp/logger/*` | `import { createLogger } from '@cp/logger/core'` |
-| Utils | `@cp/utils/*` | `import { formatDate } from '@cp/utils/date'` |
-| Types | `@cp/types/*` | `import type { User } from '@cp/types/auth'` |
+| Auth | `@portals/auth/*` | `import { useAuth } from '@portals/auth/hooks/useAuth'` |
+| Router | `@portals/router/*` | `import { useNavigation } from '@portals/router/hooks/useNavigation'` |
+| UI | `@portals/ui/*` | `import { Button } from '@portals/ui/components/Button'` |
+| Testing | `@portals/testing/*` | `import { createTestUser } from '@portals/testing/fixtures/users'` |
+| Logger | `@portals/logger/*` | `import { createLogger } from '@portals/logger/core'` |
+| Utils | `@portals/utils/*` | `import { formatDate } from '@portals/utils/date'` |
+| Types | `@portals/types/*` | `import type { User } from '@portals/types/auth'` |
 
 ## Best Practices
 
 1. **Always use the appropriate alias**:
    - For imports within the same package, use `@/*`
-   - For imports from another package, use the corresponding `@cp/*` alias
+   - For imports from another package, use the corresponding `@portals/*` alias
 
 2. **Never use relative imports across packages**:
    - ❌ `import { Button } from '../../packages/ui/src/components/Button'`
-   - ✅ `import { Button } from '@cp/ui/components/Button'`
+   - ✅ `import { Button } from '@portals/ui/components/Button'`
 
 3. **Use relative imports only for files in the same directory or subdirectories**:
    - ✅ `import { helper } from './helper'`

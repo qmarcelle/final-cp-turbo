@@ -1,5 +1,5 @@
 {
-  "name": "@cp/tsconfig",
+  "name": "@portals/tsconfig",
   "version": "0.0.1",
   "license": "MIT",
   "files": [

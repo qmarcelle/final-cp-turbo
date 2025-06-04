@@ -10,14 +10,14 @@
     "test": "jest"
   },
   "dependencies": {
-    "@cp/ui": "workspace:*",
+    "@portals/ui": "workspace:*",
     "@fontsource/inter": "^5.2.5",
     "next": "^14.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@cp/tsconfig": "workspace:*",
+    "@portals/tsconfig": "workspace:*",
     "@testing-library/jest-dom": "^6.1.5",
     "@types/jest": "^29.5.14",
     "@types/node": "^20.17.24",

@@ -2,16 +2,20 @@
  * Custom Jest resolver for the monorepo
  * 
  * This resolver helps Jest find packages within the monorepo
- * by resolving path aliases like @cp/package-name.
+ * by resolving path aliases like @portals/package-name.
  */
 const path = require('path');
 const { createResolver } = require('jest-resolve');
 
 // Map of package name prefixes to their directories
 const packageMap = {
-  '@cp/types': path.resolve(__dirname, 'packages/types/src'),
-  '@cp/testing': path.resolve(__dirname, 'packages/testing/src'),
-  '@cp/ui': path.resolve(__dirname, 'packages/ui/src'),
+  '@portals/types': path.resolve(__dirname, 'packages/types/src'),
+  '@portals/testing': path.resolve(__dirname, 'packages/testing/src'),
+  '@portals/ui': path.resolve(__dirname, 'packages/ui/src'),
+  '@portals/utils': path.resolve(__dirname, 'packages/utils/src'),
+  '@portals/logger': path.resolve(__dirname, 'packages/logger/src'),
+  '@portals/auth': path.resolve(__dirname, 'packages/auth/src'),
+  '@portals/tsconfig': path.resolve(__dirname, 'packages/tsconfig'),
 };
 
 /**

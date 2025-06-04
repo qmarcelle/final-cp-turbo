@@ -6,8 +6,8 @@ import * as React from 'react';
 import { screen, fireEvent, waitFor, render as rtlRender } from '@testing-library/react';
 import { FormProvider, useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Input  } from '../../../foundation/Input/Input';
-import type { InputProps } from '../Input';
+import { Input } from '../../input';
+import type { InputProps } from '..';
 import { z } from 'zod';
 import '@testing-library/jest-dom';
 

@@ -10,6 +10,7 @@
     "sourceMap": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
+    "incremental": false,
     "types": ["node"],
     "typeRoots": [
       "../../node_modules/.pnpm/@types",

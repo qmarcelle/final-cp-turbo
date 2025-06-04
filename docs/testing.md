@@ -71,7 +71,7 @@ const config = {
   setupFilesAfterEnv: ['./jest.setup.ts'],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
-    '^@cp/(.*)$': '<rootDir>/../$1/src'
+    '^@portals/(.*)$': '<rootDir>/../$1/src'
   },
   transform: {
     '^.+\\.(ts|tsx)$': [
@@ -96,7 +96,7 @@ const config = {
     '!src/types/**/*'
   ],
   testPathIgnorePatterns: ['/node_modules/', '/dist/'],
-  transformIgnorePatterns: ['/node_modules/(?!@cp/)'],
+  transformIgnorePatterns: ['/node_modules/(?!@portals/)'],
   globals: {
     'ts-jest': {
       isolatedModules: true

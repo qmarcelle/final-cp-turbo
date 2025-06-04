@@ -20,10 +20,10 @@ The Employer Portal provides a powerful platform for employers to manage their e
 - **Framework**: Next.js 14
 - **Styling**: Tailwind CSS
 - **State Management**: React Hooks
-- **Authentication**: NextAuth.js via @cp/auth
-- **Routing**: Next.js App Router with @cp/router
-- **API Communication**: SWR and Axios via @cp/api-client
-- **Logging**: Structured logging via @cp/logger
+- **Authentication**: NextAuth.js via @portals/auth
+- **Routing**: Next.js App Router with @portals/router
+- **API Communication**: SWR and Axios via @portals/api-client
+- **Logging**: Structured logging via @portals/logger
 
 ## Project Structure
 
@@ -77,10 +77,10 @@ NEXT_PUBLIC_API_URL=https://api.example.com
 
 ### UI Components
 
-The portal uses the `@cp/ui` package for core UI components:
+The portal uses the `@portals/ui` package for core UI components:
 
 ```tsx
-import { Button, Input, FormLayout } from '@cp/ui';
+import { Button, Input, FormLayout } from '@portals/ui';
 
 function PlanForm() {
   return (
@@ -95,10 +95,10 @@ function PlanForm() {
 
 ### Authentication
 
-Authentication is handled via the `@cp/auth` package:
+Authentication is handled via the `@portals/auth` package:
 
 ```tsx
-import { useSession, signIn, signOut } from '@cp/auth';
+import { useSession, signIn, signOut } from '@portals/auth';
 
 function ProfileButton() {
   const { data: session, status } = useSession();
@@ -113,10 +113,10 @@ function ProfileButton() {
 
 ### API Client
 
-API communication uses the `@cp/api-client` package:
+API communication uses the `@portals/api-client` package:
 
 ```tsx
-import { useQuery } from '@cp/api-client';
+import { useQuery } from '@portals/api-client';
 
 function EmployeeList() {
   const { data, error, isLoading } = useQuery('/api/employees');
@@ -136,10 +136,10 @@ function EmployeeList() {
 
 ### Routing
 
-Navigation is managed via the `@cp/router` package:
+Navigation is managed via the `@portals/router` package:
 
 ```tsx
-import { useRouter } from '@cp/router';
+import { useRouter } from '@portals/router';
 import { routes } from '@/routes';
 
 function Navigation() {

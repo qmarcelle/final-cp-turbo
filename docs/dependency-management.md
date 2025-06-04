@@ -45,7 +45,7 @@ bcbst-portals/
 ### Guidelines for adding new workspaces:
 
 1. Use the workspace generator: `pnpm gen:workspace`
-2. Follow the naming convention: `@cp/{package-name}`
+2. Follow the naming convention: `@portals/{package-name}`
 3. Document the package's purpose in its README.md
 4. Add appropriate build, test, and lint scripts
 
@@ -66,10 +66,10 @@ bcbst-portals/
 pnpm add -D eslint --workspace-root
 
 # Add a dependency to a specific workspace
-pnpm add axios --filter @cp/api-client
+pnpm add axios --filter @portals/api-client
 
 # Add a dependency to multiple workspaces
-pnpm add dayjs --filter "@cp/broker-portal..." --filter "@cp/employer-portal..."
+pnpm add dayjs --filter "@portals/broker-portal..." --filter "@portals/employer-portal..."
 ```
 
 #### Updating Dependencies
@@ -212,14 +212,14 @@ pnpm install --force
 
 1. Clone the repository
 2. `pnpm install`
-3. `pnpm dev --filter=@cp/broker-portal` (to work on a specific app)
+3. `pnpm dev --filter=@portals/broker-portal` (to work on a specific app)
 4. `pnpm dev` (to run all workspaces)
 
 ### Creating a New Feature
 
 1. Create a new branch: `git checkout -b feature/new-feature`
 2. Make changes
-3. Test locally: `pnpm test --filter=@cp/affected-package`
+3. Test locally: `pnpm test --filter=@portals/affected-package`
 4. Run type checking: `pnpm check-types`
 5. Create a PR
 

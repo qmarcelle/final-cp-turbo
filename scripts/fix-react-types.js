@@ -85,12 +85,12 @@ async function fixReactTypes(filePath) {
     }
     
     // Fix FormFieldProps imports
-    if (updatedContent.includes('FormFieldProps') && !updatedContent.includes('@cp/types')) {
+    if (updatedContent.includes('FormFieldProps') && !updatedContent.includes('@portals/types')) {
       // Check for relative imports
       if (updatedContent.match(/import [^;]*FormFieldProps[^;]*from\s*['"][^'"]*types\/form['"]/)) {
         updatedContent = updatedContent.replace(
           /(import[^;]*FormFieldProps[^;]*from\s*['"])[^'"]*types\/form(['"])/,
-          "$1@cp/types$2"
+          "$1@portals/types$2"
         );
       }
     }

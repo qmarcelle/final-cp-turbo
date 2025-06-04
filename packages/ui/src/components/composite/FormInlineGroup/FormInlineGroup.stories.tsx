@@ -1,7 +1,9 @@
+"use client";
+
 import type { Meta, StoryObj } from '@storybook/react'
 import { FormInlineGroup } from './FormInlineGroup'
-import { Input  } from '../../foundation/Input/Input'
-import { useForm, Control, FieldValues } from 'react-hook-form'
+import { Input } from '../../foundation/input'
+import { useForm, Control, FieldValues, Controller } from 'react-hook-form'
 import { ReactNode } from 'react'
 
 const meta = {
@@ -31,15 +33,27 @@ const FormWrapper = ({ children }: FormWrapperProps) => {
 
 const FormInputs = ({ control }: { control: Control<FieldValues> }) => (
   <>
-    <Input
+    <Controller
       name="firstName"
       control={control}
-      placeholder="First name"
+      render={({ field, fieldState: { error } }) => (
+        <Input
+          {...field}
+          placeholder="First name"
+          error={error?.message}
+        />
+      )}
     />
-    <Input
+    <Controller
       name="lastName"
       control={control}
-      placeholder="Last name"
+      render={({ field, fieldState: { error } }) => (
+        <Input
+          {...field}
+          placeholder="Last name"
+          error={error?.message}
+        />
+      )}
     />
   </>
 )
@@ -79,17 +93,29 @@ export const Required: Story = {
           required
           data-cy="contact-group"
         >
-          <Input
+          <Controller
             name="email"
             control={control}
-            type="email"
-            placeholder="Email"
+            render={({ field, fieldState: { error } }) => (
+              <Input
+                {...field}
+                type="email"
+                placeholder="Email"
+                error={error?.message}
+              />
+            )}
           />
-          <Input
+          <Controller
             name="phone"
             control={control}
-            type="tel"
-            placeholder="Phone"
+            render={({ field, fieldState: { error } }) => (
+              <Input
+                {...field}
+                type="tel"
+                placeholder="Phone"
+                error={error?.message}
+              />
+            )}
           />
         </FormInlineGroup>
       )}
@@ -112,15 +138,27 @@ export const WithDescription: Story = {
           description="Please enter your current residential address"
           data-cy="address-group"
         >
-          <Input
+          <Controller
             name="street"
             control={control}
-            placeholder="Street address"
+            render={({ field, fieldState: { error } }) => (
+              <Input
+                {...field}
+                placeholder="Street address"
+                error={error?.message}
+              />
+            )}
           />
-          <Input
+          <Controller
             name="city"
             control={control}
-            placeholder="City"
+            render={({ field, fieldState: { error } }) => (
+              <Input
+                {...field}
+                placeholder="City"
+                error={error?.message}
+              />
+            )}
           />
         </FormInlineGroup>
       )}
@@ -143,17 +181,29 @@ export const WithError: Story = {
           error="Passwords do not match"
           data-cy="password-group"
         >
-          <Input
+          <Controller
             name="password"
             control={control}
-            type="password"
-            placeholder="Password"
+            render={({ field, fieldState: { error } }) => (
+              <Input
+                {...field}
+                type="password"
+                placeholder="Password"
+                error={error?.message}
+              />
+            )}
           />
-          <Input
+          <Controller
             name="confirmPassword"
             control={control}
-            type="password"
-            placeholder="Confirm password"
+            render={({ field, fieldState: { error } }) => (
+              <Input
+                {...field}
+                type="password"
+                placeholder="Confirm password"
+                error={error?.message}
+              />
+            )}
           />
         </FormInlineGroup>
       )}

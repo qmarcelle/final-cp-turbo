@@ -1,5 +1,5 @@
 import { FieldValues } from 'react-hook-form';
-import { Input  } from '../../../foundation/Input/Input';
+import { Input } from '../../../foundation/input';
 import { BaseStep, type BaseStepProps, getFieldName } from './BaseStep';
 import { FormSection } from '../FormSection';
 import { FormLayout  } from '../../../composite/FormLayout/FormLayout';

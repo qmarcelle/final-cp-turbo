@@ -1,7 +1,9 @@
-import { FieldValues, Path } from 'react-hook-form';
-import { Input  } from '../../../foundation/Input';
-import { RadioGroup  } from '../../../foundation/Radio';
-import { Checkbox  } from '../../../foundation/Checkbox';
+"use client";
+
+import { Controller, Control, FieldValues, Path } from 'react-hook-form';
+import { Input } from '../../../foundation/input';
+import { RadioGroup } from '../../../foundation/radio';
+import { Checkbox } from '../../../foundation/checkbox';
 import { BaseStepProps } from '../BaseForm';
 
 interface RepresentativeStepProps<T extends FieldValues> extends BaseStepProps<T> {
@@ -9,6 +11,7 @@ interface RepresentativeStepProps<T extends FieldValues> extends BaseStepProps<T
   required?: boolean;
   showPartyType?: boolean;
   showProofUpload?: boolean;
+  control: Control<T>;
 }
 
 const partyTypeOptions = [
@@ -41,7 +44,7 @@ export function RepresentativeStep<T extends FieldValues>({
       )}
 
       <div>
-        <Checkbox
+        <Checkbox<T>
           name={getFieldName('isRepresentative')}
           control={control}
           label="I am helping the enrollee with this request"
@@ -49,68 +52,87 @@ export function RepresentativeStep<T extends FieldValues>({
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Input<T>
+        <Controller
           name={getFieldName('firstName')}
           control={control}
-          label="First Name"
-          required={required}
+          rules={{ required }}
+          render={({ field, fieldState: { error } }) => (
+            <Input {...field} label="First Name" required={required} error={error?.message} />
+          )}
         />
-        <Input<T>
+        <Controller
           name={getFieldName('middleInitial')}
           control={control}
-          label="Middle Initial"
+          render={({ field, fieldState: { error } }) => (
+            <Input {...field} label="Middle Initial" error={error?.message} />
+          )}
         />
-        <Input<T>
+        <Controller
           name={getFieldName('lastName')}
           control={control}
-          label="Last Name"
-          required={required}
+          rules={{ required }}
+          render={({ field, fieldState: { error } }) => (
+            <Input {...field} label="Last Name" required={required} error={error?.message} />
+          )}
         />
-        <Input<T>
+        <Controller
           name={getFieldName('relationship')}
           control={control}
-          label="Relationship to Enrollee"
-          required={required}
+          rules={{ required }}
+          render={({ field, fieldState: { error } }) => (
+            <Input {...field} label="Relationship to Enrollee" required={required} error={error?.message} />
+          )}
         />
-        <Input<T>
+        <Controller
           name={getFieldName('phone')}
           control={control}
-          label="Phone"
-          type="tel"
-          required={required}
+          rules={{ required }}
+          render={({ field, fieldState: { error } }) => (
+            <Input {...field} label="Phone" type="tel" required={required} error={error?.message} />
+          )}
         />
         <div className="md:col-span-3">
-          <Input<T>
+          <Controller
             name={getFieldName('address1')}
             control={control}
-            label="Address 1"
-            required={required}
+            rules={{ required }}
+            render={({ field, fieldState: { error } }) => (
+              <Input {...field} label="Address 1" required={required} error={error?.message} />
+            )}
           />
         </div>
         <div className="md:col-span-3">
-          <Input<T>
+          <Controller
             name={getFieldName('address2')}
             control={control}
-            label="Address 2"
+            render={({ field, fieldState: { error } }) => (
+              <Input {...field} label="Address 2" error={error?.message} />
+            )}
           />
         </div>
-        <Input<T>
+        <Controller
           name={getFieldName('city')}
           control={control}
-          label="City"
-          required={required}
+          rules={{ required }}
+          render={({ field, fieldState: { error } }) => (
+            <Input {...field} label="City" required={required} error={error?.message} />
+          )}
         />
-        <Input<T>
+        <Controller
           name={getFieldName('state')}
           control={control}
-          label="State"
-          required={required}
+          rules={{ required }}
+          render={({ field, fieldState: { error } }) => (
+            <Input {...field} label="State" required={required} error={error?.message} />
+          )}
         />
-        <Input<T>
+        <Controller
           name={getFieldName('zipCode')}
           control={control}
-          label="Zip Code"
-          required={required}
+          rules={{ required }}
+          render={({ field, fieldState: { error } }) => (
+            <Input {...field} label="Zip Code" required={required} error={error?.message} />
+          )}
         />
       </div>
 

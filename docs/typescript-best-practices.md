@@ -11,7 +11,7 @@ This document outlines best practices for TypeScript configuration in our monore
 2. **Path Alias Management**
    - All path aliases should be defined only in the root `tsconfig.json`
    - Individual packages should not define their own path aliases
-   - Use `@cp/*` for cross-package imports and `@/*` for local imports
+   - Use `@portals/*` for cross-package imports and `@/*` for local imports
 
 3. **Required Options for All Configs**
    - `"skipLibCheck": true` - Avoids type errors in dependencies
@@ -43,7 +43,7 @@ Solutions:
 
 If you encounter errors like:
 ```
-Cannot find module '@cp/ui/components' or its corresponding type declarations.
+Cannot find module '@portals/ui/components' or its corresponding type declarations.
 ```
 
 Solutions:

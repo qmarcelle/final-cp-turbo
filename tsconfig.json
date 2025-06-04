@@ -12,10 +12,13 @@
       "@utils/*": ["./src/utils/*"],
       "@types/*": ["./src/types/*"],
       "@styles/*": ["./src/styles/*"],
-      "@cp/ui/*": ["./packages/ui/src/*"],
-      "@cp/appSettings/*": ["./packages/testing/src/*"],
-      "@cp/logger/*": ["./packages/logger/src/*"],
-      "@cp/tsconfig/*": ["./packages/tsconfig/*"]
+      "@portals/ui/*": ["./packages/ui/src/*"],
+      "@portals/utils/*": ["./packages/utils/src/*"],
+      "@portals/logger/*": ["./packages/logger/src/*"],
+      "@portals/testing/*": ["./packages/testing/src/*"],
+      "@portals/auth/*": ["./packages/auth/src/*"],
+      "@portals/types/*": ["./packages/types/src/*"],
+      "@portals/tsconfig/*": ["./packages/tsconfig/*"]
     },
     "types": ["node"],
     "typeRoots": [

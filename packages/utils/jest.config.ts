@@ -1,5 +1,5 @@
 import type { Config } from 'jest';
-import { createJestConfig } from '@cp/testing';
+import { createJestConfig } from '@portals/testing';
 
 const config: Config = {
   ...createJestConfig(),

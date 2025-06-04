@@ -12,11 +12,13 @@ export function withLogging<T = any>(
     // Create request-specific logger with request ID
     const requestId = req.headers['x-request-id'] || req.headers['x-correlation-id'] || crypto.randomUUID();
     
-    const log = createLogger({
-      name: 'api',
+    const baseLogger = createLogger({}); // Create a base logger
+
+    // Create a child logger with request-specific bindings
+    const log = baseLogger.child({
+      name: 'api', // name can be part of child logger's bindings
       reqId: typeof requestId === 'string' ? requestId : requestId[0],
       req: {
-        id: requestId,
         method: req.method,
         url: req.url,
         // Only include basic headers to avoid leaking sensitive information
@@ -35,25 +37,35 @@ export function withLogging<T = any>(
     (req as any).log = log;
 
     // Log the start of the request
-    log.info({ 
-      msg: `Incoming request: ${req.method} ${req.url}`,
-      type: 'request_start'
-    });
+    log.info({ type: 'request_start' }, `Incoming request: ${req.method} ${req.url}`);
 
     // Handle response completion
     res.on('finish', () => {
       const responseTime = Math.round(performance.now() - startTime);
       
-      const logMethod = res.statusCode >= 400 ? log.error : log.info;
-      
-      logMethod.call(log, { 
-        msg: `Request completed: ${req.method} ${req.url} ${res.statusCode} (${responseTime}ms)`,
-        type: 'request_complete',
-        res: {
-          statusCode: res.statusCode,
-          responseTime
-        }
-      });
+      if (res.statusCode >= 400) {
+        log.error(
+          { 
+            type: 'request_complete',
+            res: {
+              statusCode: res.statusCode,
+              responseTime
+            }
+          },
+          `Request completed: ${req.method} ${req.url} ${res.statusCode} (${responseTime}ms)`
+        );
+      } else {
+        log.info(
+          { 
+            type: 'request_complete',
+            res: {
+              statusCode: res.statusCode,
+              responseTime
+            }
+          },
+          `Request completed: ${req.method} ${req.url} ${res.statusCode} (${responseTime}ms)`
+        );
+      }
     });
 
     // Execute the API route handler
@@ -74,11 +86,10 @@ export function getClientLogger(module: string) {
       warn: (message: string, ...args: any[]) => console.warn(`[${module}] ${message}`, ...args),
       error: (message: string, ...args: any[]) => console.error(`[${module}] ${message}`, ...args),
       fatal: (message: string, ...args: any[]) => console.error(`[FATAL][${module}] ${message}`, ...args),
-      // Add support for object-based logging
       child: () => getClientLogger(module)
     };
   }
   
   // Server-side implementation - use actual Pino logger
   return createLogger({ name: module });
-} 
+}

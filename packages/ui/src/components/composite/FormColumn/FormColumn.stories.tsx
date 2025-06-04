@@ -1,7 +1,9 @@
+"use client";
+
 import type { Meta, StoryObj } from '@storybook/react'
 import { FormColumn } from './FormColumn'
-import { Input  } from '../../foundation/Input/Input'
-import { useForm, Control, FieldValues } from 'react-hook-form'
+import { Input } from '../../foundation/input'
+import { useForm, Control, FieldValues, Controller } from 'react-hook-form'
 import { ReactNode } from 'react'
 
 const meta = {
@@ -31,24 +33,45 @@ const FormWrapper = ({ children }: FormWrapperProps) => {
 
 const PersonalInfoForm = ({ control }: { control: Control<FieldValues> }) => (
   <FormColumn data-cy="personal-info">
-    <Input
+    <Controller
       name="firstName"
-      label="First Name"
       control={control}
-      required
+      rules={{ required: 'First name is required' }}
+      render={({ field, fieldState: { error } }) => (
+        <Input
+          {...field}
+          label="First Name"
+          required
+          error={error?.message}
+        />
+      )}
     />
-    <Input
+    <Controller
       name="lastName"
-      label="Last Name"
       control={control}
-      required
+      rules={{ required: 'Last name is required' }}
+      render={({ field, fieldState: { error } }) => (
+        <Input
+          {...field}
+          label="Last Name"
+          required
+          error={error?.message}
+        />
+      )}
     />
-    <Input
+    <Controller
       name="email"
-      label="Email"
-      type="email"
       control={control}
-      required
+      rules={{ required: 'Email is required' }}
+      render={({ field, fieldState: { error } }) => (
+        <Input
+          {...field}
+          label="Email"
+          type="email"
+          required
+          error={error?.message}
+        />
+      )}
     />
   </FormColumn>
 )
@@ -70,20 +93,38 @@ const AddressForm = ({ control }: { control: Control<FieldValues> }) => (
     className="space-y-6"
     data-cy="address-info"
   >
-    <Input
+    <Controller
       name="street"
-      label="Street Address"
       control={control}
+      render={({ field, fieldState: { error } }) => (
+        <Input
+          {...field}
+          label="Street Address"
+          error={error?.message}
+        />
+      )}
     />
-    <Input
+    <Controller
       name="city"
-      label="City"
       control={control}
+      render={({ field, fieldState: { error } }) => (
+        <Input
+          {...field}
+          label="City"
+          error={error?.message}
+        />
+      )}
     />
-    <Input
+    <Controller
       name="zipCode"
-      label="ZIP Code"
       control={control}
+      render={({ field, fieldState: { error } }) => (
+        <Input
+          {...field}
+          label="ZIP Code"
+          error={error?.message}
+        />
+      )}
     />
   </FormColumn>
 )
@@ -112,23 +153,41 @@ const ReadOnlyForm = () => {
 
   return (
     <FormColumn data-cy="readonly-info">
-      <Input
+      <Controller
         name="username"
-        label="Username"
         control={form.control}
-        disabled
+        render={({ field, fieldState: { error } }) => (
+          <Input
+            {...field}
+            label="Username"
+            disabled
+            error={error?.message}
+          />
+        )}
       />
-      <Input
+      <Controller
         name="role"
-        label="Role"
         control={form.control}
-        disabled
+        render={({ field, fieldState: { error } }) => (
+          <Input
+            {...field}
+            label="Role"
+            disabled
+            error={error?.message}
+          />
+        )}
       />
-      <Input
+      <Controller
         name="lastLogin"
-        label="Last Login"
         control={form.control}
-        disabled
+        render={({ field, fieldState: { error } }) => (
+          <Input
+            {...field}
+            label="Last Login"
+            disabled
+            error={error?.message}
+          />
+        )}
       />
     </FormColumn>
   )

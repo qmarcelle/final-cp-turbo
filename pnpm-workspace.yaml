@@ -1,8 +1,17 @@
 packages:
-  # All app directories
-  - 'apps/*'
-  # All package directories
-  - 'packages/*'
+  # Only specific apps with hyphens in names
+  - 'apps/broker-portal'
+  - 'apps/employer-portal'
+  
+  # Only specific packages we want to keep
+  - 'packages/utils'
+  - 'packages/ui' 
+  - 'packages/tsconfig'
+  - 'packages/logger'
+  - 'packages/testing'
+  - 'packages/auth'
+  - 'packages/types'
+  
   # Exclude build artifacts and dependencies
   - '!**/node_modules'
   - '!**/.next'

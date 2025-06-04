@@ -1,7 +1,7 @@
 // This is an example of how to integrate the logger with Auth.js impersonation
 // Based on the broker-portal implementation example
 
-import { authEventLogger, impersonationLogger } from '@cp/logger';
+import { authEventLogger, impersonationLogger } from '@portals/logger';
 import { Session, User } from 'next-auth';
 import { jwtVerify, SignJWT } from 'jose';
 

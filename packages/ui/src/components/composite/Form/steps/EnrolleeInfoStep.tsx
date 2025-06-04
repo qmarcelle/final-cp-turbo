@@ -1,13 +1,16 @@
-import { FieldValues } from 'react-hook-form'
-import { Input  } from '../../../foundation/Input/Input'
+"use client";
+
+import { FieldValues, Controller, Control } from 'react-hook-form'
+import { Input } from '../../../foundation/input'
 import { BaseStep, type BaseStepProps, getFieldName } from './BaseStep'
 import { FormSection } from '../FormSection'
-import { FormLayout  } from '../../../composite/FormLayout/FormLayout'
-import { FormField  } from '../../../composite/FormField/FormField'
+import { FormLayout } from '../../../composite/FormLayout'
+import { FormField } from '../../../composite/FormField'
 
 interface EnrolleeInfoProps<T extends FieldValues> extends BaseStepProps<T> {
   fieldPrefix?: string;
   required?: boolean;
+  control: Control<T>;
 }
 
 export function EnrolleeInfoStep<T extends FieldValues>({
@@ -35,43 +38,77 @@ export function EnrolleeInfoStep<T extends FieldValues>({
         >
           <FormLayout variant="grid" columns={3} gap={4}>
             <FormField label="First Name" required={required}>
-              <Input
+              <Controller
                 name={getField('firstName')}
                 control={control}
-                placeholder="Enter your legal first name"
+                rules={{ required: required ? 'First name is required' : false }}
+                render={({ field, fieldState: { error } }) => (
+                  <Input
+                    {...field}
+                    placeholder="Enter your legal first name"
+                    error={error?.message}
+                  />
+                )}
               />
             </FormField>
             <FormField label="Middle Initial">
-              <Input
+              <Controller
                 name={getField('middleInitial')}
                 control={control}
-                placeholder="Optional"
+                render={({ field, fieldState: { error } }) => (
+                  <Input
+                    {...field}
+                    placeholder="Optional"
+                    error={error?.message}
+                  />
+                )}
               />
             </FormField>
             <FormField label="Last Name" required={required}>
-              <Input
+              <Controller
                 name={getField('lastName')}
                 control={control}
-                placeholder="Enter your legal last name"
+                rules={{ required: required ? 'Last name is required' : false }}
+                render={({ field, fieldState: { error } }) => (
+                  <Input
+                    {...field}
+                    placeholder="Enter your legal last name"
+                    error={error?.message}
+                  />
+                )}
               />
             </FormField>
           </FormLayout>
           
           <FormLayout variant="grid" columns={2} gap={4} className="mt-4">
             <FormField label="Date of Birth" required={required}>
-              <Input
+              <Controller
                 name={getField('dateOfBirth')}
                 control={control}
-                type="text"
-                placeholder="MM/DD/YYYY"
-                mask={{ mask: '00/00/0000' }}
+                rules={{ required: required ? 'Date of birth is required' : false }}
+                render={({ field, fieldState: { error } }) => (
+                  <Input
+                    {...field}
+                    type="text"
+                    placeholder="MM/DD/YYYY"
+                    mask={{ mask: '00/00/0000' }}
+                    error={error?.message}
+                  />
+                )}
               />
             </FormField>
             <FormField label="Member ID Number" required={required}>
-              <Input
+              <Controller
                 name={getField('memberId')}
                 control={control}
-                placeholder="Enter your member identification number"
+                rules={{ required: required ? 'Member ID is required' : false }}
+                render={({ field, fieldState: { error } }) => (
+                  <Input
+                    {...field}
+                    placeholder="Enter your member identification number"
+                    error={error?.message}
+                  />
+                )}
               />
             </FormField>
           </FormLayout>
@@ -84,20 +121,33 @@ export function EnrolleeInfoStep<T extends FieldValues>({
         >
           <FormLayout variant="grid" columns={2} gap={4}>
             <FormField label="Phone Number" required={required}>
-              <Input
+              <Controller
                 name={getField('phone')}
                 control={control}
-                type="tel"
-                placeholder="(XXX) XXX-XXXX"
-                mask={{ mask: '(000) 000-0000' }}
+                rules={{ required: required ? 'Phone number is required' : false }}
+                render={({ field, fieldState: { error } }) => (
+                  <Input
+                    {...field}
+                    type="tel"
+                    placeholder="(XXX) XXX-XXXX"
+                    mask={{ mask: '(000) 000-0000' }}
+                    error={error?.message}
+                  />
+                )}
               />
             </FormField>
             <FormField label="Email Address">
-              <Input
+              <Controller
                 name={getField('email')}
                 control={control}
-                type="email"
-                placeholder="Optional - Enter your email address for notifications"
+                render={({ field, fieldState: { error } }) => (
+                  <Input
+                    {...field}
+                    type="email"
+                    placeholder="Optional - Enter your email address for notifications"
+                    error={error?.message}
+                  />
+                )}
               />
             </FormField>
           </FormLayout>
@@ -110,42 +160,76 @@ export function EnrolleeInfoStep<T extends FieldValues>({
         >
           <FormLayout variant="grid" columns={1} gap={4}>
             <FormField label="Street Address" required={required}>
-              <Input
+              <Controller
                 name={getField('address1')}
                 control={control}
-                placeholder="Enter your street address"
+                rules={{ required: required ? 'Street address is required' : false }}
+                render={({ field, fieldState: { error } }) => (
+                  <Input
+                    {...field}
+                    placeholder="Enter your street address"
+                    error={error?.message}
+                  />
+                )}
               />
             </FormField>
             <FormField label="Apt/Suite/Unit">
-              <Input
+              <Controller
                 name={getField('address2')}
                 control={control}
-                placeholder="Optional - Enter additional address information"
+                render={({ field, fieldState: { error } }) => (
+                  <Input
+                    {...field}
+                    placeholder="Optional - Enter additional address information"
+                    error={error?.message}
+                  />
+                )}
               />
             </FormField>
           </FormLayout>
 
           <FormLayout variant="grid" columns={3} gap={4} className="mt-4">
             <FormField label="City" required={required}>
-              <Input
+              <Controller
                 name={getField('city')}
                 control={control}
-                placeholder="Enter city"
+                rules={{ required: required ? 'City is required' : false }}
+                render={({ field, fieldState: { error } }) => (
+                  <Input
+                    {...field}
+                    placeholder="Enter city"
+                    error={error?.message}
+                  />
+                )}
               />
             </FormField>
             <FormField label="State" required={required}>
-              <Input
+              <Controller
                 name={getField('state')}
                 control={control}
-                placeholder="Enter state"
+                rules={{ required: required ? 'State is required' : false }}
+                render={({ field, fieldState: { error } }) => (
+                  <Input
+                    {...field}
+                    placeholder="Enter state"
+                    error={error?.message}
+                  />
+                )}
               />
             </FormField>
             <FormField label="ZIP Code" required={required}>
-              <Input
+              <Controller
                 name={getField('zipCode')}
                 control={control}
-                placeholder="Enter 5-digit ZIP code"
-                mask={{ mask: '00000' }}
+                rules={{ required: required ? 'ZIP code is required' : false }}
+                render={({ field, fieldState: { error } }) => (
+                  <Input
+                    {...field}
+                    placeholder="Enter 5-digit ZIP code"
+                    mask={{ mask: '00000' }}
+                    error={error?.message}
+                  />
+                )}
               />
             </FormField>
           </FormLayout>

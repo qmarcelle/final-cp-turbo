@@ -14,12 +14,8 @@ export interface SelectProps<TFieldValues extends FieldValues = FieldValues> {
   'data-cy'?: string
 }
 
-export type SelectComponent = <TFieldValues extends FieldValues = FieldValues>(
-  props: SelectProps<TFieldValues> & { ref?: React.ForwardedRef<HTMLSelectElement> }
-) => React.ReactElement;
-
 export const Select = React.forwardRef<
-  HTMLElement,
+  HTMLSelectElement,
   SelectProps<any>
 >(({
     name,
@@ -76,9 +72,9 @@ export const Select = React.forwardRef<
             {placeholder}
           </option>
         )}
-        {options.map(({ value, label }) => (
+        {options.map(({ value, label: optionLabel }) => (
           <option key={value} value={value}>
-            {label}
+            {optionLabel}
           </option>
         ))}
       </select>
@@ -89,6 +85,6 @@ export const Select = React.forwardRef<
       )}
     </div>
   )
-}) as SelectComponent
+})
 
 Select.displayName = 'Select' 
