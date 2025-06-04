@@ -10,11 +10,14 @@ resources:
       ref: refs/heads/dev
 
 variables:
-  PNPM_VERSION: 8.6.0
-  NODE_VERSION: 18.x
+  PNPM_VERSION: 10.5.2
+  NODE_VERSION: 20.x
   # For Turbo caching
-  # TURBO_TOKEN: $(TURBO_TOKEN)
-  # TURBO_TEAM: $(TURBO_TEAM)
+  TURBO_TOKEN: $(TURBO_TOKEN)
+  TURBO_TEAM: $(TURBO_TEAM)
+  # Security and performance
+  SECURITY_AUDIT_LEVEL: moderate
+  PERFORMANCE_BUDGET: 500KB
 
 steps:
 
@@ -23,22 +26,70 @@ steps:
       versionSpec: "20.x"
     displayName: "Install Node.js"
   
+  # Configure corporate proxy settings
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script: |
+        # Configure npm proxy
+        npm config set proxy http://webproxy.bcbst.com:80
+        npm config set https-proxy https://webproxy.bcbst.com:443
+        npm config set registry http://registry.npmjs.org/
+        
+        # Configure git proxy
+        git config --global http.proxy http://webproxy.bcbst.com:80
+        git config --global https.proxy https://webproxy.bcbst.com:443
+        
+        Write-Host "Proxy configuration completed"
+    displayName: 'Configure Corporate Proxy'
+
   # Install pnpm for workspace management
   - task: PowerShell@2
     inputs:
       targetType: 'inline'
       script: |
         npm install -g pnpm@$env:PNPM_VERSION
+        
+        # Configure pnpm proxy
+        pnpm config set proxy http://webproxy.bcbst.com:80
+        pnpm config set https-proxy https://webproxy.bcbst.com:443
+        pnpm config set registry http://registry.npmjs.org/
+        
         pnpm --version
-    displayName: 'Install PNPM'
+    displayName: 'Install and Configure PNPM'
   
   # Install dependencies
   - task: PowerShell@2
     inputs:
       targetType: 'inline'
       script: |
-        pnpm install --no-frozen-lockfile
+        pnpm install --frozen-lockfile
     displayName: 'Install Dependencies'
+  
+  # Security audit
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script: |
+        pnpm audit --audit-level=$env:SECURITY_AUDIT_LEVEL
+    displayName: 'Security Audit'
+    continueOnError: false
+  
+  # Type checking
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script: |
+        pnpm check-types
+    displayName: 'Type Check'
+  
+  # Linting
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script: |
+        pnpm lint
+    displayName: 'Lint Code'
   
   # Build all packages and apps with Turborepo
   - task: PowerShell@2
@@ -48,13 +99,22 @@ steps:
         pnpm build
     displayName: 'Build All Packages and Apps'
   
-  # Run tests
-  # - task: PowerShell@2
-  #   inputs:
-  #     targetType: 'inline'
-  #     script: |
-  #       pnpm test
-  #   displayName: 'Run Tests'
+  # Run tests with coverage
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script: |
+        pnpm test:coverage
+    displayName: 'Run Tests with Coverage'
+  
+  # Performance analysis
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script: |
+        pnpm perf:analyze
+    displayName: 'Performance Analysis'
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
   
   # Output directory contents
   - task: PowerShell@2

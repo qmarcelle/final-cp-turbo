@@ -15,7 +15,21 @@
     },
     "lint": {
       "outputs": [],
-      "cache": true
+      "cache": true,
+      "inputs": [
+        "src/**/*.{ts,tsx,js,jsx}",
+        "**/.eslintrc.*",
+        "**/eslint.config.*"
+      ]
+    },
+    "lint:fix": {
+      "outputs": [],
+      "cache": false,
+      "inputs": [
+        "src/**/*.{ts,tsx,js,jsx}",
+        "**/.eslintrc.*",
+        "**/eslint.config.*"
+      ]
     },
     "dev": {
       "cache": false,
@@ -64,7 +78,18 @@
       ]
     },
     "check-types": {
-      "cache": true
+      "cache": true,
+      "inputs": [
+        "src/**/*.{ts,tsx}",
+        "**/tsconfig*.json"
+      ]
+    },
+    "security:audit": {
+      "cache": false
+    },
+    "perf:analyze": {
+      "cache": false,
+      "dependsOn": ["^build"]
     }
   },
   "globalEnv": [

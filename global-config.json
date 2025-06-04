@@ -1,0 +1,143 @@
+{
+  "$schema": "./schemas/global-config.schema.json",
+  "version": "1.0.0",
+  "name": "Consumer Portals Global Configuration",
+  "description": "Centralized configuration for shared rules across the monorepo",
+  
+  "architecture": {
+    "type": "turborepo-monorepo",
+    "packageManager": "pnpm",
+    "nodeVersion": ">=18.0.0",
+    "structure": {
+      "apps": ["apps/*"],
+      "packages": ["packages/*"],
+      "docs": ["docs/*"],
+      "scripts": ["scripts/*"]
+    }
+  },
+
+  "codingStandards": {
+    "typescript": {
+      "version": "^5.8.2",
+      "strict": true,
+      "baseConfig": "@portals/tsconfig"
+    },
+    "eslint": {
+      "version": "^8.57.1",
+      "baseConfig": "@portals/eslint-config",
+      "rules": {
+        "naming": "kebab-case-files",
+        "imports": "absolute-paths-preferred",
+        "complexity": "max-10"
+      }
+    },
+    "prettier": {
+      "version": "^3.5.3",
+      "config": {
+        "semi": false,
+        "singleQuote": true,
+        "trailingComma": "es5",
+        "tabWidth": 2,
+        "printWidth": 80
+      }
+    }
+  },
+
+  "versionControl": {
+    "hooks": {
+      "preCommit": ["lint-staged"],
+      "commitMsg": "commitizen",
+      "prePush": ["test:unit", "typecheck"]
+    },
+    "lintStaged": {
+      "*.{ts,tsx,js,jsx}": ["eslint --fix", "prettier --write"],
+      "*.{json,md,yml,yaml}": ["prettier --write"],
+      "*.{css,scss}": ["prettier --write"]
+    },
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+
+  "security": {
+    "envVars": {
+      "required": ["NODE_ENV"],
+      "example": ".env.example",
+      "validation": "zod-schemas"
+    },
+    "proxy": {
+      "corporate": {
+        "http": "http://webproxy.bcbst.com:80",
+        "https": "https://webproxy.bcbst.com:443",
+        "noProxy": "localhost,127.0.0.1,*.bcbst.com"
+      },
+      "npm": {
+        "registry": "http://registry.npmjs.org/",
+        "strictSsl": false
+      }
+    },
+    "dependencies": {
+      "audit": "weekly",
+      "autoUpdate": "patch-only",
+      "vulnerabilityCheck": "ci-required"
+    },
+    "headers": {
+      "contentSecurityPolicy": true,
+      "xFrameOptions": "DENY",
+      "xContentTypeOptions": "nosniff"
+    }
+  },
+
+  "performance": {
+    "caching": {
+      "turborepo": true,
+      "nextjs": true,
+      "remote": "vercel"
+    },
+    "bundleAnalysis": {
+      "enabled": true,
+      "maxSize": "500KB",
+      "alertThreshold": "600KB"
+    },
+    "monitoring": {
+      "webVitals": true,
+      "lighthouse": "ci-required"
+    }
+  },
+
+  "testing": {
+    "framework": "jest",
+    "coverage": {
+      "threshold": 80,
+      "required": ["branches", "functions", "lines", "statements"]
+    },
+    "e2e": "playwright",
+    "visualRegression": "chromatic"
+  },
+
+  "deployment": {
+    "environments": ["development", "staging", "production"],
+    "ci": "azure-pipelines",
+    "containers": "docker",
+    "secrets": "azure-key-vault"
+  },
+
+  "documentation": {
+    "api": "openapi",
+    "components": "storybook",
+    "architecture": "c4-model",
+    "runbooks": "confluence"
+  },
+
+  "interoperability": {
+    "api": {
+      "style": "rest",
+      "format": "json",
+      "versioning": "semantic"
+    },
+    "contracts": {
+      "validation": "zod",
+      "generation": "openapi-codegen"
+    }
+  }
+} 

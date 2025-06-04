@@ -11,8 +11,8 @@
     "build:packages": "turbo build --filter=./packages/*",
     "build:apps": "turbo build --filter=./apps/*",
     "dev": "turbo dev",
-    "lint": "echo 'Linting disabled for now'",
-    "lint:all": "echo 'Linting disabled for now'",
+    "lint": "turbo lint",
+    "lint:fix": "turbo lint:fix",
     "test": "turbo test",
     "test:watch": "turbo test:watch",
     "test:coverage": "turbo test:coverage",
@@ -32,7 +32,14 @@
     "analyze": "turbo analyze",
     "prune": "turbo prune",
     "gen:workspace": "turbo gen workspace",
-    "build:ui": "cd packages/ui && pnpm build"
+    "build:ui": "cd packages/ui && pnpm build",
+    "prepare": "husky",
+    "commit": "cz",
+    "security:audit": "pnpm audit --audit-level=moderate",
+    "security:update": "pnpm update --latest --interactive",
+    "perf:analyze": "ANALYZE=true turbo build",
+    "proxy:configure": "./scripts/configure-proxy.sh",
+    "postinstall": "husky install || true"
   },
   "devDependencies": {
     "@headlessui/react": "^2.2.0",
@@ -47,11 +54,14 @@
     "chalk": "^4.1.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "commitizen": "^4.3.1",
     "concurrently": "^9.1.2",
     "cross-env": "^7.0.3",
+    "cz-conventional-changelog": "^3.3.0",
     "esbuild": "^0.25.1",
     "eslint": "^8.57.1",
     "glob": "^11.0.1",
+    "husky": "^9.1.7",
     "lint-staged": "^15.4.3",
     "npm-check-updates": "^17.1.15",
     "postcss-flexbugs-fixes": "^5.0.2",
@@ -90,5 +100,22 @@
   },
   "dependencies": {
     "@fontsource/inter": "^5.2.5"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,yml,yaml}": [
+      "prettier --write"
+    ],
+    "*.{css,scss}": [
+      "prettier --write"
+    ]
   }
 }
