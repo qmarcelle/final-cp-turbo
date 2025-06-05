@@ -1,128 +1,83 @@
 # Employer Portal
 
-A Next.js application for insurance plan employers, built with the Consumer Portals framework.
+Benefits management platform for insurance plan employers.
 
 ## Overview
 
-The Employer Portal provides a powerful platform for employers to manage their employee benefits, insurance plans, and enrollment processes. It uses the Consumer Portals shared packages for UI components, authentication, routing, and API interactions.
+The Employer Portal helps employers manage their employee benefits, insurance plans, and enrollment processes. Built with Next.js and the shared Consumer Portals component library.
 
-## Features
-
-- **Modern UI**: Built with Next.js and Tailwind CSS
-- **Authentication**: Secure login and session management
-- **Plan Management**: View and configure insurance plans
-- **Employee Management**: Add, update, and remove employees
-- **Enrollment**: Manage open enrollment periods
-- **Reporting**: Access and export usage and claims reports
-
-## Technology Stack
-
-- **Framework**: Next.js 14
-- **Styling**: Tailwind CSS
-- **State Management**: React Hooks
-- **Authentication**: NextAuth.js via @portals/auth
-- **Routing**: Next.js App Router with @portals/router
-- **API Communication**: SWR and Axios via @portals/api-client
-- **Logging**: Structured logging via @portals/logger
-
-## Project Structure
-
-```
-employer-portal/
-├── src/
-│   ├── app/              # Next.js App Router
-│   ├── components/       # UI Components
-│   ├── hooks/            # Custom React hooks
-│   ├── styles/           # Global styles
-│   ├── types/            # TypeScript types
-│   └── utils/            # Utility functions
-├── public/               # Static assets
-├── tailwind.config.js    # Tailwind configuration
-└── next.config.js        # Next.js configuration
-```
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js 18+
-- PNPM package manager
-
-### Installation
-
-From the root of the monorepo:
+## Quick Start
 
 ```bash
-# Install dependencies
+# From the monorepo root
 pnpm install
 
-# Build dependent packages
-pnpm build
-
 # Start development server
+pnpm dev:employer
+# or
 pnpm --filter employer-portal dev
 ```
 
-### Environment Variables
+Portal runs at: **http://localhost:3001**
 
-Create a `.env.local` file:
+## Environment Setup
 
-```
+Create `.env.local`:
+
+```bash
 NEXTAUTH_URL=http://localhost:3001
 NEXTAUTH_SECRET=your-secret-here
 NEXT_PUBLIC_API_URL=https://api.example.com
+
+# Optional: Enable MSW for API mocking
+NEXT_PUBLIC_ENABLE_MSW=true
 ```
 
-## Usage of Shared Packages
+## Key Features
+
+- **Plan Management**: Configure and manage insurance plans
+- **Employee Management**: Add, update, and remove employees
+- **Enrollment**: Handle open enrollment periods and plan selections
+- **Reporting**: Access usage analytics and claims reports
+- **Authentication**: Secure employer login and session management
+
+## Technology Stack
+
+- **Framework**: Next.js 15 with App Router
+- **Styling**: Tailwind CSS
+- **Authentication**: NextAuth.js via `@portals/auth`
+- **API**: SWR with `@portals/api-client`
+- **Components**: `@portals/ui` component library
+- **Logging**: `@portals/logger`
+
+## Using Shared Packages
 
 ### UI Components
 
-The portal uses the `@portals/ui` package for core UI components:
-
 ```tsx
-import { Button, Input, FormLayout } from '@portals/ui';
+import { Button, Input, FormLayout } from '@portals/ui'
 
 function PlanForm() {
   return (
-    <FormLayout variant="column">
+    <FormLayout>
       <Input name="planName" label="Plan Name" />
       <Input name="planType" label="Plan Type" />
       <Button variant="primary">Save Plan</Button>
     </FormLayout>
-  );
+  )
 }
 ```
 
-### Authentication
-
-Authentication is handled via the `@portals/auth` package:
+### API Calls
 
 ```tsx
-import { useSession, signIn, signOut } from '@portals/auth';
-
-function ProfileButton() {
-  const { data: session, status } = useSession();
-  
-  if (status === 'authenticated') {
-    return <button onClick={() => signOut()}>Sign Out</button>;
-  }
-  
-  return <button onClick={() => signIn()}>Sign In</button>;
-}
-```
-
-### API Client
-
-API communication uses the `@portals/api-client` package:
-
-```tsx
-import { useQuery } from '@portals/api-client';
+import { useQuery } from '@portals/api-client'
 
 function EmployeeList() {
-  const { data, error, isLoading } = useQuery('/api/employees');
+  const { data, error, isLoading } = useQuery('/api/employees')
   
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  if (isLoading) return <div>Loading...</div>
+  if (error) return <div>Error: {error.message}</div>
   
   return (
     <ul>
@@ -130,43 +85,60 @@ function EmployeeList() {
         <li key={employee.id}>{employee.name}</li>
       ))}
     </ul>
-  );
+  )
 }
 ```
 
-### Routing
-
-Navigation is managed via the `@portals/router` package:
+### Authentication
 
 ```tsx
-import { useRouter } from '@portals/router';
-import { routes } from '@/routes';
+import { useSession, signIn, signOut } from '@portals/auth'
 
-function Navigation() {
-  const router = useRouter();
+function ProfileButton() {
+  const { data: session, status } = useSession()
   
-  return (
-    <nav>
-      <button onClick={() => router.navigate(routes.dashboard)}>
-        Dashboard
-      </button>
-      <button onClick={() => router.navigate(routes.employees)}>
-        Employees
-      </button>
-    </nav>
-  );
+  if (status === 'authenticated') {
+    return <button onClick={() => signOut()}>Sign Out</button>
+  }
+  
+  return <button onClick={() => signIn()}>Sign In</button>
 }
 ```
+
+## Project Structure
+
+```
+employer-portal/
+├── src/
+│   ├── app/              # Next.js App Router
+│   ├── components/       # Portal-specific components
+│   ├── hooks/            # Custom React hooks
+│   ├── styles/           # Global styles
+│   └── types/            # TypeScript types
+├── public/               # Static assets
+└── [config files]
+```
+
+## API Mocking
+
+For development with mocked APIs, see our complete setup guide:
+
+**[→ MSW Setup Guide](../../docs/msw-setup.md)**
+
+## Documentation
+
+For comprehensive development guidance:
+
+- **[Getting Started](../../docs/getting-started.md)** - First time setup
+- **[Development Guide](../../docs/development.md)** - Daily workflows
+- **[Architecture](../../docs/architecture.md)** - System design
+- **[Testing](../../docs/testing.md)** - Testing strategies
 
 ## Building for Production
 
 ```bash
-# From the monorepo root
+# Build the employer portal
 pnpm build --filter employer-portal
 ```
 
-The built application will be available in the `.next` directory.
-
-## License
-
-Proprietary and Confidential 
+Built files are generated in the `.next` directory. 

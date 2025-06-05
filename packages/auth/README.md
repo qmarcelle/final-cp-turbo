@@ -1,51 +1,46 @@
 # @portals/auth
 
-This package is responsible for handling authentication and authorization logic across all portal
-applications.
+Authentication and authorization utilities for Consumer Portals applications.
 
-Refer to the main [Enterprise Portal Architecture & Development Standards](../../../README.md) for
-overall guidelines, particularly the sections on Security Standards.
+## Overview
 
-## Purpose
+Centralized authentication logic for handling user sessions, JWT tokens, and role-based access control across all portal applications.
 
-- Provide a centralized and consistent way to manage user authentication (e.g., login, logout,
-  session management).
-- Handle authorization logic, including role-based access control (RBAC).
-- Abstract away the complexities of interacting with identity providers (e.g., Okta, Azure AD B2C).
+## Features (In Development)
 
-## Key Features (To Be Developed)
+- **Session Management**: Secure session handling with HTTP-only cookies
+- **JWT Operations**: Token generation, validation, and refresh
+- **Role-Based Access**: RBAC for different user types (brokers, employers, admins)
+- **Identity Providers**: Support for Okta, Azure AD B2C, and other SSO providers
+- **Next.js Integration**: Hooks and utilities for both server and client components
 
-- JWT generation, validation, and refresh mechanisms.
-- Secure session management (e.g., using HTTP-only cookies).
-- Adapters for different identity providers.
-- Hooks and utilities for accessing user session and roles in Next.js applications (both Server and
-  Client Components).
-- Middleware for protecting routes.
-- Implementation of SSO patterns.
-
-## API Design Ideas
+## Planned API
 
 ```typescript
-// Example hook
-// import { useSession } from '@portals/auth';
-// const { user, isAuthenticated, roles } = useSession();
+// Client-side hooks
+import { useSession } from '@portals/auth'
+const { user, isAuthenticated, roles } = useSession()
 
-// Example server-side utility
-// import { getServerSession } from '@portals/auth/server';
-// const session = await getServerSession(req, res);
+// Server-side utilities  
+import { getServerSession } from '@portals/auth/server'
+const session = await getServerSession(req, res)
 
-// Example middleware
-// import { withAuth } from '@portals/auth/middleware';
-// export default withAuth(function middleware(req) { ... });
+// Route protection middleware
+import { withAuth } from '@portals/auth/middleware'
+export default withAuth(function middleware(req) { /* ... */ })
 ```
 
-## Getting Started
-
-This package will typically be a dependency of the individual applications in the `apps/` directory.
+## Installation
 
 ```bash
-# Install as a dependency in an app (e.g., member-portal)
-# pnpm --filter=member-portal add @portals/auth
+# Add to your portal app
+pnpm add @portals/auth
 ```
 
-Ensure this package adheres to strict security best practices as it handles sensitive operations.
+## Current Status
+
+This package is under active development. The authentication patterns and security requirements follow enterprise standards outlined in our main documentation.
+
+For overall security guidelines and architecture decisions, see:
+
+**[→ Architecture Guide](../../docs/architecture.md)**

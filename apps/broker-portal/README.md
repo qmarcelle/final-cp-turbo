@@ -1,127 +1,83 @@
 # Broker Portal
 
-A Next.js application for insurance brokers, built with the Consumer Portals framework.
+Insurance management platform for brokers and agents.
 
 ## Overview
 
-The Broker Portal provides a comprehensive platform for insurance brokers to manage clients, policies, and quotes. It uses the Consumer Portals shared packages for UI components, authentication, routing, and API interactions.
+The Broker Portal provides comprehensive tools for insurance brokers to manage clients, policies, quotes, and commissions. Built with Next.js and the shared Consumer Portals component library.
 
-## Features
-
-- **Modern UI**: Built with Next.js and Tailwind CSS
-- **Authentication**: Secure login and session management
-- **Client Management**: View and manage client information
-- **Policy Administration**: Manage policies and renewals
-- **Quote Generation**: Create and customize insurance quotes
-
-## Technology Stack
-
-- **Framework**: Next.js 14
-- **Styling**: Tailwind CSS
-- **State Management**: React Hooks
-- **Authentication**: NextAuth.js via @portals/auth
-- **Routing**: Next.js App Router with @portals/router
-- **API Communication**: SWR and Axios via @portals/api-client
-- **Logging**: Structured logging via @portals/logger
-
-## Project Structure
-
-```
-broker-portal/
-├── src/
-│   ├── app/              # Next.js App Router
-│   ├── components/       # UI Components
-│   ├── hooks/            # Custom React hooks
-│   ├── styles/           # Global styles
-│   ├── types/            # TypeScript types
-│   └── utils/            # Utility functions
-├── public/               # Static assets
-├── tailwind.config.js    # Tailwind configuration
-└── next.config.js        # Next.js configuration
-```
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js 18+
-- PNPM package manager
-
-### Installation
-
-From the root of the monorepo:
+## Quick Start
 
 ```bash
-# Install dependencies
+# From the monorepo root
 pnpm install
 
-# Build dependent packages
-pnpm build
-
 # Start development server
+pnpm dev:broker
+# or
 pnpm --filter broker-portal dev
 ```
 
-### Environment Variables
+Portal runs at: **http://localhost:3000**
 
-Create a `.env.local` file:
+## Environment Setup
 
-```
+Create `.env.local`:
+
+```bash
 NEXTAUTH_URL=http://localhost:3000
 NEXTAUTH_SECRET=your-secret-here
 NEXT_PUBLIC_API_URL=https://api.example.com
+
+# Optional: Enable MSW for API mocking
+NEXT_PUBLIC_ENABLE_MSW=true
 ```
 
-## Usage of Shared Packages
+## Key Features
+
+- **Client Management**: View and manage client information and relationships
+- **Policy Administration**: Handle policies, renewals, and coverage details
+- **Quote Generation**: Create and customize insurance quotes
+- **Commission Tracking**: Monitor earnings and payment schedules
+- **Reporting**: Access sales analytics and performance metrics
+
+## Technology Stack
+
+- **Framework**: Next.js 15 with App Router
+- **Styling**: Tailwind CSS
+- **Authentication**: NextAuth.js via `@portals/auth`
+- **API**: SWR with `@portals/api-client`
+- **Components**: `@portals/ui` component library
+- **Logging**: `@portals/logger`
+
+## Using Shared Packages
 
 ### UI Components
 
-The portal uses the `@portals/ui` package for core UI components:
-
 ```tsx
-import { Button, Input, FormLayout } from '@portals/ui';
+import { Button, Input, FormLayout } from '@portals/ui'
 
 function LoginForm() {
   return (
-    <FormLayout variant="column">
+    <FormLayout>
       <Input name="email" label="Email" />
       <Input name="password" label="Password" type="password" />
       <Button variant="primary">Log In</Button>
     </FormLayout>
-  );
+  )
 }
 ```
 
-### Authentication
-
-Authentication is handled via the `@portals/auth` package:
+### API Calls
 
 ```tsx
-import { useSession, signIn, signOut } from '@portals/auth';
-
-function AuthButton() {
-  const { data: session, status } = useSession();
-  
-  if (status === 'authenticated') {
-    return <button onClick={() => signOut()}>Sign Out</button>;
-  }
-  
-  return <button onClick={() => signIn()}>Sign In</button>;
-}
-```
-
-### API Client
-
-API communication uses the `@portals/api-client` package:
-
-```tsx
-import { useQuery } from '@portals/api-client';
+import { useQuery } from '@portals/api-client'
 
 function ClientList() {
-  const { data, error, isLoading } = useQuery('/api/clients');
+  const { data, error, isLoading } = useQuery('/api/clients')
   
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  if (isLoading) return <div>Loading...</div>
+  if (error) return <div>Error: {error.message}</div>
   
   return (
     <ul>
@@ -129,43 +85,60 @@ function ClientList() {
         <li key={client.id}>{client.name}</li>
       ))}
     </ul>
-  );
+  )
 }
 ```
 
-### Routing
-
-Navigation is managed via the `@portals/router` package:
+### Authentication
 
 ```tsx
-import { useRouter } from '@portals/router';
-import { routes } from '@/routes';
+import { useSession, signIn, signOut } from '@portals/auth'
 
-function Navigation() {
-  const router = useRouter();
+function AuthButton() {
+  const { data: session, status } = useSession()
   
-  return (
-    <nav>
-      <button onClick={() => router.navigate(routes.dashboard)}>
-        Dashboard
-      </button>
-      <button onClick={() => router.navigate(routes.clients)}>
-        Clients
-      </button>
-    </nav>
-  );
+  if (status === 'authenticated') {
+    return <button onClick={() => signOut()}>Sign Out</button>
+  }
+  
+  return <button onClick={() => signIn()}>Sign In</button>
 }
 ```
+
+## Project Structure
+
+```
+broker-portal/
+├── src/
+│   ├── app/              # Next.js App Router
+│   ├── components/       # Portal-specific components
+│   ├── hooks/            # Custom React hooks
+│   ├── styles/           # Global styles
+│   └── types/            # TypeScript types
+├── public/               # Static assets
+└── [config files]
+```
+
+## API Mocking
+
+For development with mocked APIs, see our complete setup guide:
+
+**[→ MSW Setup Guide](../../docs/msw-setup.md)**
+
+## Documentation
+
+For comprehensive development guidance:
+
+- **[Getting Started](../../docs/getting-started.md)** - First time setup
+- **[Development Guide](../../docs/development.md)** - Daily workflows
+- **[Architecture](../../docs/architecture.md)** - System design
+- **[Testing](../../docs/testing.md)** - Testing strategies
 
 ## Building for Production
 
 ```bash
-# From the monorepo root
+# Build the broker portal
 pnpm build --filter broker-portal
 ```
 
-The built application will be available in the `.next` directory.
-
-## License
-
-Proprietary and Confidential 
+Built files are generated in the `.next` directory. 

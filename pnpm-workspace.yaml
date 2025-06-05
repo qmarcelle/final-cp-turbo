@@ -4,6 +4,8 @@ packages:
   - 'apps/employer-portal'
   
   # Only specific packages we want to keep
+  - 'packages/api-client'
+  - 'packages/eslint-config'
   - 'packages/utils'
   - 'packages/ui' 
   - 'packages/tsconfig'

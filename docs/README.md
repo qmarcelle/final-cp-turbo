@@ -20,7 +20,8 @@ Welcome to the Consumer Portals documentation! This directory contains comprehen
 ### 🧪 Testing & Quality
 | Document | Description | Audience |
 |----------|-------------|----------|
-| **[Testing Guide](./testing.md)** | Testing strategies, configuration, and best practices | All developers |
+| **[Testing Guide](./testing.md)** | Our practical approach to testing without the complexity | All developers |
+| **[MSW Setup Guide](./msw-setup.md)** | Mock Service Worker configuration for API mocking | All developers |
 | **[Code Review Guidelines](./code-review.md)** | Standards for reviewing code | All developers |
 
 ### 🏗️ Infrastructure & Deployment
@@ -46,7 +47,8 @@ Welcome to the Consumer Portals documentation! This directory contains comprehen
 
 ### For Daily Development
 - **[Development Guide](./development.md)** - Coding standards and workflows
-- **[Testing Guide](./testing.md)** - Writing and running tests
+- **[Testing Guide](./testing.md)** - Practical testing without the headaches
+- **[MSW Setup Guide](./msw-setup.md)** - API mocking with Mock Service Worker
 - **[Module Aliases](./module-aliases.md)** - Import path conventions
 
 ### For Troubleshooting

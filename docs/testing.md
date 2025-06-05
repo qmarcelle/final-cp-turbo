@@ -1,246 +1,201 @@
-# Testing Configuration Guide
+# Testing Guide
 
-This document provides guidance on how to properly set up testing configurations in our monorepo, with a focus on TypeScript compatibility.
+## Overview
 
-## Structure
+Our testing strategy focuses on practical, maintainable tests that actually help catch bugs and improve confidence in deployments. We've learned that over-engineering testing infrastructure often creates more problems than it solves.
 
-Each package in the monorepo should have:
+## Testing Philosophy
 
-1. A `tsconfig.json` for main source files
-2. A `tsconfig.test.json` for test-specific TypeScript configuration
-3. A `jest.config.js` for Jest configuration
+**Keep it simple.** We use battle-tested tools and avoid exotic setups. The goal is to write tests that developers actually want to maintain, not impressive configurations that break constantly.
 
-## TypeScript Configurations
+**Test what matters.** Focus on user-facing functionality and critical business logic. Don't test implementation details or third-party libraries.
 
-### Main tsconfig.json
+**Fast feedback loops.** Tests should run quickly and give clear feedback when something breaks.
 
-The main `tsconfig.json` should:
-- Extend from the appropriate base config (`react-library.json` or `base.json`)
-- Exclude test files to avoid type conflicts
+## Architecture
 
-```json
-{
-  "extends": "../../packages/tsconfig/react-library.json",
-  "compilerOptions": {
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "skipLibCheck": true,
-    "types": ["node"]
-  },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.test.tsx", "**/__tests__/**/*"]
-}
+### Centralized Testing Utilities (`@portals/testing`)
+
+We maintain a shared testing package for common utilities, configurations, and helpers. This keeps individual apps lean while ensuring consistency.
+
+**What's included:**
+- Jest configuration with sensible defaults
+- MSW integration for API mocking  
+- Testing utilities and custom matchers
+- Next.js-specific mocks
+
+**What's NOT included:**
+- Cypress configurations (too app-specific)
+- Complex test orchestration
+- Framework-specific setup that changes frequently
+
+### Why No Shared Cypress?
+
+After trying to centralize Cypress setup, we learned it's better handled per-app. Each portal has different:
+- Authentication flows
+- Routing patterns  
+- External integrations
+- Performance requirements
+
+Apps set up their own Cypress configurations as needed. This avoids the headache of trying to make one config work for everyone.
+
+## Testing Levels
+
+### Unit Tests
+**Tool:** Jest + Testing Library  
+**Purpose:** Test individual functions and components in isolation  
+**Location:** `*.test.ts` or `*.test.tsx` files next to source code
+
+```typescript
+// Simple, focused tests
+import { render, screen } from '@portals/testing'
+import { Button } from './Button'
+
+test('button renders with correct text', () => {
+  render(<Button>Click me</Button>)
+  expect(screen.getByRole('button')).toHaveTextContent('Click me')
+})
 ```
 
-### Test tsconfig.json
+### Integration Tests  
+**Tool:** Jest + Testing Library + MSW  
+**Purpose:** Test how components work together and with APIs  
+**Location:** `*.integration.test.ts` files or dedicated test directories
 
-Create a separate `tsconfig.test.json` for tests:
+```typescript
+import { setupMswForTests } from '@portals/testing'
 
-```json
-{
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "jsx": "react-jsx",
-    "esModuleInterop": true,
-    "module": "CommonJS",
-    "types": ["node", "jest", "@testing-library/jest-dom", "@jest/globals"],
-    "noEmit": true,
-    "allowJs": true,
-    "skipLibCheck": true
-  },
-  "include": [
-    "src/**/*.test.ts",
-    "src/**/*.test.tsx",
-    "src/**/__tests__/**/*.ts",
-    "src/**/__tests__/**/*.tsx",
-    "jest.setup.ts"
-  ]
-}
+beforeAll(() => setupMswForTests())
+
+test('form submission updates member data', async () => {
+  // Test real user workflows
+})
 ```
 
-## Jest Configuration
+### End-to-End Tests
+**Tool:** Cypress (app-specific setup)  
+**Purpose:** Test critical user journeys in production-like environments  
+**Location:** Per-app `cypress/` directories
 
-Use the following format for Jest config files:
+Set up Cypress directly in each app. The testing package provides MSW helpers that work with Cypress if needed.
 
+## API Mocking Strategy
+
+We use Mock Service Worker (MSW) for consistent API mocking across development, testing, and Storybook. See the [MSW Setup Guide](./msw-setup.md) for details.
+
+**Key principle:** Mock at the network level, not the component level. This means your tests run against the same API interface your production code uses.
+
+## Getting Started
+
+### In Your App
+
+1. **Install dependencies:**
+```bash
+pnpm add -D @portals/testing jest @testing-library/react
+```
+
+2. **Create Jest config:**
 ```javascript
 // jest.config.js
-/** @type {import('jest').Config} */
-const config = {
-  preset: 'ts-jest',
-  testEnvironment: 'jsdom',
-  setupFilesAfterEnv: ['./jest.setup.ts'],
-  moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1',
-    '^@portals/(.*)$': '<rootDir>/../$1/src'
-  },
-  transform: {
-    '^.+\\.(ts|tsx)$': [
-      'ts-jest',
-      {
-        tsconfig: 'tsconfig.test.json',
-        isolatedModules: true,
-        diagnostics: {
-          warnOnly: true  // Show type errors but don't fail the tests
-        }
-      }
-    ]
-  },
-  testMatch: [
-    '**/__tests__/**/*.test.[jt]s?(x)',
-    '**/?(*.)+(test).[jt]s?(x)'
-  ],
-  collectCoverageFrom: [
-    'src/**/*.{ts,tsx}',
-    '!src/**/*.d.ts',
-    '!src/**/*.stories.{ts,tsx}',
-    '!src/types/**/*'
-  ],
-  testPathIgnorePatterns: ['/node_modules/', '/dist/'],
-  transformIgnorePatterns: ['/node_modules/(?!@portals/)'],
-  globals: {
-    'ts-jest': {
-      isolatedModules: true
-    }
-  }
-};
+import { jestConfig } from '@portals/testing'
 
-module.exports = config;
-```
-
-## Writing Tests
-
-When writing tests in TypeScript, follow these best practices:
-
-1. Always use `@jest/globals` to import Jest functions:
-
-```typescript
-import { describe, it, expect, jest, beforeEach } from '@jest/globals';
-```
-
-2. When mocking functions, define the mocks outside the test:
-
-```typescript
-// Create mock functions directly for better type safety
-const mockLogNavigation = jest.fn();
-const mockLogNavigationError = jest.fn();
-
-// Then use them in your mock
-jest.mock('../path/to/module', () => ({
-  someFunction: jest.fn(() => ({
-    logNavigation: mockLogNavigation,
-    logNavigationError: mockLogNavigationError
-  }))
-}));
-```
-
-3. Access mock call information directly from the mock:
-
-```typescript
-// When verifying calls
-expect(mockFunction.mock.calls.length).toBe(1);
-expect(mockFunction.mock.calls[0][0]).toBe('expectedArg');
-```
-
-## Troubleshooting Jest Type Issues
-
-If you encounter TypeScript errors in your tests related to Jest types, try these solutions:
-
-### 1. Explicit Type Casting
-
-Use explicit type casting for mocked modules:
-
-```typescript
-// Instead of:
-(useRouter as jest.Mock).mockReturnValue({...})
-
-// Use:
-(useRouter as any).mockReturnValue({...})
-```
-
-### 2. Direct Mock Access
-
-Create mock functions outside your tests and reference them directly:
-
-```typescript
-const mockPush = jest.fn();
-const mockReplace = jest.fn();
-
-jest.mock('next/navigation', () => ({
-  useRouter: jest.fn(() => ({
-    push: mockPush,
-    replace: mockReplace
-  }))
-}));
-
-// In tests:
-expect(mockPush.mock.calls.length).toBe(1);
-```
-
-### 3. Add Type Declarations
-
-Create a special type declaration file for Jest tests in your package:
-
-```typescript
-// src/types/jest-test.d.ts
-import '@testing-library/jest-dom';
-
-declare global {
-  namespace jest {
-    interface Mock<T = any> {
-      (...args: any[]): T;
-      mock: {
-        calls: any[][];
-        instances: any[];
-        invocationCallOrder: number[];
-        results: any[];
-      };
-    }
-  }
+export default {
+  ...jestConfig,
+  // Add app-specific overrides if needed
 }
 ```
 
-Then import this at the top of your test files:
+3. **Write tests:**
+```bash
+# Run tests
+pnpm test
 
+# Run tests in watch mode  
+pnpm test:watch
+
+# Run with coverage
+pnpm test:coverage
+```
+
+### Common Patterns
+
+**Testing forms:**
 ```typescript
-import '../types/jest-test';
+import { fireEvent, waitFor } from '@portals/testing'
+
+test('form validates required fields', async () => {
+  render(<MemberForm />)
+  
+  fireEvent.click(screen.getByRole('button', { name: /submit/i }))
+  
+  await waitFor(() => {
+    expect(screen.getByText(/email is required/i)).toBeInTheDocument()
+  })
+})
 ```
 
-### 4. Configure ts-jest Options
+**Testing with API calls:**
+```typescript
+import { setupMswForTests } from '@portals/testing'
 
-If you're still seeing type errors, you can configure ts-jest to be less strict:
+beforeAll(() => setupMswForTests())
 
-```javascript
-transform: {
-  '^.+\\.(ts|tsx)$': [
-    'ts-jest',
-    {
-      isolatedModules: true,
-      diagnostics: {
-        warnOnly: true  // Show type errors but don't fail the tests
-      }
-    }
-  ]
-}
+test('loads member data on mount', async () => {
+  render(<MemberDetails memberId="123" />)
+  
+  await waitFor(() => {
+    expect(screen.getByText('John Doe')).toBeInTheDocument()
+  })
+})
 ```
 
-### 5. Required Dependencies
+## Best Practices
 
-Make sure these packages are installed:
+### Do
+- Test user behavior, not implementation
+- Use descriptive test names that explain the scenario
+- Keep tests focused on one thing
+- Mock external dependencies consistently
+- Run tests as part of CI/CD pipeline
 
-```json
-"devDependencies": {
-  "@jest/globals": "^29.7.0",
-  "@testing-library/jest-dom": "^6.4.2",
-  "@types/jest": "^29.5.12",
-  "@types/testing-library__jest-dom": "^6.0.0"
-}
+### Don't  
+- Test third-party library internals
+- Mock everything - test real integrations when possible
+- Write tests that break when you refactor code structure
+- Ignore flaky tests - fix them or remove them
+- Over-engineer test infrastructure
+
+## Debugging Tests
+
+**Common issues:**
+
+1. **Tests timing out:** Usually async/await issues or missing MSW handlers
+2. **Tests flaky on CI:** Often timing-related - use `waitFor` instead of fixed delays  
+3. **Tests breaking on refactor:** You're testing implementation details, not user behavior
+4. **Slow test suite:** Too many integration tests, consider more unit tests
+
+**Useful commands:**
+```bash
+# Debug specific test
+pnpm test -- --testNamePattern="loads member data"
+
+# Run tests with more verbose output
+pnpm test -- --verbose
+
+# Update snapshots 
+pnpm test -- --updateSnapshot
 ```
 
-## Unit Testing vs. Integration Testing
+## CI/CD Integration
 
-Each package should have both unit and integration tests:
+Tests run automatically in our GitHub Actions pipeline:
 
-- **Unit tests**: Test individual functions/components in isolation
-- **Integration tests**: Test interaction between components
+1. **On PR:** Unit and integration tests for changed packages
+2. **On merge:** Full test suite across all packages
+3. **Nightly:** E2E tests against staging environment
 
-Use the same configuration for both, but organize them in separate folders for clarity. 
+Failed tests block deployments. This has saved us from several production issues.
+
+---
+
+> **Remember:** Good tests give you confidence to ship changes quickly. If your tests are slowing you down or breaking constantly, they're probably testing the wrong things. 
