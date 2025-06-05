@@ -5,6 +5,7 @@
     "baseUrl": ".",
     "incremental": true,
     "skipLibCheck": true,
+    "noEmit": true,
     "paths": {
       "@/*": ["./src/*"],
       "@components/*": ["./src/components/*"],
