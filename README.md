@@ -1,6 +1,6 @@
 # BCBST Consumer Portals
 
-> Enterprise portals for insurance brokers and employers
+> Authenticated BCBST Portals
 
 A modern monorepo built with Next.js, TypeScript, and Turborepo for managing BCBST's consumer-facing applications.
 
