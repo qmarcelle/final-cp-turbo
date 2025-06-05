@@ -1,13 +1,13 @@
-import Link from 'next/link';
+import Link from 'next/link'
 
 export default function SupportPage() {
   return (
     <div>
       <h1>Support</h1>
-      <p>This is the main support page. Information and resources will be available here.</p>
+      <p>Get help and assistance with the broker portal.</p>
       {/* Content for the support page */}
       <hr />
-      <Link href="/broker/dashboard">Back to Dashboard</Link>
+      <Link href="/dashboard">Back to Dashboard</Link>
     </div>
-  );
-} 
+  )
+}

@@ -1,18 +1,22 @@
-import Link from 'next/link';
+import Link from 'next/link'
 
-export default function ProfileSettingsPage() {
+export default function ProfilePage() {
   return (
     <div>
-      <h1>Profile Settings</h1>
-      <nav aria-labelledby="profile-settings-navigation">
-        <h2 id="profile-settings-navigation">Settings</h2>
+      <h1>Profile</h1>
+      <nav aria-labelledby="profile-navigation">
+        <h2 id="profile-navigation">Profile Sections</h2>
         <ul>
-          <li><Link href="/broker/profile/security">Security Settings</Link></li>
-          <li><Link href="/broker/profile/admin">Broker Admin</Link></li>
+          <li>
+            <Link href="/profile/security">Security Settings</Link>
+          </li>
+          <li>
+            <Link href="/profile/admin">Broker Admin</Link>
+          </li>
         </ul>
       </nav>
       <hr />
-      <Link href="/broker/dashboard">Back to Dashboard</Link>
+      <Link href="/dashboard">Back to Dashboard</Link>
     </div>
-  );
-} 
+  )
+}

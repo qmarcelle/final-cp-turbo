@@ -1,25 +1,31 @@
-import Link from 'next/link';
+import Link from 'next/link'
 
 type MemberOtherInsurancePageProps = {
   params: {
-    memberId: string;
-  };
-};
+    memberId: string
+  }
+}
 
-export default function MemberOtherInsurancePage({ params }: MemberOtherInsurancePageProps) {
-  const { memberId } = params;
+export default function MemberOtherInsurancePage({
+  params,
+}: MemberOtherInsurancePageProps) {
+  const { memberId } = params
 
   return (
     <div>
       <h1>Other Insurance for Member: {memberId}</h1>
-      <p>This page displays other insurance information for member {memberId}.</p>
+      <p>
+        This page displays other insurance information for member {memberId}.
+      </p>
       {/* Placeholder for other insurance details */}
       <hr />
-      <Link href={`/broker/member-support/member-search/${memberId}`}>Back to Member {memberId} Details</Link>
+      <Link href={`/member-support/member-search/${memberId}`}>
+        Back to Member {memberId} Details
+      </Link>
       <br />
-      <Link href="/broker/member-support/member-search">Back to Member Search</Link>
+      <Link href="/member-support/member-search">Back to Member Search</Link>
       <br />
-      <Link href="/broker/dashboard">Back to Dashboard</Link>
+      <Link href="/dashboard">Back to Dashboard</Link>
     </div>
-  );
-} 
+  )
+}
