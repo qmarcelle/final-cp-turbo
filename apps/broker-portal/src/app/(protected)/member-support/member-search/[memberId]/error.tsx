@@ -1,6 +1,7 @@
 'use client' // Error components must be Client Components
 
 import { useEffect } from 'react'
+import Link from 'next/link'
 
 interface MemberDetailErrorProps {
   error: Error & { digest?: string }
@@ -63,12 +64,12 @@ export default function MemberDetailError({
               Try Again
             </button>
 
-            <a
+            <Link
               href="/member-support/member-search"
               className="block w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-md transition-colors text-center"
             >
               Back to Member Search
-            </a>
+            </Link>
           </div>
 
           {process.env.NODE_ENV === 'development' && (

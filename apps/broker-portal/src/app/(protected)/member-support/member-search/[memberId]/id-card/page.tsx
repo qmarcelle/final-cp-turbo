@@ -3,13 +3,15 @@
 import Link from 'next/link'
 
 type MemberIdCardPageProps = {
-  params: {
+  params: Promise<{
     memberId: string
-  }
+  }>
 }
 
-export default function MemberIdCardPage({ params }: MemberIdCardPageProps) {
-  const { memberId } = params
+export default async function MemberIdCardPage({
+  params,
+}: MemberIdCardPageProps) {
+  const { memberId } = await params
 
   return (
     <div>

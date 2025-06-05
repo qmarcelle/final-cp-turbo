@@ -1,14 +1,16 @@
 import Link from 'next/link'
 
 type ClaimDetailPageProps = {
-  params: {
+  params: Promise<{
     memberId: string
     claimId: string
-  }
+  }>
 }
 
-export default function ClaimDetailPage({ params }: ClaimDetailPageProps) {
-  const { memberId, claimId } = params
+export default async function ClaimDetailPage({
+  params,
+}: ClaimDetailPageProps) {
+  const { memberId, claimId } = await params
 
   return (
     <div>
@@ -29,8 +31,8 @@ export default function ClaimDetailPage({ params }: ClaimDetailPageProps) {
       <Link href="/member-support/member-search">Back to Member Search</Link>
       <br />
       <h4>Claim Details</h4>
-      <p>Member ID: {params.memberId}</p>
-      <p>Claim ID: {params.claimId}</p>
+      <p>Member ID: {memberId}</p>
+      <p>Claim ID: {claimId}</p>
       <p>Displaying full details for the selected claim.</p>
       {/* Placeholder for claim details content */}
       {/* <pre>{JSON.stringify(claimDetails, null, 2)}</pre> */}

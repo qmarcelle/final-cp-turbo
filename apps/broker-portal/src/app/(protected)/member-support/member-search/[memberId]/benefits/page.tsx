@@ -3,15 +3,15 @@
 import Link from 'next/link'
 
 type MemberBenefitsPageProps = {
-  params: {
+  params: Promise<{
     memberId: string
-  }
+  }>
 }
 
-export default function MemberBenefitsPage({
+export default async function MemberBenefitsPage({
   params,
 }: MemberBenefitsPageProps) {
-  const { memberId } = params
+  const { memberId } = await params
 
   return (
     <div>

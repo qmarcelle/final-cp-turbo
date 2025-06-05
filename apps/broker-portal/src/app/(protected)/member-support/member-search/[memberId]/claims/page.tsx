@@ -3,13 +3,15 @@
 import Link from 'next/link'
 
 type MemberClaimsPageProps = {
-  params: {
+  params: Promise<{
     memberId: string
-  }
+  }>
 }
 
-export default function MemberClaimsPage({ params }: MemberClaimsPageProps) {
-  const { memberId } = params
+export default async function MemberClaimsPage({
+  params,
+}: MemberClaimsPageProps) {
+  const { memberId } = await params
   const exampleClaimId = 'example-claim-123' // Placeholder
 
   return (

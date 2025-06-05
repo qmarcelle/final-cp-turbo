@@ -1,16 +1,16 @@
 import Link from 'next/link'
 
 type PriorAuthDetailPageProps = {
-  params: {
+  params: Promise<{
     memberId: string
     priorAuthId: string
-  }
+  }>
 }
 
-export default function PriorAuthDetailPage({
+export default async function PriorAuthDetailPage({
   params,
 }: PriorAuthDetailPageProps) {
-  const { memberId, priorAuthId } = params
+  const { memberId, priorAuthId } = await params
 
   return (
     <div>

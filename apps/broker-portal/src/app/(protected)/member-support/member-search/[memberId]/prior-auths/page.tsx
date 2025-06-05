@@ -3,15 +3,15 @@
 import Link from 'next/link'
 
 type MemberPriorAuthsPageProps = {
-  params: {
+  params: Promise<{
     memberId: string
-  }
+  }>
 }
 
-export default function MemberPriorAuthsPage({
+export default async function MemberPriorAuthsPage({
   params,
 }: MemberPriorAuthsPageProps) {
-  const { memberId } = params
+  const { memberId } = await params
   const examplePriorAuthId = 'pa-example-456' // Placeholder
 
   return (
