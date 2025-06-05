@@ -1,0 +1,470 @@
+@import './text_field.css';
+@import './button.css';
+@import './link.css';
+@import './radio.css';
+@import './cards.css';
+@import './link_row.css';
+@import './status_label.css';
+@import './dropdown.css';
+@import './carousel.css';
+@import './search.css';
+@import './modal.css';
+@import './accordion.css';
+@import './update_row_with_status.css';
+@import './alert_bar.css';
+@import './checkbox.css';
+@import './switch-filter.css';
+@import './pagination.css';
+@import './side_bar_modal.css';
+@import './plan_details.css';
+@import './tooltip.css';
+@import './filter.css';
+@import './search_typeahead.css';
+@import './idcard.css';
+@import './dashboard.css';
+@import './toggle_switch.css';
+@import './my_health_programs.css';
+@import './my_health.css';
+@import './on_off_option.css';
+@import './spending_Summary.css';
+@import './loader.css';
+@import './calendar.css';
+@import './plan_selector.css';
+
+:root {
+  --primary-color: #005eb9;
+  --primary-color-inactive: #7faedc;
+
+  --secondary-color-1: #5dc1fd;
+  --secondary-color-1-accent: #e7f6ff;
+  --secondary-color-2: #00497e;
+  --secondary-color-3: #067dac;
+  --secondary-color-3-accent: #008cc9;
+
+  --tertiary-color-1: #333333;
+  --tertiary-color-3: #737373;
+  --tertiary-color-4: #cccccc;
+  --tertiary-color-5: #f2f2f2;
+  --tertiary-color-6: #fafafa;
+
+  --color-status-error: #eb001b;
+  --color-status-success: #508316;
+  --color-label-success: #e2f0d3;
+  --color-label-error: #efdddf;
+  --color-label-neutral: #f2f2f2;
+}
+
+* {
+  font-family: 'Univers-55';
+  -webkit-font-smoothing: antialiased;
+}
+
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+body {
+  background-color: var(--tertiary-color-6);
+  height: 100vh;
+}
+
+.app-base-font-color {
+  color: var(--tertiary-color-1);
+}
+
+.primary-color {
+  color: var(--primary-color);
+}
+
+.tertiary-color {
+  color: var(--tertiary-color-3);
+}
+
+.tertiary-color-1 {
+  color: var(--tertiary-color-1);
+}
+
+.primary-bg-color {
+  background-color: var(--primary-color);
+}
+
+.primary-bg-color2 {
+  background-color: var(--primary-color-);
+}
+
+.secondary-color2 {
+  color: var(--secondary-color-2);
+}
+
+.secondary-bg-color1 {
+  background-color: var(--secondary-color-1);
+}
+
+.secondary-bg-color1-accent {
+  background-color: var(--secondary-color-1-accent);
+}
+
+.secondary-bg-color2 {
+  background-color: var(--secondary-color-2);
+}
+
+.secondary-bg-color3 {
+  background-color: var(--secondary-color-3);
+}
+
+.secondary-bg-color3-accent {
+  background-color: var(--secondary-color-3-accent);
+}
+
+/* Class for the width of the body content of the App */
+.app-content {
+  max-width: 992px;
+  width: 100%;
+}
+
+.page {
+  background-color: var(--tertiary-color-6);
+}
+
+.brand-gradient {
+  background: radial-gradient(
+      ellipse farthest-corner at right top,
+      #5dc1fd 0%,
+      #0000 60%
+    ),
+    linear-gradient(245deg, #067dac 0%, #00497e 70%);
+}
+
+.surface-gradient-flipped {
+  background: radial-gradient(
+      farthest-corner at bottom right,
+      rgba(93, 193, 253, 0.3) 0%,
+      transparent 60%
+    ),
+    linear-gradient(90deg, rgba(0, 73, 126, 1) 20%, rgba(6, 125, 172, 1) 120%);
+}
+
+.surface-gradient-amplify {
+  background: radial-gradient(
+      farthest-corner at top right,
+      rgba(0, 94, 185, 0.6),
+      transparent
+    ),
+    linear-gradient(146deg, rgba(0, 94, 185, 1) 30%, rgba(93, 193, 253, 1) 120%);
+}
+
+.surface-gradient-amplify-flipped {
+  background: radial-gradient(
+      farthest-corner at bottom right,
+      rgba(0, 94, 185, 0.6),
+      transparent
+    ),
+    linear-gradient(39deg, rgba(0, 94, 185, 1) 30%, rgba(93, 193, 253, 1) 120%);
+}
+
+.page-section-63_33 {
+  flex-basis: 63.33%;
+  flex-shrink: 1;
+}
+
+.page-section-36_67 {
+  flex-basis: 36.67%;
+  flex-shrink: 1;
+}
+
+.section {
+  margin: 16px 0px;
+  padding: 32px;
+}
+
+.small-section {
+  margin: 16px 0px;
+  padding: 32px;
+}
+
+.large-section {
+  margin: 16px 0px;
+  padding: 32px;
+}
+
+.rich-text > * {
+  display: inline;
+}
+
+.title-1 {
+  font-size: 2.5rem;
+  line-height: 3rem;
+  font-family: 'Univers-45';
+}
+
+.title-2 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-family: 'Univers-55';
+}
+
+.title-3 {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-family: 'Univers-55';
+}
+
+.title-2-bold {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-family: 'Univers-65';
+}
+
+.find-care-costs-title {
+  height: 40px;
+  color: #333333;
+  font-size: 32px;
+  letter-spacing: 0;
+  line-height: 40px;
+}
+
+.body {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-family: 'Univers-55';
+}
+
+.body-bold {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-family: 'Univers-65';
+}
+
+.body-2 {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-family: 'Univers-55';
+}
+
+.link {
+  color: #005eb9;
+  font-family: 'Univers-65';
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.link:hover {
+  text-decoration: none;
+  color: var(--secondary-color-2);
+}
+
+.link:focus {
+  text-decoration: none;
+  color: var(--secondary-color-2);
+  outline-offset: 2px;
+  outline: 2px solid var(--secondary-color-2);
+}
+
+.link-white-text {
+  @apply link;
+  color: #ffffff;
+}
+
+.link-white-text:hover {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.button-text {
+  color: #005eb9;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-family: 'Univers-65';
+}
+
+/* Dividers */
+.divider {
+  height: 1px;
+  background-color: var(--tertiary-color-4);
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+}
+
+.icon-sm {
+  width: 18px;
+  height: 18px;
+}
+
+.icon-document {
+  width: 35px;
+  height: auto;
+}
+
+/* Media Query for the devices starting from medium till 2xl */
+@media (768px <= width) {
+  .app-content {
+    max-width: 992px;
+    padding: 32px 0px;
+  }
+
+  .section {
+    flex-shrink: 1;
+    margin: 16px 0px;
+    padding: 32px;
+  }
+
+  .small-section {
+    flex-basis: 37.5%;
+    flex-shrink: 1;
+    margin: 16px 0px;
+    padding: 32px;
+  }
+
+  .large-section {
+    flex-basis: 62.5%;
+    flex-shrink: 1;
+    margin: 16px 0px;
+    padding: 32px;
+  }
+
+  .app-body {
+    gap: 32px;
+  }
+}
+
+/* Media Query for the devices starting from medium till large */
+@media (min-device-width: 768px) and (max-device-width: 1024px) {
+  .app-content {
+    padding: 16px;
+  }
+}
+
+/* Media Query for the small devices */
+@media (width < 768px) {
+  .app-content {
+    max-width: 768px;
+    padding: 16px;
+  }
+
+  .page-section-63_33 {
+    flex-basis: initial;
+  }
+
+  .page-section-36_67 {
+    flex-basis: initial;
+  }
+
+  .section {
+    flex-basis: initial;
+    padding: 12px;
+  }
+
+  .small-section {
+    flex-basis: initial;
+    padding: 16px;
+  }
+
+  .large-section {
+    flex-basis: initial;
+    padding: 16px;
+  }
+
+  .app-body {
+    flex-wrap: wrap;
+  }
+
+  .title-1 {
+    font-size: 2rem;
+    line-height: 2.5rem;
+  }
+}
+
+.caremark button {
+  padding-top: 0;
+}
+
+.toggle-link:hover {
+  cursor: pointer;
+}
+
+.toggle-link-active {
+  border-bottom-width: 5px;
+  border-bottom-color: #005eb9;
+}
+
+hr {
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.animate-pulse .loaderWidth {
+  width: 74%;
+}
+
+.animate-pulse .loaderWidth.max-w-\[330px\] {
+  width: 61%;
+}
+
+.react-responsive-modal-modal {
+  padding: 0px !important;
+  margin: 0px !important;
+}
+
+.skipButton {
+  border: 1px solid;
+  background-color: #fff;
+}
+
+.skipButton p {
+  color: #000;
+}
+
+.skipButton {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+  background-color: #fff;
+  border: 2px solid #000;
+  color: #000;
+  font-family: anaheim, sans-serif;
+  letter-spacing: 0.15ch;
+  padding: 1rem 2rem;
+  text-decoration: none;
+  transition:
+    background-color 0.3s ease-in-out,
+    color 0.3s ease-in-out;
+}
+
+.skipButton:focus {
+  clip: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  position: static;
+  width: auto;
+  outline: none;
+  position: relative;
+  top: 0rem;
+  left: 0rem;
+  z-index: 10;
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+  .skipButton {
+    transition: none;
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "@cp/api-client",
+  "version": "0.0.1",
+  "main": "src/index.ts",
+  "license": "MIT",
+  "scripts": {
+    "typecheck": "tsc --noEmit --pretty"
+  },
+  "dependencies": {
+    "axios": "^1.6.3",
+    "swr": "^2.2.4"
+  },
+  "devDependencies": {
+    "@cp/tsconfig": "workspace:*",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@types/node": "^20.10.5",
+    "@types/react": "^19.0.10",
+    "@types/testing-library__jest-dom": "^6.0.0",
+    "eslint": "^9.22.0",
+    "eslint-config-custom": "workspace:*",
+    "tsup": "^8.4.0",
+    "typescript": "^5.3.3"
+  }
+}

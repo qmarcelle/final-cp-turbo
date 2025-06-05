@@ -1,0 +1,47 @@
+{
+  "name": "consumer-portals-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./tooling/scripts/initialize-and-start.js",
+    "setup": "node tooling/scripts/setup.js",
+    "dev": "pnpm turbo run dev --parallel",
+    "build": "pnpm turbo run build",
+    "test": "pnpm turbo run test",
+    "lint": "pnpm turbo run lint",
+    "lint:fix": "pnpm turbo run lint --fix",
+    "typecheck": "pnpm turbo run typecheck",
+    "format": "pnpm turbo run format",
+    "format:check": "pnpm turbo run format:check",
+    "clean": "pnpm turbo run clean && rimraf node_modules",
+    "clean:dist": "pnpm turbo run clean",
+    "reinstall": "rimraf node_modules && pnpm turbo run clean && pnpm install",
+    "update:interactive": "pnpm update --interactive --latest",
+    "doctor": "pnpm dlx @turbo/doctor"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.21",
+    "boxen": "^8.0.1",
+    "chalk": "^5.4.1",
+    "eslint": "^9.27.0",
+    "figlet": "^1.8.1",
+    "ora": "^8.2.0",
+    "pnpm": "^10.11.0",
+    "prettier": "^3.5.3",
+    "rimraf": "^6.0.1",
+    "tsup": "^8.5.0",
+    "turbo": "^2.5.3",
+    "typescript": "~5.8.3"
+  },
+  "packageManager": "pnpm@9.15.1",
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "glob": "^10.3.10",
+      "rimraf": "^5.0.5"
+    }
+  }
+}

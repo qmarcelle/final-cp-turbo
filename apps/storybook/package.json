@@ -1,0 +1,23 @@
+{
+  "name": "storybook-app",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "storybook:dev": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "devDependencies": {
+    "@portals/typescript-config": "workspace:*",
+    "@cp/ui": "workspace:*",
+    "@storybook/addon-a11y": "8.6.14",
+    "@storybook/addon-essentials": "8.6.14",
+    "@storybook/addon-interactions": "8.6.14",
+    "@storybook/addon-links": "8.6.14",
+    "@storybook/addon-styling-webpack": "^1.0.1",
+    "@storybook/react-vite": "8.6.14",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "storybook": "8.6.14",
+    "typescript": "^5.1.6"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "extends": "@cp/tsconfig/nextjs.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    },
+    "incremental": true
+  }
+}

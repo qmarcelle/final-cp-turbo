@@ -1,0 +1,15 @@
+{
+  "name": "@portals/auth",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Authentication utilities for consumer portals.",
+  "keywords": ["auth", "typescript", "monorepo"],
+  "license": "MIT",
+  "scripts": {
+    "typecheck": "tsc --noEmit --pretty"
+  },
+  "exports": {
+    ".": "./dist/index.js",
+    "./*": "./dist/*"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  // Logger package TypeScript configuration
+  // Provides standardized logging utilities for the application
+  "extends": "../../packages/tsconfig/base.json",
+  "compilerOptions": {
+    "declaration": true,
+    "noEmit": false,
+    "emitDeclarationOnly": true,
+    // moduleResolution is "bundler" from base.json
+    // esModuleInterop is true from base.json
+    // skipLibCheck is true from base.json
+    "types": ["node"], // Keep specific types
+    "typeRoots": [ // Keep specific typeRoots
+      "../../node_modules/.pnpm/@types",
+      "../../node_modules/@types",
+      "./node_modules/@types"
+    ]
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist", "**/*.test.ts"]
+} 

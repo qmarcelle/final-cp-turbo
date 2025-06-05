@@ -1,0 +1,27 @@
+import supportSvg from '@/../../packages/ui/assets/support.svg';
+import bcbstLogoSvg from '@/../../packages/ui/assets/bcbst_blue.svg';
+import closeIconSvg from '@/../../packages/ui/assets/close.svg';
+import bcbstStackedSvg from '@/../../packages/ui/assets/bluecross_stacked.svg';
+import hamburgerMenuSvg from '@/../../packages/ui/assets/hamburger_menu.svg';
+import rightSvg from '@/../../packages/ui/assets/right.svg';
+import upSvg from '@/../../packages/ui/assets/up.svg';
+import parentPageArrowSvg from '@/../../packages/ui/assets/parent_page_arrow.svg';
+import { default as externalSvg } from '@/../../packages/ui/assets/external.svg';
+import blueCrossSilhouletteSvg from '@/../../packages/ui/assets/bluecross_silhouette.svg';
+import leftIconSvg from '@/../../packages/ui/assets/left.svg';
+import profileWhiteSvg from '@/../../packages/ui/assets/profile_white.svg';
+import searchSvg from '@/../../packages/ui/assets/search.svg';
+
+export const supportIcon = supportSvg;
+export const bcbstBlueLogo = bcbstLogoSvg;
+export const closeIcon = closeIconSvg;
+export const bcbstStackedlogo = bcbstStackedSvg;
+export const hamburgerMenuIcon = hamburgerMenuSvg;
+export const upIcon = upSvg;
+export const rightIcon = rightSvg;
+export const externalIcon = externalSvg;
+export const parentPageArrowIcon = parentPageArrowSvg;
+export const leftIcon = leftIconSvg;
+export const bcbstSilhouletteLogo = blueCrossSilhouletteSvg;
+export const profileWhiteIcon = profileWhiteSvg;
+export const searchIcon = searchSvg;

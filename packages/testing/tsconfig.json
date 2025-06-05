@@ -1,0 +1,21 @@
+{
+  // Testing package TypeScript configuration
+  // Provides testing utilities and configurations for the monorepo
+  "extends": "@portals/typescript-config/react-library.json",
+  "compilerOptions": {
+    // Basic compiler options for the testing package
+    "baseUrl": ".",
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "types": ["node", "jest"],
+    "typeRoots": [
+      "../../node_modules/.pnpm/@types",
+      "../../node_modules/@types",
+      "./node_modules/@types",
+      "./src/types"
+    ]
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "**/*.spec.ts", "**/*.test.ts", "**/*.cy.ts"]
+} 

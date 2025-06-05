@@ -1,0 +1,25 @@
+{
+  "name": "@portals/typescript-config",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Shared TypeScript configuration for consumer portals.",
+  "keywords": ["typescript", "config", "monorepo"],
+  "license": "MIT",
+  "exports": {
+    "./tsconfig/base": "./tsconfig/base.json",
+    "./tsconfig/nextjs": "./tsconfig/nextjs.json",
+    "./tsconfig/react-library": "./tsconfig/react-library.json",
+    "./tsup/base": "./tsup/base.config.js",
+    "./typings/global": "./typings/global.d.ts"
+  },
+  "files": [
+    "tsconfig/base.json",
+    "tsconfig/nextjs.json",
+    "tsconfig/react-library.json",
+    "tsup/base.config.js",
+    "typings/global.d.ts"
+  ],
+  "devDependencies": {
+    "tsup": "^8.0.0"
+  }
+}

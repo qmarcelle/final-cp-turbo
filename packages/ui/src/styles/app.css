@@ -1,0 +1,303 @@
+@tailwind utilities;
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@font-face {
+  font-family: 'Univers-45';
+  src: url(./../../assets/universLTPro_45Light.woff);
+}
+
+@font-face {
+  font-family: 'Univers-55';
+  src: url(./../../assets/universLTPro_55Roman.woff);
+}
+
+@font-face {
+  font-family: 'Univers-65';
+  src: url(./../../assets/universLTPro_65Bold.woff);
+}
+
+#blueback {
+  background: radial-gradient(
+      ellipse farthest-corner at right top,
+      #5dc1fd 0%,
+      #0000 60%
+    ),
+    linear-gradient(245deg, #067dac 0%, #00497e 70%);
+  padding-bottom: 18%;
+  min-height: 100vh;
+}
+
+#logo {
+  width: 175px;
+  margin: 15px;
+  display: inline-block;
+}
+
+#blueback #mainSection h1 {
+  font-size: 24px;
+  margin-top: 5px;
+}
+
+#blueback h3 {
+  font-size: 20px;
+  margin-top: 25px;
+}
+
+#marginSection {
+  width: 416px;
+  margin: 0 auto;
+}
+
+#mainSection {
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  background-color: #ffffff;
+  padding: 25px 25px;
+  margin-top: 18px;
+}
+
+.buttonlink {
+  color: #ffffff;
+  background-color: unset;
+  border: none;
+  text-decoration: underline;
+  margin-top: 25px;
+  font-family: 'Univers-65';
+}
+
+#backButton::before {
+  content: url('./../../assets/icon_link_pointer_white.png');
+  transform: rotate(180deg);
+  display: inline-block;
+  margin-right: 5px;
+}
+
+#signoutButton::after {
+  content: url('/assets/signout.svg');
+  display: inline-block;
+  margin-left: 7px;
+}
+
+#signoutButton:hover::after {
+  content: url('/assets/signout_white.svg');
+  display: inline-block;
+  margin-left: 7px;
+}
+
+#contactbutton,
+#resendbutton,
+#choosebutton {
+  color: #005eb9;
+  font-weight: bold;
+}
+
+#confirmbutton {
+  margin-top: 30px;
+  width: 100%;
+  height: 36px;
+  background-color: #7faedc;
+  border: 1px solid #7faedc;
+  color: #ffffff;
+  border-radius: 3px;
+  opacity: 0.7;
+}
+
+#choosebutton {
+  margin: 0 auto;
+  margin-top: 30px;
+  margin-bottom: 39px;
+  width: 98%;
+}
+
+#contactbutton {
+  margin: 0px;
+  display: inline-block;
+  padding: 0;
+}
+
+.headerbutton {
+  float: right;
+  margin: 21px !important;
+}
+
+@media (max-width: 767.9px) {
+  #marginSection {
+    width: 90%;
+  }
+}
+.priorAuthDetail .success,
+.priorAuthDetail .error,
+.priorAuthDetail .partialapproval,
+.priorAuthDetail .neutral {
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.priorAuthDetail .statusDetail {
+  margin-left: 70px;
+}
+.errorCard {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.sliderdots-active .slick-dots li.slick-active button:before {
+  color: #005eb9;
+  font-size: 12px;
+}
+
+.sliderdots .slick-dots li button:before {
+  border-color: #005eb9;
+  font-size: 12px;
+}
+
+.access-code {
+  width: 114px;
+  height: 63px;
+  background-color: #e7f6ff;
+}
+.prior-auth-card {
+  width: 39%;
+}
+.download-pdf .gap-1 div.flex-col {
+  margin: 0.25rem;
+}
+.disabled-checkbox {
+  opacity: 0.5;
+  pointer-events: none; /* Disables interactions with the checkbox */
+}
+
+.manage-image .link {
+  display: ruby;
+}
+.cardColor {
+  height: 56px;
+  width: 672px;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.manage-benefit {
+  div .flex.flex-row.m-2 {
+    margin: 0px;
+  }
+  div .link-row-head.mr-2 {
+    margin-left: 8px;
+  }
+}
+
+.manage-underline .link {
+  text-decoration: none;
+}
+
+.overlap-bottom {
+  margin-bottom: -21px;
+}
+
+.accessCodeBackground {
+  background-color: #e7f6ff;
+  border-radius: 7px;
+  width: 40%;
+  margin: auto;
+}
+
+.stepSection .stepRoundBlue {
+  border-radius: 9999px;
+  background-color: #005eb9;
+  display: inline-block;
+  width: 30px;
+  padding-top: 5px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.stepSection .stepRoundGrey {
+  border-radius: 9999px;
+  border: 1px solid rgb(204, 204, 204);
+  background-color: #ffffff;
+  display: inline-block;
+  width: 30px;
+  padding-top: 5px;
+  text-align: center;
+  color: rgb(204, 204, 204);
+}
+
+.stepSection .stepLineGrey {
+  width: 32% !important;
+  height: 2px !important;
+  background-color: rgb(204, 204, 204) !important;
+  margin-bottom: 5px !important;
+  display: inline-block;
+}
+
+.stepSection .stepLineBlue {
+  width: 32% !important;
+  height: 2px !important;
+  background-color: #005eb9 !important;
+  margin-bottom: 5px !important;
+  display: inline-block;
+}
+.skip-underscore .link {
+  text-decoration: none;
+}
+.disabled-checkbox {
+  opacity: 0.5;
+  pointer-events: none; /* Disables interactions with the checkbox */
+}
+.manage-link {
+  display: ruby;
+}
+.manage-faq {
+  font-family: 'Univers-55' !important;
+}
+
+.recentClaimsException {
+  background-color: rgb(230, 230, 230) !important;
+  border-radius: 10px;
+  display: flex;
+  height: 100%;
+  padding: 10px;
+}

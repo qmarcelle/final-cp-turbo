@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "./base.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "target": "ES2022",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "composite": false,
+    "noEmit": false,
+    "emitDeclarationOnly": true,
+    "paths": {
+      "@/*": ["./src/*"],
+      "@components/*": ["./src/components/*"],
+      "@features/*": ["./src/features/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@types/*": ["./src/types/*"],
+      "@styles/*": ["./src/styles/*"]
+    }
+  },
+  "include": ["src"],
+<<<<<<<< HEAD:packages/tsconfig/react-library.json
+  "exclude": ["node_modules", "dist", "**/*.stories.tsx", "**/*.test.tsx", "**/*.spec.tsx"]
+}
+========
+  "exclude": ["node_modules", "dist"]
+} 
+>>>>>>>> f590bf06e9cee8ecd535a65c7da1bb9fe1847187:packages/typescript-config/tsconfig/react-library.json

@@ -1,0 +1,84 @@
+# Source code
+/src
+
+# Configuration files
+tsconfig.json
+tsconfig.*.json
+.eslintrc
+.eslintrc.js
+.eslintrc.json
+.prettierrc
+.prettierrc.js
+.prettierrc.json
+rollup.config.js
+webpack.config.js
+jest.config.js
+jest.config.ts
+.babelrc
+.babelrc.js
+babel.config.js
+vite.config.ts
+
+# Test files
+__tests__
+__mocks__
+test
+tests
+*.test.*
+*.spec.*
+*.stories.*
+**/*.stories.tsx
+**/*.test.tsx
+**/*.spec.tsx
+**/__tests__/
+**/__mocks__/
+
+# Development files
+.github
+.vscode
+.idea
+.env*
+!.env.example
+*.log
+.DS_Store
+.turbo
+.next
+storybook-static
+tsconfig.tsbuildinfo
+coverage
+
+# Package manager files
+node_modules
+.pnpm-store/
+.pnpm/
+.yarn/
+.pnpm-debug.log*
+pnpm-lock.yaml
+yarn.lock
+package-lock.json
+
+# Documentation
+docs
+CHANGELOG.md
+CONTRIBUTING.md
+CODE_OF_CONDUCT.md
+
+# Examples and demos
+examples
+demo
+*.example.*
+
+# Temporary files
+tmp
+temp
+
+# Other unnecessary files
+.git
+.gitignore
+.gitattributes
+.travis.yml
+.circleci
+.editorconfig
+*.md
+!README.md
+!LICENSE.md 
