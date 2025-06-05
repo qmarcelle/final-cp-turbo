@@ -34,37 +34,4 @@ module.exports = {
     'prefer-const': 'error',
     'no-var': 'error',
   },
-  overrides: [
-    {
-      files: ['**/*.ts', '**/*.tsx'],
-      extends: [
-        'eslint:recommended',
-        '@typescript-eslint/recommended',
-      ],
-      parser: '@typescript-eslint/parser',
-      plugins: ['@typescript-eslint'],
-      rules: {
-        '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
-        '@typescript-eslint/no-explicit-any': 'warn',
-      },
-    },
-    {
-      files: ['**/*.tsx'],
-      extends: [
-        'plugin:react/recommended',
-        'plugin:react-hooks/recommended',
-        'plugin:jsx-a11y/recommended',
-      ],
-      settings: {
-        react: {
-          version: 'detect',
-        },
-      },
-      rules: {
-        'react/react-in-jsx-scope': 'off',
-        'react/prop-types': 'off',
-        'jsx-a11y/anchor-is-valid': 'off',
-      },
-    },
-  ],
 } 
