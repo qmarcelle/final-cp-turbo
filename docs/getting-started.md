@@ -19,7 +19,7 @@ Before you begin, ensure you have the following installed:
 ### 1. Clone the Repository
 
 ```bash
-git clone [repository-url]
+git clone https://BCBST-EIT@dev.azure.com/BCBST-EIT/Consumer_Portals/_git/TurboPortal
 cd cp_turbo_skeleton
 ```
 
@@ -210,7 +210,7 @@ Now that you have the project running:
 - **Microsoft Teams**: Consumer Portals team channel (fastest response)
 - **Email**: consumerportals@groups.bcbst.com (for longer questions)
 - **Documentation**: Check the [troubleshooting guide](./troubleshooting.md) first
-- **Issues**: Create a GitHub issue with the `help-wanted` label
+- **Issues**: Create an Azure DevOps work item with the `help-wanted` tag
 
 ### 💡 Pro Tips for Getting Help
 1. **Include error messages** - Copy/paste the exact error

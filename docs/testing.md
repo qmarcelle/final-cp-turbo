@@ -188,9 +188,13 @@ pnpm test -- --updateSnapshot
 
 ## CI/CD Integration
 
-Tests run automatically in our GitHub Actions pipeline:
+Tests run automatically in our Azure DevOps pipeline (see azure-pipelines.yml):
 
 1. **On PR:** Unit and integration tests for changed packages
+2. **Security audit:** `pnpm audit --audit-level=moderate`
+3. **Type checking:** `pnpm check-types`
+4. **Linting:** `pnpm lint`
+5. **Coverage:** `pnpm test:coverage`
 2. **On merge:** Full test suite across all packages
 3. **Nightly:** E2E tests against staging environment
 

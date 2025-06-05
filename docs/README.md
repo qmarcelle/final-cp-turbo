@@ -71,7 +71,7 @@ Welcome to the Consumer Portals documentation! This directory contains comprehen
 
 - **Microsoft Teams**: Contact the Consumer Portals team for general questions
 - **Email**: consumerportals@groups.bcbst.com for technical discussions
-- **Documentation Issues**: Create a GitHub issue with the `documentation` label
+- **Documentation Issues**: Create an Azure DevOps work item with the `documentation` tag
 - **Code Reviews**: Follow the **[Code Review Guidelines](./code-review.md)**
 
 ---

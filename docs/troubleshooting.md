@@ -579,7 +579,7 @@ This guide helps you resolve common issues when developing with the Consumer Por
 ### Before Asking for Help
 
 1. **Check this troubleshooting guide**
-2. **Search existing GitHub issues**
+2. **Search existing Azure DevOps work items**
 3. **Check the logs for specific error messages**
 4. **Try reproducing in a clean environment**
 
@@ -612,7 +612,7 @@ This guide helps you resolve common issues when developing with the Consumer Por
 
 - **Microsoft Teams**: Contact the Consumer Portals team for general questions
 - **Email**: consumerportals@groups.bcbst.com for technical discussions
-- **GitHub Issues**: For bugs and feature requests
+- **Azure DevOps Work Items**: For bugs and feature requests
 - **Documentation**: Check other docs in this directory
 - **Code Reviews**: Ask during PR reviews
 

@@ -8,7 +8,7 @@ A modern monorepo built with Next.js, TypeScript, and Turborepo for managing BCB
 
 ```bash
 # Clone and install
-git clone [repository-url]
+git clone https://BCBST-EIT@dev.azure.com/BCBST-EIT/Consumer_Portals/_git/TurboPortal
 cd cp_turbo_skeleton
 pnpm install
 

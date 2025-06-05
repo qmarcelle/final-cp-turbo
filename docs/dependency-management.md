@@ -163,9 +163,12 @@ pnpm build --remote-only
 TurboRepo is integrated with our CI/CD pipelines:
 
 ```yaml
-# Example GitHub Actions workflow
+# Example Azure DevOps Pipeline workflow (see azure-pipelines.yml)
 steps:
-  - uses: actions/checkout@v3
+  - task: NodeTool@0
+    inputs:
+      versionSpec: "20.x"
+    displayName: "Install Node.js"
   - uses: pnpm/action-setup@v2
     with:
       version: 9.x

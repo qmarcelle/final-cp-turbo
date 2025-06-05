@@ -10,7 +10,7 @@ For collaborative development, we use a branch-based workflow directly on the ma
 
 ```bash
 # Clone the repository directly
-git clone https://github.com/bcbst/cp_turbo_skeleton.git
+git clone https://BCBST-EIT@dev.azure.com/BCBST-EIT/Consumer_Portals/_git/TurboPortal
 cd cp_turbo_skeleton
 
 # Ensure you're on the latest main
@@ -88,7 +88,7 @@ Closes #123"
 # 5. Push to origin
 git push origin feature/PRT-123-new-feature
 
-# 6. Create pull request on GitHub
+# 6. Create pull request in Azure DevOps
 ```
 
 ### 3. Pull Request Process
@@ -484,8 +484,8 @@ We use semantic versioning (SemVer):
 
 1. **Microsoft Teams**: Contact the Consumer Portals team for general questions
 2. **Email**: consumerportals@groups.bcbst.com for technical discussions
-3. **GitHub Discussions**: For longer discussions and RFC (Request for Comments)
-4. **GitHub Issues**: For bugs and feature requests
+3. **Azure DevOps Discussions**: For longer discussions and RFC (Request for Comments)
+4. **Azure DevOps Work Items**: For bugs and feature requests
 5. **Code Reviews**: During PR review process
 
 ### Mentorship Program
