@@ -11,6 +11,8 @@
   "arrowParens": "avoid",
   "endOfLine": "lf",
   "embeddedLanguageFormatting": "auto",
+  "singleAttributePerLine": false,
+  "plugins": [],
   "overrides": [
     {
       "files": "*.md",
@@ -22,7 +24,14 @@
     {
       "files": "*.json",
       "options": {
-        "printWidth": 120
+        "printWidth": 120,
+        "trailingComma": "none"
+      }
+    },
+    {
+      "files": "*.{yml,yaml}",
+      "options": {
+        "singleQuote": false
       }
     }
   ]

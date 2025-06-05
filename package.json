@@ -8,8 +8,8 @@
   ],
   "scripts": {
     "build": "turbo build",
-    "build:packages": "turbo build --filter=./packages/*",
-    "build:apps": "turbo build --filter=./apps/*",
+    "build:packages": "turbo build --filter='./packages/*'",
+    "build:apps": "turbo build --filter='./apps/*'",
     "dev": "turbo dev",
     "lint": "turbo lint",
     "lint:fix": "turbo lint:fix",
@@ -18,84 +18,46 @@
     "test:coverage": "turbo test:coverage",
     "e2e": "turbo e2e",
     "e2e:headless": "turbo e2e:headless",
-    "format": "prettier --write",
-    "clean": "pnpm -r exec -- rimraf dist .turbo node_modules && pnpm exec rimraf node_modules",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,yml,yaml,css}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md,yml,yaml,css}\"",
+    "clean": "turbo clean && pnpm -r exec -- rimraf node_modules && rimraf node_modules",
     "clean:install": "pnpm clean && pnpm install",
-    "clean:node_modules": "pnpm -r exec -- rimraf node_modules && pnpm exec rimraf node_modules",
-    "clean:cache": "pnpm -r exec -- rimraf dist .turbo",
-    "clean:cache:hard": "pnpm store path && echo 'To completely remove store, run: rm -rf $(pnpm store path)'",
-    "clean:dist": "pnpm -r exec -- rimraf dist",
-    "clean:turbo": "pnpm exec rimraf .turbo",
-    "clean:all": "pnpm clean:node_modules && pnpm clean:cache && pnpm exec rimraf .turbo",
-    "install:fast": "pnpm install --network-concurrency=16 --child-concurrency=16",
-    "install:ci": "pnpm install --frozen-lockfile",
-    "docs": "turbo build --filter=@portals/docs",
+    "clean:cache": "turbo clean && rimraf .turbo",
     "check-types": "turbo check-types",
-    "analyze": "turbo analyze",
-    "prune": "turbo prune",
-    "gen:workspace": "turbo gen workspace",
-    "build:ui": "cd packages/ui && pnpm build",
     "prepare": "husky",
     "commit": "cz",
     "security:audit": "pnpm audit --audit-level=moderate",
     "security:update": "pnpm update --latest --interactive",
-    "perf:analyze": "ANALYZE=true turbo build",
-    "proxy:configure": "./scripts/configure-proxy.sh",
-    "postinstall": "husky install || true",
-    "typecheck": "turbo check-types",
-    "cm": "cz"
+    "deps:check": "pnpm outdated",
+    "deps:update": "pnpm update --latest"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^19.8.1",
-    "@headlessui/react": "^2.2.0",
-    "@heroicons/react": "^2.2.0",
-    "@hookform/resolvers": "^4.1.3",
-    "@jest/globals": "^29.7.0",
     "@turbo/gen": "^2.4.4",
-    "@types/jest": "^29.5.14",
     "@types/node": "^22.13.10",
-    "@types/react": "^18.2.0",
-    "@types/testing-library__jest-dom": "^6.0.0",
-    "@typescript-eslint/eslint-plugin": "^8.33.1",
-    "@typescript-eslint/parser": "^8.33.1",
-    "chalk": "^4.1.2",
-    "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1",
     "commitizen": "^4.3.1",
-    "commitlint": "19.8.1",
-    "concurrently": "^9.1.2",
-    "cross-env": "^7.0.3",
+    "commitlint": "^19.8.1",
     "cz-conventional-changelog": "^3.3.0",
-    "esbuild": "^0.25.1",
-    "eslint": "^8.57.1",
-    "glob": "^11.0.1",
     "husky": "^9.1.7",
     "lint-staged": "^15.4.3",
-    "npm-check-updates": "^17.1.15",
-    "postcss-flexbugs-fixes": "^5.0.2",
-    "postcss-preset-env": "^10.2.0",
     "prettier": "^3.5.3",
-    "react-datepicker": "^8.2.0",
-    "react-hook-form": "^7.54.2",
-    "react-imask": "^7.6.1",
     "rimraf": "^6.0.1",
-    "tailwind-merge": "^3.0.2",
-    "ts-node": "^10.9.2",
     "turbo": "^2.4.4",
-    "typescript": "^5.8.2",
-    "zod": "^3.22.4"
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "@fontsource/inter": "^5.2.5"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
   },
   "packageManager": "pnpm@10.5.2",
   "pnpm": {
     "overrides": {
       "@types/react": "^19.0.0",
       "@types/react-dom": "^19.0.0",
-      "axios": "^1.8.2",
-      "esbuild": "^0.25.0",
-      "typescript": "^5.4.2",
+      "typescript": "^5.8.2",
       "react": "^19.0.0",
       "react-dom": "^19.0.0"
     },
@@ -106,9 +68,6 @@
       }
     }
   },
-  "dependencies": {
-    "@fontsource/inter": "^5.2.5"
-  },
   "config": {
     "commitizen": {
       "path": "cz-conventional-changelog"
@@ -116,13 +75,10 @@
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": [
-      "eslint --resolve-plugins-relative-to . --fix",
+      "eslint --fix",
       "prettier --write"
     ],
-    "*.{json,md,yml,yaml}": [
-      "prettier --write"
-    ],
-    "*.{css,scss}": [
+    "*.{json,md,yml,yaml,css}": [
       "prettier --write"
     ]
   }

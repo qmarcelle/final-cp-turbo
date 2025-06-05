@@ -4,6 +4,7 @@ module.exports = {
   env: {
     node: true,
     es2022: true,
+    browser: true,
   },
   extends: [
     'eslint:recommended',
@@ -22,21 +23,28 @@ module.exports = {
     '**/*.tsbuildinfo',
     '.turbo/',
     'coverage/',
+    'public/',
+    '*.config.js',
+    '*.config.ts',
   ],
+  rules: {
+    // Global rules for all file types
+    'no-console': ['warn', { allow: ['warn', 'error'] }],
+    'no-debugger': 'error',
+    'prefer-const': 'error',
+    'no-var': 'error',
+  },
   overrides: [
     {
       files: ['**/*.ts', '**/*.tsx'],
       extends: [
         'eslint:recommended',
+        '@typescript-eslint/recommended',
       ],
       parser: '@typescript-eslint/parser',
       plugins: ['@typescript-eslint'],
-      parserOptions: {
-        project: './tsconfig.json',
-      },
       rules: {
-        // Basic TypeScript rules
-        '@typescript-eslint/no-unused-vars': 'warn',
+        '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
         '@typescript-eslint/no-explicit-any': 'warn',
       },
     },

@@ -1,12 +1,12 @@
 {
   "$schema": "./schemas/global-config.schema.json",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "name": "Consumer Portals Global Configuration",
   "description": "Centralized configuration for shared rules across the monorepo",
   
   "architecture": {
     "type": "turborepo-monorepo",
-    "packageManager": "pnpm",
+    "packageManager": "pnpm@10.5.2",
     "nodeVersion": ">=18.0.0",
     "structure": {
       "apps": ["apps/*"],
@@ -20,7 +20,10 @@
     "typescript": {
       "version": "^5.8.2",
       "strict": true,
-      "baseConfig": "@portals/tsconfig"
+      "baseConfig": "@portals/tsconfig",
+      "moduleResolution": "bundler",
+      "target": "ES2022",
+      "lib": ["DOM", "DOM.Iterable", "ES2022"]
     },
     "eslint": {
       "version": "^8.57.1",
@@ -28,7 +31,8 @@
       "rules": {
         "naming": "kebab-case-files",
         "imports": "absolute-paths-preferred",
-        "complexity": "max-10"
+        "complexity": "max-10",
+        "accessibility": "enforce-jsx-a11y"
       }
     },
     "prettier": {
@@ -38,12 +42,21 @@
         "singleQuote": true,
         "trailingComma": "es5",
         "tabWidth": 2,
-        "printWidth": 80
+        "printWidth": 80,
+        "arrowParens": "avoid",
+        "endOfLine": "lf"
       }
     }
   },
 
   "versionControl": {
+    "workflow": "branch-based",
+    "branchNaming": {
+      "feature": "feature/PRT-{number}-{description}",
+      "bugfix": "fix/PRT-{number}-{description}",
+      "docs": "docs/PRT-{number}-{description}",
+      "chore": "chore/PRT-{number}-{description}"
+    },
     "hooks": {
       "preCommit": ["lint-staged"],
       "commitMsg": "commitizen",
@@ -65,17 +78,6 @@
       "example": ".env.example",
       "validation": "zod-schemas"
     },
-    "proxy": {
-      "corporate": {
-        "http": "http://webproxy.bcbst.com:80",
-        "https": "https://webproxy.bcbst.com:443",
-        "noProxy": "localhost,127.0.0.1,*.bcbst.com"
-      },
-      "npm": {
-        "registry": "http://registry.npmjs.org/",
-        "strictSsl": false
-      }
-    },
     "dependencies": {
       "audit": "weekly",
       "autoUpdate": "patch-only",
@@ -84,7 +86,9 @@
     "headers": {
       "contentSecurityPolicy": true,
       "xFrameOptions": "DENY",
-      "xContentTypeOptions": "nosniff"
+      "xContentTypeOptions": "nosniff",
+      "referrerPolicy": "strict-origin-when-cross-origin",
+      "hsts": true
     }
   },
 
@@ -92,16 +96,24 @@
     "caching": {
       "turborepo": true,
       "nextjs": true,
-      "remote": "vercel"
+      "strategy": "aggressive"
     },
     "bundleAnalysis": {
       "enabled": true,
       "maxSize": "500KB",
-      "alertThreshold": "600KB"
+      "alertThreshold": "600KB",
+      "treeshaking": true
     },
     "monitoring": {
       "webVitals": true,
-      "lighthouse": "ci-required"
+      "lighthouse": "ci-required",
+      "corePerfMetrics": ["LCP", "FID", "CLS", "TTFB"]
+    },
+    "optimization": {
+      "imageOptimization": true,
+      "fontOptimization": true,
+      "codesplitting": "automatic",
+      "lazyLoading": true
     }
   },
 
@@ -112,32 +124,54 @@
       "required": ["branches", "functions", "lines", "statements"]
     },
     "e2e": "playwright",
-    "visualRegression": "chromatic"
+    "visualRegression": "chromatic",
+    "testTypes": ["unit", "integration", "e2e", "accessibility"]
   },
 
   "deployment": {
     "environments": ["development", "staging", "production"],
     "ci": "azure-pipelines",
-    "containers": "docker",
-    "secrets": "azure-key-vault"
+    "strategy": "blue-green",
+    "rollback": "automated"
   },
 
   "documentation": {
     "api": "openapi",
     "components": "storybook",
     "architecture": "c4-model",
-    "runbooks": "confluence"
+    "runbooks": "confluence",
+    "codeDocumentation": "tsdoc"
   },
 
   "interoperability": {
     "api": {
       "style": "rest",
       "format": "json",
-      "versioning": "semantic"
+      "versioning": "semantic",
+      "cors": "configured",
+      "rateLimit": "enabled"
     },
     "contracts": {
       "validation": "zod",
-      "generation": "openapi-codegen"
+      "generation": "openapi-codegen",
+      "testing": "contract-testing"
+    }
+  },
+
+  "modernization": {
+    "react": {
+      "version": "^19.0.0",
+      "features": ["concurrent", "server-components", "suspense"]
+    },
+    "nextjs": {
+      "version": "^15.1.0",
+      "appRouter": true,
+      "features": ["app-dir", "turbopack", "server-actions"]
+    },
+    "styling": {
+      "framework": "tailwindcss",
+      "version": "^3.4.0",
+      "features": ["jit", "dark-mode", "container-queries"]
     }
   }
 } 

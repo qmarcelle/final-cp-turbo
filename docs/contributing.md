@@ -4,24 +4,25 @@ Thank you for contributing to the Consumer Portals project! This guide will help
 
 ## Quick Start for Contributors
 
-### 1. Fork and Clone (Recommended for Pair Development)
+### 1. Clone and Setup
 
-For pair development and collaborative work, we recommend using a forking workflow:
+For collaborative development, we use a branch-based workflow directly on the main repository:
 
 ```bash
-# Fork the repository on GitHub, then:
-git clone https://github.com/your-username/cp_turbo_skeleton.git
+# Clone the repository directly
+git clone https://github.com/bcbst/cp_turbo_skeleton.git
 cd cp_turbo_skeleton
 
-# Add upstream remote to stay in sync
-git remote add upstream https://github.com/bcbst/cp_turbo_skeleton.git
+# Ensure you're on the latest main
+git checkout main
+git pull origin main
 ```
 
-**Why forking works well for pairs:**
-- Each developer maintains their own fork
-- Easy to share work in progress between pair partners
-- Clean separation between experimental and production code
-- Simplified permission management
+**Why direct branching works well:**
+- Streamlined collaboration between team members
+- Simplified CI/CD pipeline integration
+- Reduced complexity in branch management
+- Better integration with project management tools
 
 ### 2. Set Up Development Environment
 
@@ -39,13 +40,14 @@ pnpm lint && pnpm typecheck && pnpm test
 ### 3. Create Feature Branch
 
 ```bash
-# Keep your fork updated
-git fetch upstream
-git checkout main
-git merge upstream/main
-
-# Create feature branch
+# Create feature branch from main
 git checkout -b feature/PRT-123-your-feature
+
+# Or for bug fixes
+git checkout -b fix/PRT-124-bug-description
+
+# Or for documentation
+git checkout -b docs/PRT-125-update-readme
 ```
 
 ## Contribution Workflow
@@ -83,7 +85,7 @@ git commit -m "feat(broker): add member search functionality
 
 Closes #123"
 
-# 5. Push to your fork
+# 5. Push to origin
 git push origin feature/PRT-123-new-feature
 
 # 6. Create pull request on GitHub
@@ -101,22 +103,22 @@ git push origin feature/PRT-123-new-feature
 ### 4. Pair Development Best Practices
 
 **For pair programming:**
-- Share forks between pair partners for work-in-progress
 - Use descriptive branch names that include both developers' initials
 - Commit frequently with clear messages
 - Take turns driving and reviewing
 - Ensure both developers understand the changes
+- Use shared development environments when beneficial
 
 **Example pair workflow:**
 ```bash
-# Developer A creates feature branch
+# Create feature branch with pair initials
 git checkout -b feature/PRT-123-search-AB-CD
 
 # Work together, commit frequently
 git commit -m "feat(broker): add search input component"
 git commit -m "feat(broker): implement search logic"
 
-# Push to shared fork
+# Push to origin
 git push origin feature/PRT-123-search-AB-CD
 ```
 
