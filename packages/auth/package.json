@@ -1,0 +1,38 @@
+{
+  "name": "@portals/auth",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
+    "lint": "eslint . --ext .ts,.tsx",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "next-auth": "^4.24.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.24",
+    "@types/jest": "^29.5.12",
+    "eslint": "^8.57.0",
+    "tsup": "^8.0.2",
+    "typescript": "~5.6.0"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "module": "./dist/index.mjs",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./src/auth.config": {
+      "types": "./dist/auth.config.d.ts",
+      "module": "./dist/auth.config.mjs",
+      "import": "./dist/auth.config.mjs",
+      "require": "./dist/auth.config.js"
+    }
+  }
+}
