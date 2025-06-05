@@ -16,6 +16,7 @@
     "@radix-ui/react-slot": "^1.1.0"
   },
   "dependencies": {
+    "@portals/types": "workspace:*",
     "@headlessui/react": "^2.2.0",
     "@heroicons/react": "^2.2.0",
     "@hookform/resolvers": "^4.1.3",

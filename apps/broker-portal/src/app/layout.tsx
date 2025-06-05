@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
-import '../styles/globals.css';
+import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Broker Portal',
-  description: 'BCBST Broker Portal',
+  description: 'Broker Portal Application',
 };
 
 export default function RootLayout({
@@ -13,9 +13,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="font-sans">
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 } 

@@ -116,6 +116,7 @@
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": [
+      "eslint --resolve-plugins-relative-to . --fix",
       "prettier --write"
     ],
     "*.{json,md,yml,yaml}": [
