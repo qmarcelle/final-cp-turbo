@@ -1,42 +1,54 @@
 # 🔧 Troubleshooting Guide
 
+*Don't panic! These are normal issues that everyone runs into.*
+
 This guide helps you resolve common issues when developing with the Consumer Portals monorepo.
+
+> **Quick tip:** Most issues can be solved by "turning it off and on again" - clean your dependencies, restart your dev server, and try again!
 
 ## Installation Issues
 
 ### pnpm Installation Fails
 
+> **What's happening:** Your computer can't download or install the packages we need.
+
 **Problem**: `pnpm install` fails with permission or network errors.
 
 **Solutions**:
 
-1. **Clear package manager caches**:
+1. **Clear package manager caches** (like emptying your browser cache):
    ```bash
-   pnpm store prune
-   rm -rf node_modules
-   rm pnpm-lock.yaml
-   pnpm install
+   pnpm store prune      # Clear pnpm's cache
+   rm -rf node_modules   # Delete installed packages
+   rm pnpm-lock.yaml     # Delete lock file
+   pnpm install          # Start fresh
    ```
 
-2. **Corporate network (BCBST)**:
+2. **Corporate network (BCBST employees only)**:
+   > **Why this happens:** Corporate networks often block direct internet access.
+   
    ```bash
-   # Configure proxy
+   # Option 1: Use our script (easier)
+   ./scripts/configure-proxy.sh
+   
+   # Option 2: Configure manually
    pnpm config set proxy http://webproxy.bcbst.com:80
    pnpm config set https-proxy http://webproxy.bcbst.com:443
-   
-   # Or use script
-   ./scripts/configure-proxy.sh
    ```
 
 3. **Node version mismatch**:
+   > **Why this matters:** Different Node versions can have incompatible packages.
+   
    ```bash
-   # Use Node 20.x
-   nvm install 20
-   nvm use 20
-   node --version  # Should be 20.x
+   node --version          # Check current version
+   nvm install 20         # Install Node 20 (if using nvm)
+   nvm use 20             # Switch to Node 20
+   node --version         # Should show 20.x.x
    ```
 
 ### Dependency Resolution Issues
+
+> **What's happening:** Think of dependencies like ingredients for a recipe. Sometimes you have the wrong version of an ingredient, or it's missing entirely.
 
 **Problem**: Conflicting dependency versions or missing packages.
 
@@ -64,28 +76,31 @@ This guide helps you resolve common issues when developing with the Consumer Por
 
 ### Port Already in Use
 
+> **What's happening:** It's like trying to park in a spot that's already taken. Another app is using port 3000.
+
 **Problem**: `Error: listen EADDRINUSE: address already in use :::3000`
 
 **Solutions**:
 
-1. **Kill process using the port**:
+1. **Kill process using the port** ("kick out" the app using that port):
    ```bash
-   # Find process using port 3000
-   lsof -ti:3000
-   kill -9 $(lsof -ti:3000)
+   # Find and stop the app using port 3000
+   lsof -ti:3000                    # Find what's using port 3000
+   kill -9 $(lsof -ti:3000)        # Stop it
    
-   # Or for port 3001
+   # For port 3001
    kill -9 $(lsof -ti:3001)
    ```
 
-2. **Use different ports**:
+2. **Use different ports** (Next.js will find an empty "parking spot"):
    ```bash
-   # Next.js will automatically use next available port
-   pnpm dev
-   # Check console output for actual port
+   pnpm dev    # Next.js will automatically find an available port
+   # Look for output like: "ready - started server on 0.0.0.0:3002"
    ```
 
 ### Hot Reload Not Working
+
+> **What's happening:** You save your code, but the browser doesn't show your changes. It's like the browser isn't listening for updates.
 
 **Problem**: Changes to code don't trigger browser refresh.
 
@@ -113,6 +128,8 @@ This guide helps you resolve common issues when developing with the Consumer Por
 
 ### TypeScript Compilation Errors
 
+> **What's happening:** TypeScript is like a grammar checker for your code. It found "grammar mistakes" that need fixing.
+
 **Problem**: Build fails with TypeScript errors.
 
 **Solutions**:
@@ -122,24 +139,24 @@ This guide helps you resolve common issues when developing with the Consumer Por
    pnpm typecheck
    ```
 
-2. **Common fixes**:
+2. **Common fixes** (like fixing grammar in an essay):
    ```tsx
-   // ❌ Missing return type
+   // ❌ Problem: TypeScript doesn't know what this function returns
    function fetchData() {
      return fetch('/api/data');
    }
    
-   // ✅ Explicit return type
+   // ✅ Solution: Tell TypeScript what it returns
    function fetchData(): Promise<Response> {
      return fetch('/api/data');
    }
    
-   // ❌ Implicit any
+   // ❌ Problem: TypeScript doesn't know what 'event' is
    function handleEvent(event) {
      console.log(event);
    }
    
-   // ✅ Proper typing
+   // ✅ Solution: Tell TypeScript it's a MouseEvent
    function handleEvent(event: MouseEvent) {
      console.log(event);
    }
@@ -153,6 +170,8 @@ This guide helps you resolve common issues when developing with the Consumer Por
 
 ### ESLint Errors
 
+> **What's happening:** ESLint is like a style guide enforcer. It found code that doesn't follow our team's style rules.
+
 **Problem**: Linting errors prevent build.
 
 **Solutions**:
@@ -162,26 +181,26 @@ This guide helps you resolve common issues when developing with the Consumer Por
    pnpm lint:fix
    ```
 
-2. **Common ESLint fixes**:
+2. **Common ESLint fixes** (like following a writing style guide):
    ```tsx
-   // ❌ Missing dependency in useEffect
+   // ❌ Problem: useEffect uses userId but doesn't list it as dependency
+   useEffect(() => {
+     fetchData(userId);    // Uses userId
+   }, []);                 // But doesn't mention userId here
+   
+   // ✅ Solution: Add userId to the dependency array
    useEffect(() => {
      fetchData(userId);
-   }, []); // ESLint warning
+   }, [userId]);           // Now it knows to re-run when userId changes
    
-   // ✅ Include dependency
-   useEffect(() => {
-     fetchData(userId);
-   }, [userId]);
-   
-   // ❌ Unused variable
+   // ❌ Problem: onSave is defined but never used
    function Component({ data, onSave }) {
-     return <div>{data}</div>;
+     return <div>{data}</div>;  // Only uses data, not onSave
    }
    
-   // ✅ Remove unused or prefix with underscore
+   // ✅ Solution: Remove unused variable or mark it as intentionally unused
    function Component({ data, onSave: _onSave }) {
-     return <div>{data}</div>;
+     return <div>{data}</div>;  // _ prefix means "I know this is unused"
    }
    ```
 

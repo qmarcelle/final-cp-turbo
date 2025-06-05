@@ -6,18 +6,18 @@
  */
 
 // Export all foundation components
-export * from './alert';
+export * from './Alert';
 export * from './AutoComplete';
-export * from './button';
-export * from './checkbox';
+export * from './Button';
+export * from './Checkbox';
 export * from './DatePicker';
 export * from './FileUpload';
-export * from './input';
+export * from './Input';
 export * from './InputGroup';
 export * from './NumberInput';
-export * from './radio';
+export * from './Radio';
 export * from './SearchBar';
-// export * from './select'; // Temporarily disabled due to TypeScript errors
+export * from './Select'; // Re-enabled with consistent naming
 export * from './TagInput';
 export * from './TextArea';
-export * from './toggle'; 
+export * from './Toggle'; 

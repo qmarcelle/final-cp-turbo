@@ -1,6 +1,12 @@
 # 💻 Development Guide
 
+*Your daily development companion*
+
 This guide covers day-to-day development workflows, coding standards, and best practices for the Consumer Portals project.
+
+> **New to development?** Don't worry! This guide explains not just *what* to do, but *why* we do it. Each pattern has a purpose - we'll explain both.
+>
+> **Already experienced?** Feel free to skim for our specific patterns and jump to the sections you need.
 
 ## Development Workflow
 
@@ -34,6 +40,8 @@ git push origin feature/PRT-123-new-feature
 ```
 
 ### 2. Commit Message Format
+
+> **Why this matters:** Good commit messages help everyone understand what changed and why. Think of them like entries in a logbook.
 
 We follow [Conventional Commits](https://www.conventionalcommits.org/):
 
@@ -73,51 +81,64 @@ chore(deps): update next.js to v15.1.0
 
 ## Coding Standards
 
+> **Think of these like grammar rules:** They help everyone write code that's easy to read and understand. You don't have to memorize them all - your editor and linting tools will help!
+
 ### TypeScript Guidelines
+
+> **What TypeScript does:** It's like spell-check for your code, catching errors before they become bugs. It also helps your editor give you better suggestions.
 
 #### 1. Type Definitions
 
+> **Think of types like contracts:** They say "this function expects X and returns Y". This helps catch mistakes early.
+
 ```tsx
-// ✅ Good - Explicit interface definitions
+// ✅ Good - Interface defines the "shape" of an object
 interface UserProfile {
-  id: string;
-  name: string;
-  email: string;
-  role: 'admin' | 'broker' | 'user';
-  createdAt: Date;
+  id: string;                           // Must be a string
+  name: string;                         // Must be a string
+  email: string;                        // Must be a string
+  role: 'admin' | 'broker' | 'user';    // Must be one of these three
+  createdAt: Date;                      // Must be a Date object
 }
 
-// ✅ Good - Use type for simple unions/primitives
-type Theme = 'light' | 'dark';
-type UserId = string;
+// ✅ Good - Type for simple values
+type Theme = 'light' | 'dark';  // Can only be 'light' or 'dark'
+type UserId = string;           // A string that represents a user ID
 
-// ❌ Avoid - Don't use any
-const data: any = fetchData(); // Bad
+// ❌ Avoid - 'any' means "could be anything" (defeats the purpose)
+const data: any = fetchData(); // TypeScript can't help you here
 
-// ✅ Good - Use proper typing
-const data: UserProfile = fetchData();
+// ✅ Good - Tell TypeScript exactly what you expect
+const data: UserProfile = fetchData(); // Now TypeScript can catch errors
 ```
 
 #### 2. Function Types
 
+> **Why this helps:** When you tell TypeScript what your function expects and returns, it can catch errors and help autocomplete work better.
+
 ```tsx
-// ✅ Good - Explicit parameter and return types
+// ✅ Good - Clear function signature
 function processUser(user: UserProfile): Promise<ProcessedUser> {
+  // Takes a UserProfile, returns a Promise of ProcessedUser
   // implementation
 }
 
 // ✅ Good - Arrow function with types
 const calculateTotal = (items: LineItem[]): number => {
+  // Takes an array of LineItem, returns a number
   return items.reduce((sum, item) => sum + item.price, 0);
 };
 
-// ✅ Good - Generic functions
+// ✅ Good - Generic function (works with different types)
 function createApiClient<T>(baseUrl: string): ApiClient<T> {
+  // T is a placeholder - could be User, Product, etc.
   // implementation
 }
 ```
 
 #### 3. React Component Types
+
+> **Why this is useful:** Defining prop types helps catch errors when using components and makes autocomplete work perfectly.
 
 ```tsx
 // ✅ Good - Interface for props
@@ -144,7 +165,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
 ### React Guidelines
 
+> **React is like building with Lego blocks:** Each component is a reusable piece that does one job well. Here's how we organize our pieces.
+
 #### 1. Component Structure
+
+> **Why this order matters:** Keeping a consistent structure helps anyone (including future you) quickly understand what a component does.
 
 ```tsx
 // ✅ Good - Component file structure
@@ -159,35 +184,35 @@ interface UserFormProps {
 }
 
 export function UserForm({ userId, onSave }: UserFormProps) {
-  // 1. Hooks at the top
-  const { data: session } = useSession();
-  const [user, setUser] = useState<UserProfile | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  // 1. Hooks at the top (get data and state)
+  const { data: session } = useSession();                    // Get current user session
+  const [user, setUser] = useState<UserProfile | null>(null); // Component state
+  const [isLoading, setIsLoading] = useState(false);         // Loading state
 
-  // 2. Effects
+  // 2. Effects (things that happen when component loads/changes)
   useEffect(() => {
     if (userId) {
-      loadUser(userId);
+      loadUser(userId);  // Load user data when userId changes
     }
   }, [userId]);
 
-  // 3. Event handlers
+  // 3. Event handlers (what happens when user clicks/submits)
   const handleSubmit = async (event: FormEvent) => {
-    event.preventDefault();
+    event.preventDefault();  // Stop default form submission
     // implementation
   };
 
-  // 4. Helper functions
+  // 4. Helper functions (reusable logic)
   const loadUser = async (id: string) => {
     // implementation
   };
 
-  // 5. Early returns
+  // 5. Early returns (handle special cases first)
   if (!session) {
-    return <div>Please log in</div>;
+    return <div>Please log in</div>;  // Show this if not logged in
   }
 
-  // 6. Main render
+  // 6. Main render (the actual UI)
   return (
     <form onSubmit={handleSubmit}>
       {/* JSX */}

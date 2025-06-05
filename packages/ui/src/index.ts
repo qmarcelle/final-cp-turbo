@@ -13,46 +13,50 @@ import './utils/styles.css';
  */
 
 // Foundation Components
-export * from './components/foundation/alert';
+export * from './components/foundation/Alert';
 export * from './components/foundation/AutoComplete';
-export * from './components/foundation/button';
-export * from './components/foundation/checkbox';
+export * from './components/foundation/Button';
+export * from './components/foundation/Checkbox';
 export * from './components/foundation/DatePicker';
 export * from './components/foundation/FileUpload';
-export * from './components/foundation/input';
+export * from './components/foundation/Input';
 export * from './components/foundation/InputGroup';
 export * from './components/foundation/NumberInput';
-export * from './components/foundation/radio';
+export * from './components/foundation/Radio';
 export * from './components/foundation/SearchBar';
-// export * from './components/foundation/select'; // Temporarily disabled due to TypeScript errors
+export * from './components/foundation/Select';
 export * from './components/foundation/TagInput';
 export * from './components/foundation/TextArea';
-export * from './components/foundation/toggle';
+export * from './components/foundation/Toggle';
 
 // Composite Components (Layout)
 export * from './components/composite/FormLayout';
 export * from './components/composite/FormGrid';
 export * from './components/composite/FormColumn';
 
+// Navigation & Breadcrumb Components
+export * from './components/composite/Navigation';
+
 // Export Types
-export type { AlertProps, AlertVariant } from './components/foundation/alert';
+export type { AlertProps, AlertVariant } from './components/foundation/Alert';
 export type { AutoCompleteProps } from './components/foundation/AutoComplete';
-export type { ButtonProps } from './components/foundation/button';
-export type { CheckboxProps } from './components/foundation/checkbox';
+export type { ButtonProps } from './components/foundation/Button';
+export type { CheckboxProps } from './components/foundation/Checkbox';
 export type { DatePickerProps } from './components/foundation/DatePicker';
 export type { FileUploadProps } from './components/foundation/FileUpload';
-export type { InputProps } from './components/foundation/input';
+export type { InputProps } from './components/foundation/Input';
 export type { InputGroupProps } from './components/foundation/InputGroup';
 export type { NumberInputProps } from './components/foundation/NumberInput';
-export type { RadioGroupProps, RadioProps } from './components/foundation/radio';
+export type { RadioGroupProps, RadioProps } from './components/foundation/Radio';
 export type { SearchBarProps } from './components/foundation/SearchBar';
-// export type { SelectProps } from './components/foundation/select'; // Temporarily disabled
+export type { SelectProps } from './components/foundation/Select';
 export type { Tag, TagInputProps } from './components/foundation/TagInput';
 export type { TextAreaProps } from './components/foundation/TextArea';
-export type { ToggleProps } from './components/foundation/toggle';
+export type { ToggleProps } from './components/foundation/Toggle';
 export type { FormLayoutProps, FormLayoutVariant, FormLayoutColumns, FormLayoutGap } from './components/composite/FormLayout/FormLayout';
 export type { FormGridProps } from './components/composite/FormGrid/FormGrid';
 export type { FormColumnProps } from './components/composite/types';
+export type { NavigationProps, NavigationItemProps, NavigationDropdownProps, BreadcrumbItemProps, AppBreadcrumbsProps, BreadcrumbConfig, BreadcrumbItemData } from './components/composite/Navigation';
 
 // Utilities
 export * from './utils';

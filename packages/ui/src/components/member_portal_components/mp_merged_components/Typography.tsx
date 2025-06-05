@@ -139,7 +139,7 @@ const typographyVariants = cva(
 );
 
 export interface TypographyProps
-  extends React.HTMLAttributes<HTMLElement>,
+  extends Omit<React.HTMLAttributes<HTMLElement>, 'color'>,
     VariantProps<typeof typographyVariants> {
   /** The underlying HTML element to render */
   as?: React.ElementType;
@@ -188,3 +188,67 @@ export const Typography = React.forwardRef<HTMLElement, TypographyProps>(
     'data-testid': dataTestId,
     'data-cy': dataCy,
     ...props
+  }) => {
+    // Determine the element type
+    const Component = asChild ? Slot : as || getDefaultElement(variant);
+    
+    return (
+      <Component
+        className={cn(
+          typographyVariants({
+            variant,
+            weight,
+            weightSm,
+            weightMd,
+            weightLg,
+            align,
+            alignSm,
+            alignMd,
+            alignLg,
+            decoration,
+            transform,
+            truncate,
+            maxWidth,
+            color,
+          }),
+          className
+        )}
+        data-testid={dataTestId}
+        data-cy={dataCy}
+        {...props}
+      >
+        {children}
+      </Component>
+    );
+  }
+);
+
+Typography.displayName = "Typography";
+
+/**
+ * Helper function to determine the default HTML element based on variant
+ */
+function getDefaultElement(variant?: string | null): React.ElementType {
+  switch (variant) {
+    case 'h1':
+      return 'h1';
+    case 'h2':
+      return 'h2';
+    case 'h3':
+      return 'h3';
+    case 'h4':
+      return 'h4';
+    case 'h5':
+      return 'h5';
+    case 'h6':
+      return 'h6';
+    case 'blockquote':
+      return 'blockquote';
+    case 'code':
+      return 'code';
+    case 'label':
+      return 'label';
+    default:
+      return 'p';
+  }
+}

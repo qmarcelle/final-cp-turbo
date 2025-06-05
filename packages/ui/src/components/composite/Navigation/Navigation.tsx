@@ -15,7 +15,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../../../utils';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ChevronDown, ChevronRight, Menu, X } from 'lucide-react';
+import { ChevronDownIcon, ChevronRightIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 
 // Navigation container variants
 const navContainerVariants = cva(
@@ -57,7 +57,7 @@ const NavigationContext = React.createContext<NavigationContextType | undefined>
  * Navigation root component
  * Manages responsive behavior and mobile menu state
  */
-export const Navigation = React.forwardRef<HTMLElement, NavigationProps>(
+const NavigationRoot = React.forwardRef<HTMLElement, NavigationProps>(
   ({ className, variant, position, ...props }, ref) => {
     const [isOpen, setIsOpen] = React.useState(false);
     const [activeItem, setActiveItem] = React.useState<string | null>(null);
@@ -94,7 +94,7 @@ export const Navigation = React.forwardRef<HTMLElement, NavigationProps>(
   }
 );
 
-Navigation.displayName = "Navigation";
+NavigationRoot.displayName = "Navigation";
 
 // Use navigation context hook
 const useNavigationContext = () => {
@@ -170,9 +170,9 @@ export const NavigationToggle: React.FC<React.ButtonHTMLAttributes<HTMLButtonEle
       {...props}
     >
       {isOpen ? (
-        <X className="h-6 w-6" />
+        <XMarkIcon className="h-6 w-6" />
       ) : (
-        <Menu className="h-6 w-6" />
+        <Bars3Icon className="h-6 w-6" />
       )}
     </button>
   );
@@ -313,12 +313,12 @@ export const NavigationDropdown = React.forwardRef<HTMLLIElement, NavigationDrop
         >
           {label}
           {isMobile ? (
-            <ChevronRight className={cn(
+            <ChevronRightIcon className={cn(
               "ml-auto h-4 w-4 transition-transform",
               isActive && "transform rotate-90"
             )} />
           ) : (
-            <ChevronDown className={cn(
+            <ChevronDownIcon className={cn(
               "h-4 w-4 transition-transform",
               isActive && "transform rotate-180"
             )} />
@@ -329,13 +329,13 @@ export const NavigationDropdown = React.forwardRef<HTMLLIElement, NavigationDrop
           id={`${id}-dropdown`}
           className={cn(
             "bg-white z-10 min-w-[12rem] overflow-hidden transition-all duration-200",
-            isMobile ? (
+            isMobile ? [
               "max-h-0 opacity-0 border-l-2 ml-4",
               isActive && "max-h-96 opacity-100"
-            ) : (
+            ] : [
               "absolute top-full left-0 shadow-md rounded-md border mt-1 max-h-0 opacity-0",
               isActive && "max-h-96 opacity-100 py-1"
-            )
+            ]
           )}
         >
           {children}
@@ -443,7 +443,7 @@ export const BreadcrumbItem = React.forwardRef<HTMLLIElement, BreadcrumbItemProp
         )}
         
         {!isCurrent && (
-          <ChevronRight className="h-4 w-4 text-muted-foreground" />
+          <ChevronRightIcon className="h-4 w-4 text-muted-foreground" />
         )}
       </li>
     );
@@ -452,13 +452,23 @@ export const BreadcrumbItem = React.forwardRef<HTMLLIElement, BreadcrumbItemProp
 
 BreadcrumbItem.displayName = "BreadcrumbItem";
 
-// Assign compound components to Navigation
-Object.assign(Navigation, {
-  Content: NavigationContent,
-  Brand: NavigationBrand,
-  Toggle: NavigationToggle,
-  Menu: NavigationMenu,
-  Item: NavigationItem,
-  Dropdown: NavigationDropdown,
-  DropdownItem: NavigationDropdownItem,
-});
+// Export with compound components
+const NavigationComponent = NavigationRoot as typeof NavigationRoot & {
+  Content: typeof NavigationContent;
+  Brand: typeof NavigationBrand;
+  Toggle: typeof NavigationToggle;
+  Menu: typeof NavigationMenu;
+  Item: typeof NavigationItem;
+  Dropdown: typeof NavigationDropdown;
+  DropdownItem: typeof NavigationDropdownItem;
+};
+
+NavigationComponent.Content = NavigationContent;
+NavigationComponent.Brand = NavigationBrand;
+NavigationComponent.Toggle = NavigationToggle;
+NavigationComponent.Menu = NavigationMenu;
+NavigationComponent.Item = NavigationItem;
+NavigationComponent.Dropdown = NavigationDropdown;
+NavigationComponent.DropdownItem = NavigationDropdownItem;
+
+export { NavigationComponent as Navigation };

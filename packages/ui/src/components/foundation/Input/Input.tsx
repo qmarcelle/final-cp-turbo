@@ -1,10 +1,21 @@
 'use client'
 
 import * as React from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { FieldValues } from 'react-hook-form'
 import { cn } from '../../../utils/cn'
 import clsx from 'clsx'
-import { debounce } from 'lodash'
+// Simple debounce implementation to avoid lodash dependency
+const debounce = <T extends (...args: any[]) => void>(
+  func: T,
+  wait: number
+): ((...args: Parameters<T>) => void) => {
+  let timeout: NodeJS.Timeout | null = null
+  return (...args: Parameters<T>) => {
+    if (timeout) clearTimeout(timeout)
+    timeout = setTimeout(() => func(...args), wait)
+  }
+}
 import { IMaskInput } from 'react-imask'
 import type { FormFieldProps, FormFieldValues  } from '@portals/types'
 import { z } from 'zod'
@@ -112,8 +123,8 @@ export const Input = React.forwardRef<
   // Cleanup debounced function
   useEffect(() => {
     return () => {
-      if (debounceMs > 0 && debouncedOnChange?.cancel) {
-        debouncedOnChange.cancel()
+      if (debounceMs > 0 && 'cancel' in debouncedOnChange) {
+        (debouncedOnChange as any).cancel()
       }
     }
   }, [debouncedOnChange, debounceMs])

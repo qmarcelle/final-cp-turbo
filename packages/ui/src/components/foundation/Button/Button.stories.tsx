@@ -109,18 +109,6 @@ const meta = {
 
 export default meta;
 type Story = StoryObj<ButtonStoryProps>;
-      control: 'boolean',
-      description: 'Whether to render as a child component',
-      table: { 
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
-      },
-    },
-  },
-} satisfies Meta<ButtonProps>;
-
-export default meta;
-type Story = StoryObj<ButtonProps>;
 
 /**
  * The default state of the Button component.
