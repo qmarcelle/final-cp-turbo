@@ -146,9 +146,9 @@ export const authOptions: NextAuthConfig = {
   events: {
     async signIn({
       user,
-      account,
-      profile,
-      isNewUser,
+      account: _account,
+      profile: _profile,
+      isNewUser: _isNewUser,
     }: {
       user: NextAuthUser
       account?: Account | null

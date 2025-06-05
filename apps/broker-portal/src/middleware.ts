@@ -16,10 +16,6 @@ export async function middleware(request: NextRequest) {
   const session = await auth();
 
   // Define route types (relative paths since basePath is handled by Next.js)
-  const isPublicRoute = pathname === '/login';
-  const isApiRoute = pathname.startsWith('/api/');
-  const isNextAsset = pathname.startsWith('/_next/');
-  const isStaticFile = pathname.includes('.');
   const isRoot = pathname === '/';
   
   // Protected routes based on the (protected) route group structure

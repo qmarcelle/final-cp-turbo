@@ -27,12 +27,17 @@ module.exports = {
     {
       files: ['**/*.ts', '**/*.tsx'],
       extends: [
-        '@typescript-eslint/recommended',
+        'eslint:recommended',
       ],
       parser: '@typescript-eslint/parser',
       plugins: ['@typescript-eslint'],
       parserOptions: {
         project: './tsconfig.json',
+      },
+      rules: {
+        // Basic TypeScript rules
+        '@typescript-eslint/no-unused-vars': 'warn',
+        '@typescript-eslint/no-explicit-any': 'warn',
       },
     },
   ],

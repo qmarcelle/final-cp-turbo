@@ -6,11 +6,11 @@
 /**
  * Verifies user credentials against the authentication provider
  * 
- * @param creds - User credentials object containing username/password
+ * @param _creds - User credentials object containing username/password
  * @returns Promise resolving to boolean indicating if credentials are valid
  * @todo Implement actual credential verification with identity provider
  */
-export async function verifyCredentials(creds: any): Promise<boolean> {
+export async function verifyCredentials(_creds: any): Promise<boolean> {
   throw new Error('verifyCredentials requires implementation with identity provider')
 }
 
