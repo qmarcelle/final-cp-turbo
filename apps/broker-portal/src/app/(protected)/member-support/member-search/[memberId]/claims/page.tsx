@@ -1,20 +1,38 @@
 // apps/broker-portal/src/app/(protected)/member-support/member-search/[memberId]/claims/page.tsx
 
-interface MemberClaimsPageProps {
-  params: { memberId: string };
-}
+import Link from 'next/link';
 
-export default async function MemberClaimsPage({ params }: MemberClaimsPageProps) {
-  // Fetch claims list for params.memberId
-  // const claims = await getMemberClaims(params.memberId);
+type MemberClaimsPageProps = {
+  params: {
+    memberId: string;
+  };
+};
+
+export default function MemberClaimsPage({ params }: MemberClaimsPageProps) {
+  const { memberId } = params;
+  const exampleClaimId = "example-claim-123"; // Placeholder
 
   return (
     <div>
-      <h3>Claims for Member {params.memberId}</h3>
-      <p>Displaying a list of claims. Click on a claim to see details.</p>
+      <h1>Claims for Member: {memberId}</h1>
+      <p>This page lists claims for member {memberId}.</p>
       {/* Placeholder for claims list */}
-      {/* Example link to a specific claim (assuming claim.id exists) */}
-      {/* {claims.map(claim => <a key={claim.id} href={`/member-support/member-search/${params.memberId}/claims/${claim.id}`}>View Claim {claim.id}</a>)} */}
+      <nav aria-labelledby="claims-list-navigation">
+        <h2 id="claims-list-navigation">Example Claim</h2>
+        <ul>
+          <li>
+            <Link href={`/broker/member-support/member-search/${memberId}/claims/${exampleClaimId}`}>
+              View Details for Claim {exampleClaimId}
+            </Link>
+          </li>
+        </ul>
+      </nav>
+      <hr />
+      <Link href={`/broker/member-support/member-search/${memberId}`}>Back to Member {memberId} Details</Link>
+      <br />
+      <Link href="/broker/member-support/member-search">Back to Member Search</Link>
+      <br />
+      <Link href="/broker/dashboard">Back to Dashboard</Link>
     </div>
   );
 } 

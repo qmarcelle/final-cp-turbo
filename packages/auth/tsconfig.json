@@ -1,9 +1,10 @@
 {
-  "extends": "../../packages/typescript-config/tsconfig/react-library.json",
+  "extends": "../tsconfig/react-library.json",
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "src",
     "baseUrl": ".",
+    "incremental": false,
     "paths": {
       "@/*": ["src/*"]
     }

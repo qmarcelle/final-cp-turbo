@@ -1,24 +1,36 @@
-interface MemberDetailsPageProps {
-  params: { memberId: string };
-}
+import Link from 'next/link';
 
-export default async function MemberDetailsPage({ params }: MemberDetailsPageProps) {
-  // Fetch member details based on params.memberId
-  // const member = await getMemberDetails(params.memberId);
+type MemberIdPageProps = {
+  params: {
+    memberId: string;
+  };
+};
+
+export default function MemberIdPage({ params }: MemberIdPageProps) {
+  const { memberId } = params;
 
   return (
     <div>
-      <h1>Member Details: {params.memberId}</h1>
-      <p>Displaying detailed information for the selected member.</p>
-      {/* Placeholder for member details content */}
-      {/* <pre>{JSON.stringify(member, null, 2)}</pre> */}
-      <nav>
-        <a href={`/member-support/member-search/${params.memberId}/benefits`}>Benefits</a> |
-        <a href={`/member-support/member-search/${params.memberId}/claims`}>Claims</a> |
-        <a href={`/member-support/member-search/${params.memberId}/id-card`}>ID Card</a> |
-        <a href={`/member-support/member-search/${params.memberId}/prior-auths`}>Prior Auths</a>
+      <h1>Member Details: {memberId}</h1>
+      <p>This is the main page for member ID: {memberId}. Select a section below to view more details.</p>
+      
+      <nav aria-labelledby="member-specific-navigation">
+        <h2 id="member-specific-navigation">Member Sections</h2>
+        <ul>
+          <li><Link href={`/broker/member-support/member-search/${memberId}/benefits`}>View Benefits</Link></li>
+          <li><Link href={`/broker/member-support/member-search/${memberId}/claims`}>View Claims</Link></li>
+          <li><Link href={`/broker/member-support/member-search/${memberId}/id-card`}>View ID Card</Link></li>
+          <li><Link href={`/broker/member-support/member-search/${memberId}/prior-auths`}>View Prior Authorizations</Link></li>
+          <li><Link href={`/broker/member-support/member-search/${memberId}/other-insurance`}>View Other Insurance</Link></li>
+        </ul>
       </nav>
-      {/* Sub-page content will be rendered by child routes */}
+
+      <hr />
+      <Link href="/broker/member-support/member-search">Back to Member Search</Link>
+      <br />
+      <Link href="/broker/member-support">Back to Member Support</Link>
+      <br />
+      <Link href="/broker/dashboard">Back to Dashboard</Link>
     </div>
   );
 }

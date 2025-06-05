@@ -130,7 +130,7 @@ export const ControlledTextArea = <T extends FormFieldValues = FieldValues>({
   validation,
   error,
   ...props
-}: ControlledTextAreaProps<T>): JSX.Element => {
+}: ControlledTextAreaProps<T>): React.ReactElement => {
   return (
     <Controller
       control={control}

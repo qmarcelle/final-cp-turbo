@@ -1,16 +1,27 @@
-interface ClaimDetailsPageProps {
-  params: { 
+import Link from 'next/link';
+
+type ClaimDetailPageProps = {
+  params: {
     memberId: string;
     claimId: string;
   };
-}
+};
 
-export default async function ClaimDetailsPage({ params }: ClaimDetailsPageProps) {
-  // Fetch specific claim details for params.memberId and params.claimId
-  // const claimDetails = await getClaimDetails(params.memberId, params.claimId);
+export default function ClaimDetailPage({ params }: ClaimDetailPageProps) {
+  const { memberId, claimId } = params;
 
   return (
     <div>
+      <h1>Claim Details</h1>
+      <p>Displaying details for Claim ID: {claimId} for Member ID: {memberId}.</p>
+      {/* Placeholder for claim details */}
+      <hr />
+      <Link href={`/broker/member-support/member-search/${memberId}/claims`}>Back to Claims for Member {memberId}</Link>
+      <br />
+      <Link href={`/broker/member-support/member-search/${memberId}`}>Back to Member {memberId} Details</Link>
+      <br />
+      <Link href="/broker/member-support/member-search">Back to Member Search</Link>
+      <br />
       <h4>Claim Details</h4>
       <p>Member ID: {params.memberId}</p>
       <p>Claim ID: {params.claimId}</p>

@@ -1,9 +1,0 @@
-Tool `sequentialthinking` has invalid JSON parameters:
-	- Unable to load schema from 'https://json-schema.org/draft-07/schema': Proxy Authentication Required. The client must first authenticate itself with the proxy.
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<!--
-  Message.TemplateName: authenticationrequired
-  Message.Language: en
--->. (at /)
-	- Schema: {"type":"object","properties":{"thought":{"type":"string","description":"Your current thinking step"},"nextThoughtNeeded":{"type":"boolean","description":"Whether another thought step is needed"},"thoughtNumber":{"type":"integer","description":"Current thought number","minimum":1},"totalThoughts":{"type":"integer","description":"Estimated total thoughts needed","minimum":1},"isRevision":{"type":"boolean","description":"Whether this revises previous thinking"},"revisesThought":{"type":"integer","description":"Which thought is being reconsidered","minimum":1},"branchFromThought":{"type":"integer","description":"Branching point thought number","minimum":1},"branchId":{"type":"string","description":"Branch identifier"},"needsMoreThoughts":{"type":"boolean","description":"If more thoughts are needed"}},"required":["thought","nextThoughtNeeded","thoughtNumber","totalThoughts"]}
-

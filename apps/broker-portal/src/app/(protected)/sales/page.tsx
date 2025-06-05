@@ -1,9 +1,22 @@
+import Link from 'next/link';
+
 export default function SalesPage() {
   return (
     <div>
-      <h1>Sales Home</h1>
-      <p>Welcome to the Sales area. Access tools and information for different product lines.</p>
-      {/* Links to sub-sections like commission, employer-group, etc. */}
+      <h1>Sales & Quoting</h1>
+      <nav aria-labelledby="sales-navigation">
+        <h2 id="sales-navigation">Sales Sections</h2>
+        <ul>
+          <li><Link href="/broker/sales/commission">Commission Information</Link></li>
+          <li><Link href="/broker/sales/employer-group">Employer Group Sales</Link></li>
+          <li><Link href="/broker/sales/individual">Individual Sales</Link></li>
+          <li><Link href="/broker/sales/medicare-advantage">Medicare Advantage Sales</Link></li>
+          <li><Link href="/broker/sales/medicare-supplement">Medicare Supplement Sales</Link></li>
+          <li><Link href="/broker/sales/dsnp">D-SNP Sales</Link></li>
+        </ul>
+      </nav>
+      <hr />
+      <Link href="/broker/dashboard">Back to Dashboard</Link>
     </div>
   );
 } 

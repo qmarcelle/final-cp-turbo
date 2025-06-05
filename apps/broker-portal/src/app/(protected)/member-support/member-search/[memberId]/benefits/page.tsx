@@ -1,19 +1,27 @@
 // apps/broker-portal/src/app/(protected)/member-support/member-search/[memberId]/benefits/page.tsx
 
-interface MemberBenefitsPageProps {
-  params: { memberId: string };
-}
+import Link from 'next/link';
 
-export default async function MemberBenefitsPage({ params }: MemberBenefitsPageProps) {
-  // Fetch benefits information for params.memberId
-  // const benefits = await getMemberBenefits(params.memberId);
+type MemberBenefitsPageProps = {
+  params: {
+    memberId: string;
+  };
+};
+
+export default function MemberBenefitsPage({ params }: MemberBenefitsPageProps) {
+  const { memberId } = params;
 
   return (
     <div>
-      <h3>Benefits for Member {params.memberId}</h3>
-      <p>Displaying benefits information.</p>
+      <h1>Benefits for Member: {memberId}</h1>
+      <p>This page displays benefits information for member {memberId}.</p>
       {/* Placeholder for benefits details */}
-      {/* <pre>{JSON.stringify(benefits, null, 2)}</pre> */}
+      <hr />
+      <Link href={`/broker/member-support/member-search/${memberId}`}>Back to Member {memberId} Details</Link>
+      <br />
+      <Link href="/broker/member-support/member-search">Back to Member Search</Link>
+      <br />
+      <Link href="/broker/dashboard">Back to Dashboard</Link>
     </div>
   );
 } 

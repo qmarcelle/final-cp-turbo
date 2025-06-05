@@ -1,24 +1,36 @@
 import { SessionUser } from './models/sessionUser'
-// import { PolicyEngine } from '@portals/visibility'; // This will be used later
-// import { getUserInfo, getMemberInfo } from '../authStore'; // Assuming these might be in authStore or similar
+// @todo Integrate with @portals/visibility PolicyEngine when VisibilityEngine is ready
+// @todo Replace with actual getUserInfo and getMemberInfo when authStore is implemented
 
+/**
+ * Computes session user data with roles and visibility rules
+ * Integrates with NextAuth.js session management
+ * 
+ * @param userId - The authenticated user's ID
+ * @returns Promise resolving to SessionUser with computed permissions
+ */
 export async function computeSessionUser(userId: string): Promise<SessionUser> {
   console.log(`Computing session user for userId: ${userId}`)
-  // TODO: fetch userInfo & memberInfo, compute vRules via VisibilityEngine
-  // const userInfo = await getUserInfo(userId); // Placeholder
-  // const memberInfo = await getMemberInfo(userId); // Placeholder
-  // const engine = await PolicyEngine.loadConfig(); // Placeholder
-  // const vRules = await engine.computeRules(userInfo, memberInfo); // Placeholder
+  
+  // Production implementation will:
+  // const userInfo = await getUserInfo(userId);
+  // const memberInfo = await getMemberInfo(userId);
+  // const engine = await PolicyEngine.loadConfig();
+  // const vRules = await engine.computeRules(userInfo, memberInfo);
 
-  // For now, return a mock SessionUser object
-  // throw new Error('Not implemented: computeSessionUser');
-  return {
-    id: userId,
-    name: 'Mock User', // Placeholder
-    email: 'mock.user@example.com', // Placeholder
-    roles: ['user'], // Placeholder
-    selectedPlan: 'defaultPlan', // Placeholder
-    vRules: { mockFeature: true }, // Placeholder
-    accessToken: 'mock_initial_access_token', // Placeholder
+  // Development mode returns mock data for testing
+  if (process.env.NODE_ENV === 'development') {
+    return {
+      id: userId,
+      name: 'Dev User',
+      email: 'dev.user@bcbst.com',
+      roles: ['broker'],
+      selectedPlan: 'default',
+      vRules: { canViewMembers: true, canEditPlans: false },
+      accessToken: 'dev_access_token',
+    }
   }
+
+  // Production placeholder - implement actual user computation logic
+  throw new Error('computeSessionUser requires production implementation');
 }

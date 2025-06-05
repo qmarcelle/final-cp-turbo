@@ -1,9 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  // Add base path for context root
+  // Restore basePath and assetPrefix to serve broker portal from /broker
   basePath: '/broker',
-  // Ensure assets are also served from this path
   assetPrefix: '/broker',
   transpilePackages: [
           "@portals/ui",

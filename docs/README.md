@@ -1,238 +1,65 @@
-# Consumer Portals Architecture
+# 📚 Consumer Portals Documentation
 
-This document provides an overview of the Consumer Portals architecture, explaining how different packages work together to create a cohesive application ecosystem.
+Welcome to the Consumer Portals documentation! This directory contains comprehensive guides for developing, maintaining, and deploying the BCBST portal applications.
 
-## Architecture Overview
+## 📖 Documentation Index
 
-The Consumer Portals platform is built as a monorepo using TurboRepo, containing multiple NextJS applications and shared packages. The architecture follows these key principles:
+### 🚀 Getting Started
+| Document | Description | Audience |
+|----------|-------------|----------|
+| **[Getting Started](./getting-started.md)** | Complete setup guide for new developers | New developers |
+| **[Architecture Overview](./architecture.md)** | System design and package relationships | All developers |
 
-1. **Modularity**: Core functionality is separated into reusable packages
-2. **Consistency**: Shared configurations ensure consistent development practices
-3. **Performance**: Optimized build processes and caching via TurboRepo
-4. **Maintainability**: Clear boundaries between packages with well-defined interfaces
+### 💻 Development
+| Document | Description | Audience |
+|----------|-------------|----------|
+| **[Development Guide](./development.md)** | Day-to-day development workflows and standards | All developers |
+| **[TypeScript Best Practices](./typescript-best-practices.md)** | TypeScript configuration and standards | All developers |
+| **[Module Aliases](./module-aliases.md)** | Import path standards and conventions | All developers |
 
-## Package Dependencies
+### 🧪 Testing & Quality
+| Document | Description | Audience |
+|----------|-------------|----------|
+| **[Testing Guide](./testing.md)** | Testing strategies, configuration, and best practices | All developers |
+| **[Code Review Guidelines](./code-review.md)** | Standards for reviewing code | All developers |
 
-```
-┌─────────────────┐     ┌─────────────────┐
-│  broker-portal  │     │ employer-portal │
-└───────┬─────────┘     └────────┬────────┘
-        │                        │
-        v                        v
-┌──────────────────────────────────────────┐
-│                  @portals/ui                   │
-├──────────────────────────────────────────┤
-│                @portals/router                 │
-├──────────────────────────────────────────┤
-│                 @portals/auth                  │
-├──────────────────────────────────────────┤
-│              @portals/api-client               │
-└──────────────────────────────────────────┘
-                    │
-                    v
-┌──────────────────────────────────────────┐
-│                @portals/logger                 │
-└──────────────────────────────────────────┘
+### 🏗️ Infrastructure & Deployment
+| Document | Description | Audience |
+|----------|-------------|----------|
+| **[Dependency Management](./dependency-management.md)** | Package management with Turborepo | All developers |
+| **[Deployment Guide](./deployment.md)** | Deployment processes and environments | DevOps, Senior developers |
+| **[Performance Guide](./performance.md)** | Performance optimization strategies | Senior developers |
 
-┌──────────────────────────────────────────┐
-│           shared-configurations           │
-│    @portals/tsconfig, eslint-config-custom    │
-└──────────────────────────────────────────┘
-```
+### 🤝 Contributing
+| Document | Description | Audience |
+|----------|-------------|----------|
+| **[Contributing Guide](./contributing.md)** | How to contribute to the project | All developers |
+| **[Git Workflow](./git-workflow.md)** | Branching strategy and commit conventions | All developers |
+| **[Troubleshooting](./troubleshooting.md)** | Common issues and solutions | All developers |
 
-## Key Interactions
+## 🎯 Quick Reference
 
-### Portal Applications → UI Components
+### For New Developers
+1. Start with **[Getting Started](./getting-started.md)**
+2. Read **[Architecture Overview](./architecture.md)**
+3. Review **[Development Guide](./development.md)**
 
-- Portal applications import and use UI components for consistent interface
-- UI components handle presentation logic and user interactions
-- UI components use Tailwind for styling
+### For Daily Development
+- **[Development Guide](./development.md)** - Coding standards and workflows
+- **[Testing Guide](./testing.md)** - Writing and running tests
+- **[Module Aliases](./module-aliases.md)** - Import path conventions
 
-### Portal Applications → Router
+### For Troubleshooting
+- **[Troubleshooting](./troubleshooting.md)** - Common issues and solutions
+- **[TypeScript Best Practices](./typescript-best-practices.md)** - Type errors and configuration
 
-- Router package provides navigation utilities
-- Handles route guards and authentication checks
-- Manages navigation between different portal sections
+## 📞 Getting Help
 
-### Portal Applications → Auth
+- **Microsoft Teams**: Contact the Consumer Portals team for general questions
+- **Email**: consumerportals@groups.bcbst.com for technical discussions
+- **Documentation Issues**: Create a GitHub issue with the `documentation` label
+- **Code Reviews**: Follow the **[Code Review Guidelines](./code-review.md)**
 
-- Auth package provides authentication mechanisms
-- Integrates with NextAuth.js for secure login/logout
-- Manages user sessions and tokens
+---
 
-### Portal Applications → API Client
-
-- API client handles all backend communication
-- Provides hooks for data fetching using SWR
-- Manages request/response formatting and error handling
-
-### Auth → Logger
-
-- Auth package uses Logger for authentication events
-- Logs login attempts, session management, etc.
-- Provides audit trail for security events
-
-### API Client → Logger
-
-- API client uses Logger for request/response logging
-- Tracks API calls and performance metrics
-- Logs errors and exceptional conditions
-
-## Configuration Sharing
-
-The shared configuration packages ensure consistent development across all packages:
-
-### TypeScript Configuration (@portals/tsconfig)
-
-- Provides base TypeScript settings for different project types
-- Ensures type consistency across the monorepo
-- Configures paths and compilation settings appropriately
-
-### ESLint Configuration (eslint-config-custom)
-
-- Enforces consistent code style
-- Configures rules for different frameworks (React, Next.js)
-- Ensures code quality across the codebase
-
-## Development Workflow
-
-1. **Local Development**:
-   - Run `pnpm dev` for development of all packages
-   - Use `pnpm --filter <package-name> dev` for focused development
-
-2. **Building**:
-   - Run `pnpm build` to build all packages
-   - TurboRepo optimizes build order based on dependencies
-
-3. **Testing**:
-   - Run `pnpm test` to test all packages
-   - Each package contains its own tests
-
-## Integration Patterns
-
-### Component Integration
-
-UI components are integrated into portal applications through direct imports:
-
-```tsx
-import { Button, Input, FormLayout } from '@portals/ui';
-
-function LoginForm() {
-  return (
-    <FormLayout variant="column">
-      <Input name="email" label="Email" />
-      <Input name="password" label="Password" type="password" />
-      <Button variant="primary">Log In</Button>
-    </FormLayout>
-  );
-}
-```
-
-### Authentication Integration
-
-Auth is integrated with portal applications using hooks and providers:
-
-```tsx
-import { useSession, signIn, signOut } from '@portals/auth';
-
-function ProfileButton() {
-  const { data: session, status } = useSession();
-  
-  if (status === 'authenticated') {
-    return <button onClick={() => signOut()}>Sign Out</button>;
-  }
-  
-  return <button onClick={() => signIn()}>Sign In</button>;
-}
-```
-
-### API Integration
-
-API client is used for data fetching and mutations:
-
-```tsx
-import { useQuery, useMutation } from '@portals/api-client';
-
-function UserProfile() {
-  const { data, isLoading, error } = useQuery('/api/user/profile');
-  const { mutate } = useMutation('/api/user/profile');
-  
-  const updateProfile = (data) => {
-    mutate(data);
-  };
-  
-  // Component implementation
-}
-```
-
-### Logging Integration
-
-Logger is used for consistent logging across all packages:
-
-```tsx
-import { createLogger } from '@portals/logger';
-
-const logger = createLogger({ name: 'user-service' });
-
-export async function processUserData(userId) {
-  logger.info('Processing user data', { userId });
-  
-  try {
-    // Process data
-    logger.info('User data processed successfully', { userId });
-  } catch (error) {
-    logger.error('Failed to process user data', { userId, error });
-    throw error;
-  }
-}
-```
-
-## Extending the Architecture
-
-To add new functionality to the Consumer Portals platform:
-
-1. **New UI Components**:
-   - Add to the UI package following the established patterns
-   - Document the component API and usage examples
-
-2. **New API Endpoints**:
-   - Add to the appropriate portal application
-   - Extend the API client to support the new endpoints
-
-3. **New Shared Functionality**:
-   - Create a new package in the packages directory
-   - Define clear interfaces and maintain proper isolation
-   - Update documentation to reflect the new package
-
-## Deployment Considerations
-
-- Each portal application can be deployed independently
-- Shared packages are bundled with the applications
-- Environment configuration is managed per-application
-- Proper versioning ensures compatibility
-
-## Best Practices
-
-1. **Package Boundaries**:
-   - Keep packages focused on a single responsibility
-   - Avoid circular dependencies between packages
-   - Maintain clear interfaces between packages
-
-2. **Documentation**:
-   - Document each package's API
-   - Provide usage examples
-   - Keep architecture documentation updated
-
-3. **Testing**:
-   - Write tests for all packages
-   - Test integration between packages
-   - Ensure proper mocking of dependencies
-
-4. **Performance**:
-   - Optimize bundle sizes
-   - Use code splitting where appropriate
-   - Leverage TurboRepo caching for faster builds
-
-## Conclusion
-
-The Consumer Portals architecture provides a flexible, maintainable foundation for building portal applications. By leveraging shared packages and clear boundaries, it enables multiple teams to work together effectively while maintaining consistency across the platform. 
+**Last Updated**: January 2025 

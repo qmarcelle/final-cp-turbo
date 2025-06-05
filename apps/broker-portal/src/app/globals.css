@@ -1,5 +1,35 @@
-/* Add your global styles here */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-} 
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  color: rgb(var(--foreground-rgb));
+}
+
+/* Replace any modern CSS syntax that might be causing issues */
+/* For example, convert: */
+/* @media (width < 768px) { ... } */
+/* To: */
+@media (max-width: 767px) {
+  /* Your mobile styles here */
+}
+
+/* Instead of: */
+/* @media (40em <= width <= 60em) { ... } */
+/* Use: */
+@media (min-width: 40em) and (max-width: 60em) {
+  /* Your tablet styles here */
+}
+
+/* Replace any problematic calc() expressions */
+/* Instead of: calc(100% - (var(--gap) < 10px ? 10px : var(--gap))) */
+/* Use multiple calc() expressions or CSS variables */ 

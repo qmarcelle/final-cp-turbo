@@ -1,2 +1,2 @@
 // Force re-read
-export * from './input';
+export * from './Input';

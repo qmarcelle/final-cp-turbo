@@ -1,10 +1,10 @@
-import NextAuth, {
-  NextAuthOptions,
+import {
   User as NextAuthUser,
   Account,
   Profile,
   Session as NextAuthSession,
 } from 'next-auth'
+import type { NextAuthConfig } from 'next-auth'
 import type { JWT } from 'next-auth/jwt'
 // import { Provider } from 'next-auth/providers'; // Not a standard export path, CredentialsProvider is a Provider
 import CredentialsProvider from 'next-auth/providers/credentials'
@@ -23,7 +23,7 @@ interface AuthorizeResponse extends Pick<NextAuthUser, 'id'> {
   // Add any other custom properties you need to pass from authorize to jwt callback's user parameter
 }
 
-export const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthConfig = {
   providers: [
     CredentialsProvider({
       name: 'Credentials',
@@ -33,35 +33,46 @@ export const authOptions: NextAuthOptions = {
         mfaToken: { label: 'MFA Token', type: 'text' },
       },
       async authorize(
-        credentials: Record<string, string> | undefined
+        credentials: Partial<Record<"username" | "password" | "mfaToken", unknown>>
       ): Promise<AuthorizeResponse | null> {
         if (!credentials || !credentials.username) return null
 
-        const userIsValid = await verifyCredentials(credentials)
+        // Convert unknown to string safely
+        const username = credentials.username as string
+        const password = credentials.password as string
+        const mfaToken = credentials.mfaToken as string
+
+        const credentialsRecord = {
+          username,
+          password,
+          mfaToken
+        }
+
+        const userIsValid = await verifyCredentials(credentialsRecord)
         if (!userIsValid) {
           console.error(
             'Invalid primary credentials for:',
-            credentials.username
+            username
           )
           throw new Error('Invalid credentials')
         }
 
-        const mockUserId = credentials.username
+        const mockUserId = username
 
         const mfaDevices = await getMfaDevices(mockUserId)
         if (mfaDevices && mfaDevices.length > 0) {
           if (
-            !credentials.mfaToken ||
-            !mapMfaDevices(mfaDevices, credentials.mfaToken)
+            !mfaToken ||
+            !mapMfaDevices(mfaDevices, mfaToken)
           ) {
-            console.error('MFA validation failed for:', credentials.username)
+            console.error('MFA validation failed for:', username)
             throw new Error('Invalid MFA token')
           }
         }
         // Ensure the returned object strictly matches what NextAuth expects or what you define for AuthorizeResponse
         return {
           id: mockUserId,
-          name: credentials.username,
+          name: username,
           email: 'placeholder@example.com',
         }
       },
@@ -150,7 +161,7 @@ export const authOptions: NextAuthOptions = {
     },
   },
   pages: {
-    // signIn: '/auth/signin', // Example: Custom sign-in page
+    // signIn: '/auth/signin', // Custom sign-in page when needed
   },
   // secret: process.env.NEXTAUTH_SECRET, // MUST be set in .env
   // debug: process.env.NODE_ENV === 'development',
