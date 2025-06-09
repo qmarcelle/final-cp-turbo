@@ -60,13 +60,45 @@ const RadioGroupWithForm = (props: any) => {
 }
 
 const meta: Meta<typeof RadioWithForm> = {
-  title: 'Foundation/Radio',
+  title: '⚛️ Atoms/Radio',
   component: RadioWithForm,
   parameters: {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A modern, accessible radio component that integrates with React Hook Form. Supports single radio buttons and radio button groups.'
+        component: `
+# 🔘 Radio Component
+
+A modern, accessible radio component that integrates with React Hook Form. Supports single radio buttons and radio button groups.
+
+## Features
+- **Accessibility**: Full ARIA support with proper labeling
+- **Form Integration**: Works seamlessly with React Hook Form
+- **Validation**: Error states and required field indicators
+- **Flexibility**: Single radio or grouped options
+- **Design System**: Uses design tokens for consistent styling
+
+## Usage
+\`\`\`tsx
+<Radio 
+  name="agreement"
+  control={control}
+  label="I agree to the terms"
+  value="agree"
+  required
+/>
+
+<RadioGroup 
+  name="paymentMethod"
+  control={control}
+  label="Payment Method"
+  options={[
+    { value: 'credit', label: 'Credit Card' },
+    { value: 'debit', label: 'Debit Card' }
+  ]}
+/>
+\`\`\`
+        `
       }
     }
   },
@@ -280,4 +312,4 @@ export const RadioGroupWithValidationError: StoryObj<typeof RadioGroupWithForm> 
       </FormProvider>
     )
   },
-} 
+}

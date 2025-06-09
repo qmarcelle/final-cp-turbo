@@ -1,6 +1,6 @@
 import { FieldValues } from 'react-hook-form';
-import { Input } from '../../../foundation/input';
-import { RadioGroup  } from '../../../foundation/radio';
+import { Input } from '../../../foundation/Input';
+import { RadioGroup  } from '../../../foundation/Radio';
 import { BaseStep, type BaseStepProps, getFieldName } from './BaseStep';
 import { FormSection } from '../FormSection';
 

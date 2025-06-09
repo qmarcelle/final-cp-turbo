@@ -1,6 +1,7 @@
 import { DocumentIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
 import * as React from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useController, Control, FieldValues, Path, RegisterOptions } from 'react-hook-form'
 import { FileWithPreview } from '../types'
 
@@ -186,7 +187,7 @@ export const FileUpload = forwardRef(function FileUpload<T extends FieldValues>(
   )
 
   // Cleanup preview URLs when component unmounts
-  React.useEffect(() => {
+  useEffect(() => {
     return () => {
       const currentFiles = (value || []) as FileWithPreview[]
       currentFiles.forEach(file => {

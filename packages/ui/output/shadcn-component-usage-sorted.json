@@ -1,0 +1,2469 @@
+[
+  {
+    "name": "getMenuNavigationTermedPlan",
+    "count": 0,
+    "filename": "components/menuNavigationTermedPlan.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "p",
+        "span"
+      ],
+      "structure": "Contains elements: p, span; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "getMenuNavigation",
+    "count": 0,
+    "filename": "components/menuNavigation.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "p",
+        "span"
+      ],
+      "structure": "Contains elements: p, span; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "VARIANT_STYLES",
+    "count": 0,
+    "filename": "components/ui/FormError.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "article",
+        "Column",
+        "div",
+        "TextBox",
+        "Divider",
+        "Button"
+      ],
+      "structure": "Contains elements: article, Column, div, TextBox, Divider, Button; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "selectedPlan",
+    "count": 0,
+    "filename": "components/serverComponents/StiteHeaderServerWrapper.tsx",
+    "type": "form",
+    "composition": {
+      "elements": [
+        "SiteHeader"
+      ],
+      "structure": "Contains elements: SiteHeader; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "Select",
+      "customization": {
+        "required": false,
+        "details": "Direct mapping by name heuristic."
+      }
+    }
+  },
+  {
+    "name": "response",
+    "count": 0,
+    "filename": "components/routing/RouteGuard.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "div"
+      ],
+      "structure": "Contains elements: div; State: useState, useState; Handlers: "
+    },
+    "dependencies": [
+      "useEffect"
+    ],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "ToolTip",
+    "count": 0,
+    "filename": "components/foundation/Tooltip.tsx",
+    "type": "feedback",
+    "composition": {
+      "elements": [
+        "div",
+        "span"
+      ],
+      "structure": "Contains elements: div, span; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "Tooltip",
+      "customization": {
+        "required": false,
+        "details": "Direct mapping by name heuristic."
+      }
+    }
+  },
+  {
+    "name": "handleKeyDown",
+    "count": 0,
+    "filename": "components/foundation/ToggleSwitch.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "label",
+        "input",
+        "div",
+        "p"
+      ],
+      "structure": "Contains elements: label, input, div, p; State: useState; Handlers: onKeyDown, onChange"
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "Title",
+    "count": 0,
+    "filename": "components/foundation/Title.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "div",
+        "p"
+      ],
+      "structure": "Contains elements: div, p; State: ; Handlers: onClick"
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "setRefs",
+    "count": 0,
+    "filename": "components/foundation/TextField.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "div",
+        "Image",
+        "ObscureIndicator",
+        "Row",
+        "p",
+        "li",
+        "Error",
+        "FillGuidance",
+        "label",
+        "input",
+        "SuffixIcon",
+        "LowerPart"
+      ],
+      "structure": "Contains elements: div, Image, ObscureIndicator, Row, p, li, Error, FillGuidance, label, input, SuffixIcon, LowerPart; State: useState, useState; Handlers: onFocus, onBlur, onChange, onKeyDown, onClick"
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "TextBox",
+    "count": 0,
+    "filename": "components/foundation/TextBox.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "p"
+      ],
+      "structure": "Contains elements: p; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "TextArea",
+    "count": 0,
+    "filename": "components/foundation/TextArea.tsx",
+    "type": "form",
+    "composition": {
+      "elements": [
+        "textarea"
+      ],
+      "structure": "Contains elements: textarea; State: ; Handlers: onChange"
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "Textarea",
+      "customization": {
+        "required": false,
+        "details": "Direct mapping by name heuristic."
+      }
+    }
+  },
+  {
+    "name": "onKeydown",
+    "count": 0,
+    "filename": "components/foundation/StepUpDown.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "div",
+        "p",
+        "input",
+        "Image"
+      ],
+      "structure": "Contains elements: div, p, input, Image; State: useState, useState; Handlers: onFocus, onBlur, onKeyDown, onClick, onClick"
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "StatusLabel",
+    "count": 0,
+    "filename": "components/foundation/StatusLabel.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "div",
+        "p"
+      ],
+      "structure": "Contains elements: div, p; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "SpacerX",
+    "count": 0,
+    "filename": "components/foundation/Spacer.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "span"
+      ],
+      "structure": "Contains elements: span; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "progress",
+    "count": 0,
+    "filename": "components/foundation/SlidingCarousel.tsx",
+    "type": "feedback",
+    "composition": {
+      "elements": [
+        "div",
+        "Button",
+        "Image",
+        "NextBtn",
+        "PreviousBtn",
+        "Slider",
+        "Spacer"
+      ],
+      "structure": "Contains elements: div, Button, Image, NextBtn, PreviousBtn, Slider, Spacer; State: useState, useState; Handlers: onClick, onClick"
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "Progress",
+      "customization": {
+        "required": false,
+        "details": "Direct mapping by name heuristic."
+      }
+    }
+  },
+  {
+    "name": "closeSubMenu",
+    "count": 0,
+    "filename": "components/foundation/SiteHeader.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "nav",
+        "div",
+        "button",
+        "span",
+        "Image",
+        "Link",
+        "PlanSwitcher",
+        "SiteHeaderMenuSection",
+        "SiteHeaderNavSection",
+        "SiteHeaderSubNavSection",
+        "AlertBar"
+      ],
+      "structure": "Contains elements: nav, div, button, span, Image, Link, PlanSwitcher, SiteHeaderMenuSection, SiteHeaderNavSection, SiteHeaderSubNavSection, AlertBar; State: useState, useState; Handlers: onClick, onSelectionChange, onClick, onOpenOverlay, onSelectionChange"
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "InnerAppModal",
+    "count": 0,
+    "filename": "components/foundation/SideBarModal.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "Row",
+        "Image",
+        "TextBox",
+        "div",
+        "ModalContext.Provider",
+        "InnerAppModal",
+        "Modal",
+        "FocusTrap",
+        "Column",
+        "ModalHeader",
+        "Spacer"
+      ],
+      "structure": "Contains elements: Row, Image, TextBox, div, ModalContext.Provider, InnerAppModal, Modal, FocusTrap, Column, ModalHeader, Spacer; State: ; Handlers: onClick, onKeyDown, onClick, onClose, onClose"
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "Section",
+    "count": 0,
+    "filename": "components/foundation/Section.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "div"
+      ],
+      "structure": "Contains elements: div; State: ; Handlers: onClick"
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "SearchTypeAhead",
+    "count": 0,
+    "filename": "components/foundation/SearchTypeAhead.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "Link",
+        "RichText",
+        "HighlightedText",
+        "div",
+        "TextBox",
+        "Divider",
+        "SearchGroup",
+        "Spacer",
+        "Row",
+        "SearchDetailsView"
+      ],
+      "structure": "Contains elements: Link, RichText, HighlightedText, div, TextBox, Divider, SearchGroup, Spacer, Row, SearchDetailsView; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "_handleKeyDown",
+    "count": 0,
+    "filename": "components/foundation/SearchField.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "div",
+        "input",
+        "button",
+        "Image"
+      ],
+      "structure": "Contains elements: div, input, button, Image; State: useState, useState, useState; Handlers: onFocus, onBlur, onChange, onKeyDown, onClick, onFocus, onBlur"
+    },
+    "dependencies": [
+      "useEffect"
+    ],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "Row",
+    "count": 0,
+    "filename": "components/foundation/Row.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "div"
+      ],
+      "structure": "Contains elements: div; State: ; Handlers: onClick"
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "RichText",
+    "count": 0,
+    "filename": "components/foundation/RichText.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "span"
+      ],
+      "structure": "Contains elements: span; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "isSelectedId",
+    "count": 0,
+    "filename": "components/foundation/RichDropDown.tsx",
+    "type": "form",
+    "composition": {
+      "elements": [
+        "Row",
+        "Header",
+        "Image",
+        "DefaultDropDownHead",
+        "div",
+        "Column",
+        "Card",
+        "ul",
+        "li"
+      ],
+      "structure": "Contains elements: Row, Header, Image, DefaultDropDownHead, div, Column, Card, ul, li; State: useState; Handlers: onClick, onClick, onClick, onClick"
+    },
+    "dependencies": [
+      "useEffect"
+    ],
+    "shadcn": {
+      "equivalent": "Select",
+      "customization": {
+        "required": false,
+        "details": "Direct mapping by name heuristic."
+      }
+    }
+  },
+  {
+    "name": "isDisabled",
+    "count": 0,
+    "filename": "components/foundation/Radio.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "div",
+        "input",
+        "Column",
+        "label",
+        "p"
+      ],
+      "structure": "Contains elements: div, input, Column, label, p; State: ; Handlers: onKeyDown, onChange"
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "QRCodeGenerator",
+    "count": 0,
+    "filename": "components/foundation/QRCodeGenerator.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "div",
+        "QRCode"
+      ],
+      "structure": "Contains elements: div, QRCode; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "ProgressBar",
+    "count": 0,
+    "filename": "components/foundation/ProgressBar.tsx",
+    "type": "feedback",
+    "composition": {
+      "elements": [
+        "div"
+      ],
+      "structure": "Contains elements: div; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "Progress",
+      "customization": {
+        "required": false,
+        "details": "Direct mapping by name heuristic."
+      }
+    }
+  },
+  {
+    "name": "PlansLabel",
+    "count": 0,
+    "filename": "components/foundation/PlansLabel.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "Column",
+        "div",
+        "p"
+      ],
+      "structure": "Contains elements: Column, div, p; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "disabledStyle",
+    "count": 0,
+    "filename": "components/foundation/OnOffLabel.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "div",
+        "span"
+      ],
+      "structure": "Contains elements: div, span; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "Loader",
+    "count": 0,
+    "filename": "components/foundation/Loader.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "div",
+        "LoaderItem",
+        "span"
+      ],
+      "structure": "Contains elements: div, LoaderItem, span; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "ListRow",
+    "count": 0,
+    "filename": "components/foundation/ListRow.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "div"
+      ],
+      "structure": "Contains elements: div; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "ListOrder",
+    "count": 0,
+    "filename": "components/foundation/ListOrder.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "div",
+        "TextBox",
+        "ul",
+        "li",
+        "Spacer"
+      ],
+      "structure": "Contains elements: div, TextBox, ul, li, Spacer; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "LinkRow",
+    "count": 0,
+    "filename": "components/foundation/LinkRow.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "Image",
+        "div",
+        "p"
+      ],
+      "structure": "Contains elements: Image, div, p; State: ; Handlers: onClick"
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "InlineLink",
+    "count": 0,
+    "filename": "components/foundation/InlineLink.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "a",
+        "button",
+        "p"
+      ],
+      "structure": "Contains elements: a, button, p; State: ; Handlers: onClick"
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "contentHeight",
+    "count": 0,
+    "filename": "components/foundation/Iframe.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "iframe"
+      ],
+      "structure": "Contains elements: iframe; State: ; Handlers: "
+    },
+    "dependencies": [
+      "useEffect"
+    ],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "amplifyHealthAppPromoImg",
+    "count": 0,
+    "filename": "components/foundation/Icons.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [],
+      "structure": "Contains elements: ; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "remaining",
+    "count": 0,
+    "filename": "components/foundation/HighlightedText.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "TextBox",
+        "span",
+        "p"
+      ],
+      "structure": "Contains elements: TextBox, span, p; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "HeaderLink",
+    "count": 0,
+    "filename": "components/foundation/HeaderLink.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "a",
+        "span"
+      ],
+      "structure": "Contains elements: a, span; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "Header",
+    "count": 0,
+    "filename": "components/foundation/Header.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "h1",
+        "h2",
+        "h3"
+      ],
+      "structure": "Contains elements: h1, h2, h3; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "isSpecificPage",
+    "count": 0,
+    "filename": "components/foundation/Footer.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "footer",
+        "section",
+        "Column",
+        "h3",
+        "ul",
+        "li",
+        "Link",
+        "Row",
+        "Image",
+        "p",
+        "span"
+      ],
+      "structure": "Contains elements: footer, section, Column, h3, ul, li, Link, Row, Image, p, span; State: useState; Handlers: "
+    },
+    "dependencies": [
+      "useEffect"
+    ],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "handleCallback",
+    "count": 0,
+    "filename": "components/foundation/Filter.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "Column",
+        "TextBox",
+        "div",
+        "Row",
+        "FilterTile",
+        "Image",
+        "Card",
+        "Header",
+        "Spacer",
+        "Fragment",
+        "RichDropDown",
+        "FilterHead",
+        "TextField",
+        "a",
+        "Button"
+      ],
+      "structure": "Contains elements: Column, TextBox, div, Row, FilterTile, Image, Card, Header, Spacer, Fragment, RichDropDown, FilterHead, TextField, a, Button; State: ; Handlers: onSelectItem, onClick"
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "isSelcted",
+    "count": 0,
+    "filename": "components/foundation/Dropdown.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "Image",
+        "div",
+        "p",
+        "Spacer",
+        "section",
+        "Row"
+      ],
+      "structure": "Contains elements: Image, div, p, Spacer, section, Row; State: useState, useState; Handlers: onClick, onKeyDown, onClick"
+    },
+    "dependencies": [
+      "useEffect"
+    ],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "height",
+    "count": 0,
+    "filename": "components/foundation/Divider.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "div"
+      ],
+      "structure": "Contains elements: div; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "Column",
+    "count": 0,
+    "filename": "components/foundation/Column.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "div"
+      ],
+      "structure": "Contains elements: div; State: ; Handlers: onClick"
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "Circle",
+    "count": 0,
+    "filename": "components/foundation/Circle.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "div"
+      ],
+      "structure": "Contains elements: div; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "ChildAppModalBody",
+    "count": 0,
+    "filename": "components/foundation/ChildAppModalBody.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "Column",
+        "Header",
+        "Spacer",
+        "TextBox",
+        "Row",
+        "Button"
+      ],
+      "structure": "Contains elements: Column, Header, Spacer, TextBox, Row, Button; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "Card",
+    "count": 0,
+    "filename": "components/foundation/Card.tsx",
+    "type": "layout",
+    "composition": {
+      "elements": [
+        "div"
+      ],
+      "structure": "Contains elements: div; State: ; Handlers: onClick"
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "Card",
+      "customization": {
+        "required": false,
+        "details": "Direct mapping by name heuristic."
+      }
+    }
+  },
+  {
+    "name": "formattedDate",
+    "count": 0,
+    "filename": "components/foundation/CalendarField.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "div",
+        "Image",
+        "CalenderIndicator",
+        "p",
+        "input",
+        "SuffixIcon",
+        "Row",
+        "TextBox",
+        "DatePicker"
+      ],
+      "structure": "Contains elements: div, Image, CalenderIndicator, p, input, SuffixIcon, Row, TextBox, DatePicker; State: useState, useState, useState, useState; Handlers: onChange, onFocus, onBlur, onMouseDown, onChange"
+    },
+    "dependencies": [
+      "useEffect"
+    ],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "Button",
+    "count": 0,
+    "filename": "components/foundation/Button.tsx",
+    "type": "form",
+    "composition": {
+      "elements": [
+        "p",
+        "button"
+      ],
+      "structure": "Contains elements: p, button; State: ; Handlers: onClick"
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "Button",
+      "customization": {
+        "required": false,
+        "details": "Direct mapping by name heuristic."
+      }
+    }
+  },
+  {
+    "name": "Body",
+    "count": 0,
+    "filename": "components/foundation/Body.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "Column"
+      ],
+      "structure": "Contains elements: Column; State: ; Handlers: onClick"
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "AppPage",
+    "count": 0,
+    "filename": "components/foundation/AppPage.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "main"
+      ],
+      "structure": "Contains elements: main; State: ; Handlers: onClick"
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "AppLink",
+    "count": 0,
+    "filename": "components/foundation/AppLink.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "a",
+        "button",
+        "p"
+      ],
+      "structure": "Contains elements: a, button, p; State: ; Handlers: onClick, onClick"
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "closeCallback",
+    "count": 0,
+    "filename": "components/foundation/AlertBar.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "div",
+        "Image",
+        "p",
+        "AlertTile"
+      ],
+      "structure": "Contains elements: div, Image, p, AlertTile; State: useState; Handlers: onClick"
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "Accordion",
+    "count": 0,
+    "filename": "components/foundation/Accordion.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "div",
+        "p"
+      ],
+      "structure": "Contains elements: div, p; State: useState; Handlers: onClick, onClick"
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "index",
+    "count": 0,
+    "filename": "components/foundation/Pagination/index.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [],
+      "structure": "Contains elements: ; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "itemList",
+    "count": 0,
+    "filename": "components/foundation/Pagination/Pagination.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "section",
+        "TextBox",
+        "InnerPagination"
+      ],
+      "structure": "Contains elements: section, TextBox, InnerPagination; State: useState, useState; Handlers: onPageChange"
+    },
+    "dependencies": [
+      "useEffect"
+    ],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "page",
+    "count": 0,
+    "filename": "components/foundation/Pagination/MobilePagination.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "ul",
+        "li",
+        "Row",
+        "Image",
+        "Spacer",
+        "TextBox",
+        "Dropdown"
+      ],
+      "structure": "Contains elements: ul, li, Row, Image, Spacer, TextBox, Dropdown; State: ; Handlers: onClick, onSelectCallback, onClick"
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "lastPage",
+    "count": 0,
+    "filename": "components/foundation/Pagination/InnerPagination.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "section",
+        "DesktopPagination",
+        "MobilePagination"
+      ],
+      "structure": "Contains elements: section, DesktopPagination, MobilePagination; State: ; Handlers: onPrevious, onNext, onPageChange, onPrevious, onNext, onSelectedPageChange"
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "DesktopPagination",
+    "count": 0,
+    "filename": "components/foundation/Pagination/DesktopPagination.tsx",
+    "type": "navigation",
+    "composition": {
+      "elements": [
+        "ul",
+        "li",
+        "Row",
+        "Image",
+        "TextBox"
+      ],
+      "structure": "Contains elements: ul, li, Row, Image, TextBox; State: ; Handlers: onClick, onClick, onClick"
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "Pagination",
+      "customization": {
+        "required": false,
+        "details": "Direct mapping by name heuristic."
+      }
+    }
+  },
+  {
+    "name": "WelcomeBanner",
+    "count": 0,
+    "filename": "components/composite/WelcomeBanner.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "div",
+        "Spacer",
+        "h1"
+      ],
+      "structure": "Contains elements: div, Spacer, h1; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "userLinks",
+    "count": 0,
+    "filename": "components/composite/UserSwitchFilter.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "Card",
+        "Column",
+        "TextBox",
+        "Row",
+        "Header",
+        "Image",
+        "section",
+        "RichDropDown",
+        "UserSwitchHead",
+        "UserProfileTile",
+        "Spacer",
+        "AppLink",
+        "Divider"
+      ],
+      "structure": "Contains elements: Card, Column, TextBox, Row, Header, Image, section, RichDropDown, UserSwitchHead, UserProfileTile, Spacer, AppLink, Divider; State: useState; Handlers: onSelectItem"
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "UpdateRowWithStatus",
+    "count": 0,
+    "filename": "components/composite/UpdateRowWithStatus.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "Image",
+        "Column",
+        "Row",
+        "OnOffLabel",
+        "SpacerX",
+        "Spacer",
+        "TextBox",
+        "AppLink",
+        "Divider"
+      ],
+      "structure": "Contains elements: Image, Column, Row, OnOffLabel, SpacerX, Spacer, TextBox, AppLink, Divider; State: ; Handlers: onClick"
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "TransactionListCard",
+    "count": 0,
+    "filename": "components/composite/TransactionListCard.tsx",
+    "type": "layout",
+    "composition": {
+      "elements": [
+        "Column",
+        "Accordion",
+        "Image",
+        "div"
+      ],
+      "structure": "Contains elements: Column, Accordion, Image, div; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "Card",
+      "customization": {
+        "required": false,
+        "details": "Direct mapping by name heuristic."
+      }
+    }
+  },
+  {
+    "name": "TransactionItem",
+    "count": 0,
+    "filename": "components/composite/TransactionItem.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "Column",
+        "TransactionListCard",
+        "section",
+        "Row",
+        "span",
+        "Spacer",
+        "Divider",
+        "StatusLabel",
+        "Card"
+      ],
+      "structure": "Contains elements: Column, TransactionListCard, section, Row, span, Spacer, Divider, StatusLabel, Card; State: useState; Handlers: onClick"
+    },
+    "dependencies": [
+      "useEffect"
+    ],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "SuccessSlide",
+    "count": 0,
+    "filename": "components/composite/SuccessSlide.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "Column",
+        "Image",
+        "Spacer",
+        "Header",
+        "Button"
+      ],
+      "structure": "Contains elements: Column, Image, Spacer, Header, Button; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "SiteHeaderSubNavSection",
+    "count": 0,
+    "filename": "components/composite/SiteHeaderSubNavSection.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "div",
+        "button",
+        "svg",
+        "path",
+        "span",
+        "Link",
+        "Image",
+        "SubNavItemSection"
+      ],
+      "structure": "Contains elements: div, button, svg, path, span, Link, Image, SubNavItemSection; State: ; Handlers: onClick"
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "router",
+    "count": 0,
+    "filename": "components/composite/SiteHeaderSubNavItemSection.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "div",
+        "Link",
+        "h3",
+        "p",
+        "Image",
+        "a",
+        "TextBox",
+        "AppLink"
+      ],
+      "structure": "Contains elements: div, Link, h3, p, Image, a, TextBox, AppLink; State: ; Handlers: onClick"
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "SiteHeaderNavSection",
+    "count": 0,
+    "filename": "components/composite/SiteHeaderNavSection.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "div",
+        "button",
+        "span",
+        "Image",
+        "SearchNavigation"
+      ],
+      "structure": "Contains elements: div, button, span, Image, SearchNavigation; State: useState; Handlers: onClick"
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "SiteHeaderMenuSection",
+    "count": 0,
+    "filename": "components/composite/SiteHeaderMenuSection.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "div",
+        "Link",
+        "span",
+        "ProfileHeaderCard"
+      ],
+      "structure": "Contains elements: div, Link, span, ProfileHeaderCard; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "SelectModalSlide",
+    "count": 0,
+    "filename": "components/composite/SelectModalSlide.tsx",
+    "type": "form",
+    "composition": {
+      "elements": [
+        "Column",
+        "Spacer",
+        "Header",
+        "Button",
+        "AppLink"
+      ],
+      "structure": "Contains elements: Column, Spacer, Header, Button, AppLink; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "Select",
+      "customization": {
+        "required": false,
+        "details": "Direct mapping by name heuristic."
+      }
+    }
+  },
+  {
+    "name": "SearchBar",
+    "count": 0,
+    "filename": "components/composite/SearchNavigation.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "div",
+        "SearchField",
+        "SearchTypeAhead",
+        "Spacer",
+        "Image",
+        "SearchBar",
+        "a",
+        "TextBox"
+      ],
+      "structure": "Contains elements: div, SearchField, SearchTypeAhead, Spacer, Image, SearchBar, a, TextBox; State: useState, useState, useState, useState; Handlers: onClick, onSearch, onClick, onClick"
+    },
+    "dependencies": [
+      "useEffect"
+    ],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "claimsList",
+    "count": 0,
+    "filename": "components/composite/RecentClaimSection.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "ClaimItem",
+        "div",
+        "Row",
+        "Image",
+        "TextBox",
+        "Card",
+        "Header",
+        "Spacer",
+        "AppLink"
+      ],
+      "structure": "Contains elements: ClaimItem, div, Row, Image, TextBox, Card, Header, Spacer, AppLink; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "selectedUser",
+    "count": 0,
+    "filename": "components/composite/ProfileHeaderCardItem.tsx",
+    "type": "form",
+    "composition": {
+      "elements": [
+        "Column",
+        "section",
+        "UserSwitchFilter",
+        "Spacer"
+      ],
+      "structure": "Contains elements: Column, section, UserSwitchFilter, Spacer; State: ; Handlers: onSelectionChange"
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "Select",
+      "customization": {
+        "required": false,
+        "details": "Direct mapping by name heuristic."
+      }
+    }
+  },
+  {
+    "name": "selectedProfile",
+    "count": 0,
+    "filename": "components/composite/ProfileHeaderCard.tsx",
+    "type": "form",
+    "composition": {
+      "elements": [
+        "div",
+        "ProfileHeaderCardItem",
+        "section",
+        "Column",
+        "Button",
+        "span",
+        "p"
+      ],
+      "structure": "Contains elements: div, ProfileHeaderCardItem, section, Column, Button, span, p; State: ; Handlers: onClick, onClick"
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "Select",
+      "customization": {
+        "required": false,
+        "details": "Direct mapping by name heuristic."
+      }
+    }
+  },
+  {
+    "name": "PriorAuthorizationHelp",
+    "count": 0,
+    "filename": "components/composite/PriorAuthorizationHelp.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "Card",
+        "Column",
+        "Header",
+        "Spacer",
+        "RichText",
+        "span",
+        "a"
+      ],
+      "structure": "Contains elements: Card, Column, Header, Spacer, RichText, span, a; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "PriorAuthDetailsSection",
+    "count": 0,
+    "filename": "components/composite/PriorAuthDetailSection.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "Column",
+        "AuthItem",
+        "Spacer"
+      ],
+      "structure": "Contains elements: Column, AuthItem, Spacer; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "showPastPlans",
+    "count": 0,
+    "filename": "components/composite/PlanSwitcherComponent.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "Card",
+        "Column",
+        "Row",
+        "TextBox",
+        "Image",
+        "Header",
+        "div",
+        "RichDropDown",
+        "SelectedPlan",
+        "PlanDetailTile",
+        "PlanDropDownHead",
+        "PlanDropDownFooter"
+      ],
+      "structure": "Contains elements: Card, Column, Row, TextBox, Image, Header, div, RichDropDown, SelectedPlan, PlanDetailTile, PlanDropDownHead, PlanDropDownFooter; State: useState, useState, useState; Handlers: onSelectItem, onClickFooter"
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "PharmacyClaimSSO",
+    "count": 0,
+    "filename": "components/composite/PharmacyClaimSSO.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "section",
+        "Card",
+        "Column",
+        "Header",
+        "Spacer",
+        "TextBox",
+        "AppLink",
+        "Image"
+      ],
+      "structure": "Contains elements: section, Card, Column, Header, Spacer, TextBox, AppLink, Image; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "OnMyPlanItem",
+    "count": 0,
+    "filename": "components/composite/OnMyPlanItem.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "Image",
+        "Column",
+        "Row",
+        "Spacer",
+        "Card",
+        "TextBox",
+        "ToolTip",
+        "Title",
+        "EditLevelOfAccess",
+        "Divider"
+      ],
+      "structure": "Contains elements: Image, Column, Row, Spacer, Card, TextBox, ToolTip, Title, EditLevelOfAccess, Divider; State: ; Handlers: onClick"
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "OnMyPlanComponent",
+    "count": 0,
+    "filename": "components/composite/OnMyPlanComponent.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "Column",
+        "div",
+        "Spacer",
+        "OnMyPlanItem",
+        "AppLink"
+      ],
+      "structure": "Contains elements: Column, div, Spacer, OnMyPlanItem, AppLink; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "documentCount",
+    "count": 0,
+    "filename": "components/composite/ListOfDocuments.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "Column",
+        "Spacer",
+        "Row",
+        "TextBox",
+        "Dropdown",
+        "DocumentInfoCard"
+      ],
+      "structure": "Contains elements: Column, Spacer, Row, TextBox, Dropdown, DocumentInfoCard; State: ; Handlers: onSelectCallback"
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "analytics",
+    "count": 0,
+    "filename": "components/composite/InputModalSlide.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "Column",
+        "Spacer",
+        "Header",
+        "TextBox",
+        "Button",
+        "AppLink"
+      ],
+      "structure": "Contains elements: Column, Spacer, Header, TextBox, Button, AppLink; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "InitModalSlide",
+    "count": 0,
+    "filename": "components/composite/InitModalSlide.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "Column",
+        "Spacer",
+        "Header",
+        "div",
+        "TextBox",
+        "Button",
+        "AppLink"
+      ],
+      "structure": "Contains elements: Column, Spacer, Header, div, TextBox, Button, AppLink; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "InfoCard",
+    "count": 0,
+    "filename": "components/composite/InfoCard.tsx",
+    "type": "layout",
+    "composition": {
+      "elements": [
+        "Link",
+        "Card",
+        "Row",
+        "Image",
+        "Column",
+        "Spacer",
+        "TextBox"
+      ],
+      "structure": "Contains elements: Link, Card, Row, Image, Column, Spacer, TextBox; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "Card",
+      "customization": {
+        "required": false,
+        "details": "Direct mapping by name heuristic."
+      }
+    }
+  },
+  {
+    "name": "ImageBanner",
+    "count": 0,
+    "filename": "components/composite/ImageBanner.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "Card",
+        "section",
+        "Image"
+      ],
+      "structure": "Contains elements: Card, section, Image; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "GetHelpSection",
+    "count": 0,
+    "filename": "components/composite/GetHelpSection.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "Card",
+        "Column",
+        "Header",
+        "Spacer",
+        "RichText",
+        "span",
+        "a"
+      ],
+      "structure": "Contains elements: Card, Column, Header, Spacer, RichText, span, a; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "currentYear",
+    "count": 0,
+    "filename": "components/composite/Footer.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "footer",
+        "Column",
+        "Row",
+        "TextBox"
+      ],
+      "structure": "Contains elements: footer, Column, Row, TextBox; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "ErrorInfoCard",
+    "count": 0,
+    "filename": "components/composite/ErrorInfoCard.tsx",
+    "type": "layout",
+    "composition": {
+      "elements": [
+        "Card",
+        "Row",
+        "Image",
+        "Spacer",
+        "p"
+      ],
+      "structure": "Contains elements: Card, Row, Image, Spacer, p; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "Card",
+      "customization": {
+        "required": false,
+        "details": "Direct mapping by name heuristic."
+      }
+    }
+  },
+  {
+    "name": "ErrorDisplaySlide",
+    "count": 0,
+    "filename": "components/composite/ErrorDisplaySlide.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "Column",
+        "Image",
+        "Spacer",
+        "Header",
+        "Button"
+      ],
+      "structure": "Contains elements: Column, Image, Spacer, Header, Button; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "ErrorCard",
+    "count": 0,
+    "filename": "components/composite/ErrorCard.tsx",
+    "type": "layout",
+    "composition": {
+      "elements": [
+        "Card",
+        "Row",
+        "Image",
+        "Spacer",
+        "p"
+      ],
+      "structure": "Contains elements: Card, Row, Image, Spacer, p; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "Card",
+      "customization": {
+        "required": false,
+        "details": "Direct mapping by name heuristic."
+      }
+    }
+  },
+  {
+    "name": "DownloadSummary",
+    "count": 0,
+    "filename": "components/composite/DownloadSummary.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "main",
+        "Column",
+        "Card",
+        "Header",
+        "Spacer",
+        "RichText",
+        "span",
+        "Button",
+        "Image"
+      ],
+      "structure": "Contains elements: main, Column, Card, Header, Spacer, RichText, span, Button, Image; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "DocumentInfoCard",
+    "count": 0,
+    "filename": "components/composite/DocumentInfoCard.tsx",
+    "type": "layout",
+    "composition": {
+      "elements": [
+        "Image",
+        "Card",
+        "Column",
+        "Spacer",
+        "Row",
+        "SpacerX",
+        "Header",
+        "TextBox"
+      ],
+      "structure": "Contains elements: Image, Card, Column, Spacer, Row, SpacerX, Header, TextBox; State: ; Handlers: onClick"
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "Card",
+      "customization": {
+        "required": false,
+        "details": "Direct mapping by name heuristic."
+      }
+    }
+  },
+  {
+    "name": "CostBreakdown",
+    "count": 0,
+    "filename": "components/composite/CostBreakdown.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "section",
+        "Card",
+        "Column",
+        "Header",
+        "Spacer",
+        "Row",
+        "TextBox",
+        "Divider"
+      ],
+      "structure": "Contains elements: section, Card, Column, Header, Spacer, Row, TextBox, Divider; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "ContactUs",
+    "count": 0,
+    "filename": "components/composite/ContactUs.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "AppLink"
+      ],
+      "structure": "Contains elements: AppLink; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "handleButtonClick",
+    "count": 0,
+    "filename": "components/composite/ConfirmTermsSlide.tsx",
+    "type": "form",
+    "composition": {
+      "elements": [
+        "Column",
+        "Spacer",
+        "Header",
+        "TextBox",
+        "Checkbox",
+        "Button",
+        "AppLink"
+      ],
+      "structure": "Contains elements: Column, Spacer, Header, TextBox, Checkbox, Button, AppLink; State: useState; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "Button",
+      "customization": {
+        "required": false,
+        "details": "Direct mapping by name heuristic."
+      }
+    }
+  },
+  {
+    "name": "ClaimsPageInformation",
+    "count": 0,
+    "filename": "components/composite/ClaimsPageInformation.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "Column",
+        "AppLink",
+        "Image",
+        "Row",
+        "TextBox",
+        "Spacer",
+        "Header",
+        "section",
+        "StatusLabel"
+      ],
+      "structure": "Contains elements: Column, AppLink, Image, Row, TextBox, Spacer, Header, section, StatusLabel; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "ClaimsHelpCard",
+    "count": 0,
+    "filename": "components/composite/ClaimsHelpCard.tsx",
+    "type": "layout",
+    "composition": {
+      "elements": [
+        "Column",
+        "Card",
+        "Header",
+        "Spacer",
+        "RichText",
+        "span",
+        "a"
+      ],
+      "structure": "Contains elements: Column, Card, Header, Spacer, RichText, span, a; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "Card",
+      "customization": {
+        "required": false,
+        "details": "Direct mapping by name heuristic."
+      }
+    }
+  },
+  {
+    "name": "ClaimItem",
+    "count": 0,
+    "filename": "components/composite/ClaimItem.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "section",
+        "Image",
+        "Spacer",
+        "Column",
+        "Header",
+        "StatusLabel",
+        "TextBox",
+        "Row",
+        "Card"
+      ],
+      "structure": "Contains elements: section, Image, Spacer, Column, Header, StatusLabel, TextBox, Row, Card; State: ; Handlers: onClick"
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "BankFormHelp",
+    "count": 0,
+    "filename": "components/composite/BankFormHelp.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "Column",
+        "Card",
+        "Header",
+        "Spacer",
+        "RichText",
+        "span",
+        "a"
+      ],
+      "structure": "Contains elements: Column, Card, Header, Spacer, RichText, span, a; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "AuthItem",
+    "count": 0,
+    "filename": "components/composite/AuthItem.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "main",
+        "Spacer",
+        "Column",
+        "Row",
+        "Image",
+        "Header",
+        "StatusLabel",
+        "TextBox",
+        "section",
+        "Card",
+        "Divider",
+        "PriorAuthorizationHelp"
+      ],
+      "structure": "Contains elements: main, Spacer, Column, Row, Image, Header, StatusLabel, TextBox, section, Card, Divider, PriorAuthorizationHelp; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "AccordionListCard",
+    "count": 0,
+    "filename": "components/composite/AccordionListCard.tsx",
+    "type": "layout",
+    "composition": {
+      "elements": [
+        "Card",
+        "Column",
+        "div",
+        "Header",
+        "Spacer",
+        "Accordion",
+        "Image",
+        "Divider"
+      ],
+      "structure": "Contains elements: Card, Column, div, Header, Spacer, Accordion, Image, Divider; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "Card",
+      "customization": {
+        "required": false,
+        "details": "Direct mapping by name heuristic."
+      }
+    }
+  },
+  {
+    "name": "AccessCode",
+    "count": 0,
+    "filename": "components/composite/AccessCode.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "Column",
+        "div",
+        "TextBox",
+        "Row",
+        "Image"
+      ],
+      "structure": "Contains elements: Column, div, TextBox, Row, Image; State: ; Handlers: "
+    },
+    "dependencies": [],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  },
+  {
+    "name": "showHeader",
+    "count": 0,
+    "filename": "components/clientComponents/ClientInitComponent.tsx",
+    "type": "custom",
+    "composition": {
+      "elements": [
+        "AppLink",
+        "SideBarModal",
+        "AppModal"
+      ],
+      "structure": "Contains elements: AppLink, SideBarModal, AppModal; State: ; Handlers: "
+    },
+    "dependencies": [
+      "useEffect"
+    ],
+    "shadcn": {
+      "equivalent": "",
+      "customization": {
+        "required": true,
+        "details": "No direct shadcn/ui equivalent. Custom migration required."
+      }
+    }
+  }
+]

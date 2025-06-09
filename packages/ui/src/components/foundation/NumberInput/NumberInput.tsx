@@ -1,6 +1,7 @@
 import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
 import * as React from 'react';
+import { useCallback } from 'react';
 import { useController, Control, FieldValues, Path } from 'react-hook-form'
 
 export interface NumberInputProps<T extends FieldValues = FieldValues> {

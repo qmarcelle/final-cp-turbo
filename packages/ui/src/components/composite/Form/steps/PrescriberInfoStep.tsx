@@ -1,8 +1,8 @@
 import { FieldValues } from 'react-hook-form';
-import { Input } from '../../../foundation/input';
+import { Input } from '../../../foundation/Input';
 import { BaseStep, type BaseStepProps, getFieldName } from './BaseStep';
 import { FormSection } from '../FormSection';
-import { FormLayout  } from '../../../composite/FormLayout/FormLayout';
+import { FormLayout  } from '../../../composite/FormLayout';
 import { FormField  } from '../../../composite/FormField/FormField';
 
 interface PrescriberInfoProps<T extends FieldValues> extends BaseStepProps<T> {

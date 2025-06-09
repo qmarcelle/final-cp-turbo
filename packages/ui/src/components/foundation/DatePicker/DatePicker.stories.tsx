@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState, useEffect } from 'react';
 import type { Meta, StoryObj } from '@storybook/react'
 import { useForm, FormProvider } from 'react-hook-form'
 import { DatePicker } from './DatePicker'
@@ -7,7 +8,7 @@ type DateValue = Date | null
 type DateRangeValue = { start: DateValue; end: DateValue }
 
 const meta = {
-  title: 'Foundation/DatePicker',
+  title: '⚛️ Atoms/DatePicker',
   component: DatePicker,
   parameters: {
     layout: 'centered',
@@ -106,7 +107,7 @@ const InteractiveDatePicker = (args: DatePickerStoryArgs) => {
   return (
     <FormProvider {...methods}>
       <div className="storybook-form-container">
-        <h3 className="text-lg font-medium text-neutral-800 mb-4">{args.storyTitle || 'Date Picker'}</h3>
+        <h3 className="text-lg font-medium text-tertiaryGray1 mb-4">{args.storyTitle || 'Date Picker'}</h3>
         <DatePicker 
           {...args} 
           name="dateValue"
@@ -117,7 +118,7 @@ const InteractiveDatePicker = (args: DatePickerStoryArgs) => {
           data-cy="date-picker-demo"
         />
         {args.description && (
-          <p className="text-sm text-neutral-600 mt-4">{args.description}</p>
+          <p className="text-sm text-tertiaryGray3 mt-4">{args.description}</p>
         )}
       </div>
     </FormProvider>
@@ -217,4 +218,4 @@ export const WithCustomClass: Story = {
     description: 'Date picker with custom width applied via className',
   },
   render: (args: DatePickerStoryArgs) => <InteractiveDatePicker {...args} />
-} 
+}

@@ -1,305 +1,136 @@
-'use client'
+"use client";
 
 import * as React from 'react';
-import { useState, useEffect, useCallback, useMemo } from 'react';
-import { FieldValues } from 'react-hook-form'
-import { cn } from '../../../utils/cn'
-import clsx from 'clsx'
-// Simple debounce implementation to avoid lodash dependency
-const debounce = <T extends (...args: any[]) => void>(
-  func: T,
-  wait: number
-): ((...args: Parameters<T>) => void) => {
-  let timeout: NodeJS.Timeout | null = null
-  return (...args: Parameters<T>) => {
-    if (timeout) clearTimeout(timeout)
-    timeout = setTimeout(() => func(...args), wait)
+import { cva, type VariantProps } from 'class-variance-authority';
+import { cn } from '../../../lib/utils';
+
+const inputVariants = cva(
+  "form-input w-full rounded-md border px-3 py-2 text-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-tertiary-gray3 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
+  {
+    variants: {
+      variant: {
+        default: "border-tertiary-gray3 bg-white hover:border-primary focus-visible:border-primary focus-visible:shadow-focus-blue",
+        error: "border-status-error bg-white text-status-error focus-visible:border-status-error focus-visible:shadow-[0px_0px_0px_3px_rgba(235,0,27,0.4)]",
+      },
+      size: {
+        sm: "h-8 px-2 text-xs",
+        default: "h-10 px-3 text-sm",
+        lg: "h-12 px-4 text-base",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
   }
-}
-import { IMaskInput } from 'react-imask'
-import type { FormFieldProps, FormFieldValues  } from '@portals/types'
-import { z } from 'zod'
+);
 
-// Define the mask options schema
-export const maskOptionsSchema = z.object({
-  mask: z.union([z.string(), z.instanceof(RegExp), z.any()]), // Using any for complex mask types
-  definitions: z.record(z.instanceof(RegExp)).optional(),
-  prepare: z.function().args(z.string()).returns(z.string()).optional(),
-  commit: z.function().args(z.string()).returns(z.string()).optional(),
-  scale: z.number().optional(),
-  signed: z.boolean().optional(),
-  thousandsSeparator: z.string().optional(),
-  padFractionalZeros: z.boolean().optional(),
-  normalizeZeros: z.boolean().optional(),
-  radix: z.string().optional()
-})
-
-export type InputMask = z.infer<typeof maskOptionsSchema>
-
-export interface InputProps<T extends FormFieldValues = FieldValues> extends Omit<FormFieldProps<T>, 'control'> {
-  type?: 'text' | 'email' | 'password' | 'tel' | 'number' | 'textarea'
-  label?: string
-  required?: boolean
-  disabled?: boolean
-  placeholder?: string
-  maxLength?: number
-  showCount?: boolean
-  autoResize?: boolean
-  debounceMs?: number
-  minRows?: number
-  maxRows?: number
-  prefix?: React.ReactNode
-  suffix?: React.ReactNode
-  mask?: InputMask
-  className?: string
-  'data-cy'?: string
-  onBlur?: () => void
-  onChange?: (value: string) => void
-  value?: string
-  ref?: React.ForwardedRef<HTMLInputElement | HTMLTextAreaElement>
-  error?: string
-  helpText?: string
+export interface InputProps
+  extends React.InputHTMLAttributes<HTMLInputElement>,
+    VariantProps<typeof inputVariants> {
+  error?: boolean;
+  errorMessage?: string;
+  label?: string;
+  hint?: string;
+  required?: boolean;
 }
 
-export type InputComponent = (<T extends FormFieldValues>(
-  props: InputProps<T> & { ref?: React.ForwardedRef<HTMLInputElement | HTMLTextAreaElement> }
-) => React.ReactElement) & {
-  displayName?: string;
-};
-
-export const Input = React.forwardRef<
-  HTMLElement,
-  InputProps<any>
->(({
-    name,
-    type = 'text',
-    label,
+/**
+ * Input component for form text input with validation states.
+ * Supports text, email, password, tel, number, and other HTML input types.
+ * 
+ * Features:
+ * - Responsive design with multiple sizes (sm, default, lg)
+ * - Error states with validation messages
+ * - Accessibility support with proper ARIA attributes
+ * - Label and hint text support
+ * - Required field indicators
+ * - Focus management and keyboard navigation
+ * 
+ * @example
+ * ```tsx
+ * <Input 
+ *   label="Email Address"
+ *   type="email"
+ *   value={email} 
+ *   onChange={(e) => setEmail(e.target.value)} 
+ *   placeholder="Enter your email" 
+ *   error={hasError} 
+ *   errorMessage="Please enter a valid email address"
+ *   required
+ * />
+ * ```
+ */
+export const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  ({ 
+    className, 
+    variant, 
+    size, 
+    type = "text", 
+    error, 
+    errorMessage, 
+    label, 
+    hint, 
     required,
-    disabled,
-    placeholder,
-    maxLength,
-    showCount = false,
-    autoResize = false,
-    debounceMs = 0,
-    minRows = 3,
-    maxRows = 10,
-    prefix,
-    suffix,
-    mask,
-    className,
-    'data-cy': dataCy,
-    onBlur,
-    onChange,
-    value: controlledValue,
-    error,
-    helpText,
-    ...props
+    id,
+    ...props 
   }, ref) => {
-  const [value, setValue] = useState(controlledValue || '')
-  const [charCount, setCharCount] = useState(0)
-  const [rows, setRows] = useState(minRows)
-
-  // Debounced onChange handler
-  const debouncedOnChange = useMemo(
-    () => debounceMs > 0 ? debounce(onChange || (() => {}), debounceMs) : onChange,
-    [onChange, debounceMs]
-  ) as ReturnType<typeof debounce>
-
-  // Handle value changes
-  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const newValue = e.target.value
-    setValue(newValue)
-    setCharCount(newValue.length)
+    const inputId = id || React.useId();
+    const errorId = React.useId();
+    const hintId = React.useId();
     
-    if (autoResize && type === 'textarea') {
-      const textRows = newValue.split('\n').length
-      const newRows = Math.min(Math.max(textRows, minRows), maxRows)
-      setRows(newRows)
-    }
-
-    debouncedOnChange?.(newValue)
-  }, [debouncedOnChange, autoResize, type, minRows, maxRows])
-
-  // Cleanup debounced function
-  useEffect(() => {
-    return () => {
-      if (debounceMs > 0 && 'cancel' in debouncedOnChange) {
-        (debouncedOnChange as any).cancel()
-      }
-    }
-  }, [debouncedOnChange, debounceMs])
-
-  // Update controlled value
-  useEffect(() => {
-    if (controlledValue !== undefined) {
-      setValue(controlledValue)
-      setCharCount(controlledValue.length)
-    }
-  }, [controlledValue])
-
-  const inputClassName = clsx(
-    'block w-full rounded-md border px-3 py-2 text-sm',
-    'transition-all duration-200 ease-in-out',
-    'focus:outline-none focus:ring-2 focus:ring-opacity-50',
-    'hover:border-neutral-400',
-    'disabled:cursor-not-allowed disabled:bg-neutral-50 disabled:text-neutral-500',
-    'dark:bg-neutral-800 dark:text-neutral-200',
-    'dark:disabled:bg-neutral-900 dark:disabled:text-neutral-500',
-    error ? [
-      'border-error-500',
-      'focus:border-error-500 focus:ring-error-500',
-      'dark:border-error-500 dark:focus:border-error-500 dark:focus:ring-error-500'
-    ] : [
-      'border-neutral-300',
-      'focus:border-primary-500 focus:ring-primary-500',
-      'dark:border-neutral-700 dark:focus:border-primary-500 dark:focus:ring-primary-500'
-    ],
-    (prefix || suffix) && 'rounded-none',
-    prefix && 'rounded-l-none',
-    suffix && 'rounded-r-none',
-    className
-  )
-
-  const commonProps = {
-    id: name,
-    name,
-    placeholder,
-    disabled,
-    autoComplete: 'off',
-    'data-cy': dataCy || name,
-    className: cn(inputClassName),
-    'aria-required': required,
-    maxLength,
-    onChange: handleChange,
-    value,
-    onBlur,
-    ...props
-  }
-
-  const renderInput = () => {
-    if (type === 'textarea') {
-      return (
-        <textarea
-          {...commonProps}
-          ref={ref as React.ForwardedRef<HTMLTextAreaElement>}
-          rows={rows}
-        />
-      )
-    }
-
-    if (mask) {
-      const { onChange, ...maskProps } = commonProps
-      return (
-        <IMaskInput
-          {...maskProps}
-          mask={mask.mask}
-          onAccept={(value: string) => {
-            const event = {
-              target: { value },
-              currentTarget: { value }
-            } as React.ChangeEvent<HTMLInputElement>
-            onChange?.(event)
-          }}
-          inputRef={ref as React.ForwardedRef<HTMLInputElement>}
-          scale={mask.scale}
-          thousandsSeparator={mask.thousandsSeparator}
-          padFractionalZeros={mask.padFractionalZeros}
-          normalizeZeros={mask.normalizeZeros}
-          radix={mask.radix}
-          definitions={mask.definitions}
-          prepare={mask.prepare}
-          commit={mask.commit}
-          {...(mask.signed !== undefined && { signed: mask.signed })}
-        />
-      )
-    }
-
+    const hasError = error || !!errorMessage;
+    
     return (
-      <input
-        {...commonProps}
-        type={type}
-        ref={ref as React.ForwardedRef<HTMLInputElement>}
-      />
-    )
-  }
-
-  return (
-    <div className={cn('flex flex-col gap-1', name)}>
-      {label && (
-        <label
-          htmlFor={name}
+      <div className="form-control w-full">
+        {label && (
+          <label 
+            htmlFor={inputId} 
+            className={cn(
+              "form-label block text-sm font-medium text-tertiary-gray1 mb-1",
+              required && "required"
+            )}
+          >
+            {label}
+          </label>
+        )}
+        
+        <input
+          id={inputId}
+          type={type}
           className={cn(
-            'text-sm font-medium text-neutral-700 dark:text-neutral-200',
-            'transition-colors duration-200',
-            required && 'after:ml-0.5 after:text-error-500 after:content-["*"]',
-            disabled && 'opacity-50'
+            inputVariants({ variant: hasError ? "error" : variant, size }),
+            hasError && "error",
+            className
           )}
-        >
-          {label}
-        </label>
-      )}
-      <div className="relative flex group">
-        {prefix && (
-          <div className={cn(
-            'inline-flex items-center rounded-l-md border border-r-0 bg-neutral-50 px-3 text-neutral-500',
-            'transition-colors duration-200',
-            'group-hover:border-neutral-400',
-            'dark:bg-neutral-800 dark:text-neutral-400',
-            error ? [
-              'border-error-500',
-              'dark:border-error-500'
-            ] : [
-              'border-neutral-300',
-              'dark:border-neutral-700'
-            ]
-          )}>
-            {prefix}
-          </div>
+          ref={ref}
+          aria-invalid={hasError}
+          aria-describedby={cn(
+            hasError && errorMessage ? errorId : undefined,
+            hint ? hintId : undefined
+          )}
+          aria-required={required}
+          {...props}
+        />
+        
+        {hint && !hasError && (
+          <p id={hintId} className="form-hint mt-1 text-sm text-tertiary-gray3">
+            {hint}
+          </p>
         )}
-        {renderInput()}
-        {suffix && (
-          <div className={cn(
-            'inline-flex items-center rounded-r-md border border-l-0 bg-neutral-50 px-3 text-neutral-500',
-            'transition-colors duration-200',
-            'group-hover:border-neutral-400',
-            'dark:bg-neutral-800 dark:text-neutral-400',
-            error ? [
-              'border-error-500',
-              'dark:border-error-500'
-            ] : [
-              'border-neutral-300',
-              'dark:border-neutral-700'
-            ]
-          )}>
-            {suffix}
-          </div>
-        )}
-      </div>
-      <div className="flex items-center justify-between">
-        <div className="flex-1">
-          {error && (
-            <p 
-              data-cy={`${dataCy || name}-error`}
-              className="text-xs text-error-500 dark:text-error-400 mt-1"
-              role="alert"
-            >
-              {error}
-            </p>
-          )}
-          {!error && helpText && (
-            <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1">
-              {helpText}
-            </p>
-          )}
-        </div>
-        {showCount && maxLength && (
-          <p className="text-xs text-neutral-500 dark:text-neutral-400 ml-2">
-            {charCount}/{maxLength}
+        
+        {hasError && errorMessage && (
+          <p id={errorId} className="form-error mt-1 text-sm text-status-error" role="alert">
+            {errorMessage}
           </p>
         )}
       </div>
-    </div>
-  )
-})
+    );
+  }
+);
 
-Input.displayName = 'Input' 
+Input.displayName = "Input";
+
+// For backward compatibility, export as TextField as well
+export const TextField = Input;
+export type TextFieldProps = InputProps;

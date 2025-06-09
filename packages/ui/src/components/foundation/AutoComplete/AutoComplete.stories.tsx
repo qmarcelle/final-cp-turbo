@@ -1,30 +1,37 @@
-import React from 'react'
+import React, { useState } from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
 import { AutoComplete } from './AutoComplete'
 import type { AutoCompleteOption } from './AutoComplete'
 
 const meta = {
-  title: 'Foundation/AutoComplete',
+  title: '🧬 Molecules/AutoComplete',
   component: AutoComplete,
   parameters: {
     layout: 'padded',
     docs: {
       description: {
         component: `
-### AutoComplete
+# 🔍 AutoComplete
 
 A combobox component that provides suggestions as users type, with support for both static and async options.
 
-#### Usage
+## Features
+- **Dynamic filtering**: Options filtered as user types
+- **Async loading**: Support for remote data sources
+- **Keyboard navigation**: Full keyboard accessibility
+- **Custom options**: Disabled options and custom styling
+- **Form integration**: Works with form libraries
+- **Performance**: Optimized for large datasets
+
+## Usage
 
 \`\`\`tsx
-import { AutoComplete  } from '../AutoComplete'
+import { AutoComplete  } from '@portals/ui'
 
 function CountrySelector() {
   const [selectedCountry, setSelectedCountry] = useState('')
   
   const loadCountries = async (query: string) => {
-    // Fetch countries from API based on query
     const response = await fetch(\`/api/countries?search=\${query}\`)
     const data = await response.json()
     return data.map((country: any) => ({
@@ -43,15 +50,6 @@ function CountrySelector() {
   )
 }
 \`\`\`
-
-#### Key Features
-- Dynamic option filtering
-- Async option loading
-- Keyboard navigation
-- Disabled option support
-- Customizable appearance
-- Accessibility compliant
-- Form integration ready
 `,
       },
       canvas: { sourceState: 'hidden' },
@@ -180,4 +178,4 @@ export const WithCustomClass: Story = {
     className: 'w-96 bg-gray-50',
     onChange: (value) => console.log('Selected value:', value),
   },
-} 
+}

@@ -28,7 +28,7 @@ const FormWrapper = ({
 }
 
 const meta = {
-  title: 'Foundation/Toggle',
+  title: '⚛️ Atoms/Toggle',
   component: Toggle,
   parameters: {
     layout: 'centered',

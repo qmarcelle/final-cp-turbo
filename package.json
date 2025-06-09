@@ -11,6 +11,7 @@
     "build:packages": "turbo build --filter='./packages/*'",
     "build:apps": "turbo build --filter='./apps/*'",
     "dev": "turbo dev",
+    "storybook": "pnpm --filter storybook-app storybook:dev",
     "lint": "turbo lint",
     "lint:fix": "turbo lint:fix",
     "test": "turbo test",
@@ -50,7 +51,8 @@
     "typescript": "^5.8.2"
   },
   "dependencies": {
-    "@fontsource/inter": "^5.2.5"
+    "@fontsource/inter": "^5.2.5",
+    "zod": "^3.25.55"
   },
   "engines": {
     "node": ">=18.0.0",

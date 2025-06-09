@@ -1,24 +1,33 @@
-import React from 'react'
+import React, { useState } from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
 import { TagInput } from './TagInput'
 import type { Tag } from './TagInput'
 
 const meta = {
-  title: 'Foundation/TagInput',
+  title: '🧬 Molecules/TagInput',
   component: TagInput,
   parameters: {
     layout: 'padded',
     docs: {
       description: {
         component: `
-### TagInput
+# 🏷️ TagInput
 
 A versatile input component for managing multiple tags or labels, with support for suggestions and validation.
 
-#### Usage
+## Features
+- **Tag suggestions**: Predefined tags with filtering
+- **Custom tags**: Create new tags on the fly
+- **Maximum limit**: Control the number of tags
+- **Keyboard navigation**: Full keyboard accessibility
+- **Tag removal**: Easy tag deletion
+- **Form integration**: Works with form libraries
+- **Validation**: Error states and required fields
+
+## Usage
 
 \`\`\`tsx
-import { TagInput  } from '../TagInput'
+import { TagInput } from '@portals/ui'
 
 function SkillsSelector() {
   const [skills, setSkills] = useState<Tag[]>([])
@@ -40,15 +49,6 @@ function SkillsSelector() {
   )
 }
 \`\`\`
-
-#### Key Features
-- Tag suggestions with filtering
-- Maximum tag limit
-- Keyboard navigation
-- Tag removal
-- Custom tag creation
-- Form integration
-- Accessibility support
 `,
       },
       canvas: { sourceState: 'hidden' },
@@ -115,6 +115,9 @@ const sampleTags: Tag[] = [
   { id: '1', label: 'React' },
   { id: '2', label: 'TypeScript' },
   { id: '3', label: 'JavaScript' },
+  { id: '4', label: 'Next.js' },
+  { id: '5', label: 'TailwindCSS' },
+  { id: '6', label: 'Node.js' },
 ]
 
 export const Default: Story = {
@@ -134,11 +137,7 @@ export const WithValue: Story = {
 export const WithSuggestions: Story = {
   args: {
     value: [],
-    suggestions: [
-      ...sampleTags,
-      { id: '4', label: 'Next.js' },
-      { id: '5', label: 'TailwindCSS' },
-    ],
+    suggestions: sampleTags,
     onChange: (tags) => console.log('Tags changed:', tags),
   },
 }
@@ -160,10 +159,41 @@ export const WithCustomPlaceholder: Story = {
   },
 }
 
+export const InteractiveExample: Story = {
+  render: () => {
+    const [selectedTags, setSelectedTags] = useState<Tag[]>([
+      { id: '1', label: 'React' }
+    ])
+
+    return (
+      <div className="w-96 space-y-4">
+        <div>
+          <h3 className="text-lg font-medium mb-2">🛠️ Tech Stack</h3>
+          <TagInput
+            value={selectedTags}
+            onChange={setSelectedTags}
+            suggestions={sampleTags}
+            placeholder="Add technologies..."
+            maxTags={6}
+          />
+        </div>
+        
+        <div className="text-sm text-gray-600 p-3 bg-gray-50 rounded">
+          <strong>Selected ({selectedTags.length}/6):</strong>{' '}
+          {selectedTags.length > 0 
+            ? selectedTags.map(tag => tag.label).join(', ')
+            : 'None'
+          }
+        </div>
+      </div>
+    )
+  }
+}
+
 export const WithCustomClass: Story = {
   args: {
     value: [],
     className: 'w-96 bg-gray-50 rounded-lg',
     onChange: (tags) => console.log('Tags changed:', tags),
   },
-} 
+}

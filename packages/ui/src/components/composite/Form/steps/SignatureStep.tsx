@@ -1,8 +1,8 @@
 "use client";
 
 import { Controller, Control, FieldValues, Path } from 'react-hook-form';
-import { Input } from '../../../foundation/input';
-import { BaseStepProps } from '../BaseForm';
+import { Input } from '../../../foundation/Input';
+import { BaseStepProps } from './BaseStep';
 
 interface SignatureStepProps<T extends FieldValues> extends BaseStepProps<T> {
   fieldPrefix?: string;

@@ -4,7 +4,7 @@ import { SearchBar } from './SearchBar'
 import type { SearchSuggestion } from './SearchBar'
 
 const meta = {
-  title: 'Foundation/SearchBar',
+  title: '🧬 Molecules/SearchBar',
   component: SearchBar,
   parameters: {
     layout: 'padded',

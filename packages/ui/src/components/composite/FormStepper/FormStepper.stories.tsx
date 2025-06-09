@@ -55,7 +55,7 @@ const mockSteps = [
 ]
 
 const meta = {
-  title: 'Composite/FormStepper',
+  title: '🦠 Organisms/FormStepper',
   component: FormStepper,
   parameters: {
     layout: 'centered',

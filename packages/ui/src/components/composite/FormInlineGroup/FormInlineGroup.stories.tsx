@@ -7,7 +7,7 @@ import { useForm, Control, FieldValues, Controller } from 'react-hook-form'
 import { ReactNode } from 'react'
 
 const meta = {
-  title: 'Composite/FormInlineGroup',
+  title: '🧬 Molecules/FormInlineGroup',
   component: FormInlineGroup,
   parameters: {
     layout: 'centered',

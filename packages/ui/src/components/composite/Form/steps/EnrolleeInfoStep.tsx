@@ -1,7 +1,7 @@
 "use client";
 
 import { FieldValues, Controller, Control } from 'react-hook-form'
-import { Input } from '../../../foundation/input'
+import { Input } from '../../../foundation/Input'
 import { BaseStep, type BaseStepProps, getFieldName } from './BaseStep'
 import { FormSection } from '../FormSection'
 import { FormLayout } from '../../../composite/FormLayout'

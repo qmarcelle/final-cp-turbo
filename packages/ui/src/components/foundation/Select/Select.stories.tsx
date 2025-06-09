@@ -1,223 +1,121 @@
-import React from 'react'
-import type { Meta, StoryObj } from '@storybook/react'
-import { Select, ControlledSelect } from './Select'
-import type { SelectProps, ControlledSelectProps } from './Select'
-import { useForm } from 'react-hook-form'
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { Select, Dropdown } from './Select';
 
-const meta = {
-  title: 'Foundation/Select',
-  component: Select,
+const meta: Meta<typeof Select> = {
+  title: '⚛️ Atoms/Select',
+  component: Dropdown,
   parameters: {
-    layout: 'padded',
+    layout: 'centered',
     docs: {
       description: {
-        component: `
-### Select
-
-A customizable select component that supports single selection with form integration and validation.
-
-#### Usage
-
-\`\`\`tsx
-import { Select  } from '../Select'
-import { useForm } from 'react-hook-form'
-
-function CountrySelector() {
-  const { control } = useForm()
-  
-  const countries: SelectOption[] = [
-    { value: 'us', label: 'United States' },
-    { value: 'ca', label: 'Canada' },
-    { value: 'mx', label: 'Mexico' },
-  ]
-
-  return (
-    <Select
-      name="country"
-      control={control}
-      label="Select Country"
-      options={countries}
-      validation={{
-        required: 'Please select a country',
-      }}
-    />
-  )
-}
-\`\`\`
-
-#### Key Features
-- Form integration with React Hook Form
-- Validation support
-- Error state handling
-- Disabled options
-- Custom styling
-- Accessibility compliant
-- Focus and hover states
-`,
+        component: 'Dropdown component allows users to select from a list of options with custom styling and filtering.',
       },
-      canvas: { sourceState: 'hidden' },
-      story: { 
-        inline: true,
-        height: '120px',
-      },
-      controls: { sort: 'requiredFirst' },
-      source: { type: 'code' },
     },
   },
-  tags: ['autodocs'],
   argTypes: {
-    options: {
-      control: 'object',
-      description: 'Array of options to select from',
-    },
-    label: {
-      control: 'text',
-      description: 'Label text displayed above the select',
-    },
-    description: {
-      control: 'text',
-      description: 'Helper text displayed below the select',
+    size: {
+      control: 'radio',
+      options: ['sm', 'default', 'lg'],
+      description: 'Size of the dropdown',
     },
     error: {
-      control: 'text',
-      description: 'Error message displayed below the select',
+      control: 'boolean',
+      description: 'Whether the dropdown has an error state',
     },
     disabled: {
-      control: { type: 'boolean' },
-      description: 'Whether the select is disabled',
-      table: {
-        defaultValue: { summary: false },
-      },
-    },
-    className: {
-      control: 'text',
-      description: 'Additional CSS classes for styling',
+      control: 'boolean',
+      description: 'Whether the dropdown is disabled',
     },
     placeholder: {
       control: 'text',
-      description: 'Placeholder text when no option is selected',
+      description: 'Placeholder text',
+    },
+    label: {
+      control: 'text',
+      description: 'Label for the dropdown',
+    },
+    errorMessage: {
+      control: 'text',
+      description: 'Error message to display',
     },
   },
-} satisfies Meta<SelectProps>
+  args: {
+    size: 'default',
+    error: false,
+    disabled: false,
+    placeholder: 'Select an option',
+    label: '',
+    errorMessage: '',
+    options: [
+      { value: 'option1', label: 'Option 1' },
+      { value: 'option2', label: 'Option 2' },
+      { value: 'option3', label: 'Option 3' },
+    ],
+  }
+};
 
-export default meta
-type Story = StoryObj<SelectProps>
-type ControlledStory = StoryObj<ControlledSelectProps>
-
-const sampleOptions = [
-  { value: 'react', label: 'React' },
-  { value: 'vue', label: 'Vue.js' },
-  { value: 'angular', label: 'Angular' },
-  { value: 'svelte', label: 'Svelte' },
-  { value: 'nextjs', label: 'Next.js' },
-]
+export default meta;
+type Story = StoryObj<typeof Dropdown>;
 
 export const Default: Story = {
   args: {
-    options: sampleOptions,
-    placeholder: 'Select a framework',
+    placeholder: 'Choose an option',
+    label: 'Plan Type',
+    options: [
+      { value: 'basic', label: 'Basic Plan' },
+      { value: 'standard', label: 'Standard Plan' },
+      { value: 'premium', label: 'Premium Plan' },
+    ],
   },
-}
-
-export const WithLabel: Story = {
-  args: {
-    options: sampleOptions,
-    label: 'Framework',
-    placeholder: 'Select a framework',
-  },
-}
-
-export const WithDescription: Story = {
-  args: {
-    options: sampleOptions,
-    label: 'Framework',
-    description: 'Choose your preferred JavaScript framework',
-    placeholder: 'Select a framework',
-  },
-}
+};
 
 export const WithError: Story = {
   args: {
-    options: sampleOptions,
-    label: 'Framework',
-    error: 'Please select a framework',
-    placeholder: 'Select a framework',
-  },
-}
-
-export const Disabled: Story = {
-  args: {
-    options: sampleOptions,
-    label: 'Framework',
-    disabled: true,
-    placeholder: 'Select a framework',
-  },
-}
-
-export const WithDisabledOptions: Story = {
-  args: {
+    placeholder: 'Choose an option',
+    label: 'Required Field',
+    error: true,
+    errorMessage: 'Please select an option',
     options: [
-      { value: 'react', label: 'React' },
-      { value: 'vue', label: 'Vue.js', disabled: true },
-      { value: 'angular', label: 'Angular' },
-      { value: 'svelte', label: 'Svelte', disabled: true },
-      { value: 'nextjs', label: 'Next.js' },
+      { value: 'option1', label: 'Option 1' },
+      { value: 'option2', label: 'Option 2' },
+      { value: 'option3', label: 'Option 3' },
     ],
-    label: 'Framework',
-    placeholder: 'Select a framework',
   },
-}
+};
 
-export const WithCustomStyle: Story = {
-  args: {
-    options: sampleOptions,
-    label: 'Framework',
-    className: 'bg-base-200 border-2',
-    placeholder: 'Select a framework',
-  },
-}
-
-// Form-controlled examples
-const FormExample = (args: any) => {
-  const { control } = useForm({
-    defaultValues: {
-      field: '',
-    },
-  })
-
-  return (
-    <div className="w-full max-w-md">
-      <Select
-        name="field"
-        control={control}
-        {...args}
-      />
+export const AllSizes: Story = {
+  render: (args) => (
+    <div className="flex flex-col gap-4 w-80">
+      <Dropdown {...args} size="sm" label="Small" placeholder="Small dropdown" />
+      <Dropdown {...args} size="default" label="Default" placeholder="Default dropdown" />
+      <Dropdown {...args} size="lg" label="Large" placeholder="Large dropdown" />
     </div>
-  )
-}
+  ),
+};
 
-export const WithValidation: ControlledStory = {
-  render: (args) => <FormExample {...args} />,
-  args: {
-    label: 'Framework',
-    options: sampleOptions,
-    placeholder: 'Select a framework',
-    validation: {
-      required: 'Please select a framework',
-    },
-  },
-}
+export const States: Story = {
+  render: (args) => (
+    <div className="flex flex-col gap-4 w-80">
+      <Dropdown {...args} label="Default" placeholder="Default state" />
+      <Dropdown {...args} label="Disabled" placeholder="Disabled state" disabled />
+      <Dropdown {...args} label="Error" placeholder="Error state" error errorMessage="This field is required" />
+      <Dropdown {...args} label="With Value" placeholder="With value" value="option2" />
+    </div>
+  ),
+};
 
-export const WithCustomValidation: ControlledStory = {
-  render: (args) => <FormExample {...args} />,
+export const WithManyOptions: Story = {
   args: {
-    label: 'Framework',
-    options: sampleOptions,
-    placeholder: 'Select a framework',
-    validation: {
-      required: 'Please select a framework',
-      validate: (value: string) =>
-        value === 'angular' ? 'Sorry, Angular is not supported' : true,
-    },
+    label: 'Insurance Plans',
+    placeholder: 'Select your plan',
+    options: [
+      { value: 'medicare-advantage', label: 'Medicare Advantage' },
+      { value: 'medicare-supplement', label: 'Medicare Supplement' },
+      { value: 'individual-aca', label: 'Individual ACA Plan' },
+      { value: 'employer-group', label: 'Employer Group Plan' },
+      { value: 'dsnp', label: 'Dual Special Needs Plan (DSNP)' },
+      { value: 'dental', label: 'Dental Plan' },
+      { value: 'vision', label: 'Vision Plan' },
+    ],
   },
-} 
+}; 

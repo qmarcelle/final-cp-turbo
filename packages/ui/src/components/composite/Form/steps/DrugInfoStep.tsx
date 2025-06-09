@@ -1,9 +1,9 @@
 "use client";
 
 import { Controller, Control, FieldValues, Path } from 'react-hook-form';
-import { Input } from '../../../foundation/input';
-import { RadioGroup } from '../../../foundation/radio';
-import { Checkbox } from '../../../foundation/checkbox';
+import { Input } from '../../../foundation/Input';
+import { RadioGroup } from '../../../foundation/Radio';
+import { Checkbox } from '../../../foundation/Checkbox';
 import { BaseStepProps } from '../BaseForm';
 
 interface DrugInfoStepProps<T extends FieldValues> extends BaseStepProps<T> {

@@ -8,7 +8,7 @@ type BaseTextAreaProps = ComponentProps<typeof TextArea>
 type ControlledTextAreaProps = ComponentProps<typeof ControlledTextArea>
 
 const meta = {
-  title: 'Foundation/TextArea',
+  title: '⚛️ Atoms/TextArea',
   component: TextArea as any,
   parameters: {
     layout: 'centered',

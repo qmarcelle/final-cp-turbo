@@ -12,6 +12,9 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
   },
+  "dependencies": {
+    "react": "^18.2.0"
+  },
   "devDependencies": {
     "@portals/testing": "workspace:*",
     "@portals/tsconfig": "workspace:*",

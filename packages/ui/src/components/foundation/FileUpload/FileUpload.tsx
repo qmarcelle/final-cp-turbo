@@ -2,31 +2,10 @@
 
 import { DocumentIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import * as React from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { Control, FieldValues, Path, RegisterOptions, useController } from 'react-hook-form'
 import { cn } from '../../../utils/cn'
-
-export interface FileWithPreview extends File {
-  preview?: string
-  error?: string
-  progress?: number
-}
-
-export interface FileUploadProps<TFieldValues extends FieldValues = FieldValues> {
-  name: Path<TFieldValues>
-  control: Control<TFieldValues>
-  label?: string
-  className?: string
-  accept?: string
-  multiple?: boolean
-  maxSize?: number // in bytes
-  maxFiles?: number
-  preview?: boolean
-  validation?: RegisterOptions<TFieldValues>
-  onUpload?: (files: File[]) => Promise<void>
-  disabled?: boolean
-  required?: boolean
-  'data-cy'?: string
-}
+import type { FileWithPreview, FileUploadProps } from '../../../types'
 
 function formatFileSize(bytes: number): string {
   if (bytes === 0) return '0 Bytes'

@@ -7,7 +7,7 @@ import { useForm, Control, FieldValues, Controller } from 'react-hook-form'
 import { ReactNode } from 'react'
 
 const meta = {
-  title: 'Composite/FormColumn',
+  title: '📐 Layout/FormColumn',
   component: FormColumn,
   parameters: {
     layout: 'centered',

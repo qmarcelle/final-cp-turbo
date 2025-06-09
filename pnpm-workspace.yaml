@@ -2,6 +2,7 @@ packages:
   # Only specific apps with hyphens in names
   - 'apps/broker-portal'
   - 'apps/employer-portal'
+  - 'apps/storybook'
   
   # Only specific packages we want to keep
   - 'packages/api-client'
