@@ -17,6 +17,7 @@ export * from './FileUpload';
 export * from './Input';
 export * from './InputGroup';
 export * from './NumberInput';
+export * from './Progress';
 export * from './Radio';
 export * from './SearchBar';
 export * from './Select'; // Re-enabled with consistent naming
