@@ -1,7 +1,7 @@
-import { XMarkIcon } from '@heroicons/react/24/outline'
+import { XMarkIcon } from '../../../lib/icons'
 import clsx from 'clsx'
 import * as React from 'react';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { useController, Control, FieldValues, Path } from 'react-hook-form'
 import type { Tag, TagInputProps } from '../../../types'
 
