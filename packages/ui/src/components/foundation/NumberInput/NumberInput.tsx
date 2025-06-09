@@ -1,8 +1,9 @@
 import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
-import * as React from 'react';
-import { useCallback } from 'react';
+import * as React from 'react'
+import { useCallback } from 'react'
 import { useController, Control, FieldValues, Path } from 'react-hook-form'
+import { cn } from '../../../lib/utils'
 
 export interface NumberInputProps<T extends FieldValues = FieldValues> {
   name: Path<T>
@@ -21,7 +22,10 @@ export interface NumberInputProps<T extends FieldValues = FieldValues> {
   'data-cy'?: string
 }
 
-function formatNumber(value: number | undefined, options?: Intl.NumberFormatOptions): string {
+function formatNumber(
+  value: number | undefined,
+  options?: Intl.NumberFormatOptions
+): string {
   if (value === undefined) return ''
   return new Intl.NumberFormat('en-US', options).format(value)
 }
@@ -107,7 +111,7 @@ export function ControlledNumberInput<T extends FieldValues>({
       {label && (
         <label
           htmlFor={name}
-          className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-200"
+          className="form-label"
           data-cy={`${dataCy || name}-label`}
         >
           {label}
@@ -118,18 +122,13 @@ export function ControlledNumberInput<T extends FieldValues>({
           type="text"
           id={name}
           value={formatNumber(field.value, formatOptions)}
-          onChange={(e) => handleChange(e.target.value)}
+          onChange={e => handleChange(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
-          className={clsx(
-            'block w-full rounded-lg py-2.5',
-            showControls ? 'pr-20 pl-3' : 'px-3',
-            'border border-zinc-950/10 dark:border-white/10',
-            'bg-white dark:bg-white/5',
-            'text-base/6 text-zinc-950 dark:text-white',
-            'placeholder:text-zinc-500 dark:placeholder:text-zinc-400',
-            'focus:outline-none focus:ring-2 focus:ring-blue-500',
-            error && 'border-red-500',
+          className={cn(
+            'form-input',
+            showControls ? 'pr-20' : '',
+            error && 'error',
             className
           )}
           data-cy={dataCy || name}
@@ -137,16 +136,16 @@ export function ControlledNumberInput<T extends FieldValues>({
         />
         {showControls && (
           <div className="absolute inset-y-0 right-0 flex">
-            <div className="flex flex-col border-l border-zinc-950/10 dark:border-white/10">
+            <div className="flex flex-col border-l border-tertiary-gray4">
               <button
                 type="button"
                 onClick={increment}
                 disabled={max !== undefined && (field.value || 0) >= max}
-                className={clsx(
+                className={cn(
                   'flex h-1/2 w-10 items-center justify-center',
-                  'border-b border-zinc-950/10 dark:border-white/10',
-                  'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200',
-                  'focus:outline-none focus:ring-2 focus:ring-blue-500',
+                  'border-b border-tertiary-gray4',
+                  'text-tertiary-gray3 hover:text-primary focus:text-primary',
+                  'focus:outline-none focus:ring-2 focus:ring-primary',
                   'disabled:cursor-not-allowed disabled:opacity-50'
                 )}
                 data-cy={`${dataCy || name}-increment`}
@@ -160,10 +159,10 @@ export function ControlledNumberInput<T extends FieldValues>({
                   (min !== undefined && (field.value || 0) <= min) ||
                   (!allowNegative && (field.value || 0) <= 0)
                 }
-                className={clsx(
+                className={cn(
                   'flex h-1/2 w-10 items-center justify-center',
-                  'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200',
-                  'focus:outline-none focus:ring-2 focus:ring-blue-500',
+                  'text-tertiary-gray3 hover:text-primary focus:text-primary',
+                  'focus:outline-none focus:ring-2 focus:ring-primary',
                   'disabled:cursor-not-allowed disabled:opacity-50'
                 )}
                 data-cy={`${dataCy || name}-decrement`}
@@ -175,10 +174,7 @@ export function ControlledNumberInput<T extends FieldValues>({
         )}
       </div>
       {error && (
-        <p
-          className="mt-2 text-sm text-red-600 dark:text-red-500"
-          data-cy={`${dataCy || name}-error`}
-        >
+        <p className="form-error" data-cy={`${dataCy || name}-error`}>
           {error.message}
         </p>
       )}
@@ -199,6 +195,7 @@ export function NumberInput({
   allowNegative = true,
   showControls = true,
   formatOptions,
+  disabled = false,
   'data-cy': dataCy,
   ...props
 }: {
@@ -213,6 +210,7 @@ export function NumberInput({
   allowNegative?: boolean
   showControls?: boolean
   formatOptions?: Intl.NumberFormatOptions
+  disabled?: boolean
   'data-cy'?: string
 }) {
   const handleChange = useCallback(
@@ -265,34 +263,26 @@ export function NumberInput({
       <input
         type="text"
         value={formatNumber(value, formatOptions)}
-        onChange={(e) => handleChange(e.target.value)}
+        onChange={e => handleChange(e.target.value)}
         onKeyDown={handleKeyDown}
         placeholder={placeholder}
-        className={clsx(
-          'block w-full rounded-lg py-2.5',
-          showControls ? 'pr-20 pl-3' : 'px-3',
-          'border border-zinc-950/10 dark:border-white/10',
-          'bg-white dark:bg-white/5',
-          'text-base/6 text-zinc-950 dark:text-white',
-          'placeholder:text-zinc-500 dark:placeholder:text-zinc-400',
-          'focus:outline-none focus:ring-2 focus:ring-blue-500',
-          className
-        )}
+        disabled={disabled}
+        className={cn('form-input', showControls ? 'pr-20' : '', className)}
         data-cy={dataCy}
         {...props}
       />
       {showControls && (
         <div className="absolute inset-y-0 right-0 flex">
-          <div className="flex flex-col border-l border-zinc-950/10 dark:border-white/10">
+          <div className="flex flex-col border-l border-tertiary-gray4">
             <button
               type="button"
               onClick={increment}
-              disabled={max !== undefined && (value || 0) >= max}
-              className={clsx(
+              disabled={disabled || (max !== undefined && (value || 0) >= max)}
+              className={cn(
                 'flex h-1/2 w-10 items-center justify-center',
-                'border-b border-zinc-950/10 dark:border-white/10',
-                'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200',
-                'focus:outline-none focus:ring-2 focus:ring-blue-500',
+                'border-b border-tertiary-gray4',
+                'text-tertiary-gray3 hover:text-primary focus:text-primary',
+                'focus:outline-none focus:ring-2 focus:ring-primary',
                 'disabled:cursor-not-allowed disabled:opacity-50'
               )}
               data-cy={`${dataCy}-increment`}
@@ -303,13 +293,14 @@ export function NumberInput({
               type="button"
               onClick={decrement}
               disabled={
+                disabled ||
                 (min !== undefined && (value || 0) <= min) ||
                 (!allowNegative && (value || 0) <= 0)
               }
-              className={clsx(
+              className={cn(
                 'flex h-1/2 w-10 items-center justify-center',
-                'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200',
-                'focus:outline-none focus:ring-2 focus:ring-blue-500',
+                'text-tertiary-gray3 hover:text-primary focus:text-primary',
+                'focus:outline-none focus:ring-2 focus:ring-primary',
                 'disabled:cursor-not-allowed disabled:opacity-50'
               )}
               data-cy={`${dataCy}-decrement`}
@@ -321,4 +312,4 @@ export function NumberInput({
       )}
     </div>
   )
-} 
+}

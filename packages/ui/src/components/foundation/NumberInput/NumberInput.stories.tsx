@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
 import { NumberInput } from './NumberInput'
 
@@ -34,161 +34,254 @@ A specialized input component for numeric values with increment/decrement contro
   placeholder="Enter quantity"
 />
 \`\`\`
-        `
+        `,
       },
     },
   },
   tags: ['autodocs'],
   argTypes: {
-    value: { 
+    value: {
       control: 'number',
-      description: 'Current numeric value'
+      description: 'Current numeric value',
     },
-    min: { 
+    min: {
       control: 'number',
-      description: 'Minimum allowed value'
+      description: 'Minimum allowed value',
     },
-    max: { 
+    max: {
       control: 'number',
-      description: 'Maximum allowed value'
+      description: 'Maximum allowed value',
     },
-    step: { 
+    step: {
       control: 'number',
-      description: 'Increment/decrement step amount'
+      description: 'Increment/decrement step amount',
     },
-    placeholder: { 
+    placeholder: {
       control: 'text',
-      description: 'Placeholder text'
+      description: 'Placeholder text',
     },
-    allowNegative: { 
+    allowNegative: {
       control: 'boolean',
-      description: 'Whether negative numbers are allowed'
+      description: 'Whether negative numbers are allowed',
     },
-    showControls: { 
+    showControls: {
       control: 'boolean',
-      description: 'Show increment/decrement buttons'
+      description: 'Show increment/decrement buttons',
     },
-    precision: { 
+    precision: {
       control: 'number',
-      description: 'Number of decimal places'
+      description: 'Number of decimal places',
     },
     disabled: {
       control: 'boolean',
-      description: 'Whether the input is disabled'
+      description: 'Whether the input is disabled',
     },
-    className: { 
+    className: {
       control: 'text',
-      description: 'Additional CSS classes'
+      description: 'Additional CSS classes',
     },
-    onChange: { 
+    onChange: {
       action: 'changed',
-      description: 'Called when value changes'
+      description: 'Called when value changes',
     },
   },
   args: {
     showControls: true,
     allowNegative: true,
     disabled: false,
-  }
+  },
 }
 
 export default meta
 type Story = StoryObj<typeof NumberInput>
 
 export const Default: Story = {
+  render: args => {
+    const [value, setValue] = useState<number | undefined>(undefined)
+    return (
+      <div className="w-64">
+        <NumberInput {...args} value={value} onChange={setValue} />
+      </div>
+    )
+  },
   args: {
     placeholder: 'Enter a number',
-    onChange: (value) => console.log('Value changed:', value),
   },
 }
 
 export const WithValue: Story = {
+  render: args => {
+    const [value, setValue] = useState<number | undefined>(42)
+    return (
+      <div className="w-64">
+        <NumberInput {...args} value={value} onChange={setValue} />
+      </div>
+    )
+  },
   args: {
-    value: 42,
     placeholder: 'Enter a number',
-    onChange: (value) => console.log('Value changed:', value),
   },
 }
 
 export const WithMinMax: Story = {
+  render: args => {
+    const [value, setValue] = useState<number | undefined>(50)
+    return (
+      <div className="w-64">
+        <NumberInput {...args} value={value} onChange={setValue} />
+      </div>
+    )
+  },
   args: {
     min: 0,
     max: 100,
-    value: 50,
     placeholder: 'Enter a number (0-100)',
-    onChange: (value) => console.log('Value changed:', value),
   },
 }
 
 export const WithStep: Story = {
+  render: args => {
+    const [value, setValue] = useState<number | undefined>(25)
+    return (
+      <div className="w-64">
+        <NumberInput {...args} value={value} onChange={setValue} />
+      </div>
+    )
+  },
   args: {
     step: 5,
-    value: 25,
     placeholder: 'Enter a number (step: 5)',
-    onChange: (value) => console.log('Value changed:', value),
   },
 }
 
 export const WithPrecision: Story = {
+  render: args => {
+    const [value, setValue] = useState<number | undefined>(3.14)
+    return (
+      <div className="w-64">
+        <NumberInput {...args} value={value} onChange={setValue} />
+      </div>
+    )
+  },
   args: {
     precision: 2,
-    value: 3.14,
     step: 0.01,
     placeholder: 'Enter a decimal number',
-    onChange: (value) => console.log('Value changed:', value),
   },
 }
 
 export const NoControls: Story = {
+  render: args => {
+    const [value, setValue] = useState<number | undefined>(undefined)
+    return (
+      <div className="w-64">
+        <NumberInput {...args} value={value} onChange={setValue} />
+      </div>
+    )
+  },
   args: {
     showControls: false,
     placeholder: 'No increment/decrement buttons',
-    onChange: (value) => console.log('Value changed:', value),
   },
 }
 
 export const Disabled: Story = {
+  render: args => {
+    const [value, setValue] = useState<number | undefined>(100)
+    return (
+      <div className="w-64">
+        <NumberInput {...args} value={value} onChange={setValue} />
+      </div>
+    )
+  },
   args: {
-    value: 100,
     disabled: true,
     placeholder: 'Disabled input',
-    onChange: (value) => console.log('Value changed:', value),
   },
 }
 
 export const CurrencyExample: Story = {
+  render: args => {
+    const [value, setValue] = useState<number | undefined>(99.99)
+    return (
+      <div className="w-32">
+        <NumberInput {...args} value={value} onChange={setValue} />
+      </div>
+    )
+  },
   args: {
-    value: 99.99,
     min: 0,
     precision: 2,
     step: 0.01,
     placeholder: '$0.00',
-    className: 'w-32',
-    onChange: (value) => console.log('Price changed:', value),
   },
 }
 
 export const QuantityExample: Story = {
+  render: args => {
+    const [value, setValue] = useState<number | undefined>(1)
+    return (
+      <div className="w-20">
+        <NumberInput {...args} value={value} onChange={setValue} />
+      </div>
+    )
+  },
   args: {
-    value: 1,
     min: 1,
     max: 999,
     step: 1,
     placeholder: 'Qty',
-    className: 'w-20 text-center',
-    onChange: (value) => console.log('Quantity changed:', value),
+    className: 'text-center',
   },
 }
 
 export const AllStates: Story = {
-  render: () => (
-    <div className="flex flex-col gap-4 w-80">
-      <NumberInput placeholder="Default" />
-      <NumberInput value={42} placeholder="With value" />
-      <NumberInput min={0} max={10} placeholder="With min/max (0-10)" />
-      <NumberInput precision={2} placeholder="With precision (2 decimals)" />
-      <NumberInput showControls={false} placeholder="No controls" />
-      <NumberInput disabled value={100} placeholder="Disabled" />
-    </div>
-  ),
+  render: () => {
+    const [value1, setValue1] = useState<number | undefined>(undefined)
+    const [value2, setValue2] = useState<number | undefined>(42)
+    const [value3, setValue3] = useState<number | undefined>(5)
+    const [value4, setValue4] = useState<number | undefined>(3.14)
+    const [value5, setValue5] = useState<number | undefined>(undefined)
+    const [value6, setValue6] = useState<number | undefined>(100)
+
+    return (
+      <div className="flex flex-col gap-4 w-80">
+        <NumberInput
+          value={value1}
+          onChange={setValue1}
+          placeholder="Default"
+        />
+        <NumberInput
+          value={value2}
+          onChange={setValue2}
+          placeholder="With value"
+        />
+        <NumberInput
+          value={value3}
+          onChange={setValue3}
+          min={0}
+          max={10}
+          placeholder="With min/max (0-10)"
+        />
+        <NumberInput
+          value={value4}
+          onChange={setValue4}
+          precision={2}
+          placeholder="With precision (2 decimals)"
+        />
+        <NumberInput
+          value={value5}
+          onChange={setValue5}
+          showControls={false}
+          placeholder="No controls"
+        />
+        <NumberInput
+          value={value6}
+          onChange={setValue6}
+          disabled
+          placeholder="Disabled"
+        />
+      </div>
+    )
+  },
 }

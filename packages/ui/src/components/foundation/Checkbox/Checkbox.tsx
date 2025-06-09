@@ -46,9 +46,8 @@ const Checkbox = React.forwardRef<
         <CheckboxPrimitive.Root
           ref={ref}
           className={cn(
-            'peer h-5 w-5 shrink-0 rounded-sm border-2 border-primaryBlue ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primaryBlue data-[state=checked]:text-primary-foreground data-[state=indeterminate]:bg-primaryBlue data-[state=indeterminate]:text-primary-foreground relative',
+            'peer h-5 w-5 shrink-0 rounded-sm border-2 border-primaryBlue bg-white ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primaryBlue focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primaryBlue data-[state=checked]:text-primary-foreground data-[state=indeterminate]:bg-primaryBlue data-[state=indeterminate]:text-primary-foreground relative',
             'hover:border-secondaryBlue2',
-            'focus:ring-primaryBlue',
             className
           )}
           checked={checkedState}
@@ -70,7 +69,7 @@ const Checkbox = React.forwardRef<
         <div className="grid gap-1.5 leading-none">
           <label
             htmlFor={props.id}
-            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
+            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer text-tertiary-gray1"
           >
             {label}
             {required && <span className="text-red-500 ml-1">*</span>}

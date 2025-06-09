@@ -47,19 +47,19 @@ export const Toggle = function Toggle<T extends FieldValues>({
     lg: 'w-12 h-6 after:w-5 after:h-5',
   }
 
-  // Define modern toggle switch styling
+  // Define modern toggle switch styling using design system colors
   const toggleBaseClasses =
     'relative inline-flex shrink-0 cursor-pointer rounded-full transition-colors duration-200 ease-in-out ' +
-    'focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/75 focus-visible:ring-offset-2 ' +
+    'focus:outline-none focus-visible:ring-2 focus-visible:ring-primaryBlue focus-visible:ring-offset-2 ' +
     'border-2 border-transparent ' +
     'after:pointer-events-none after:absolute after:left-[2px] after:top-[2px] after:rounded-full ' +
     'after:bg-white after:shadow-sm after:transition-transform after:duration-200 after:ease-in-out ' +
     'peer-checked:after:translate-x-full'
 
-  // Calculate background colors for toggle states
+  // Calculate background colors for toggle states using design system colors
   const bgClasses = clsx(
-    'bg-neutral-300 peer-checked:bg-primary-500',
-    error && 'border-error-500/50 bg-error-100 peer-checked:bg-error-500',
+    'bg-tertiary-gray4 peer-checked:bg-primaryBlue',
+    error && 'border-status-error bg-label-error peer-checked:bg-status-error',
     disabled && 'cursor-not-allowed opacity-60'
   )
 
@@ -91,18 +91,18 @@ export const Toggle = function Toggle<T extends FieldValues>({
         />
         <span
           className={clsx(
-            'ml-2 text-sm font-medium text-neutral-700',
+            'ml-2 text-sm font-medium text-tertiary-gray1',
             disabled && 'opacity-60 cursor-not-allowed'
           )}
         >
           {label}
-          {required && <span className="text-error-500 ml-1">*</span>}
+          {required && <span className="text-status-error ml-1">*</span>}
         </span>
       </label>
 
       {error && (
         <div className="mt-1" id={`${name}-error`}>
-          <span className="text-xs text-error-500">
+          <span className="text-xs text-status-error">
             {error.message as string}
           </span>
         </div>

@@ -1,6 +1,10 @@
-import type { Meta, StoryObj } from '@storybook/react-vite'
+import type { Meta, StoryObj } from '@storybook/react'
 import { Tabs, type Tab } from './tabs'
-import { User, Settings, FileText } from 'lucide-react'
+import {
+  CheckCircleIcon,
+  InformationCircleIcon,
+  XCircleIcon,
+} from '../../../lib/icons'
 
 const meta: Meta<typeof Tabs> = {
   title: 'Organisms/Tabs (Experimental)',
@@ -24,9 +28,9 @@ This component is experimental and pending approval. It should not be used in pr
 export default meta
 
 const tabs: Tab[] = [
-  { label: 'Profile', value: 'profile', icon: User },
-  { label: 'Account', value: 'account', icon: Settings },
-  { label: 'Documents', value: 'documents', icon: FileText, badge: 3 },
+  { label: 'Profile', value: 'profile', icon: CheckCircleIcon },
+  { label: 'Account', value: 'account', icon: InformationCircleIcon },
+  { label: 'Documents', value: 'documents', icon: XCircleIcon, badge: 3 },
   { label: 'Billing', value: 'billing', disabled: true },
 ]
 
@@ -44,7 +48,7 @@ const TabContent = ({ value }: { value: string }) => (
 export const Default: StoryObj<typeof Tabs> = {
   args: {
     tabs: tabs,
-    children: activeTab => <TabContent value={activeTab} />,
+    children: (activeTab: string) => <TabContent value={activeTab} />,
   },
 }
 

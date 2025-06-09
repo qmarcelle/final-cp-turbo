@@ -1,8 +1,8 @@
 import React from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
 import { FormStepper } from './FormStepper'
-import { FormGroup  } from '../FormGroup'
-import { Input  } from '../../foundation/Input'
+import { FormGroup } from '../FormGroup'
+import { Input } from '../../foundation/Input'
 import { z } from 'zod'
 
 const mockSteps = [
@@ -14,7 +14,7 @@ const mockSteps = [
       name: z.string(),
       email: z.string().email(),
     }),
-    component: (
+    component: ({ control }) => (
       <>
         <FormGroup name="name" label="Full Name" required>
           <Input type="text" placeholder="Enter your full name" />
@@ -32,7 +32,7 @@ const mockSteps = [
     schema: z.object({
       address: z.string(),
     }),
-    component: (
+    component: ({ control }) => (
       <FormGroup name="address" label="Street Address" required>
         <Input type="text" placeholder="Enter street address" />
       </FormGroup>
@@ -43,11 +43,12 @@ const mockSteps = [
     title: 'Review',
     description: 'Verify information',
     schema: z.object({}),
-    component: (
+    component: ({ control }) => (
       <div className="space-y-4">
         <h3 className="text-lg font-medium">Please review your information</h3>
         <p className="text-gray-600">
-          Make sure all the information you provided is correct before proceeding.
+          Make sure all the information you provided is correct before
+          proceeding.
         </p>
       </div>
     ),
@@ -108,4 +109,4 @@ export const WithOnComplete: Story = {
     currentStep: 2,
     onComplete: () => alert('Form completed!'),
   },
-} 
+}
