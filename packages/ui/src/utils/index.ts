@@ -1,3 +1,3 @@
-import './styles.css';
+// import './styles.css'; // Temporarily disabled to fix build
 
-export { cn } from './cn'; 
+export { cn } from './cn'

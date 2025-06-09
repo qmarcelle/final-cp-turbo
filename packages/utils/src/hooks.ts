@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 /**
  * Outside Click Listener Hook
@@ -11,7 +11,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
  */
 export function useOutsideClickListener(
   ref: React.RefObject<HTMLElement>,
-  callback: () => void,
+  callback: () => void
 ) {
   useEffect(() => {
     /**
@@ -19,18 +19,18 @@ export function useOutsideClickListener(
      */
     function handleClickOutside(event: MouseEvent) {
       if (ref.current && !ref.current.contains(event.target as Node)) {
-        callback();
+        callback()
       }
     }
 
     // Bind the event listener
-    document.addEventListener('mousedown', handleClickOutside);
-    
+    document.addEventListener('mousedown', handleClickOutside)
+
     return () => {
       // Unbind the event listener on cleanup
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [ref, callback]);
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [ref, callback])
 }
 
 /**
@@ -38,19 +38,19 @@ export function useOutsideClickListener(
  */
 
 export interface UsePaginationProps {
-  totalCount: number;
-  pageSize: number;
-  siblingCount?: number;
-  isMobile?: boolean;
-  currentPage: number;
+  totalCount: number
+  pageSize: number
+  siblingCount?: number
+  isMobile?: boolean
+  currentPage: number
 }
 
-export const DOTS = '...';
+export const DOTS = '...'
 
 const range = (start: number, end: number) => {
-  const length = end - start + 1;
-  return Array.from({ length }, (_, idx) => idx + start);
-};
+  const length = end - start + 1
+  return Array.from({ length }, (_, idx) => idx + start)
+}
 
 /**
  * Hook for pagination logic and page number generation
@@ -64,46 +64,46 @@ export const usePagination = ({
   currentPage,
 }: UsePaginationProps) => {
   const paginationRange = useMemo(() => {
-    const totalPageCount = Math.ceil(totalCount / pageSize);
-    const totalPageNumbers = siblingCount + 5;
+    const totalPageCount = Math.ceil(totalCount / pageSize)
+    const totalPageNumbers = siblingCount + 5
 
     if (totalPageNumbers >= totalPageCount) {
-      return range(1, totalPageCount);
+      return range(1, totalPageCount)
     }
 
-    const leftSiblingIndex = Math.max(currentPage - siblingCount, 1);
+    const leftSiblingIndex = Math.max(currentPage - siblingCount, 1)
     const rightSiblingIndex = Math.min(
       currentPage + siblingCount,
-      totalPageCount,
-    );
+      totalPageCount
+    )
 
-    const shouldShowLeftDots = leftSiblingIndex > 3;
-    const shouldShowRightDots = rightSiblingIndex < totalPageCount - 2;
+    const shouldShowLeftDots = leftSiblingIndex > 3
+    const shouldShowRightDots = rightSiblingIndex < totalPageCount - 2
 
-    const firstPageIndex = 1;
-    const lastPageIndex = totalPageCount;
+    const firstPageIndex = 1
+    const lastPageIndex = totalPageCount
 
     if (!shouldShowLeftDots && shouldShowRightDots) {
-      const leftItemCount = 3 + 2 * siblingCount;
-      const leftRange = range(1, leftItemCount);
-      return [...leftRange, DOTS, totalPageCount];
+      const leftItemCount = 3 + 2 * siblingCount
+      const leftRange = range(1, leftItemCount)
+      return [...leftRange, DOTS, totalPageCount]
     }
 
     if (shouldShowLeftDots && !shouldShowRightDots) {
-      const rightItemCount = 3 + 2 * siblingCount;
+      const rightItemCount = 3 + 2 * siblingCount
       const rightRange = range(
         totalPageCount - rightItemCount + 1,
-        totalPageCount,
-      );
-      return [firstPageIndex, DOTS, ...rightRange];
+        totalPageCount
+      )
+      return [firstPageIndex, DOTS, ...rightRange]
     }
 
-    const middleRange = range(leftSiblingIndex, rightSiblingIndex);
-    return [firstPageIndex, DOTS, ...middleRange, DOTS, lastPageIndex];
-  }, [totalCount, pageSize, siblingCount, currentPage]);
+    const middleRange = range(leftSiblingIndex, rightSiblingIndex)
+    return [firstPageIndex, DOTS, ...middleRange, DOTS, lastPageIndex]
+  }, [totalCount, pageSize, siblingCount, currentPage])
 
-  return paginationRange;
-};
+  return paginationRange
+}
 
 /**
  * Audio Alert Hook
@@ -115,8 +115,8 @@ export const usePagination = ({
  * @returns Object with methods to initialize and play audio
  */
 export const useAudioAlert = (audioSrc: string) => {
-  const [initialized, setInitialized] = useState(false);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [initialized, setInitialized] = useState(false)
+  const audioRef = useRef<HTMLAudioElement | null>(null)
 
   /**
    * Initializes the audio element
@@ -124,29 +124,29 @@ export const useAudioAlert = (audioSrc: string) => {
    */
   const initializeAudio = useCallback(() => {
     if (!initialized && typeof window !== 'undefined') {
-      audioRef.current = new Audio(audioSrc);
-      audioRef.current.muted = true;
+      audioRef.current = new Audio(audioSrc)
+      audioRef.current.muted = true
       audioRef.current.play().catch(() => {
         // Autoplay failed, will need user interaction
-      });
-      setInitialized(true);
+      })
+      setInitialized(true)
     }
-  }, [audioSrc, initialized]);
+  }, [audioSrc, initialized])
 
   /**
    * Plays the audio alert
    */
   const playAlert = useCallback(() => {
     if (audioRef.current) {
-      audioRef.current.muted = false;
-      audioRef.current.play().catch((error) => {
-        console.error('Error playing alert sound:', error);
-      });
+      audioRef.current.muted = false
+      audioRef.current.play().catch(error => {
+        console.error('Error playing alert sound:', error)
+      })
     }
-  }, []);
+  }, [])
 
-  return { playAlert, initializeAudio, initialized };
-};
+  return { playAlert, initializeAudio, initialized }
+}
 
 /**
  * Local Storage Hook
@@ -160,42 +160,43 @@ export const useAudioAlert = (audioSrc: string) => {
  */
 export function useLocalStorage<T>(
   key: string,
-  initialValue: T,
+  initialValue: T
 ): [T, (value: T | ((val: T) => T)) => void] {
   // State to store our value
   const [storedValue, setStoredValue] = useState<T>(() => {
     if (typeof window === 'undefined') {
-      return initialValue;
+      return initialValue
     }
     try {
-      const item = window.localStorage.getItem(key);
-      return item ? JSON.parse(item) : initialValue;
+      const item = window.localStorage.getItem(key)
+      return item ? JSON.parse(item) : initialValue
     } catch (error) {
-      console.error(`Error reading localStorage key "${key}":`, error);
-      return initialValue;
+      console.error(`Error reading localStorage key "${key}":`, error)
+      return initialValue
     }
-  });
+  })
 
   // Return a wrapped version of useState's setter function that persists the new value to localStorage
   const setValue = useCallback(
     (value: T | ((val: T) => T)) => {
       try {
         // Allow value to be a function so we have the same API as useState
-        const valueToStore = value instanceof Function ? value(storedValue) : value;
-        setStoredValue(valueToStore);
-        
+        const valueToStore =
+          value instanceof Function ? value(storedValue) : value
+        setStoredValue(valueToStore)
+
         // Save to local storage
         if (typeof window !== 'undefined') {
-          window.localStorage.setItem(key, JSON.stringify(valueToStore));
+          window.localStorage.setItem(key, JSON.stringify(valueToStore))
         }
       } catch (error) {
-        console.error(`Error setting localStorage key "${key}":`, error);
+        console.error(`Error setting localStorage key "${key}":`, error)
       }
     },
-    [key, storedValue],
-  );
+    [key, storedValue]
+  )
 
-  return [storedValue, setValue];
+  return [storedValue, setValue]
 }
 
 /**
@@ -210,38 +211,39 @@ export function useLocalStorage<T>(
  */
 export function useSessionStorage<T>(
   key: string,
-  initialValue: T,
+  initialValue: T
 ): [T, (value: T | ((val: T) => T)) => void] {
   const [storedValue, setStoredValue] = useState<T>(() => {
     if (typeof window === 'undefined') {
-      return initialValue;
+      return initialValue
     }
     try {
-      const item = window.sessionStorage.getItem(key);
-      return item ? JSON.parse(item) : initialValue;
+      const item = window.sessionStorage.getItem(key)
+      return item ? JSON.parse(item) : initialValue
     } catch (error) {
-      console.error(`Error reading sessionStorage key "${key}":`, error);
-      return initialValue;
+      console.error(`Error reading sessionStorage key "${key}":`, error)
+      return initialValue
     }
-  });
+  })
 
   const setValue = useCallback(
     (value: T | ((val: T) => T)) => {
       try {
-        const valueToStore = value instanceof Function ? value(storedValue) : value;
-        setStoredValue(valueToStore);
-        
+        const valueToStore =
+          value instanceof Function ? value(storedValue) : value
+        setStoredValue(valueToStore)
+
         if (typeof window !== 'undefined') {
-          window.sessionStorage.setItem(key, JSON.stringify(valueToStore));
+          window.sessionStorage.setItem(key, JSON.stringify(valueToStore))
         }
       } catch (error) {
-        console.error(`Error setting sessionStorage key "${key}":`, error);
+        console.error(`Error setting sessionStorage key "${key}":`, error)
       }
     },
-    [key, storedValue],
-  );
+    [key, storedValue]
+  )
 
-  return [storedValue, setValue];
+  return [storedValue, setValue]
 }
 
 /**
@@ -255,19 +257,19 @@ export function useSessionStorage<T>(
  * @returns Debounced value
  */
 export function useDebounce<T>(value: T, delay: number): T {
-  const [debouncedValue, setDebouncedValue] = useState<T>(value);
+  const [debouncedValue, setDebouncedValue] = useState<T>(value)
 
   useEffect(() => {
     const handler = setTimeout(() => {
-      setDebouncedValue(value);
-    }, delay);
+      setDebouncedValue(value)
+    }, delay)
 
     return () => {
-      clearTimeout(handler);
-    };
-  }, [value, delay]);
+      clearTimeout(handler)
+    }
+  }, [value, delay])
 
-  return debouncedValue;
+  return debouncedValue
 }
 
 /**
@@ -280,13 +282,13 @@ export function useDebounce<T>(value: T, delay: number): T {
  * @returns Previous value
  */
 export function usePrevious<T>(value: T): T | undefined {
-  const ref = useRef<T>();
-  
+  const ref = useRef<T>(undefined)
+
   useEffect(() => {
-    ref.current = value;
-  }, [value]);
-  
-  return ref.current;
+    ref.current = value
+  }, [value])
+
+  return ref.current
 }
 
 /**
@@ -299,13 +301,13 @@ export function usePrevious<T>(value: T): T | undefined {
  * @returns [value, toggle, setValue] tuple
  */
 export function useToggle(
-  initialValue: boolean = false,
+  initialValue: boolean = false
 ): [boolean, () => void, (value: boolean) => void] {
-  const [value, setValue] = useState(initialValue);
-  
-  const toggle = useCallback(() => setValue((prev) => !prev), []);
-  
-  return [value, toggle, setValue];
+  const [value, setValue] = useState(initialValue)
+
+  const toggle = useCallback(() => setValue(prev => !prev), [])
+
+  return [value, toggle, setValue]
 }
 
 /**
@@ -313,8 +315,8 @@ export function useToggle(
  */
 
 interface WindowSize {
-  width: number | undefined;
-  height: number | undefined;
+  width: number | undefined
+  height: number | undefined
 }
 
 /**
@@ -325,25 +327,25 @@ export function useWindowSize(): WindowSize {
   const [windowSize, setWindowSize] = useState<WindowSize>({
     width: undefined,
     height: undefined,
-  });
+  })
 
   useEffect(() => {
     function handleResize() {
       setWindowSize({
         width: window.innerWidth,
         height: window.innerHeight,
-      });
+      })
     }
 
     if (typeof window !== 'undefined') {
-      window.addEventListener('resize', handleResize);
-      handleResize(); // Call handler right away so state gets updated with initial window size
-      
-      return () => window.removeEventListener('resize', handleResize);
-    }
-  }, []);
+      window.addEventListener('resize', handleResize)
+      handleResize() // Call handler right away so state gets updated with initial window size
 
-  return windowSize;
+      return () => window.removeEventListener('resize', handleResize)
+    }
+  }, [])
+
+  return windowSize
 }
 
 /**
@@ -356,26 +358,26 @@ export function useWindowSize(): WindowSize {
  * @returns Boolean indicating if the media query matches
  */
 export function useMediaQuery(query: string): boolean {
-  const [matches, setMatches] = useState(false);
+  const [matches, setMatches] = useState(false)
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined') return
 
-    const mediaQuery = window.matchMedia(query);
-    setMatches(mediaQuery.matches);
+    const mediaQuery = window.matchMedia(query)
+    setMatches(mediaQuery.matches)
 
-    const handler = (event: MediaQueryListEvent) => setMatches(event.matches);
-    
-    // Use addEventListener for modern browsers, addListener for legacy support  
+    const handler = (event: MediaQueryListEvent) => setMatches(event.matches)
+
+    // Use addEventListener for modern browsers, addListener for legacy support
     if (mediaQuery.addEventListener) {
-      mediaQuery.addEventListener('change', handler);
-      return () => mediaQuery.removeEventListener('change', handler);
+      mediaQuery.addEventListener('change', handler)
+      return () => mediaQuery.removeEventListener('change', handler)
     } else {
       // Legacy support
-      (mediaQuery as any).addListener(handler);
-      return () => (mediaQuery as any).removeListener(handler);
+      ;(mediaQuery as any).addListener(handler)
+      return () => (mediaQuery as any).removeListener(handler)
     }
-  }, [query]);
+  }, [query])
 
-  return matches;
-} 
+  return matches
+}

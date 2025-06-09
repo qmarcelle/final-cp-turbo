@@ -6,42 +6,42 @@
 @layer base {
   :root {
     /* Core colors - Enhanced with richer tones */
-    --primary: #0066CC;
-    --primary-focus: #0052A3;
-    --primary-light: #E5F1FF;
+    --primary: #0066cc;
+    --primary-focus: #0052a3;
+    --primary-light: #e5f1ff;
     --primary-ring: rgba(0, 102, 204, 0.25);
-    
-    --secondary: #38BDF8;
-    --secondary-focus: #0CA5E9;
-    --secondary-light: #E0F7FF;
+
+    --secondary: #38bdf8;
+    --secondary-focus: #0ca5e9;
+    --secondary-light: #e0f7ff;
     --secondary-ring: rgba(56, 189, 248, 0.25);
-    
-    --success: #10B981;
+
+    --success: #10b981;
     --success-focus: #059669;
-    --success-light: #D1FAE5;
+    --success-light: #d1fae5;
     --success-ring: rgba(16, 185, 129, 0.25);
-    
-    --warning: #F59E0B;
-    --warning-focus: #D97706;
-    --warning-light: #FEF3C7;
+
+    --warning: #f59e0b;
+    --warning-focus: #d97706;
+    --warning-light: #fef3c7;
     --warning-ring: rgba(245, 158, 11, 0.25);
-    
-    --error: #EF4444;
-    --error-focus: #DC2626;
-    --error-light: #FEE2E2;
+
+    --error: #ef4444;
+    --error-focus: #dc2626;
+    --error-light: #fee2e2;
     --error-ring: rgba(239, 68, 68, 0.25);
-    
-    --neutral-50: #F9FAFB;
-    --neutral-100: #F3F4F6;
-    --neutral-200: #E5E7EB;
-    --neutral-300: #D1D5DB;
-    --neutral-400: #9CA3AF;
-    --neutral-500: #6B7280;
-    --neutral-600: #4B5563;
+
+    --neutral-50: #f9fafb;
+    --neutral-100: #f3f4f6;
+    --neutral-200: #e5e7eb;
+    --neutral-300: #d1d5db;
+    --neutral-400: #9ca3af;
+    --neutral-500: #6b7280;
+    --neutral-600: #4b5563;
     --neutral-700: #374151;
-    --neutral-800: #1F2937;
+    --neutral-800: #1f2937;
     --neutral-900: #111827;
-    
+
     /* Spacing - Extended for more granular control */
     --spacing-px: 1px;
     --spacing-0-5: 0.125rem;
@@ -60,7 +60,7 @@
     --spacing-10: 2.5rem;
     --spacing-12: 3rem;
     --spacing-16: 4rem;
-    
+
     /* Border radius - Enhanced with more options */
     --radius-none: 0;
     --radius-sm: 0.125rem;
@@ -70,17 +70,21 @@
     --radius-2xl: 0.75rem;
     --radius-3xl: 1rem;
     --radius-full: 9999px;
-    
+
     /* Shadows - Enhanced with more depth options */
     --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --shadow-sm:
+      0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    --shadow-md:
+      0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg:
+      0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-xl:
+      0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
     --shadow-outline: 0 0 0 3px var(--primary-ring);
     --shadow-none: none;
-    
+
     /* Animation - Enhanced with easing options */
     --transition-fastest: 100ms;
     --transition-fast: 150ms;
@@ -90,17 +94,21 @@
     --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
     --ease-in: cubic-bezier(0.4, 0, 1, 1);
     --ease-out: cubic-bezier(0, 0, 0.2, 1);
-    
+
     /* Typography */
-    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --font-sans:
+      -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+      Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    --font-mono:
+      ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+      'Courier New', monospace;
     --font-size-xs: 0.75rem;
     --font-size-sm: 0.875rem;
     --font-size-base: 1rem;
     --font-size-lg: 1.125rem;
     --font-size-xl: 1.25rem;
     --font-size-2xl: 1.5rem;
-    
+
     /* Keep existing color variables for compatibility */
     --color-primary-50: 240 249 255;
     --color-primary-100: 224 242 254;
@@ -112,7 +120,7 @@
     --color-primary-700: 3 105 161;
     --color-primary-800: 7 89 133;
     --color-primary-900: 12 74 110;
-    
+
     --color-secondary-50: 240 253 250;
     --color-secondary-100: 204 251 241;
     --color-secondary-200: 153 246 228;
@@ -127,39 +135,46 @@
 
   /* Dark mode theme variables */
   .dark {
-    --primary: #3B82F6;
-    --primary-focus: #2563EB;
-    --primary-light: #1E3A8A;
+    --primary: #3b82f6;
+    --primary-focus: #2563eb;
+    --primary-light: #1e3a8a;
     --primary-ring: rgba(59, 130, 246, 0.25);
-    
-    --secondary: #0EA5E9;
-    --secondary-focus: #0284C7;
-    --secondary-light: #0C4A6E;
+
+    --secondary: #0ea5e9;
+    --secondary-focus: #0284c7;
+    --secondary-light: #0c4a6e;
     --secondary-ring: rgba(14, 165, 233, 0.25);
-    
-    --neutral-50: #18181B;
-    --neutral-100: #27272A;
-    --neutral-200: #3F3F46;
-    --neutral-300: #52525B;
-    --neutral-400: #71717A;
-    --neutral-500: #A1A1AA;
-    --neutral-600: #D4D4D8;
-    --neutral-700: #E4E4E7;
-    --neutral-800: #F4F4F5;
-    --neutral-900: #FAFAFA;
-    
+
+    --neutral-50: #18181b;
+    --neutral-100: #27272a;
+    --neutral-200: #3f3f46;
+    --neutral-300: #52525b;
+    --neutral-400: #71717a;
+    --neutral-500: #a1a1aa;
+    --neutral-600: #d4d4d8;
+    --neutral-700: #e4e4e7;
+    --neutral-800: #f4f4f5;
+    --neutral-900: #fafafa;
+
     --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+    --shadow-md:
+      0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    --shadow-lg:
+      0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
   }
 }
 
 /* Component styles */
 @layer components {
   /* Base styling for all interactive elements */
-  button, input, select, textarea {
+  button,
+  input,
+  select,
+  textarea {
     font-family: var(--font-sans);
-    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+    transition-property:
+      color, background-color, border-color, text-decoration-color, fill,
+      stroke, opacity, box-shadow, transform, filter, backdrop-filter;
     transition-timing-function: var(--ease-in-out);
     transition-duration: var(--transition-normal);
   }
@@ -183,7 +198,9 @@
     background-color: transparent;
     transform: scale(0);
     border-radius: inherit;
-    transition: transform var(--transition-fast), background-color var(--transition-fast);
+    transition:
+      transform var(--transition-fast),
+      background-color var(--transition-fast);
   }
 
   .btn:active::before {
@@ -198,23 +215,23 @@
   .btn-lg {
     @apply px-6 py-3 text-base;
   }
-  
+
   .btn-primary {
     @apply text-white;
     background-color: var(--primary);
     border: 1px solid var(--primary);
   }
-  
+
   .btn-primary:hover:not(:disabled) {
     background-color: var(--primary-focus);
     transform: translateY(-1px);
     box-shadow: var(--shadow-md);
   }
-  
+
   .btn-primary:focus {
     box-shadow: 0 0 0 3px var(--primary-ring);
   }
-  
+
   .btn-primary:active {
     transform: translateY(0);
   }
@@ -224,13 +241,13 @@
     background-color: var(--secondary);
     border: 1px solid var(--secondary);
   }
-  
+
   .btn-secondary:hover:not(:disabled) {
     background-color: var(--secondary-focus);
     transform: translateY(-1px);
     box-shadow: var(--shadow-md);
   }
-  
+
   .btn-secondary:focus {
     box-shadow: 0 0 0 3px var(--secondary-ring);
   }
@@ -240,13 +257,13 @@
     background-color: var(--success);
     border: 1px solid var(--success);
   }
-  
+
   .btn-success:hover:not(:disabled) {
     background-color: var(--success-focus);
     transform: translateY(-1px);
     box-shadow: var(--shadow-md);
   }
-  
+
   .btn-success:focus {
     box-shadow: 0 0 0 3px var(--success-ring);
   }
@@ -256,13 +273,13 @@
     background-color: var(--warning);
     border: 1px solid var(--warning);
   }
-  
+
   .btn-warning:hover:not(:disabled) {
     background-color: var(--warning-focus);
     transform: translateY(-1px);
     box-shadow: var(--shadow-md);
   }
-  
+
   .btn-warning:focus {
     box-shadow: 0 0 0 3px var(--warning-ring);
   }
@@ -272,23 +289,23 @@
     background-color: var(--error);
     border: 1px solid var(--error);
   }
-  
+
   .btn-error:hover:not(:disabled) {
     background-color: var(--error-focus);
     transform: translateY(-1px);
     box-shadow: var(--shadow-md);
   }
-  
+
   .btn-error:focus {
     box-shadow: 0 0 0 3px var(--error-ring);
   }
-  
+
   .btn-outline {
     @apply bg-transparent border;
     color: var(--primary);
     border-color: var(--primary);
   }
-  
+
   .btn-outline:hover:not(:disabled) {
     background-color: var(--primary-light);
     transform: translateY(-1px);
@@ -299,44 +316,44 @@
     @apply bg-transparent border-none shadow-none;
     color: var(--primary);
   }
-  
+
   .btn-ghost:hover:not(:disabled) {
     background-color: var(--primary-light);
   }
-  
+
   .btn-link {
     @apply bg-transparent border-none shadow-none underline p-0;
     color: var(--primary);
     text-underline-offset: 2px;
   }
-  
+
   .btn-link:hover:not(:disabled) {
     color: var(--primary-focus);
   }
-  
+
   .btn-disabled {
     @apply cursor-not-allowed opacity-60;
     background-color: var(--neutral-400);
     border-color: var(--neutral-400);
   }
-  
+
   /* Form control styles - Enhanced with more modern styling */
   .form-control {
     @apply relative flex flex-col gap-1.5 mb-4;
   }
-  
+
   .form-label {
     @apply block text-sm font-medium;
     color: var(--neutral-700);
     transition: color var(--transition-fast);
   }
-  
+
   .form-label.required::after {
-    content: "*";
+    content: '*';
     @apply ml-0.5;
     color: var(--error);
   }
-  
+
   .form-input {
     @apply block w-full px-3 py-2 text-sm rounded-md transition-all;
     @apply border border-solid focus:outline-none;
@@ -348,51 +365,57 @@
     transition-duration: var(--transition-fast);
     min-height: 2.5rem;
   }
-  
+
   .form-input:focus {
     border-color: var(--primary);
     box-shadow: 0 0 0 3px var(--primary-ring);
   }
-  
+
   .form-input:hover:not(:disabled):not(:focus) {
     border-color: var(--neutral-400);
   }
-  
+
   .form-input:disabled {
     @apply cursor-not-allowed;
     background-color: var(--neutral-100);
     color: var(--neutral-500);
   }
-  
+
   .form-input.error {
     border-color: var(--error);
   }
-  
+
   .form-input.error:focus {
     box-shadow: 0 0 0 3px var(--error-ring);
   }
-  
+
   .form-error {
     @apply mt-1 text-sm flex items-center gap-1;
     color: var(--error);
   }
-  
+
   .form-error::before {
-    content: "⚠️";
+    content: '⚠️';
     font-size: 0.75rem;
   }
-  
+
   .form-hint {
     @apply mt-1 text-sm;
     color: var(--neutral-500);
   }
 
   /* Checkbox and Radio button styles */
-  .form-checkbox, .form-radio {
+  .form-checkbox,
+  .form-radio {
     @apply appearance-none h-4 w-4 border border-neutral-300 rounded-sm bg-white 
       checked:bg-primary checked:border-primary focus:outline-none 
-      focus:ring-2 focus:ring-primary-ring transition-colors cursor-pointer;
+      focus:ring-2 transition-colors cursor-pointer;
     position: relative;
+  }
+
+  .form-checkbox:focus,
+  .form-radio:focus {
+    box-shadow: 0 0 0 3px var(--primary-ring);
   }
 
   .form-checkbox:checked::after {
@@ -721,4 +744,4 @@
     @apply border-l-4;
     border-color: var(--primary);
   }
-} 
+}

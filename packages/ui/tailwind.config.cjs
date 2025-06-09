@@ -4,6 +4,11 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "../../packages/ui/src/**/*.{js,ts,jsx,tsx,mdx}",
+    "../../apps/**/src/**/*.{js,ts,jsx,tsx,mdx}",
+    "!**/node_modules/**",
+    "!**/dist/**",
+    "!**/build/**"
   ],
   theme: {
     extend: {
@@ -170,6 +175,7 @@ module.exports = {
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
     // Custom plugin for component utilities
+    // eslint-disable-next-line no-unused-vars
     function({ addUtilities, addComponents, theme }) {
       // Custom utilities for design system
       const utilities = {

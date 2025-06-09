@@ -8,49 +8,49 @@
 
 :root {
   /* Primary Colors */
-  --color-primary-blue: #005EB9;
-  --color-primary-blue-inactive: #7FAEDC;
+  --color-primary-blue: #005eb9;
+  --color-primary-blue-inactive: #7faedc;
 
   /* Secondary Colors */
-  --color-secondary-blue-1: #5DC1FD;
-  --color-secondary-blue-1-accent: #E7F6FF;
-  --color-secondary-blue-2: #00497E;
-  --color-secondary-blue-3: #067DAC;
-  --color-secondary-blue-3-accent: #008CC9;
+  --color-secondary-blue-1: #5dc1fd;
+  --color-secondary-blue-1-accent: #e7f6ff;
+  --color-secondary-blue-2: #00497e;
+  --color-secondary-blue-3: #067dac;
+  --color-secondary-blue-3-accent: #008cc9;
 
   /* Tertiary Colors (Grays) */
   --color-tertiary-gray-1: #333333;
   --color-tertiary-gray-3: #737373;
-  --color-tertiary-gray-4: #CCCCCC;
-  --color-tertiary-gray-5: #F2F2F2;
-  --color-tertiary-gray-6: #FAFAFA;
+  --color-tertiary-gray-4: #cccccc;
+  --color-tertiary-gray-5: #f2f2f2;
+  --color-tertiary-gray-6: #fafafa;
 
   /* Status Colors */
-  --color-status-error: #EB001B;
+  --color-status-error: #eb001b;
   --color-status-success: #508316;
 
   /* Label Colors */
-  --color-label-success: #E2F0D3;
-  --color-label-error: #EFDDDF;
-  --color-label-neutral: #F2F2F2;
+  --color-label-success: #e2f0d3;
+  --color-label-error: #efdddf;
+  --color-label-neutral: #f2f2f2;
 
   /* Base Colors */
-  --color-white: #FFFFFF;
+  --color-white: #ffffff;
   --color-black: #000000;
 
   /* Legacy variable names for backward compatibility */
-  --primary-color: #005EB9;
-  --primary-color-inactive: #7FAEDC;
-  --secondary-color-1: #5DC1FD;
-  --secondary-color-1-accent: #E7F6FF;
-  --secondary-color-2: #00497E;
-  --secondary-color-3: #067DAC;
-  --secondary-color-3-accent: #008CC9;
+  --primary-color: #005eb9;
+  --primary-color-inactive: #7faedc;
+  --secondary-color-1: #5dc1fd;
+  --secondary-color-1-accent: #e7f6ff;
+  --secondary-color-2: #00497e;
+  --secondary-color-3: #067dac;
+  --secondary-color-3-accent: #008cc9;
   --tertiary-color-1: #333333;
   --tertiary-color-3: #737373;
-  --tertiary-color-4: #CCCCCC;
-  --tertiary-color-5: #F2F2F2;
-  --tertiary-color-6: #FAFAFA;
+  --tertiary-color-4: #cccccc;
+  --tertiary-color-5: #f2f2f2;
+  --tertiary-color-6: #fafafa;
 
   /* Spacing Scale */
   --spacing-xxs: 4px;
@@ -69,7 +69,9 @@
 
   /* Shadows */
   --shadow-elevated: 0px 1px 16px 0px rgba(0, 73, 126, 0.32);
-  --shadow-card: 0px 1px 4px 0px rgba(0, 73, 126, 0.24), 0px 1px 8px 0px rgba(0, 73, 126, 0.16);
+  --shadow-card:
+    0px 1px 4px 0px rgba(0, 73, 126, 0.24),
+    0px 1px 8px 0px rgba(0, 73, 126, 0.16);
   --shadow-focus-blue: 0px 0px 0px 3px rgba(0, 144, 237, 0.4);
 
   /* Z-index layers */
@@ -84,7 +86,7 @@
 
 @font-face {
   font-family: 'Univers-45';
-  src: url('../../apps/storybook/styles/UniversLTPro-45Light.woff2') format('woff2');
+  src: url('/styles/UniversLTPro-45Light.woff2') format('woff2');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -92,7 +94,7 @@
 
 @font-face {
   font-family: 'Univers-55';
-  src: url('../../apps/storybook/styles/UniversLTPro-55Roman.woff2') format('woff2');
+  src: url('/styles/UniversLTPro-55Roman.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -100,7 +102,7 @@
 
 @font-face {
   font-family: 'Univers-65';
-  src: url('../../apps/storybook/styles/UniversLTPro-65Bold.woff2') format('woff2');
+  src: url('/styles/UniversLTPro-65Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -136,7 +138,7 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-input[type="number"] {
+input[type='number'] {
   -moz-appearance: textfield;
 }
 
@@ -706,7 +708,8 @@ input[type='checkbox']:focus {
    ================================ */
 
 .brand-gradient {
-  background: radial-gradient(
+  background:
+    radial-gradient(
       ellipse farthest-corner at right top,
       #5dc1fd 0%,
       #0000 60%
@@ -715,7 +718,8 @@ input[type='checkbox']:focus {
 }
 
 .surface-gradient-flipped {
-  background: radial-gradient(
+  background:
+    radial-gradient(
       farthest-corner at bottom right,
       rgba(93, 193, 253, 0.3) 0%,
       transparent 60%
@@ -724,7 +728,8 @@ input[type='checkbox']:focus {
 }
 
 .surface-gradient-amplify {
-  background: radial-gradient(
+  background:
+    radial-gradient(
       farthest-corner at top right,
       rgba(0, 94, 185, 0.6),
       transparent
@@ -733,7 +738,8 @@ input[type='checkbox']:focus {
 }
 
 .surface-gradient-amplify-flipped {
-  background: radial-gradient(
+  background:
+    radial-gradient(
       farthest-corner at bottom right,
       rgba(0, 94, 185, 0.6),
       transparent
@@ -850,7 +856,9 @@ hr {
   letter-spacing: 0.15ch;
   padding: 1rem 2rem;
   text-decoration: none;
-  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  transition:
+    background-color 0.3s ease-in-out,
+    color 0.3s ease-in-out;
 }
 
 .skipButton:focus {
@@ -974,11 +982,58 @@ hr {
 /* React DatePicker Styles */
 .react-datepicker-wrapper {
   @apply w-full;
+  position: relative;
+}
+
+.react-datepicker__input-container {
+  position: relative;
 }
 
 .react-datepicker__input-container input {
   @apply w-full px-3 py-2 border border-gray-300 rounded-md;
   @apply focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
+  padding-right: 2.5rem; /* Add space for the clear button */
+}
+
+/* Position the clear button on the right side */
+.react-datepicker__close-icon {
+  position: absolute !important;
+  right: 0.5rem !important;
+  top: 50% !important;
+  left: auto !important;
+  bottom: auto !important;
+  transform: translateY(-50%) !important;
+  z-index: 10 !important;
+  width: auto !important;
+  height: auto !important;
+  margin: 0 !important;
+}
+
+.react-datepicker__close-icon::after {
+  content: '×' !important;
+  background-color: var(--color-primary-blue) !important;
+  color: white !important;
+  border-radius: 50% !important;
+  width: 1.5rem !important;
+  height: 1.5rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 1rem !important;
+  line-height: 1 !important;
+  cursor: pointer !important;
+  border: none !important;
+  position: static !important;
+}
+
+.react-datepicker__close-icon:hover::after {
+  background-color: var(--color-secondary-blue-2) !important;
+}
+
+/* Override any default positioning from react-datepicker */
+.react-datepicker-wrapper .react-datepicker__close-icon {
+  left: auto !important;
+  right: 0.5rem !important;
 }
 
 /* Modal Styles */

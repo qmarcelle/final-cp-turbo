@@ -1,16 +1,16 @@
-import type { Preview } from '@storybook/react';
-import React from 'react';
-import { useForm, FormProvider } from 'react-hook-form';
+import type { Preview } from '@storybook/react'
+import React from 'react'
+import { useForm, FormProvider } from 'react-hook-form'
 
-// Import Tailwind CSS and design system styles
-import '../../../packages/ui/src/styles/globals.css';
+// Import Tailwind CSS and design system styles using path alias
+import '@/styles/globals.css'
 
 // Polyfill process for Next.js components
 if (typeof global !== 'undefined') {
-  (global as any).process = { env: { NODE_ENV: 'development' } };
+  ;(global as any).process = { env: { NODE_ENV: 'development' } }
 }
 if (typeof globalThis !== 'undefined') {
-  (globalThis as any).process = { env: { NODE_ENV: 'development' } };
+  ;(globalThis as any).process = { env: { NODE_ENV: 'development' } }
 }
 
 const preview: Preview = {
@@ -25,18 +25,20 @@ const preview: Preview = {
     options: {
       storySort: {
         order: [
-          '🎨 Design System', [
+          '🎨 Design System',
+          [
             'Design Tokens',
             'Colors',
-            'Typography', 
+            'Typography',
             'Spacing',
             'Breakpoints',
             '*',
           ],
-          '⚛️ Atoms', [
+          '⚛️ Atoms',
+          [
             'Button',
             'Input',
-            'TextField', 
+            'TextField',
             'Checkbox',
             'Radio',
             'Select',
@@ -50,14 +52,10 @@ const preview: Preview = {
             'Tooltip',
             '*',
           ],
-          '🧬 Molecules', [
-            'SearchBar',
-            'InputGroup', 
-            'TagInput',
-            'AutoComplete',
-            '*',
-          ],
-          '🦠 Organisms', [
+          '🧬 Molecules',
+          ['SearchBar', 'InputGroup', 'TagInput', 'AutoComplete', '*'],
+          '🦠 Organisms',
+          [
             'Navigation',
             'Breadcrumb',
             'Card',
@@ -67,24 +65,14 @@ const preview: Preview = {
             'FormLayout',
             '*',
           ],
-          '📐 Layout', [
-            'FormGrid',
-            'FormColumn', 
-            'FormLayout',
-            'Container',
-            'Section',
-            '*',
-          ],
-          '🧪 Experimental', [
-            'Pagination (Experimental)',
-            '*',
-          ],
-          '📦 Templates', [
-            '*',
-          ],
-          '📑 Pages', [
-            '*',
-          ],
+          '📐 Layout',
+          ['FormGrid', 'FormColumn', 'FormLayout', 'Container', 'Section', '*'],
+          '🧪 Experimental',
+          ['Pagination (Experimental)', '*'],
+          '📦 Templates',
+          ['*'],
+          '📑 Pages',
+          ['*'],
           '*',
         ],
       },
@@ -97,39 +85,41 @@ const preview: Preview = {
       },
     },
   },
-  
+
   decorators: [
     (Story, context) => {
-      const isFullscreen = context.parameters.layout === 'fullscreen';
-      
+      const isFullscreen = context.parameters.layout === 'fullscreen'
+
       // Check if the story needs React Hook Form context
-      const needsFormContext = context.parameters.formContext !== false;
-      
+      const needsFormContext = context.parameters.formContext !== false
+
       const StoryWrapper = () => {
         if (needsFormContext) {
-          const methods = useForm();
-          return React.createElement(
-            FormProvider,
-            { ...methods, children: React.createElement(Story) }
-          );
+          const methods = useForm()
+          return React.createElement(FormProvider, {
+            ...methods,
+            children: React.createElement(Story),
+          })
         }
-        return React.createElement(Story);
-      };
-      
+        return React.createElement(Story)
+      }
+
       return React.createElement(
         'div',
         {
           className: isFullscreen ? '' : 'p-4',
-          style: { 
-            fontFamily: 'var(--font-family-regular)', 
-            backgroundColor: isFullscreen ? 'transparent' : 'var(--color-tertiary-gray-6)',
-            minHeight: isFullscreen ? '100vh' : 'auto'
-          }
+          style: {
+            fontFamily: 'var(--font-family-regular)',
+            backgroundColor: isFullscreen
+              ? 'transparent'
+              : 'var(--color-tertiary-gray-6)',
+            minHeight: isFullscreen ? '100vh' : 'auto',
+          },
         },
         React.createElement(StoryWrapper)
-      );
+      )
     },
   ],
-};
+}
 
-export default preview;
+export default preview

@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from './Card';
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { Card, CardHeader, CardTitle, CardContent, CardFooter } from './Card'
 
 const meta: Meta<typeof Card> = {
-  title: 'Molecules/Card',
+  title: '🦠 Organisms/Card',
   component: Card,
   parameters: {
     layout: 'centered',
@@ -32,11 +32,11 @@ const meta: Meta<typeof Card> = {
     variant: 'main',
     padding: 'md',
     hoverable: false,
-  }
-};
+  },
+}
 
-export default meta;
-type Story = StoryObj<typeof Card>;
+export default meta
+type Story = StoryObj<typeof Card>
 
 export const Default: Story = {
   args: {
@@ -46,12 +46,13 @@ export const Default: Story = {
           <CardTitle>Default Card</CardTitle>
         </CardHeader>
         <CardContent>
-          This is a basic card with default styling. It contains some sample content to demonstrate the layout.
+          This is a basic card with default styling. It contains some sample
+          content to demonstrate the layout.
         </CardContent>
       </>
     ),
   },
-};
+}
 
 export const Elevated: Story = {
   args: {
@@ -62,12 +63,13 @@ export const Elevated: Story = {
           <CardTitle>Elevated Card</CardTitle>
         </CardHeader>
         <CardContent>
-          This card has a shadow to make it appear elevated above the page surface.
+          This card has a shadow to make it appear elevated above the page
+          surface.
         </CardContent>
       </>
     ),
   },
-};
+}
 
 export const Highlight: Story = {
   args: {
@@ -78,12 +80,13 @@ export const Highlight: Story = {
           <CardTitle>Highlighted Card</CardTitle>
         </CardHeader>
         <CardContent>
-          This card uses a highlighted background to draw attention to important content.
+          This card uses a highlighted background to draw attention to important
+          content.
         </CardContent>
       </>
     ),
   },
-};
+}
 
 export const WithFooter: Story = {
   args: {
@@ -94,7 +97,8 @@ export const WithFooter: Story = {
           <CardTitle>Card with Footer</CardTitle>
         </CardHeader>
         <CardContent>
-          This card includes a footer section with additional actions or information.
+          This card includes a footer section with additional actions or
+          information.
         </CardContent>
         <CardFooter>
           <button className="px-4 py-2 bg-primaryBlue text-white rounded text-sm">
@@ -104,7 +108,7 @@ export const WithFooter: Story = {
       </>
     ),
   },
-};
+}
 
 export const AllVariants: Story = {
   render: () => (
@@ -113,49 +117,39 @@ export const AllVariants: Story = {
         <CardHeader>
           <CardTitle>Main Card</CardTitle>
         </CardHeader>
-        <CardContent>
-          Standard card with basic styling and border.
-        </CardContent>
+        <CardContent>Standard card with basic styling and border.</CardContent>
       </Card>
-      
+
       <Card variant="elevated">
         <CardHeader>
           <CardTitle>Elevated Card</CardTitle>
         </CardHeader>
-        <CardContent>
-          Card with shadow for emphasis and depth.
-        </CardContent>
+        <CardContent>Card with shadow for emphasis and depth.</CardContent>
       </Card>
-      
+
       <Card variant="highlight">
         <CardHeader>
           <CardTitle>Highlight Card</CardTitle>
         </CardHeader>
-        <CardContent>
-          Special background for important content.
-        </CardContent>
+        <CardContent>Special background for important content.</CardContent>
       </Card>
-      
+
       <Card variant="neutral">
         <CardHeader>
           <CardTitle>Neutral Card</CardTitle>
         </CardHeader>
-        <CardContent>
-          Subtle background for secondary content.
-        </CardContent>
+        <CardContent>Subtle background for secondary content.</CardContent>
       </Card>
-      
+
       <Card variant="info">
         <CardHeader>
           <CardTitle>Info Card</CardTitle>
         </CardHeader>
-        <CardContent>
-          Blue accent for informational content.
-        </CardContent>
+        <CardContent>Blue accent for informational content.</CardContent>
       </Card>
     </div>
   ),
-};
+}
 
 export const Hoverable: Story = {
   args: {
@@ -172,7 +166,7 @@ export const Hoverable: Story = {
       </>
     ),
   },
-};
+}
 
 export const HealthcareExample: Story = {
   render: () => (
@@ -199,7 +193,7 @@ export const HealthcareExample: Story = {
           </button>
         </CardFooter>
       </Card>
-      
+
       <Card variant="highlight">
         <CardHeader>
           <CardTitle>Recent Claims</CardTitle>
@@ -218,4 +212,4 @@ export const HealthcareExample: Story = {
       </Card>
     </div>
   ),
-};
+}

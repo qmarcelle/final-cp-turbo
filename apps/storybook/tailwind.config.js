@@ -1,8 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   // Extend from the UI package's Tailwind config
-  presets: [require('../../packages/ui/tailwind.config.js')],
-  
+  presets: [require('../../packages/ui/tailwind.config.cjs')],
+
   content: [
     // Include all stories and storybook files
     './src/**/*.{js,ts,jsx,tsx,mdx}',
@@ -22,7 +22,7 @@ module.exports = {
     '../../apps/broker-portal/src/**/*.{js,ts,jsx,tsx,mdx}',
     '../../apps/employer-portal/src/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-  
+
   theme: {
     extend: {
       // Any Storybook-specific overrides can go here

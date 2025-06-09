@@ -1,10 +1,11 @@
-@tailwind utilities;
-
+/* Custom utility layer for Storybook-specific utilities */
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
 }
+
+/* Note: @tailwind utilities is imported in main.css */
 
 .App {
   text-align: center;
@@ -45,6 +46,12 @@
     transform: rotate(360deg);
   }
 }
+
+/* 
+Font families are now defined in the main design system (@/styles/globals.css)
+with proper font-display: swap and .woff2 formats for better performance.
+These duplicate declarations can be removed if font files are moved to match the main CSS.
+*/
 
 @font-face {
   font-family: 'Univers-45';

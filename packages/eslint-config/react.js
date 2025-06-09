@@ -1,6 +1,5 @@
 /** @type {import('eslint').Linter.Config} */
 module.exports = {
-  extends: ['./index.js'],
   env: {
     browser: true,
   },
@@ -23,11 +22,11 @@ module.exports = {
     'react/display-name': 'warn',
     'react/no-unescaped-entities': 'error',
     'react/jsx-key': 'error',
-    
+
     // React Hooks
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
-    
+
     // Accessibility
     'jsx-a11y/alt-text': 'error',
     'jsx-a11y/aria-props': 'error',
@@ -36,4 +35,4 @@ module.exports = {
     'jsx-a11y/role-has-required-aria-props': 'error',
     'jsx-a11y/role-supports-aria-props': 'error',
   },
-} 
+}

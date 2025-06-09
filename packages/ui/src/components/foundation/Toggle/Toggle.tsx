@@ -1,5 +1,11 @@
 import React from 'react'
-import { useController, Control, FieldValues, Path, RegisterOptions } from 'react-hook-form'
+import {
+  useController,
+  Control,
+  FieldValues,
+  Path,
+  RegisterOptions,
+} from 'react-hook-form'
 import clsx from 'clsx'
 
 export interface ToggleProps<T extends FieldValues = FieldValues> {
@@ -27,7 +33,7 @@ export const Toggle = function Toggle<T extends FieldValues>({
 }: ToggleProps<T>) {
   const {
     field: { value, onChange, ref, ...fieldProps },
-    fieldState: { error }
+    fieldState: { error },
   } = useController({
     name,
     control,
@@ -42,7 +48,7 @@ export const Toggle = function Toggle<T extends FieldValues>({
   }
 
   // Define modern toggle switch styling
-  const toggleBaseClasses = 
+  const toggleBaseClasses =
     'relative inline-flex shrink-0 cursor-pointer rounded-full transition-colors duration-200 ease-in-out ' +
     'focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/75 focus-visible:ring-offset-2 ' +
     'border-2 border-transparent ' +
@@ -54,7 +60,7 @@ export const Toggle = function Toggle<T extends FieldValues>({
   const bgClasses = clsx(
     'bg-neutral-300 peer-checked:bg-primary-500',
     error && 'border-error-500/50 bg-error-100 peer-checked:bg-error-500',
-    disabled && 'cursor-not-allowed opacity-60',
+    disabled && 'cursor-not-allowed opacity-60'
   )
 
   return (
@@ -64,7 +70,7 @@ export const Toggle = function Toggle<T extends FieldValues>({
           type="checkbox"
           role="switch"
           checked={!!value}
-          onChange={(e) => onChange(e.target.checked)}
+          onChange={e => onChange(e.target.checked)}
           disabled={disabled}
           data-cy={dataCy}
           ref={ref}
@@ -75,7 +81,7 @@ export const Toggle = function Toggle<T extends FieldValues>({
           className="peer sr-only"
           {...fieldProps}
         />
-        <span 
+        <span
           className={clsx(
             toggleBaseClasses,
             toggleSizeClasses[size],
@@ -83,15 +89,17 @@ export const Toggle = function Toggle<T extends FieldValues>({
           )}
           aria-hidden="true"
         />
-        <span className={clsx(
-          "ml-2 text-sm font-medium text-neutral-700 dark:text-neutral-200",
-          disabled && "opacity-60 cursor-not-allowed"
-        )}>
+        <span
+          className={clsx(
+            'ml-2 text-sm font-medium text-neutral-700',
+            disabled && 'opacity-60 cursor-not-allowed'
+          )}
+        >
           {label}
           {required && <span className="text-error-500 ml-1">*</span>}
         </span>
       </label>
-      
+
       {error && (
         <div className="mt-1" id={`${name}-error`}>
           <span className="text-xs text-error-500">
@@ -103,4 +111,4 @@ export const Toggle = function Toggle<T extends FieldValues>({
   )
 }
 
-Toggle.displayName = 'Toggle' 
+Toggle.displayName = 'Toggle'

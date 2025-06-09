@@ -1,2 +1,2 @@
-export { Separator, Divider, SectionSeparator } from './Separator'
-export type { SeparatorProps, DividerProps, SectionSeparatorProps } from './Separator' 
+export { Separator } from './Separator'
+export type { SeparatorProps } from './Separator'

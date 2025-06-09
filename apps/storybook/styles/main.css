@@ -1,9 +1,15 @@
+/* All @import statements must come first */
 @import './app.css';
 @import './utils.css';
 @import './tooltip.css';
+
+/* Then Tailwind directives */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Note: Main design system styles are imported via @/styles/globals.css in preview.ts */
+/* These are Storybook-specific overrides only */
 
 :root {
   --foreground-rgb: 0, 0, 0;
