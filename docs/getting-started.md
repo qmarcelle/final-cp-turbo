@@ -20,7 +20,7 @@ Before you begin, ensure you have the following installed:
 
 ```bash
 git clone https://BCBST-EIT@dev.azure.com/BCBST-EIT/Consumer_Portals/_git/TurboPortal
-cd cp_turbo_skeleton
+cd TurboPortal
 ```
 
 ### 2. Install Dependencies
