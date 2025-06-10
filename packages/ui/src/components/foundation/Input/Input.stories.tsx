@@ -121,7 +121,7 @@ export const WithError: Story = {
     label: 'Email Address',
     error: true,
     errorMessage: 'Please enter a valid email address',
-    value: 'invalid-email',
+    defaultValue: 'invalid-email',
   },
 };
 
@@ -130,7 +130,7 @@ export const Disabled: Story = {
     placeholder: 'Cannot edit this field',
     label: 'Disabled Field',
     disabled: true,
-    value: 'Read-only value',
+    defaultValue: 'Read-only value',
   },
 };
 
@@ -160,7 +160,7 @@ export const AllStates: Story = {
   render: (args) => (
     <div className="flex flex-col gap-4 w-80">
       <TextField {...args} label="Default" placeholder="Default state" />
-      <TextField {...args} label="With Value" placeholder="With value" value="Sample text" />
+      <TextField {...args} label="With Value" placeholder="With value" defaultValue="Sample text" />
       <TextField {...args} label="Required" placeholder="Required field" required />
       <TextField {...args} label="With Hint" placeholder="With helper text" hint="This is helper text" />
       <TextField {...args} label="Disabled" placeholder="Disabled state" disabled />

@@ -6,7 +6,6 @@ import { Input  } from '../../foundation/Input'
 import { FormLayout  } from '../../composite/FormLayout/FormLayout'
 import { FormField  } from '../../composite/FormField/FormField'
 import { fieldBuilders } from '@/utils/form-validation'
-import type { FormFieldValues  } from '../../types'
 
 const enrolleeSchema = z.object({
   ...fieldBuilders.name('Enrollee'),
@@ -43,7 +42,7 @@ const coverageRequestSchema = z.object({
 type CoverageRequestFormData = z.infer<typeof coverageRequestSchema>
 
 export default function CoverageRequestForm() {
-  const methods = useForm<CoverageRequestFormData & FormFieldValues>({
+  const methods = useForm<CoverageRequestFormData>({
     resolver: zodResolver(coverageRequestSchema),
   })
 

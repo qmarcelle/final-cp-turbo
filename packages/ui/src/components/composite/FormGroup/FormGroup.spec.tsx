@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
 import { FormGroup } from './FormGroup'
-import { Input  } from '../../foundation/Input'
+import { Input  } from '../../foundation/Input/Input'
 import { FormProvider, useForm } from 'react-hook-form'
 import { z } from 'zod'
 

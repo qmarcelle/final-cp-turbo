@@ -1,5 +1,4 @@
 // For more info, see https://github.com/storybookjs/eslint-plugin-storybook#configuration-flat-config-format
-import storybook from "eslint-plugin-storybook";
 
 import js from '@eslint/js';
 import typescript from '@typescript-eslint/eslint-plugin';
@@ -47,6 +46,7 @@ export default [
         HTMLParagraphElement: 'readonly',
         HTMLIFrameElement: 'readonly',
         HTMLDetailsElement: 'readonly',
+        HTMLSpanElement: 'readonly',
         SVGSVGElement: 'readonly',
         
         // Web API types

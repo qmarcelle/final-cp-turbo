@@ -1,43 +1,9 @@
 'use client'
 
 import { RadioGroup as HeadlessRadioGroup } from '@headlessui/react'
-import clsx from 'clsx'
-import { useController, Control, FieldValues, Path, RegisterOptions } from 'react-hook-form'
+import { useController, FieldValues } from 'react-hook-form'
 import { cn } from '../../../utils/cn'
-
-export interface RadioOption {
-  value: string | number
-  label: string
-  description?: string
-  disabled?: boolean
-}
-
-export interface RadioProps<T extends FieldValues> {
-  name: Path<T>
-  control: Control<T>
-  label?: string
-  value: string | number
-  required?: boolean
-  disabled?: boolean
-  className?: string
-  validation?: RegisterOptions<T>
-  'data-cy'?: string
-  hint?: string
-}
-
-export interface RadioGroupProps<T extends FieldValues> {
-  name: Path<T>
-  control: Control<T>
-  label?: string
-  options: RadioOption[]
-  required?: boolean
-  disabled?: boolean
-  direction?: 'horizontal' | 'vertical'
-  className?: string
-  validation?: RegisterOptions<T>
-  'data-cy'?: string
-  hint?: string
-}
+import type { RadioProps, RadioGroupProps } from '../../../types'
 
 // Basic Radio Input Component
 export function Radio<T extends FieldValues = FieldValues>({

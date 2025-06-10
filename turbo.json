@@ -10,10 +10,6 @@
       "cache": true,
       "persistent": false
     },
-    "@portals/types#build": {
-      "outputs": ["dist/**"],
-      "cache": true
-    },
     "dev": {
       "cache": false,
       "persistent": true,
@@ -54,7 +50,7 @@
       "cache": true,
       "outputs": ["test-results/**", "playwright-report/**"]
     },
-    "check-types": {
+    "typecheck": {
       "cache": true,
       "inputs": ["src/**/*.{ts,tsx}", "**/tsconfig*.json"],
       "outputs": []

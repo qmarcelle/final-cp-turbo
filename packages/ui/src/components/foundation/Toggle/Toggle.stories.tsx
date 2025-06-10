@@ -32,44 +32,63 @@ const FormWrapper = ({
 }
 
 const meta = {
-  title: '⚛️ Atoms/Toggle',
+  title: '⚛️ Foundation/Toggle',
   component: Toggle,
   parameters: {
     layout: 'centered',
     docs: {
       description: {
-        component:
-          'A modern, accessible toggle switch component that integrates with React Hook Form. Supports various sizes and states.',
+        component: `
+# Toggle Switch
+
+A modern, accessible toggle switch component, designed for seamless integration with React Hook Form. It provides a user-friendly way to manage binary choices, such as settings or preferences.
+
+## Features
+- **Form-Ready**: Built to work effortlessly with \`react-hook-form\`.
+- **Accessible**: Follows ARIA best practices for switch roles.
+- **Customizable**: Offers different sizes and can be styled as needed.
+- **Stateful**: Supports checked, unchecked, disabled, and validation states.
+
+## When to Use
+- Use for binary settings that take immediate effect.
+- Ideal for user preferences, feature flags, or consent management.
+- Avoid using for actions that require a final "Save" or "Submit" step, unless part of a larger form.
+
+## Accessibility
+- The component renders with \`role="switch"\`.
+- It uses \`aria-checked\` to indicate its state to screen readers.
+- The label is properly associated with the switch for clear context.
+`,
       },
     },
   },
-  tags: ['autodocs'],
+  tags: ['foundation', 'stable', 'autodocs'],
   argTypes: {
     name: {
       control: 'text',
-      description: 'The name of the form field',
+      description: 'Unique identifier for the form field, used by react-hook-form.',
       defaultValue: 'toggle',
     },
     label: {
       control: 'text',
-      description: 'The label text for the toggle',
+      description: 'The descriptive label displayed next to the toggle.',
     },
     required: {
       control: 'boolean',
-      description: 'Whether the field is required',
+      description: 'Marks the toggle as a required field in a form.',
     },
     disabled: {
       control: 'boolean',
-      description: 'Whether the field is disabled',
+      description: 'Disables the toggle, preventing user interaction.',
     },
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
-      description: 'Size variant of the toggle switch',
+      description: 'Specifies the size of the toggle switch.',
     },
     className: {
       control: 'text',
-      description: 'Additional classes to apply to the component',
+      description: 'Allows for adding custom CSS classes for styling.',
     },
   },
 } satisfies Meta<typeof Toggle>
@@ -270,10 +289,12 @@ export const WithValidationError: Story = {
       mode: 'onChange',
     })
 
-    methods.setError('termsAccepted', {
-      type: 'required',
-      message: 'You must accept the terms and conditions',
-    })
+    React.useEffect(() => {
+      methods.setError('termsAccepted', {
+        type: 'required',
+        message: 'You must accept the terms and conditions',
+      })
+    }, [methods])
 
     return (
       <FormProvider {...methods}>
@@ -343,6 +364,58 @@ export const GroupOfToggles: Story = {
           </fieldset>
           <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-4">
             Configure your notification preferences
+          </p>
+        </div>
+      </FormProvider>
+    )
+  },
+}
+
+export const HealthcareExamples: Story = {
+  name: 'Healthcare Use Cases',
+  render: () => {
+    type FormValues = {
+      paperlessBilling: boolean
+      appointmentReminders: boolean
+      shareData: boolean
+    }
+
+    const methods = useForm<FormValues>({
+      defaultValues: {
+        paperlessBilling: true,
+        appointmentReminders: false,
+        shareData: false,
+      },
+    })
+
+    return (
+      <FormProvider {...methods}>
+        <div className="p-6 bg-white rounded-lg shadow-sm border border-neutral-200 max-w-md">
+          <h3 className="text-lg font-medium text-neutral-800 mb-4">
+            Patient Communication Preferences
+          </h3>
+          <fieldset className="space-y-4">
+            <Toggle<FormValues>
+              name="paperlessBilling"
+              label="Go Paperless for Billing"
+              control={methods.control}
+              size="lg"
+            />
+            <Toggle<FormValues>
+              name="appointmentReminders"
+              label="Receive Appointment Reminders via SMS"
+              control={methods.control}
+            />
+            <Toggle<FormValues>
+              name="shareData"
+              label="Share anonymized data for research"
+              control={methods.control}
+              size="sm"
+              required
+            />
+          </fieldset>
+          <p className="text-sm text-neutral-600 mt-4">
+            Manage your communication and data sharing settings.
           </p>
         </div>
       </FormProvider>

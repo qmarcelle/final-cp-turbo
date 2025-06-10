@@ -6,7 +6,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 describe('Toggle Component', () => {
   // Test component that properly uses react-hook-form
-  const TestToggle = (props) => {
+  const TestToggle = (props: any) => {
     const methods = useForm({
       defaultValues: { test: false }
     });

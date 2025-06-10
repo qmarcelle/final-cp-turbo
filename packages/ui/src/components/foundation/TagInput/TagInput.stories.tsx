@@ -1,54 +1,36 @@
 import React, { useState } from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
 import { TagInput } from './TagInput'
-import type { Tag } from './TagInput'
+import type { Tag } from '../../../types'
 
 const meta = {
-  title: '🧬 Molecules/TagInput',
+  title: '⚛️ Foundation/TagInput',
   component: TagInput,
   parameters: {
     layout: 'padded',
     docs: {
       description: {
         component: `
-# 🏷️ TagInput
+# Tag Input
 
-A versatile input component for managing multiple tags or labels, with support for suggestions and validation.
+A component for inputting and managing a list of tags. It supports suggestions, custom tag creation, and validation.
 
 ## Features
-- **Tag suggestions**: Predefined tags with filtering
-- **Custom tags**: Create new tags on the fly
-- **Maximum limit**: Control the number of tags
-- **Keyboard navigation**: Full keyboard accessibility
-- **Tag removal**: Easy tag deletion
-- **Form integration**: Works with form libraries
-- **Validation**: Error states and required fields
+- **Tag Suggestions**: Offers a predefined list of tags that can be filtered.
+- **Custom Tags**: Allows users to create new tags on the fly.
+- **Tag Limits**: Control the maximum number of tags that can be added.
+- **Accessible**: Supports keyboard navigation for managing tags.
+- **Form-Friendly**: Designed to be integrated into forms.
 
-## Usage
+## When to Use
+- When users need to input multiple, distinct values, such as keywords, skills, or medical conditions.
+- Ideal for categorization or labeling items.
+- Use when the number of potential options is large, and suggestions can help guide the user.
 
-\`\`\`tsx
-import { TagInput } from '@portals/ui'
-
-function SkillsSelector() {
-  const [skills, setSkills] = useState<Tag[]>([])
-  
-  const skillSuggestions: Tag[] = [
-    { id: 'react', label: 'React' },
-    { id: 'typescript', label: 'TypeScript' },
-    { id: 'nodejs', label: 'Node.js' },
-  ]
-
-  return (
-    <TagInput
-      value={skills}
-      onChange={setSkills}
-      suggestions={skillSuggestions}
-      maxTags={5}
-      placeholder="Add skills..."
-    />
-  )
-}
-\`\`\`
+## Accessibility
+- The input field is accessible and can be focused.
+- Tags can be added and removed using the keyboard (e.g., Enter to add, Backspace to remove).
+- Suggestions are displayed in an accessible manner.
 `,
       },
       canvas: { sourceState: 'hidden' },
@@ -60,25 +42,25 @@ function SkillsSelector() {
       source: { type: 'code' },
     },
   },
-  tags: ['autodocs'],
+  tags: ['foundation', 'stable', 'autodocs'],
   argTypes: {
     value: { 
       control: 'object',
-      description: 'Array of currently selected tags',
+      description: 'An array of the currently selected tags.',
       table: {
         type: { summary: 'Tag[]' },
       },
     },
     suggestions: { 
       control: 'object',
-      description: 'Predefined tags that can be selected',
+      description: 'A list of predefined tags that users can select from.',
       table: {
         type: { summary: 'Tag[]' },
       },
     },
     maxTags: { 
       control: 'number',
-      description: 'Maximum number of tags that can be selected',
+      description: 'The maximum number of tags that can be selected.',
       table: {
         defaultValue: { summary: 'unlimited' },
         type: { summary: 'number' },
@@ -86,21 +68,21 @@ function SkillsSelector() {
     },
     placeholder: { 
       control: 'text',
-      description: 'Placeholder text shown when no tags are selected',
+      description: 'The placeholder text to display when the input is empty.',
       table: {
         defaultValue: { summary: 'Type and press Enter to add tags' },
       },
     },
     className: { 
       control: 'text',
-      description: 'Additional CSS classes for styling',
+      description: 'Custom CSS classes for additional styling.',
       table: {
         defaultValue: { summary: '' },
       },
     },
     onChange: { 
       action: 'changed',
-      description: 'Called when tags are added or removed',
+      description: 'A callback that fires when the list of tags changes.',
       table: {
         type: { summary: '(tags: Tag[]) => void' },
       },
@@ -195,5 +177,66 @@ export const WithCustomClass: Story = {
     value: [],
     className: 'w-96 bg-gray-50 rounded-lg',
     onChange: (tags) => console.log('Tags changed:', tags),
+  },
+}
+
+export const HealthcareExamples: Story = {
+  name: 'Healthcare Use Cases',
+  render: () => {
+    const [conditions, setConditions] = useState<Tag[]>([
+      { id: 'hbp', label: 'Hypertension' },
+    ])
+    const [allergies, setAllergies] = useState<Tag[]>([])
+    const [symptoms, setSymptoms] = useState<Tag[]>([
+      { id: 'headache', label: 'Headache' },
+    ])
+
+    const conditionSuggestions: Tag[] = [
+      { id: 'hbp', label: 'Hypertension' },
+      { id: 'diabetes', label: 'Diabetes' },
+      { id: 'asthma', label: 'Asthma' },
+    ]
+    const allergySuggestions: Tag[] = [
+      { id: 'pollen', label: 'Pollen' },
+      { id: 'penicillin', label: 'Penicillin' },
+      { id: 'peanuts', label: 'Peanuts' },
+    ]
+    const symptomSuggestions: Tag[] = [
+      { id: 'headache', label: 'Headache' },
+      { id: 'fever', label: 'Fever' },
+      { id: 'cough', label: 'Cough' },
+    ]
+
+    return (
+      <div className="space-y-8 max-w-lg">
+        <div>
+          <h3 className="font-semibold mb-2">Patient Medical Conditions</h3>
+          <TagInput
+            value={conditions}
+            onChange={setConditions}
+            suggestions={conditionSuggestions}
+            placeholder="Add a medical condition..."
+          />
+        </div>
+        <div>
+          <h3 className="font-semibold mb-2">Known Allergies</h3>
+          <TagInput
+            value={allergies}
+            onChange={setAllergies}
+            suggestions={allergySuggestions}
+            placeholder="Add an allergy..."
+          />
+        </div>
+        <div>
+          <h3 className="font-semibold mb-2">Reported Symptoms</h3>
+          <TagInput
+            value={symptoms}
+            onChange={setSymptoms}
+            suggestions={symptomSuggestions}
+            placeholder="Add a symptom..."
+          />
+        </div>
+      </div>
+    )
   },
 }

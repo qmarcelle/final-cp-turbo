@@ -1,6 +1,7 @@
 import * as React from 'react'
-import { cva, type VariantProps } from 'class-variance-authority'
+import { cva } from 'class-variance-authority'
 import { cn } from '../../../lib/utils'
+import type { BadgeProps, CountBadgeProps, StatusBadgeProps } from '../../../types'
 
 const badgeVariants = cva(
   'inline-flex items-center justify-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
@@ -34,24 +35,6 @@ const badgeVariants = cva(
     },
   }
 )
-
-export interface BadgeProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof badgeVariants> {
-  variant?:
-    | 'default'
-    | 'secondary'
-    | 'success'
-    | 'warning'
-    | 'error'
-    | 'outline'
-    | 'ghost'
-  size?: 'default' | 'sm' | 'lg' | 'icon'
-  interactive?: boolean
-  onClick?: () => void
-  icon?: React.ReactNode
-  dot?: boolean
-}
 
 const Badge = React.forwardRef<HTMLDivElement | HTMLButtonElement, BadgeProps>(
   (
@@ -98,10 +81,6 @@ const Badge = React.forwardRef<HTMLDivElement | HTMLButtonElement, BadgeProps>(
 
 Badge.displayName = 'Badge'
 
-export interface StatusBadgeProps extends Omit<BadgeProps, 'variant'> {
-  status: 'success' | 'warning' | 'error' | 'info' | 'neutral'
-}
-
 const StatusBadge = React.forwardRef<HTMLDivElement, StatusBadgeProps>(
   ({ status, ...props }, ref) => {
     const variantMap = {
@@ -117,12 +96,6 @@ const StatusBadge = React.forwardRef<HTMLDivElement, StatusBadgeProps>(
 )
 
 StatusBadge.displayName = 'StatusBadge'
-
-export interface CountBadgeProps extends Omit<BadgeProps, 'children'> {
-  count: number
-  max?: number
-  showZero?: boolean
-}
 
 const CountBadge = React.forwardRef<HTMLDivElement, CountBadgeProps>(
   ({ count, max = 99, showZero = false, ...props }, ref) => {

@@ -2,8 +2,13 @@ import * as React from 'react'
 import * as ProgressPrimitive from '@radix-ui/react-progress'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '../../../lib/utils'
+import type {
+  ProgressProps,
+  CircularProgressProps,
+  StepProgressProps,
+} from '../../../types'
 
-const progressVariants = cva(
+export const progressVariants = cva(
   'relative h-2 w-full overflow-hidden rounded-full bg-secondary',
   {
     variants: {
@@ -49,43 +54,6 @@ const progressIndicatorVariants = cva(
   }
 )
 
-export interface ProgressProps
-  extends React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root>,
-    VariantProps<typeof progressVariants> {
-  /**
-   * The progress value (0-100)
-   */
-  value?: number
-  /**
-   * Maximum value for the progress
-   */
-  max?: number
-  /**
-   * Size variant of the progress bar
-   */
-  size?: 'sm' | 'md' | 'lg' | 'xl'
-  /**
-   * Visual variant of the progress bar
-   */
-  variant?: 'default' | 'success' | 'warning' | 'error'
-  /**
-   * Whether to show percentage text
-   */
-  showPercentage?: boolean
-  /**
-   * Whether to animate the progress
-   */
-  animated?: boolean
-  /**
-   * Custom label for accessibility
-   */
-  label?: string
-  /**
-   * Whether the progress is indeterminate (loading state)
-   */
-  indeterminate?: boolean
-}
-
 const Progress = React.forwardRef<
   React.ElementRef<typeof ProgressPrimitive.Root>,
   ProgressProps
@@ -119,6 +87,11 @@ const Progress = React.forwardRef<
         className={cn(progressVariants({ size, variant }), className)}
         value={indeterminate ? undefined : value}
         max={max}
+        role="progressbar"
+        aria-valuenow={indeterminate ? undefined : percentage}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-label={label || 'Loading progress'}
         {...props}
       >
         <ProgressPrimitive.Indicator
@@ -139,17 +112,6 @@ const Progress = React.forwardRef<
 Progress.displayName = ProgressPrimitive.Root.displayName
 
 // Circular progress variant
-export interface CircularProgressProps extends Omit<ProgressProps, 'size'> {
-  /**
-   * Size of the circular progress
-   */
-  size?: number
-  /**
-   * Stroke width of the circle
-   */
-  strokeWidth?: number
-}
-
 const CircularProgress = React.forwardRef<HTMLDivElement, CircularProgressProps>(({
   value = 0,
   max = 100,
@@ -180,6 +142,11 @@ const CircularProgress = React.forwardRef<HTMLDivElement, CircularProgressProps>
       ref={ref}
       className={cn('relative inline-flex items-center justify-center', className)}
       style={{ width: size, height: size }}
+      role="progressbar"
+      aria-valuenow={indeterminate ? undefined : percentage}
+      aria-valuemin={0}
+      aria-valuemax={100}
+      aria-label={label || 'Loading progress'}
       {...props}
     >
       <svg
@@ -234,34 +201,6 @@ const CircularProgress = React.forwardRef<HTMLDivElement, CircularProgressProps>
 CircularProgress.displayName = 'CircularProgress'
 
 // Step progress for multi-step workflows
-export interface StepProgressProps {
-  /**
-   * Current step (0-based)
-   */
-  currentStep: number
-  /**
-   * Total number of steps
-   */
-  totalSteps: number
-  /**
-   * Step labels
-   */
-  steps?: string[]
-  /**
-   * Whether to show step numbers
-   */
-  showNumbers?: boolean
-  /**
-   * Size variant
-   */
-  size?: 'sm' | 'md' | 'lg'
-  /**
-   * Orientation
-   */
-  orientation?: 'horizontal' | 'vertical'
-  className?: string
-}
-
 const StepProgress = React.forwardRef<HTMLDivElement, StepProgressProps>(({
   currentStep,
   totalSteps,
@@ -342,4 +281,4 @@ const StepProgress = React.forwardRef<HTMLDivElement, StepProgressProps>(({
 })
 StepProgress.displayName = 'StepProgress'
 
-export { Progress, CircularProgress, StepProgress, progressVariants } 
+export { Progress, CircularProgress, StepProgress } 

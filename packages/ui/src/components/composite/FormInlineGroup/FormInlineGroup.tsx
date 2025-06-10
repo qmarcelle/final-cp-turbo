@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormLayout } from '../FormLayout/FormLayout'
 import { FormField } from '../FormField/FormField'
-import type { FormInlineGroupProps } from '../types'
+import type { FormInlineGroupProps } from '../../../types'
 
 export function FormInlineGroup({
   children,

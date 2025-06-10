@@ -4,18 +4,7 @@ import * as React from 'react'
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox'
 import { CheckIcon, MinusIcon } from '../../../lib/icons'
 import { cn } from '../../../lib/utils'
-
-export interface CheckboxProps
-  extends Omit<
-    React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>,
-    'onChange'
-  > {
-  label: string
-  hint?: string
-  required?: boolean
-  indeterminate?: boolean
-  onChange?: (checked: boolean | 'indeterminate') => void
-}
+import type { CheckboxProps } from '../../../types'
 
 const Checkbox = React.forwardRef<
   React.ElementRef<typeof CheckboxPrimitive.Root>,

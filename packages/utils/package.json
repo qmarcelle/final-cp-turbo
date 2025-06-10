@@ -10,13 +10,13 @@
     "dev": "tsup src/index.ts --format esm,cjs --watch --dts",
     "test": "echo 'Tests temporarily disabled for build'",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "react": "^18.2.0"
   },
   "devDependencies": {
-    "@portals/testing": "workspace:*",
     "@portals/tsconfig": "workspace:*",
     "@testing-library/jest-dom": "^6.6.3",
     "@types/jest": "^29.5.11",

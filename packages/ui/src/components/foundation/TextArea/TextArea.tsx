@@ -1,33 +1,7 @@
 import React from 'react'
-import { FieldValues, Controller, Control, type Path } from 'react-hook-form'
-import { cn } from '../../../utils/cn'
-import type { FormFieldProps, FormFieldValues } from '@portals/types'
-
-export interface TextAreaProps<T extends FormFieldValues = FieldValues>
-  extends Omit<FormFieldProps<T>, 'control'> {
-  label?: string
-  description?: string
-  required?: boolean
-  disabled?: boolean
-  placeholder?: string
-  rows?: number
-  maxLength?: number
-  resize?: boolean
-  className?: string
-  'data-cy'?: string
-  onBlur?: () => void
-  onChange?: (value: string) => void
-  value?: string
-  error?: string
-}
-
-export interface ControlledTextAreaProps<
-  T extends FormFieldValues = FieldValues,
-> extends Omit<TextAreaProps<T>, 'validation'> {
-  control: Control<T>
-  name: Path<T>
-  validation?: any // Using 'any' here to avoid complex type issues
-}
+import { FieldValues, Controller } from 'react-hook-form'
+import { cn } from '../../../lib/utils'
+import type { TextAreaProps, ControlledTextAreaProps } from '../../../types'
 
 // Simple version of TextArea without forwardRef to avoid type issues
 export function TextArea({
@@ -47,7 +21,7 @@ export function TextArea({
   value: controlledValue,
   error,
   ...rest
-}: TextAreaProps<any>) {
+}: TextAreaProps) {
   const [value, setValue] = React.useState(controlledValue || '')
 
   // Handle value changes
@@ -119,7 +93,7 @@ export function TextArea({
 
 TextArea.displayName = 'TextArea'
 
-export const ControlledTextArea = <T extends FormFieldValues = FieldValues>({
+export const ControlledTextArea = <T extends FieldValues = FieldValues>({
   control,
   name,
   validation,

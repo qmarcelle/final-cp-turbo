@@ -57,6 +57,13 @@ lerna-debug.log*
 .pnpm-store/v3/
 node_modules/.cache/
 
+# Markdown files (ignore all .md files except README files, but keep all .md files in docs/)
+*.md
+!README.md
+!readme.md
+!Readme.md
+!docs/**/*.md
+
 # Editor/IDE
 .idea
 .vscode/*
@@ -66,37 +73,32 @@ node_modules/.cache/
 !.vscode/launch.json
 *.sublime-project
 *.sublime-workspace
-.atom
-.nova
-.fleet
-.theia
-
-# OS files
-.DS_Store
-Thumbs.db
-*.pem
-ehthumbs.db
-Desktop.ini
-$RECYCLE.BIN/
-
-# Misc
-.temp
-.tmp
-tmp
-*.tsbuildinfo
-.vercel
-.eslintcache
-.stylelintcache
-*.bak
 *.swp
 *.swo
 *~
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+tmp/
+temp/
 
 # Runtime data
 pids
 *.pid
 *.seed
 *.pid.lock
+
+# Coverage directory used by tools like istanbul
+lib-cov
+
+# Grunt intermediate storage
+.grunt
+
+# Bower dependency directory
+bower_components
 
 # Dependency directories
 jspm_packages/
@@ -138,3 +140,12 @@ jest-cache
 .github/copilot-instructions.md
 
 *storybook.log
+
+# Ignored Packages & Apps
+packages/api-client
+packages/eslint-config
+packages/logger
+packages/testing
+packages/visibility
+packages/visibility-core
+src-utils/

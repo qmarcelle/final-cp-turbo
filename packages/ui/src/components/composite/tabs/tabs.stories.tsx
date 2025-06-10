@@ -1,5 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { Tabs, type Tab } from './tabs'
+import {
+  Tabs,
+  TabsList,
+  TabsTrigger,
+  TabsContent,
+} from './Tabs'
 import {
   CheckCircleIcon,
   InformationCircleIcon,
@@ -7,52 +12,98 @@ import {
 } from '../../../lib/icons'
 
 const meta: Meta<typeof Tabs> = {
-  title: 'Organisms/Tabs (Experimental)',
+  title: 'Composite/Tabs',
   component: Tabs,
   tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
         component: `
-# Experimental
+# Tabs
 
-This component is experimental and pending approval. It should not be used in production.
-
-<hr />
+A set of layered sections of content, known as tab panels, that are displayed one at a time.
 `,
       },
+    },
+  },
+  argTypes: {
+    variant: {
+      control: 'radio',
+      options: ['default', 'pills', 'cards'],
+    },
+    orientation: {
+      control: 'radio',
+      options: ['horizontal', 'vertical'],
     },
   },
 }
 
 export default meta
 
-const tabs: Tab[] = [
-  { label: 'Profile', value: 'profile', icon: CheckCircleIcon },
-  { label: 'Account', value: 'account', icon: InformationCircleIcon },
-  { label: 'Documents', value: 'documents', icon: XCircleIcon, badge: 3 },
-  { label: 'Billing', value: 'billing', disabled: true },
-]
-
-const TabContent = ({ value }: { value: string }) => (
-  <div className="p-4">
-    <h3 className="text-lg font-medium">
-      {value.charAt(0).toUpperCase() + value.slice(1)}
-    </h3>
-    <p className="mt-2 text-sm text-gray-600">
-      Content for the {value} tab goes here.
-    </p>
-  </div>
-)
+const Template: StoryObj<typeof Tabs> = {
+  render: (args) => (
+    <Tabs {...args}>
+      <TabsList>
+        <TabsTrigger value="profile" icon={CheckCircleIcon}>
+          Profile
+        </TabsTrigger>
+        <TabsTrigger value="account" icon={InformationCircleIcon}>
+          Account
+        </TabsTrigger>
+        <TabsTrigger value="documents" icon={XCircleIcon} badge={3}>
+          Documents
+        </TabsTrigger>
+        <TabsTrigger value="billing" disabled>
+          Billing
+        </TabsTrigger>
+      </TabsList>
+      <TabsContent value="profile">
+        <div className="p-4">
+          <h3 className="text-lg font-medium">Profile</h3>
+          <p className="mt-2 text-sm text-gray-600">
+            Content for the Profile tab goes here.
+          </p>
+        </div>
+      </TabsContent>
+      <TabsContent value="account">
+        <div className="p-4">
+          <h3 className="text-lg font-medium">Account</h3>
+          <p className="mt-2 text-sm text-gray-600">
+            Content for the Account tab goes here.
+          </p>
+        </div>
+      </TabsContent>
+      <TabsContent value="documents">
+        <div className="p-4">
+          <h3 className="text-lg font-medium">Documents</h3>
+          <p className="mt-2 text-sm text-gray-600">
+            Content for the Documents tab goes here.
+          </p>
+        </div>
+      </TabsContent>
+      <TabsContent value="billing">
+        <div className="p-4">
+          <h3 className="text-lg font-medium">Billing</h3>
+          <p className="mt-2 text-sm text-gray-600">
+            This content will not be displayed as the trigger is disabled.
+          </p>
+        </div>
+      </TabsContent>
+    </Tabs>
+  ),
+}
 
 export const Default: StoryObj<typeof Tabs> = {
+  ...Template,
   args: {
-    tabs: tabs,
-    children: (activeTab: string) => <TabContent value={activeTab} />,
+    defaultValue: 'profile',
+    variant: 'default',
+    orientation: 'horizontal',
   },
 }
 
 export const Pills: StoryObj<typeof Tabs> = {
+  ...Template,
   args: {
     ...Default.args,
     variant: 'pills',
@@ -60,6 +111,7 @@ export const Pills: StoryObj<typeof Tabs> = {
 }
 
 export const Cards: StoryObj<typeof Tabs> = {
+  ...Template,
   args: {
     ...Default.args,
     variant: 'cards',
@@ -67,6 +119,7 @@ export const Cards: StoryObj<typeof Tabs> = {
 }
 
 export const Vertical: StoryObj<typeof Tabs> = {
+  ...Template,
   args: {
     ...Default.args,
     orientation: 'vertical',

@@ -4,29 +4,31 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../../../lib/utils';
 
-const cardVariants = cva(
-  "rounded-md transition-shadow duration-200",
-  {
-    variants: {
-      variant: {
-        main: "bg-white border border-tertiaryGray4",
-        elevated: "bg-white border border-tertiaryGray4 shadow-elevated",
-        highlight: "bg-secondaryBlue1Accent border border-secondaryBlue1Accent",
-        neutral: "bg-tertiaryGray5 border border-tertiaryGray4",
-        info: "bg-secondaryBlue1Accent border border-secondaryBlue1",
-      },
-      padding: {
-        sm: "p-3",
-        md: "p-4",
-        lg: "p-6",
-      },
+const cardVariants = cva('rounded-lg border', {
+  variants: {
+    variant: {
+      main: 'bg-white border-tertiary-gray4',
+      elevated: 'bg-white border-tertiary-gray4 shadow-card',
+      highlight: 'bg-secondary-blue1-accent border-transparent',
+      neutral: 'bg-black/5 border-transparent',
+      info: 'bg-secondary-blue2 border-transparent text-white',
     },
-    defaultVariants: {
-      variant: "main",
-      padding: "md",
+    padding: {
+      sm: 'p-2',
+      md: 'p-4',
+      lg: 'p-6',
     },
-  }
-);
+    hoverable: {
+      true: 'transition-all duration-200 hover:border-primary-blue hover:shadow-elevated focus:outline-none focus:ring-2 focus:ring-primary-blue focus:ring-offset-2',
+      false: '',
+    },
+  },
+  defaultVariants: {
+    variant: 'main',
+    padding: 'md',
+    hoverable: false,
+  },
+});
 
 export interface CardProps
   extends React.HTMLAttributes<HTMLDivElement>,
@@ -50,15 +52,11 @@ export interface CardProps
  * ```
  */
 export const Card = React.forwardRef<HTMLDivElement, CardProps>(
-  ({ className, variant, padding, hoverable = false, children, ...props }, ref) => {
+  ({ className, variant, padding, hoverable, children, ...props }, ref) => {
     return (
       <div
-        className={cn(
-          cardVariants({ variant, padding }),
-          hoverable && "hover:-translate-y-0.5 hover:shadow-lg cursor-pointer",
-          className
-        )}
         ref={ref}
+        className={cn(cardVariants({ variant, padding, hoverable }), className)}
         role="region"
         aria-label="Content card"
         {...props}

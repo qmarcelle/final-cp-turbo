@@ -3,86 +3,83 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { NumberInput } from './NumberInput'
 
 const meta: Meta<typeof NumberInput> = {
-  title: '⚛️ Atoms/NumberInput',
+  title: '⚛️ Foundation/NumberInput',
   component: NumberInput,
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         component: `
-# 🔢 NumberInput
+# Number Input
 
-A specialized input component for numeric values with increment/decrement controls and validation.
+A robust and accessible input component for capturing numeric values. It offers built-in controls for incrementing, decrementing, and validation.
 
 ## Features
-- **Numeric validation**: Only allows valid numbers
-- **Min/Max bounds**: Set minimum and maximum values
-- **Step controls**: Define increment/decrement amounts
-- **Precision**: Control decimal places
-- **Keyboard support**: Arrow keys for increment/decrement
-- **Custom controls**: Optional +/- buttons
-- **Accessibility**: Screen reader friendly
+- **Type-Safe**: Strictly handles numeric values.
+- **Bounds and Steps**: Enforce minimum/maximum values and define step increments.
+- **Precision Control**: Manage decimal places for floating-point numbers.
+- **Keyboard Navigation**: Use arrow keys to adjust values.
+- **Optional Controls**: Show or hide increment/decrement buttons.
+- **Accessible**: Designed with ARIA attributes for screen reader support.
 
-## Usage
-\`\`\`tsx
-<NumberInput
-  value={quantity}
-  onChange={setQuantity}
-  min={1}
-  max={99}
-  step={1}
-  placeholder="Enter quantity"
-/>
-\`\`\`
-        `,
+## When to Use
+- For any user input that must be a number, such as quantity, age, or currency.
+- When you need to constrain the input to a specific range or step value.
+- Ideal for forms where numeric accuracy is critical.
+
+## Accessibility
+- The component uses \`role="spinbutton"\` to be identifiable by screen readers.
+- \`aria-valuenow\`, \`aria-valuemin\`, and \`aria-valuemax\` provide context about the current value and its bounds.
+- The input is fully navigable and operable via the keyboard.
+`,
       },
     },
   },
-  tags: ['autodocs'],
+  tags: ['foundation', 'stable', 'autodocs'],
   argTypes: {
     value: {
       control: 'number',
-      description: 'Current numeric value',
+      description: 'The current value of the number input.',
     },
     min: {
       control: 'number',
-      description: 'Minimum allowed value',
+      description: 'The minimum value allowed.',
     },
     max: {
       control: 'number',
-      description: 'Maximum allowed value',
+      description: 'The maximum value allowed.',
     },
     step: {
       control: 'number',
-      description: 'Increment/decrement step amount',
+      description: 'The amount to increment or decrement by.',
     },
     placeholder: {
       control: 'text',
-      description: 'Placeholder text',
+      description: 'Placeholder text for when the input is empty.',
     },
     allowNegative: {
       control: 'boolean',
-      description: 'Whether negative numbers are allowed',
+      description: 'If true, allows negative numbers.',
     },
     showControls: {
       control: 'boolean',
-      description: 'Show increment/decrement buttons',
+      description: 'Toggles the visibility of the increment/decrement buttons.',
     },
     precision: {
       control: 'number',
-      description: 'Number of decimal places',
+      description: 'The number of decimal places to allow.',
     },
     disabled: {
       control: 'boolean',
-      description: 'Whether the input is disabled',
+      description: 'Disables the input, preventing user interaction.',
     },
     className: {
       control: 'text',
-      description: 'Additional CSS classes',
+      description: 'Custom CSS classes to apply to the component.',
     },
     onChange: {
       action: 'changed',
-      description: 'Called when value changes',
+      description: 'Callback function that fires when the value changes.',
     },
   },
   args: {
@@ -281,6 +278,66 @@ export const AllStates: Story = {
           disabled
           placeholder="Disabled"
         />
+      </div>
+    )
+  },
+}
+
+export const HealthcareExamples: Story = {
+  name: 'Healthcare Use Cases',
+  render: () => {
+    const [dosage, setDosage] = useState<number | undefined>(10)
+    const [age, setAge] = useState<number | undefined>(45)
+    const [claimAmount, setClaimAmount] = useState<number | undefined>(250.75)
+    const [daysSupply, setDaysSupply] = useState<number | undefined>(30)
+
+    return (
+      <div className="space-y-6 max-w-sm">
+        <div>
+          <label className="text-sm font-medium text-gray-700 mb-1 block">Dosage (mg)</label>
+          <NumberInput
+            value={dosage}
+            onChange={setDosage}
+            min={1}
+            max={100}
+            step={5}
+            placeholder="e.g., 10"
+          />
+        </div>
+        <div>
+          <label className="text-sm font-medium text-gray-700 mb-1 block">Patient Age</label>
+          <NumberInput
+            value={age}
+            onChange={setAge}
+            min={0}
+            max={120}
+            placeholder="e.g., 45"
+            showControls={false}
+          />
+        </div>
+        <div>
+          <label className="text-sm font-medium text-gray-700 mb-1 block">Insurance Claim Amount ($)</label>
+          <NumberInput
+            value={claimAmount}
+            onChange={setClaimAmount}
+            min={0}
+            precision={2}
+            step={10}
+            placeholder="e.g., 250.75"
+          />
+        </div>
+        <div>
+          <label className="text-sm font-medium text-gray-700 mb-1 block">Days of Supply</label>
+          <NumberInput
+            value={daysSupply}
+            onChange={setDaysSupply}
+            min={7}
+            max={90}
+            step={1}
+            placeholder="e.g., 30"
+            className="w-24"
+          />
+        </div>
       </div>
     )
   },
