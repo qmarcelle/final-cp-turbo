@@ -3,60 +3,69 @@ import { Progress, CircularProgress, StepProgress } from './Progress'
 import { useState, useEffect } from 'react'
 
 const meta: Meta<typeof Progress> = {
-  title: '⚛️ Atoms/Progress',
+  title: '⚛️ Foundation/Progress',
   component: Progress,
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         component: `
-# Progress Component
+# Progress Indicators
 
-A comprehensive progress component with linear, circular, and step variants.
+A collection of versatile progress indicators, including linear, circular, and step-based components, designed to provide clear feedback on system processes and user workflows.
 
 ## Features
-- **Linear Progress**: Standard horizontal progress bar
-- **Circular Progress**: Circular progress indicator
-- **Step Progress**: Multi-step workflow indicator
-- **Variants**: Different visual styles for different states
-- **Sizes**: Multiple size options
-- **Accessibility**: Full ARIA support
+- **Linear Progress**: Standard horizontal bar for straightforward progress tracking.
+- **Circular Progress**: A visually engaging circular indicator for tasks like loading or displaying stats.
+- **Step Progress**: A multi-step indicator ideal for guiding users through sequential processes.
+- **Customizable**: Control variants, sizes, and labels to fit your specific UI needs.
+- **Accessible**: Built with ARIA attributes to ensure an inclusive user experience.
 
-## Usage
-\`\`\`tsx
-<Progress value={75} showPercentage />
-\`\`\`
-        `,
+## When to Use
+- **Linear**: Use for determinate processes like file uploads, downloads, or form submissions.
+- **Circular**: Ideal for displaying loading states, user stats (e.g., profile completion), or system health.
+- **Step**: Use for multi-stage forms, onboarding flows, or any sequential task.
+
+## Accessibility
+- All progress components use the \`role="progressbar"\` attribute.
+- \`aria-valuenow\`, \`aria-valuemin\`, and \`aria-valuemax\` are used to convey progress to screen readers.
+- For indeterminate states, ARIA attributes are managed to indicate ongoing activity without a specific value.
+- Ensure that progress indicators are accompanied by a descriptive label.
+`,
       },
     },
   },
-  tags: ['autodocs'],
+  tags: ['foundation', 'stable', 'autodocs'],
   argTypes: {
     value: {
       control: { type: 'range', min: 0, max: 100 },
-      description: 'Progress value (0-100)',
+      description: 'The current progress value, from 0 to 100.',
     },
     variant: {
       control: 'select',
       options: ['default', 'success', 'warning', 'error'],
-      description: 'Visual variant',
+      description: 'The visual style of the progress indicator.',
     },
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg', 'xl'],
-      description: 'Size of the progress bar',
+      description: 'The size of the progress indicator.',
     },
     showPercentage: {
       control: 'boolean',
-      description: 'Whether to show percentage',
+      description: 'Toggles the visibility of the percentage text.',
     },
     animated: {
       control: 'boolean',
-      description: 'Whether to animate progress',
+      description: 'Applies a subtle animation to the progress bar.',
     },
     indeterminate: {
       control: 'boolean',
-      description: 'Indeterminate loading state',
+      description: 'For loading states where the progress is unknown.',
+    },
+    label: {
+      control: 'text',
+      description: 'A descriptive label for the progress indicator.',
     },
   },
 }
@@ -307,6 +316,56 @@ export const Examples: Story = {
     </div>
   ),
 }
+
+// Real-world examples
+export const HealthcareExamples: Story = {
+  name: 'Healthcare Use Cases',
+  render: () => (
+    <div className="space-y-8 max-w-lg">
+      {/* Patient Onboarding Progress */}
+      <div className="space-y-3">
+        <h3 className="font-semibold text-lg">Patient Onboarding</h3>
+        <p className="text-sm text-tertiary-gray3">Track completion of a new patient's registration process.</p>
+        <StepProgress
+          currentStep={2}
+          totalSteps={4}
+          steps={['Personal Info', 'Insurance Details', 'Medical History', 'Confirmation']}
+          size="lg"
+        />
+      </div>
+
+      {/* Claim Submission Status */}
+      <div className="space-y-3">
+        <h3 className="font-semibold text-lg">Claim Submission Status</h3>
+        <p className="text-sm text-tertiary-gray3">Show the status of a submitted medical claim.</p>
+        <Progress value={66} label="Claim #12345 processing" showPercentage variant="warning" />
+        <Progress value={100} label="Claim #12344 approved" showPercentage variant="success" />
+      </div>
+
+      {/* Health Assessment Completion */}
+      <div className="space-y-4">
+        <h3 className="font-semibold text-lg">Health Assessment</h3>
+        <p className="text-sm text-tertiary-gray3">Visualize how complete a patient's health assessment is.</p>
+        <div className="flex items-center justify-center gap-8">
+          <CircularProgress
+            value={85}
+            size={120}
+            strokeWidth={8}
+            label="Profile Complete"
+            variant="success"
+          />
+           <CircularProgress
+            value={40}
+            size={100}
+            strokeWidth={6}
+            label="Pending Lab Results"
+            variant="warning"
+          />
+        </div>
+      </div>
+    </div>
+  ),
+};
 
 // Playground
 export const Playground: Story = {

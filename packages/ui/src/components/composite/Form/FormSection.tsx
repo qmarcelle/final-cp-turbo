@@ -1,7 +1,7 @@
 import React from 'react'
 import { cn } from '../../../utils/cn'
 import { FormLayout  } from '../../composite/FormLayout/FormLayout'
-import type { FormSectionProps  } from '../types'
+import type { FormSectionProps } from '../../../types'
 
 export function FormSection({
   title,

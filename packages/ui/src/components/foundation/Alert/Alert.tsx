@@ -6,7 +6,7 @@ import {
   CheckCircleIcon,
   XCircleIcon,
   XMarkIcon,
-} from '@heroicons/react/24/outline'
+} from '../../../lib/icons'
 import type { AlertVariant, AlertProps } from '../../../types'
 
 const variantStyles: Record<AlertVariant, { bg: string; text: string; border: string; icon: React.ComponentType<React.SVGProps<SVGSVGElement>> }> = {
@@ -17,9 +17,9 @@ const variantStyles: Record<AlertVariant, { bg: string; text: string; border: st
     icon: InformationCircleIcon,
   },
   warning: {
-    bg: 'bg-yellow-50',
-    text: 'text-yellow-800',
-    border: 'border-yellow-200',
+    bg: 'bg-label-warning',
+    text: 'text-status-warning',
+    border: 'border-status-warning',
     icon: ExclamationTriangleIcon,
   },
   success: {
@@ -34,6 +34,12 @@ const variantStyles: Record<AlertVariant, { bg: string; text: string; border: st
     border: 'border-status-error',
     icon: XCircleIcon,
   },
+  dark: {
+    bg: 'bg-black',
+    text: 'text-white',
+    border: 'border-black',
+    icon: InformationCircleIcon,
+  }
 }
 
 /**
@@ -78,6 +84,8 @@ export function Alert({
         className
       )}
       role="alert"
+      aria-live="assertive"
+      aria-atomic="true"
       data-cy={dataCy}
     >
       <div className="flex">

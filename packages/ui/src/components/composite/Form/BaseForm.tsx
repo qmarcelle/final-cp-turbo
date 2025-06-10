@@ -42,6 +42,26 @@ export function BaseForm<T extends z.ZodType>({
   });
 
   const { handleSubmit, control, trigger, formState: { isValid, errors } } = form;
+  
+  // Guard against empty steps array or invalid currentStep
+  if (!steps || steps.length === 0) {
+    return (
+      <div className="mx-auto max-w-4xl">
+        <div className="mb-8">
+          <h1 className="text-2xl font-bold text-gray-900">{title}</h1>
+          <p className="mt-2 text-sm text-red-600">
+            No steps configured for this form.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  if (currentStep >= steps.length) {
+    setCurrentStep(0);
+    return null; // Will re-render with correct step
+  }
+
   const step = steps[currentStep];
 
   const handleNext = async () => {

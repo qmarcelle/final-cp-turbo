@@ -1,8 +1,9 @@
 "use client";
 
+import React from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
-import { FormColumn } from './FormColumn'
-import { Input } from '../../foundation/input'
+import { FormColumn } from '../FormColumn'
+import { Input } from '../../foundation/Input'
 import { useForm, Control, FieldValues, Controller } from 'react-hook-form'
 import { ReactNode } from 'react'
 

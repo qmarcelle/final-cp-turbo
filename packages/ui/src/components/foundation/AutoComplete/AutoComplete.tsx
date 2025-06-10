@@ -1,9 +1,9 @@
 import { Combobox } from '@headlessui/react'
-import { ChevronUpDownIcon } from '@heroicons/react/24/outline'
-import clsx from 'clsx'
+import { ChevronUpDownIcon, CheckIcon } from '../../../lib/icons'
+import { cn as clsx } from '../../../lib/utils'
 import * as React from 'react';
 import { useState } from 'react';
-import { useController, Control, FieldValues, Path, RegisterOptions } from 'react-hook-form'
+import { useController, FieldValues } from 'react-hook-form'
 import type { AutoCompleteOption, AutoCompleteProps } from '../../../types'
 
 export function ControlledAutoComplete<T extends FieldValues>({
@@ -305,24 +305,5 @@ export function AutoComplete({
         </Combobox.Options>
       </div>
     </Combobox>
-  )
-}
-
-function CheckIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      strokeWidth={1.5}
-      stroke="currentColor"
-      {...props}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M4.5 12.75l6 6 9-13.5"
-      />
-    </svg>
   )
 }

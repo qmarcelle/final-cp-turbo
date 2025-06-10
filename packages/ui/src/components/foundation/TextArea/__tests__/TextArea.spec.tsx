@@ -3,7 +3,7 @@ import { screen, waitFor } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import { z } from 'zod'
 import { TextArea  } from '../../TextArea/TextArea'
-import { renderWithForm } from '../../../../../tests/jest/test-utils'
+import { renderWithForm } from '../../../../tests/test-utils'
 import type { Control, UseFormReturn , RegisterOptions} from 'react-hook-form'
 
 const schema = z.object({

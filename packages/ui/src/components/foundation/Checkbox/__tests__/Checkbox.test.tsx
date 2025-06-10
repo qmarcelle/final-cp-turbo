@@ -6,7 +6,7 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import { useForm } from 'react-hook-form'
 import { Checkbox  } from '../../../foundation/Checkbox/Checkbox'
-import { axe } from '../../../../../tests/a11y/setup'
+import { axe } from '../../../../tests/test-utils'
 
 describe('Checkbox Component', () => {
   const BasicCheckbox = () => {

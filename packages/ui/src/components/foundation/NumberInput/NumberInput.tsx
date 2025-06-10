@@ -1,9 +1,8 @@
-import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/react/24/outline'
-import clsx from 'clsx'
+import { cn } from '../../../lib/utils'
+import { ChevronUpIcon, ChevronDownIcon } from '../../../lib/icons'
 import * as React from 'react'
 import { useCallback } from 'react'
 import { useController, Control, FieldValues, Path } from 'react-hook-form'
-import { cn } from '../../../lib/utils'
 
 export interface NumberInputProps<T extends FieldValues = FieldValues> {
   name: Path<T>

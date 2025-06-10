@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Checkbox } from './Checkbox';
-import type { CheckboxProps } from './Checkbox';
+import type { CheckboxProps } from '../../../types';
 import { useState } from 'react';
 import * as React from 'react';
 

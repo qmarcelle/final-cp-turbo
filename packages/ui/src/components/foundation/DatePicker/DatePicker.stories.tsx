@@ -3,48 +3,80 @@ import { useState, useEffect } from 'react';
 import type { Meta, StoryObj } from '@storybook/react'
 import { useForm, FormProvider } from 'react-hook-form'
 import { DatePicker } from './DatePicker'
+import { cn } from '../../../lib/utils'
 
 type DateValue = Date | null
 type DateRangeValue = { start: DateValue; end: DateValue }
 
 const meta = {
-  title: '⚛️ Atoms/DatePicker',
+  title: '⚛️ Foundation/DatePicker',
   component: DatePicker,
   parameters: {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A modern, accessible date picker component that integrates with React Hook Form. Supports single date selection, date ranges, and time selection.',
+        component: `
+# Date Picker
+
+A modern and accessible date picker component that supports single dates, date ranges, and time selection, with seamless integration into forms.
+
+## Features
+- **Single and Range Modes**: Supports both single date and date range selection.
+- **Time Selection**: Optional time selection for precise scheduling.
+- **Form-Ready**: Built to work with React Hook Form.
+- **Customizable**: Allows for custom styling, placeholders, and date restrictions.
+- **Accessible**: Designed for keyboard navigation and screen reader support.
+
+## When to Use
+- For any input that requires a date, such as a date of birth, appointment, or coverage period.
+- Use range mode for selecting start and end dates.
+- Use time selection for scheduling specific appointments.
+
+## Accessibility
+- The component uses a button to trigger a dialog with a calendar grid.
+- The calendar is navigable via keyboard.
+- ARIA attributes are used to announce selected dates and other state changes.
+`,
       },
     },
   },
-  tags: ['autodocs'],
+  tags: ['foundation', 'stable', 'autodocs'],
   argTypes: {
-    value: { 
-      control: 'date',
-      table: {
-        type: { summary: 'Date | DateRangeValue | null' }
-      }
+    placeholder: {
+      control: 'text',
+      description: 'The placeholder text to display when no date is selected.',
     },
-    placeholder: { control: 'text' },
-    mode: { control: 'select', options: ['single', 'range'] },
-    showTime: { control: 'boolean' },
-    minDate: { 
-      control: 'date',
-      table: {
-        type: { summary: 'Date | null' }
-      }
+    mode: {
+      control: 'select',
+      options: ['single', 'range'],
+      description: 'The selection mode of the date picker.',
     },
-    maxDate: { 
-      control: 'date',
-      table: {
-        type: { summary: 'Date | null' }
-      }
+    showTime: {
+      control: 'boolean',
+      description: 'If true, allows the user to select a time.',
     },
-    className: { control: 'text' },
-    label: { control: 'text' },
-    required: { control: 'boolean' },
-    error: { control: 'text' },
+    minDate: {
+      control: 'date',
+      description: 'The minimum selectable date.',
+      table: {
+        type: { summary: 'Date | null' },
+      },
+    },
+    maxDate: {
+      control: 'date',
+      description: 'The maximum selectable date.',
+      table: {
+        type: { summary: 'Date | null' },
+      },
+    },
+    className: {
+      control: 'text',
+      description: 'Custom CSS classes for additional styling.',
+    },
+    required: {
+      control: 'boolean',
+      description: 'Marks the field as required.',
+    },
   },
 } satisfies Meta<typeof DatePicker>
 
@@ -94,8 +126,8 @@ const InteractiveDatePicker = (args: DatePickerStoryArgs) => {
   const [value, setValue] = useState(convertValue(args.value))
   const methods = useForm({
     defaultValues: {
-      dateValue: value
-    }
+      dateValue: value,
+    },
   })
 
   // Update state when control value changes
@@ -104,21 +136,34 @@ const InteractiveDatePicker = (args: DatePickerStoryArgs) => {
     methods.setValue('dateValue', convertValue(args.value))
   }, [args.value, methods])
 
+  const {
+    formState: { errors },
+  } = methods
+
+  const error = args.error || errors.dateValue?.message
+
   return (
     <FormProvider {...methods}>
-      <div className="storybook-form-container">
-        <h3 className="text-lg font-medium text-tertiaryGray1 mb-4">{args.storyTitle || 'Date Picker'}</h3>
-        <DatePicker 
-          {...args} 
+      <div className={cn('storybook-form-container', args.className)}>
+        {args.label && (
+          <label className="text-sm font-medium text-gray-700 mb-2 block">
+            {args.label}
+            {args.required && <span className="text-red-500 ml-1">*</span>}
+          </label>
+        )}
+        <DatePicker
+          {...args}
           name="dateValue"
           control={methods.control}
           minDate={toDate(args.minDate) || undefined}
           maxDate={toDate(args.maxDate) || undefined}
-          className={args.className}
           data-cy="date-picker-demo"
         />
-        {args.description && (
-          <p className="text-sm text-tertiaryGray3 mt-4">{args.description}</p>
+        {error && <p className="text-sm text-red-600 mt-1">{error}</p>}
+        {args.description && !error && (
+          <p className="text-sm text-tertiaryGray3 mt-2">
+            {args.description}
+          </p>
         )}
       </div>
     </FormProvider>
@@ -128,94 +173,107 @@ const InteractiveDatePicker = (args: DatePickerStoryArgs) => {
 export const Default: Story = {
   args: {
     placeholder: 'Select a date',
-    value: null,
     label: 'Event Date',
-    storyTitle: 'Default Date Picker',
-    description: 'Basic date picker with label for selecting a single date',
+
   },
   render: (args: DatePickerStoryArgs) => <InteractiveDatePicker {...args} />
 }
 
 export const WithValue: Story = {
   args: {
-    value: new Date(),
     placeholder: 'Select a date',
     label: 'Start Date',
-    storyTitle: 'Pre-selected Date',
-    description: 'Date picker with a pre-selected value',
+
   },
   render: (args: DatePickerStoryArgs) => <InteractiveDatePicker {...args} />
 }
 
 export const Required: Story = {
   args: {
-    value: null,
     placeholder: 'Select a date',
     label: 'Appointment Date',
     required: true,
-    storyTitle: 'Required Date Field',
-    description: 'Date picker marked as required field with visual indicator',
+
+    
   },
   render: (args: DatePickerStoryArgs) => <InteractiveDatePicker {...args} />
 }
 
 export const WithError: Story = {
   args: {
-    value: null,
     placeholder: 'Select a date',
     label: 'Birth Date',
-    error: 'Please select a valid date',
-    storyTitle: 'Error State',
-    description: 'Date picker showing an error message',
   },
   render: (args: DatePickerStoryArgs) => <InteractiveDatePicker {...args} />
 }
 
 export const WithMinMaxDate: Story = {
   args: {
-    value: null,
     minDate: new Date(new Date().setMonth(new Date().getMonth() - 1)),
     maxDate: new Date(new Date().setMonth(new Date().getMonth() + 1)),
     placeholder: 'Select a date (±1 month)',
     label: 'Booking Date',
-    storyTitle: 'Date Range Restrictions',
-    description: 'Date picker with minimum and maximum selectable dates (current month ±1)',
   },
   render: (args: DatePickerStoryArgs) => <InteractiveDatePicker {...args} />
 }
 
 export const WithTimeSelection: Story = {
   args: {
-    value: null,
     showTime: true,
     placeholder: 'Select date and time',
-    label: 'Meeting Schedule',
-    storyTitle: 'Date & Time Picker',
-    description: 'Date picker with additional time selection capability',
   },
   render: (args: DatePickerStoryArgs) => <InteractiveDatePicker {...args} />
 }
 
 export const DateRange: Story = {
   args: {
-    value: null,
     mode: 'range',
     placeholder: 'Select date range',
-    label: 'Vacation Period',
-    storyTitle: 'Date Range Picker',
-    description: 'Date picker configured for selecting a range of dates',
   },
   render: (args: DatePickerStoryArgs) => <InteractiveDatePicker {...args} />
 }
 
 export const WithCustomClass: Story = {
   args: {
-    value: null,
     placeholder: 'Select a date',
     className: 'w-64',
-    label: 'Custom Width',
-    storyTitle: 'Custom Styling',
-    description: 'Date picker with custom width applied via className',
   },
   render: (args: DatePickerStoryArgs) => <InteractiveDatePicker {...args} />
+}
+
+export const HealthcareExamples: Story = {
+  name: 'Healthcare Use Cases',
+  render: () => {
+    const [dob, setDob] = useState<DateValue>(new Date('1985-06-12'))
+    const [appointment, setAppointment] = useState<DateValue>(new Date())
+    const [coverage, setCoverage] = useState<DateRangeValue>({
+      start: new Date(),
+      end: new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
+    })
+
+    return (
+      <div className="space-y-8 max-w-md">
+        <InteractiveDatePicker
+          label="Date of Birth"
+          value={dob}
+          onChange={setDob}
+          storyTitle="Patient Date of Birth"
+        />
+        <InteractiveDatePicker
+          label="Schedule Appointment"
+          value={appointment}
+          onChange={setAppointment}
+          showTime
+          storyTitle="Appointment Scheduling"
+        />
+        <InteractiveDatePicker
+          label="Coverage Period"
+          value={coverage}
+          onChange={setCoverage}
+          mode="range"
+          storyTitle="Insurance Coverage Dates"
+        />
+      </div>
+    )
+  },
 }

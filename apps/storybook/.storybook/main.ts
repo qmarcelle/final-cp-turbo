@@ -3,11 +3,13 @@ import path from 'path'
 
 const config: StorybookConfig = {
   stories: [
-    '../../../packages/ui/src/components/**/*.stories.@(js|jsx|ts|tsx|mdx)',
-    '../stories/**/*.stories.@(js|jsx|ts|tsx|mdx)',
+    // Import stories from the built UI package
+    '../../../packages/ui/src/**/*.stories.@(js|jsx|ts|tsx|mdx)',
+    // Also include any local stories
+    '../src/**/*.stories.@(js|jsx|ts|tsx|mdx)',
   ],
 
-  staticDirs: ['../styles'],
+  staticDirs: ['../public'],
 
   addons: ['@storybook/addon-links', '@storybook/addon-a11y'],
   framework: {
@@ -25,19 +27,9 @@ const config: StorybookConfig = {
     },
   },
   async viteFinal(config, { configType }) {
-    if (config.resolve) {
-      config.resolve.alias = {
-        ...config.resolve.alias,
-        '@': path.resolve(__dirname, '../../../packages/ui/src'),
-        '@/components': path.resolve(
-          __dirname,
-          '../../../packages/ui/src/components'
-        ),
-        '@/lib': path.resolve(__dirname, '../../../packages/ui/src/lib'),
-        '@/styles': path.resolve(__dirname, '../../../packages/ui/src/styles'),
-        '@/utils': path.resolve(__dirname, '../../../packages/ui/src/utils'),
-        '@/types': path.resolve(__dirname, '../../../packages/ui/src/types'),
-      }
+    // Import CSS from the UI package
+    if (!config.css) {
+      config.css = {}
     }
 
     // Add process polyfill for Next.js components
@@ -53,9 +45,8 @@ const config: StorybookConfig = {
     if (!config.optimizeDeps.include) {
       config.optimizeDeps.include = []
     }
-    config.optimizeDeps.include.push('react-hook-form')
+    config.optimizeDeps.include.push('react-hook-form', '@portals/ui')
 
-    // Vite will automatically pick up postcss.config.js from project root
     return config
   },
 }

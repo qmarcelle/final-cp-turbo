@@ -7,7 +7,7 @@ import '@testing-library/jest-dom'
 import { expect } from '@jest/globals'
 import type { RenderResult } from '@testing-library/react'
 import { Button  } from '../../../foundation/Button/Button'
-import type { ButtonProps } from '../Button'
+import type { ButtonProps } from '../../../types/components'
 
 
 describe('Button Component', () => {
@@ -85,7 +85,7 @@ describe('Button Component', () => {
   })
 
   it('renders with different sizes', () => {
-    const sizes = ['sm', 'md', 'lg'] as const
+    const sizes = ['sm', 'default', 'lg'] as const
     
     sizes.forEach((size) => {
       render(<Button size={size} data-cy={`${size}-button`}>

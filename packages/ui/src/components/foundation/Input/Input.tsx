@@ -3,9 +3,10 @@
 import * as React from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '../../../lib/utils'
+import type { InputProps } from '../../../types'
 
-const inputVariants = cva(
-  'form-input w-full rounded-md border px-3 py-2 text-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-tertiary-gray3 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50',
+export const inputVariants = cva(
+  'flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
   {
     variants: {
       variant: {
@@ -27,15 +28,7 @@ const inputVariants = cva(
   }
 )
 
-export interface InputProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'>,
-    VariantProps<typeof inputVariants> {
-  error?: boolean
-  errorMessage?: string
-  label?: string
-  hint?: string
-  required?: boolean
-}
+export type InputVariantProps = VariantProps<typeof inputVariants>
 
 /**
  * Input component for form text input with validation states.
@@ -109,7 +102,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             className
           )}
           ref={ref}
-          aria-invalid={hasError}
+          aria-invalid={!!hasError}
           aria-describedby={cn(
             hasError && errorMessage ? errorId : undefined,
             hint ? hintId : undefined
@@ -142,4 +135,4 @@ Input.displayName = 'Input'
 
 // For backward compatibility, export as TextField as well
 export const TextField = Input
-export type TextFieldProps = InputProps
+export type { InputProps as TextFieldProps } from '../../../types'

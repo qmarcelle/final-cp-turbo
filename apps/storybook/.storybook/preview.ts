@@ -2,8 +2,8 @@ import type { Preview } from '@storybook/react'
 import React from 'react'
 import { useForm, FormProvider } from 'react-hook-form'
 
-// Import Tailwind CSS and design system styles using path alias
-import '@/styles/globals.css'
+// Import UI package styles
+import '@portals/ui/styles'
 
 // Polyfill process for Next.js components
 if (typeof global !== 'undefined') {

@@ -1,7 +1,13 @@
 import { ReactNode } from 'react'
 import { FieldValues, Path, Control, UseFormReturn, RegisterOptions } from 'react-hook-form'
-import { VariantProps } from 'class-variance-authority'
 import { z } from 'zod'
+import { type VariantProps } from 'class-variance-authority'
+import { badgeVariants } from '../components/foundation/Badge'
+import * as AvatarPrimitive from '@radix-ui/react-avatar'
+import * as CheckboxPrimitive from '@radix-ui/react-checkbox'
+import type { DatePickerProps as ReactDatePickerProps } from 'react-datepicker'
+import * as ProgressPrimitive from '@radix-ui/react-progress'
+import { progressVariants } from '../components/foundation/Progress'
 
 // ===================================================================
 // BASE COMPONENT TYPES
@@ -38,7 +44,7 @@ export interface ValidationRules<T = unknown> {
 // ===================================================================
 
 // Alert Component
-export type AlertVariant = 'info' | 'warning' | 'success' | 'error'
+export type AlertVariant = 'info' | 'warning' | 'success' | 'error' | 'dark'
 
 export interface AlertProps {
   title?: string
@@ -115,20 +121,64 @@ export interface AutoCompleteBaseProps<TFieldValues extends FieldValues = FieldV
 }
 
 // Checkbox Component
-export interface CheckboxBaseProps<TFieldValues extends FieldValues = FieldValues>
-  extends FormComponentBaseProps<TFieldValues> {
-  checked?: boolean
+export interface CheckboxProps
+  extends Omit<
+    React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>,
+    'onChange'
+  > {
+  label: string
+  hint?: string
+  required?: boolean
   indeterminate?: boolean
+  onChange?: (checked: boolean | 'indeterminate') => void
 }
 
 // DatePicker Component
-export interface DatePickerBaseProps<TFieldValues extends FieldValues = FieldValues>
-  extends FormComponentBaseProps<TFieldValues> {
+export type DateFormat =
+  | 'MM/dd/yyyy'
+  | 'MM/dd/yyyy h:mm aa'
+  | 'MM/dd/yyyy HH:mm'
+  | 'yyyy-MM-dd'
+  | 'yyyy-MM-dd HH:mm'
+  | string
+
+export interface DateRange {
+  startDate: Date | null
+  endDate: Date | null
+}
+
+export interface DatePickerProps<
+  TFieldValues extends FieldValues = FieldValues,
+> {
+  name: Path<TFieldValues>
+  control: Control<TFieldValues>
+  label?: string
+  required?: boolean
+  disabled?: boolean
+  placeholder?: string
+  className?: string
   minDate?: Date
   maxDate?: Date
-  placeholder?: string
+  excludeDates?: Date[]
+  includeDates?: Date[]
+  filterDate?: (date: Date) => boolean
   showTime?: boolean
+  timeIntervals?: number
+  timeFormat?: '12h' | '24h'
   mode?: 'single' | 'range'
+  dateFormat?: DateFormat
+  showMonthYearPicker?: boolean
+  showYearPicker?: boolean
+  showQuarterPicker?: boolean
+  showWeekNumbers?: boolean
+  isClearable?: boolean
+  validation?: RegisterOptions<TFieldValues>
+  locale?: string
+  customInput?: React.ReactElement
+  popperPlacement?: ReactDatePickerProps['popperPlacement']
+  portalId?: string
+  'data-cy'?: string
+  hint?: string
 }
 
 // FileUpload Component
@@ -166,12 +216,18 @@ export interface FileUploadBaseProps<TFieldValues extends FieldValues = FieldVal
 }
 
 // Input Component
-export interface InputBaseProps<TFieldValues extends FieldValues = FieldValues> 
-  extends FormComponentBaseProps<TFieldValues> {
-  type?: 'text' | 'email' | 'password' | 'tel' | 'number'
-  placeholder?: string
-  autoComplete?: string
+export interface InputProps
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
+  error?: boolean | string
+  errorMessage?: string
+  label?: string
+  hint?: string
+  required?: boolean
+  variant?: 'default' | 'error'
+  size?: 'sm' | 'default' | 'lg'
 }
+
+export type TextFieldProps = InputProps
 
 // NumberInput Component
 export interface NumberInputBaseProps<TFieldValues extends FieldValues = FieldValues>
@@ -186,17 +242,38 @@ export interface NumberInputBaseProps<TFieldValues extends FieldValues = FieldVa
 }
 
 // Radio Component
-export interface RadioBaseProps<TFieldValues extends FieldValues = FieldValues>
-  extends FormComponentBaseProps<TFieldValues> {
+export interface RadioOption {
   value: string | number
-  checked?: boolean
+  label: string
+  description?: string
+  disabled?: boolean
 }
 
-// RadioGroup Component
-export interface RadioGroupBaseProps<TFieldValues extends FieldValues = FieldValues>
-  extends FormComponentBaseProps<TFieldValues> {
-  options: Array<{ value: string | number; label: string; description?: string; disabled?: boolean }>
+export interface RadioProps<T extends FieldValues> {
+  name: Path<T>
+  control: Control<T>
+  label?: string
+  value: string | number
+  required?: boolean
+  disabled?: boolean
+  className?: string
+  validation?: RegisterOptions<T>
+  'data-cy'?: string
+  hint?: string
+}
+
+export interface RadioGroupProps<T extends FieldValues> {
+  name: Path<T>
+  control: Control<T>
+  label?: string
+  options: RadioOption[]
+  required?: boolean
+  disabled?: boolean
   direction?: 'horizontal' | 'vertical'
+  className?: string
+  validation?: RegisterOptions<T>
+  'data-cy'?: string
+  hint?: string
 }
 
 // SearchBar Component
@@ -208,11 +285,26 @@ export interface SearchBarBaseProps<TFieldValues extends FieldValues = FieldValu
 }
 
 // Select Component
-export interface SelectBaseProps<TFieldValues extends FieldValues = FieldValues>
-  extends FormComponentBaseProps<TFieldValues> {
-  options: Array<{ value: string; label: string }>
-  placeholder?: string
+export interface SelectOption {
+  value: string;
+  label: string;
+  disabled?: boolean;
 }
+
+export interface SelectProps
+  extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'size'> {
+  options: SelectOption[];
+  placeholder?: string;
+  error?: boolean;
+  errorMessage?: string;
+  label?: string;
+  hint?: string;
+  required?: boolean;
+  variant?: 'default' | 'error'
+  size?: 'sm' | 'default' | 'lg'
+}
+
+export type DropdownProps = SelectProps;
 
 // StatusLabel Component
 export interface StatusLabelProps
@@ -248,12 +340,29 @@ export interface TagInputBaseProps<TFieldValues extends FieldValues = FieldValue
 }
 
 // TextArea Component
-export interface TextAreaBaseProps<TFieldValues extends FieldValues = FieldValues>
-  extends FormComponentBaseProps<TFieldValues> {
+export interface TextAreaProps extends Omit<FormFieldProps, 'control' | 'children'> {
+  name?: string
+  label?: string
+  description?: string
+  required?: boolean
+  disabled?: boolean
   placeholder?: string
   rows?: number
   maxLength?: number
   resize?: boolean
+  className?: string
+  'data-cy'?: string
+  onBlur?: () => void
+  onChange?: (value: string) => void
+  value?: string
+  error?: string
+}
+
+export interface ControlledTextAreaProps<T extends FieldValues = FieldValues>
+  extends Omit<TextAreaProps, 'validation'> {
+  control: Control<T>
+  name: Path<T>
+  validation?: any
 }
 
 // Toggle Component
@@ -261,6 +370,19 @@ export interface ToggleBaseProps<TFieldValues extends FieldValues = FieldValues>
   extends FormComponentBaseProps<TFieldValues> {
   checked?: boolean
   size?: 'sm' | 'md' | 'lg'
+}
+
+// Toggle Component
+export interface ToggleProps<T extends FieldValues = FieldValues> {
+  name: Path<T>;
+  control: Control<T>;
+  label?: string;
+  required?: boolean;
+  disabled?: boolean;
+  size?: 'sm' | 'md' | 'lg';
+  className?: string;
+  validation?: RegisterOptions<T, Path<T>>;
+  'data-cy'?: string;
 }
 
 // ===================================================================
@@ -311,42 +433,38 @@ export interface FormGroupProps {
 
 // Form Actions Types
 export interface FormActionsProps {
-  submitLabel: string
-  cancelLabel?: string
-  isSubmitting?: boolean
-  onCancel?: () => void
-  className?: string
-  'data-cy'?: string
+  children?: ReactNode;
+  submitLabel?: string;
+  cancelLabel?: string;
+  isSubmitting?: boolean;
+  onCancel?: () => void;
+  className?: string;
+  'data-cy'?: string;
 }
 
 // Form Button Types
-export interface FormButtonProps {
-  children: ReactNode
-  type?: 'submit' | 'button' | 'reset'
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost'
-  size?: 'sm' | 'md' | 'lg'
-  isLoading?: boolean
-  disabled?: boolean
-  onClick?: () => void
-  className?: string
-  'data-cy'?: string
+export interface FormButtonProps extends ButtonProps {
+  'data-cy'?: string;
 }
 
-// Form Stepper Types
-export interface FormStep<T extends FieldValues = FieldValues> {
-  id: string
-  title: string
-  description?: string
-  component: ReactNode
-  schema: z.ZodType<T>
+// FormStepper Component
+export interface Step<T extends FieldValues> {
+  id: string;
+  title: string;
+  description?: string;
+  shortLabel?: string;
+  component: (props: { control: Control<T> }) => React.ReactNode;
+  schema: z.ZodType<T>;
+  isOptional?: boolean;
 }
 
-export interface FormStepperProps<T extends FieldValues = FieldValues> {
-  steps: FormStep<T>[]
-  currentStep: number
-  onStepChange?: (step: number) => void
-  className?: string
-  'data-cy'?: string
+export interface FormStepperProps<T extends FieldValues> {
+  steps: Step<T>[];
+  currentStep?: number;
+  onStepChange?: (step: number) => void;
+  onComplete?: (data: T) => void | Promise<void>;
+  className?: string;
+  'data-cy'?: string;
 }
 
 // Form Layout Props
@@ -397,6 +515,35 @@ export interface PaginationProps extends React.HTMLAttributes<HTMLElement> {
   maxVisiblePages?: number
 }
 
+// Progress Component
+export interface ProgressProps
+  extends React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root>,
+    VariantProps<typeof progressVariants> {
+  value?: number
+  max?: number
+  size?: 'sm' | 'md' | 'lg' | 'xl'
+  variant?: 'default' | 'success' | 'warning' | 'error'
+  showPercentage?: boolean
+  animated?: boolean
+  label?: string
+  indeterminate?: boolean
+}
+
+export interface CircularProgressProps extends Omit<ProgressProps, 'size'> {
+  size?: number
+  strokeWidth?: number
+}
+
+export interface StepProgressProps {
+  currentStep: number
+  totalSteps: number
+  steps?: string[]
+  showNumbers?: boolean
+  size?: 'sm' | 'md' | 'lg'
+  orientation?: 'horizontal' | 'vertical'
+  className?: string
+}
+
 // ===================================================================
 // MEMBER PORTAL COMPONENT TYPES
 // ===================================================================
@@ -420,5 +567,69 @@ export type FieldValue<T> = T extends FormComponentBaseProps<infer V> ? V : neve
 
 // Export commonly used external types for convenience
 export type { FieldValues, Path, Control, UseFormReturn, RegisterOptions } from 'react-hook-form'
-export type { VariantProps } from 'class-variance-authority'
 export type { ReactNode } from 'react'
+
+// Badge Component
+export interface BadgeProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof badgeVariants> {
+  variant?:
+    | 'default'
+    | 'secondary'
+    | 'success'
+    | 'warning'
+    | 'error'
+    | 'outline'
+    | 'ghost'
+  size?: 'default' | 'sm' | 'lg' | 'icon'
+  interactive?: boolean
+  onClick?: () => void
+  icon?: React.ReactNode
+  dot?: boolean
+}
+
+export interface StatusBadgeProps extends Omit<BadgeProps, 'variant'> {
+  status: 'success' | 'warning' | 'error' | 'info' | 'neutral'
+}
+
+export interface CountBadgeProps extends Omit<BadgeProps, 'children'> {
+  count: number
+  max?: number
+  showZero?: boolean
+}
+
+// Avatar Component
+export interface AvatarProps
+  extends React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root> {
+  className?: string
+}
+
+export interface AvatarImageProps
+  extends React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Image> {
+  className?: string
+  alt: string
+}
+
+export interface AvatarFallbackProps
+  extends React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Fallback> {
+  className?: string
+  name?: string
+}
+
+export const avatarSizes: Record<string, string> = {
+  xs: 'h-6 w-6 text-xs',
+  sm: 'h-8 w-8 text-xs', 
+  md: 'h-10 w-10 text-sm',
+  lg: 'h-12 w-12 text-base',
+  xl: 'h-16 w-16 text-lg',
+  '2xl': 'h-20 w-20 text-xl'
+}
+
+export interface AvatarWithSizeProps extends AvatarProps {
+  size?: keyof typeof avatarSizes
+}
+
+// Separator Component
+export interface SeparatorProps {
+  // ... existing code ...
+}

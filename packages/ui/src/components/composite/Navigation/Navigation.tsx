@@ -15,7 +15,12 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../../../utils';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ChevronDownIcon, ChevronRightIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import {
+  ChevronDownIcon,
+  ChevronRightIcon,
+  Bars3Icon,
+  XMarkIcon,
+} from '../../../lib/icons';
 
 // Navigation container variants
 const navContainerVariants = cva(
@@ -86,6 +91,7 @@ const NavigationRoot = React.forwardRef<HTMLElement, NavigationProps>(
       <NavigationContext.Provider value={{ isOpen, setIsOpen, activeItem, setActiveItem, isMobile }}>
         <nav
           ref={ref}
+          role="navigation"
           className={cn(navContainerVariants({ variant, position }), className)}
           {...props}
         />
@@ -162,7 +168,7 @@ export const NavigationToggle: React.FC<React.ButtonHTMLAttributes<HTMLButtonEle
       onClick={() => setIsOpen(!isOpen)}
       className={cn(
         "md:hidden absolute right-4 top-4 p-2 rounded-md",
-        "hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary",
+        "hover:bg-tertiary-gray-5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-blue",
         className
       )}
       aria-expanded={isOpen}
@@ -386,7 +392,7 @@ export const Breadcrumb = React.forwardRef<HTMLElement, React.HTMLAttributes<HTM
       <nav
         ref={ref}
         aria-label="Breadcrumb"
-        className={cn("py-3 text-sm", className)}
+        className={cn("flex py-3 text-sm", className)}
         {...props}
       />
     );
@@ -424,26 +430,29 @@ export interface BreadcrumbItemProps extends React.LiHTMLAttributes<HTMLLIElemen
 }
 
 export const BreadcrumbItem = React.forwardRef<HTMLLIElement, BreadcrumbItemProps>(
-  ({ className, children, href, isCurrent, ...props }, ref) => {
+  ({ href, isCurrent, className, children, ...props }, ref) => {
+    const itemContent = href ? (
+      <Link
+        href={href}
+        className="text-primary-blue underline transition-colors hover:text-secondary-blue2 hover:no-underline focus:outline-none focus:ring-2 focus:ring-primary-blue focus:ring-offset-2 rounded"
+      >
+        {children}
+      </Link>
+    ) : (
+      <span>{children}</span>
+    );
+
     return (
-      <li
+      <li 
         ref={ref}
-        className={cn("flex items-center gap-1.5", className)}
-        aria-current={isCurrent ? "page" : undefined}
+        className={cn("text-sm", isCurrent && "font-medium text-tertiary-gray-1", className)}
         {...props}
       >
-        {href && !isCurrent ? (
-          <Link href={href} className="hover:text-primary">
-            {children}
-          </Link>
-        ) : (
-          <span className={cn(isCurrent && "font-medium text-foreground")}>
-            {children}
-          </span>
-        )}
-        
+        {itemContent}
         {!isCurrent && (
-          <ChevronRightIcon className="h-4 w-4 text-muted-foreground" />
+          <span className="mx-1.5 text-tertiary-gray3" aria-hidden="true">
+            /
+          </span>
         )}
       </li>
     );

@@ -5,13 +5,9 @@ packages:
   - 'apps/storybook'
   
   # Only specific packages we want to keep
-  - 'packages/api-client'
-  - 'packages/eslint-config'
   - 'packages/utils'
   - 'packages/ui' 
   - 'packages/tsconfig'
-  - 'packages/logger'
-  - 'packages/testing'
   - 'packages/auth'
   - 'packages/types'
   

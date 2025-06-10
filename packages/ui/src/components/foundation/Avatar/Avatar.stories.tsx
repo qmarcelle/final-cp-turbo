@@ -1,158 +1,230 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { Avatar, AvatarGroup } from './Avatar'
+import { Avatar, AvatarImage, AvatarFallback } from './Avatar'
 
 const meta: Meta<typeof Avatar> = {
-  title: '⚛️ Atoms/Avatar',
+  title: '⚛️ Foundation/Avatar',
   component: Avatar,
   parameters: {
     layout: 'centered',
+    tags: ['foundation', 'stable'],
     docs: {
       description: {
         component: `
-# Avatar Component
+# Avatar
 
-A versatile avatar component for displaying user profile images, initials, or fallback content.
+User profile images with automatic fallbacks and multiple display sizes.
 
 ## Features
-- **Image Support**: Display user profile images
-- **Fallback Initials**: Auto-generate initials from names
-- **Multiple Sizes**: From small to extra large
-- **Avatar Groups**: Display multiple avatars with overlap
-- **Accessibility**: Full ARIA support
+- **Automatic fallbacks**: Graceful degradation from image to initials to icon
+- **Multiple sizes**: Flexible sizing from small indicators to large profile displays
+- **Accessibility**: Proper alt text and screen reader support
+- **Image optimization**: Lazy loading and error handling built-in
+- **Composable**: Built with separate Image and Fallback components
+- **Consistent styling**: Integrated with design system spacing and borders
+- **High performance**: Optimized rendering and minimal re-renders
 
 ## Usage
+
 \`\`\`tsx
-<Avatar src="/avatar.jpg" alt="User Name" name="John Doe" />
+import { Avatar, AvatarImage, AvatarFallback } from '@portals/ui';
+
+// Basic avatar with image and fallback
+<Avatar>
+  <AvatarImage src="/user-photo.jpg" alt="John Doe" />
+  <AvatarFallback>JD</AvatarFallback>
+</Avatar>
+
+// Different sizes
+<Avatar className="h-8 w-8">
+  <AvatarImage src="/user-photo.jpg" alt="Small avatar" />
+  <AvatarFallback>SM</AvatarFallback>
+</Avatar>
+
+// Fallback only (no image)
+<Avatar>
+  <AvatarFallback>AB</AvatarFallback>
+</Avatar>
 \`\`\`
-        `,
+
+## When to use
+- Display user profile pictures in interfaces
+- Show team member photos in lists
+- Represent users in comment threads
+- Create user identification in headers
+- Build contact lists and directories
+
+## Accessibility
+- Images include descriptive alt text
+- Fallback text provides meaningful user identification
+- Proper contrast ratios for text fallbacks
+- Screen reader friendly with semantic markup
+- Keyboard accessible when interactive
+        `
+      }
+    }
+  },
+  argTypes: {
+    className: {
+      control: 'text',
+      description: 'Additional CSS classes for custom styling',
+      table: {
+        type: { summary: 'string' },
+        defaultValue: { summary: 'undefined' },
+      },
+    },
+    children: {
+      control: false,
+      description: 'Avatar content (AvatarImage and AvatarFallback components)',
+      table: {
+        type: { summary: 'React.ReactNode' },
       },
     },
   },
-  tags: ['autodocs'],
-  argTypes: {
-    src: {
-      control: 'text',
-      description: 'Image source URL',
-    },
-    alt: {
-      control: 'text',
-      description: 'Alternative text for the image',
-    },
-    name: {
-      control: 'text',
-      description: 'Name to generate initials from',
-    },
-    size: {
-      control: 'select',
-      options: ['sm', 'md', 'lg', 'xl', '2xl', '3xl'],
-      description: 'Size of the avatar',
-    },
-    fallback: {
-      control: 'text',
-      description: 'Custom fallback content',
-    },
-  },
+  args: {
+    className: '',
+  }
 }
 
 export default meta
-type Story = StoryObj<typeof Avatar>
+type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  args: {
-    name: 'John Doe',
+  render: () => (
+    <Avatar>
+      <AvatarImage src="https://github.com/shadcn.png" alt="Profile" />
+      <AvatarFallback>CN</AvatarFallback>
+    </Avatar>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Default avatar with image and fallback. The fallback displays when the image fails to load.',
+      },
+    },
   },
 }
 
-export const WithImage: Story = {
-  args: {
-    src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face',
-    alt: 'John Doe',
-    name: 'John Doe',
+export const Fallback: Story = {
+  render: () => (
+    <Avatar>
+      <AvatarImage src="" alt="Profile" />
+      <AvatarFallback>AB</AvatarFallback>
+    </Avatar>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Avatar with fallback text when no image is available. Use user initials for personalization.',
+      },
+    },
   },
 }
 
 export const Sizes: Story = {
   render: () => (
-    <div className="flex items-center gap-4">
-      <Avatar name="JD" size="sm" />
-      <Avatar name="JD" size="md" />
-      <Avatar name="JD" size="lg" />
-      <Avatar name="JD" size="xl" />
-      <Avatar name="JD" size="2xl" />
-      <Avatar name="JD" size="3xl" />
+    <div className="flex items-center space-x-4">
+      <Avatar className="h-8 w-8">
+        <AvatarImage src="https://github.com/shadcn.png" alt="Small" />
+        <AvatarFallback>SM</AvatarFallback>
+      </Avatar>
+      <Avatar className="h-10 w-10">
+        <AvatarImage src="https://github.com/shadcn.png" alt="Default" />
+        <AvatarFallback>MD</AvatarFallback>
+      </Avatar>
+      <Avatar className="h-16 w-16">
+        <AvatarImage src="https://github.com/shadcn.png" alt="Large" />
+        <AvatarFallback>LG</AvatarFallback>
+      </Avatar>
+      <Avatar className="h-24 w-24">
+        <AvatarImage src="https://github.com/shadcn.png" alt="Extra Large" />
+        <AvatarFallback>XL</AvatarFallback>
+      </Avatar>
     </div>
   ),
-}
-
-export const InitialsVariations: Story = {
-  render: () => (
-    <div className="flex items-center gap-4">
-      <Avatar name="John Doe" />
-      <Avatar name="Jane Smith" />
-      <Avatar name="Alex Johnson" />
-      <Avatar name="Maria Garcia" />
-      <Avatar name="Single" />
-    </div>
-  ),
-}
-
-export const CustomFallback: Story = {
-  args: {
-    fallback: '?',
-    size: 'lg',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Different avatar sizes for various contexts. Use smaller sizes in dense layouts and larger for profiles.',
+      },
+    },
   },
 }
 
-export const AvatarGroupStory: Story = {
+export const UserProfiles: Story = {
   render: () => (
-    <div className="space-y-6">
-      <div>
-        <h3 className="text-sm font-medium mb-2">Default Group (max 3)</h3>
-        <AvatarGroup
-          avatars={[
-            {
-              name: 'John Doe',
-              src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face',
-            },
-            {
-              name: 'Jane Smith',
-              src: 'https://images.unsplash.com/photo-1494790108755-2616b612b75c?w=100&h=100&fit=crop&crop=face',
-            },
-            { name: 'Alex Johnson' },
-            { name: 'Maria Garcia' },
-            { name: 'Bob Wilson' },
-          ]}
-        />
+    <div className="space-y-4">
+      <div className="flex items-center space-x-3">
+        <Avatar>
+          <AvatarImage src="https://github.com/shadcn.png" alt="Sarah Chen" />
+          <AvatarFallback>SC</AvatarFallback>
+        </Avatar>
+        <div>
+          <p className="text-sm font-medium">Sarah Chen</p>
+          <p className="text-xs text-gray-500">Product Designer</p>
+        </div>
       </div>
-
-      <div>
-        <h3 className="text-sm font-medium mb-2">Larger Group (max 5)</h3>
-        <AvatarGroup
-          max={5}
-          avatars={[
-            { name: 'User 1' },
-            { name: 'User 2' },
-            { name: 'User 3' },
-            { name: 'User 4' },
-            { name: 'User 5' },
-            { name: 'User 6' },
-            { name: 'User 7' },
-          ]}
-        />
+      
+      <div className="flex items-center space-x-3">
+        <Avatar>
+          <AvatarImage src="" alt="Alex Rodriguez" />
+          <AvatarFallback>AR</AvatarFallback>
+        </Avatar>
+        <div>
+          <p className="text-sm font-medium">Alex Rodriguez</p>
+          <p className="text-xs text-gray-500">Software Engineer</p>
+        </div>
       </div>
-
-      <div>
-        <h3 className="text-sm font-medium mb-2">Large Size Group</h3>
-        <AvatarGroup
-          size="lg"
-          avatars={[
-            { name: 'Large 1' },
-            { name: 'Large 2' },
-            { name: 'Large 3' },
-            { name: 'Large 4' },
-          ]}
-        />
+      
+      <div className="flex items-center space-x-3">
+        <Avatar>
+          <AvatarImage src="https://github.com/octocat.png" alt="Jamie Taylor" />
+          <AvatarFallback>JT</AvatarFallback>
+        </Avatar>
+        <div>
+          <p className="text-sm font-medium">Jamie Taylor</p>
+          <p className="text-xs text-gray-500">UX Researcher</p>
+        </div>
       </div>
     </div>
   ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Avatars in user profile contexts showing real-world usage with names and titles.',
+      },
+    },
+  },
 }
+
+export const TeamList: Story = {
+  render: () => (
+    <div className="flex space-x-2">
+      <Avatar className="h-8 w-8">
+        <AvatarImage src="https://github.com/shadcn.png" alt="Team member 1" />
+        <AvatarFallback>A</AvatarFallback>
+      </Avatar>
+      <Avatar className="h-8 w-8">
+        <AvatarImage src="" alt="Team member 2" />
+        <AvatarFallback>B</AvatarFallback>
+      </Avatar>
+      <Avatar className="h-8 w-8">
+        <AvatarImage src="https://github.com/octocat.png" alt="Team member 3" />
+        <AvatarFallback>C</AvatarFallback>
+      </Avatar>
+      <Avatar className="h-8 w-8">
+        <AvatarImage src="" alt="Team member 4" />
+        <AvatarFallback>D</AvatarFallback>
+      </Avatar>
+      <Avatar className="h-8 w-8 bg-gray-100">
+        <AvatarFallback className="text-gray-600">+5</AvatarFallback>
+      </Avatar>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Compact avatar list showing team members with overflow indicator. Common in project cards and team displays.',
+      },
+    },
+  },
+} 

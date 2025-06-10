@@ -1,10 +1,11 @@
 "use client";
 
 import * as React from 'react';
-import { cva, type VariantProps } from 'class-variance-authority';
+import { cva } from 'class-variance-authority';
 import { cn } from '../../../lib/utils';
+import type { SelectProps } from '../../../types';
 
-const selectVariants = cva(
+export const selectVariants = cva(
   "form-input w-full rounded-md border px-3 py-2 text-sm transition-colors focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 bg-white appearance-none",
   {
     variants: {
@@ -24,24 +25,6 @@ const selectVariants = cva(
     },
   }
 );
-
-export interface SelectOption {
-  value: string;
-  label: string;
-  disabled?: boolean;
-}
-
-export interface SelectProps
-  extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'size'>,
-    VariantProps<typeof selectVariants> {
-  options: SelectOption[];
-  placeholder?: string;
-  error?: boolean;
-  errorMessage?: string;
-  label?: string;
-  hint?: string;
-  required?: boolean;
-}
 
 /**
  * Select dropdown component with custom styling and comprehensive features.
@@ -166,4 +149,3 @@ Select.displayName = "Select";
 
 // For backward compatibility, export as Dropdown as well
 export const Dropdown = Select;
-export type DropdownProps = SelectProps;

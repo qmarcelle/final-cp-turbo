@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { Navigation, type NavigationItem } from './Navigation'
-import { useArgs } from 'storybook/preview-api'
+import { Navigation } from './Navigation'
 
 const meta: Meta<typeof Navigation> = {
   title: 'Organisms/Navigation (Experimental)',
@@ -24,7 +23,7 @@ This component is experimental and pending approval. It should not be used in pr
 
 export default meta
 
-const navItems: NavigationItem[] = [
+const navItems = [
   { label: 'Home', href: '/home' },
   {
     label: 'Products',
@@ -49,24 +48,24 @@ const navItems: NavigationItem[] = [
 
 export const Default: StoryObj<typeof Navigation> = {
   render: function Render(args) {
-    const [{ activeHref }, updateArgs] = useArgs()
-
-    const handleNavigate = (href: string) => {
-      updateArgs({ activeHref: href })
-    }
-
     return (
-      <div className="bg-blue-600 p-4">
-        <Navigation
-          {...args}
-          activeHref={activeHref}
-          onNavigate={handleNavigate}
-        />
-      </div>
+      <Navigation {...args}>
+        <div className="container mx-auto px-4 flex items-center justify-between h-16">
+          <div className="flex items-center">
+            <span className="text-xl font-bold">Brand</span>
+          </div>
+          <ul className="hidden md:flex space-x-8">
+            {navItems.map((item) => (
+              <li key={item.href}>
+                <a href={item.href} className="hover:text-gray-300">
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Navigation>
     )
   },
-  args: {
-    items: navItems,
-    activeHref: '/home',
-  },
+  args: {},
 }

@@ -1,21 +1,29 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, createContext, useContext } from 'react'
 import { cn } from '../../../lib/utils'
 import { Badge } from '../../foundation/Badge'
 
-export interface Tab {
-  label: string
-  value: string
-  icon?: React.ComponentType<{ className?: string }>
-  badge?: number
-  disabled?: boolean
+interface TabsContextProps {
+  activeTab: string
+  setActiveTab: (value: string) => void
+  variant?: 'default' | 'pills' | 'cards'
+  orientation?: 'horizontal' | 'vertical'
+}
+
+const TabsContext = createContext<TabsContextProps | null>(null)
+
+const useTabs = () => {
+  const context = useContext(TabsContext)
+  if (!context) {
+    throw new Error('useTabs must be used within a Tabs component')
+  }
+  return context
 }
 
 export interface TabsProps {
-  tabs: Tab[]
-  children: (activeTab: string) => React.ReactNode
-  defaultValue?: string
+  children: React.ReactNode
+  defaultValue: string
   variant?: 'default' | 'pills' | 'cards'
   orientation?: 'horizontal' | 'vertical'
   className?: string
@@ -23,7 +31,6 @@ export interface TabsProps {
 }
 
 export const Tabs = ({
-  tabs,
   children,
   defaultValue,
   variant = 'default',
@@ -31,28 +38,75 @@ export const Tabs = ({
   className,
   onChange,
 }: TabsProps) => {
-  const [activeTab, setActiveTab] = useState(
-    defaultValue || tabs[0]?.value || ''
-  )
+  const [activeTab, setActiveTab] = useState(defaultValue)
 
   const handleTabChange = (value: string) => {
     setActiveTab(value)
     onChange?.(value)
   }
 
+  return (
+    <TabsContext.Provider
+      value={{ activeTab, setActiveTab: handleTabChange, variant, orientation }}
+    >
+      <div
+        className={cn(
+          'w-full',
+          orientation === 'vertical' ? 'flex gap-6' : 'flex flex-col',
+          className
+        )}
+      >
+        {children}
+      </div>
+    </TabsContext.Provider>
+  )
+}
+
+export interface TabsListProps {
+  children: React.ReactNode
+  className?: string
+}
+
+export const TabsList = ({ children, className }: TabsListProps) => {
+  const { variant, orientation } = useTabs()
   const tabListClasses = cn(
     'flex',
     orientation === 'vertical' ? 'flex-col space-y-1' : 'space-x-1',
     variant === 'default' && 'border-b border-tertiary-gray4',
     variant === 'pills' && 'bg-tertiary-gray5 p-1 rounded-lg',
-    variant === 'cards' && 'space-x-2'
+    variant === 'cards' && 'space-x-2',
+    className
   )
+  return (
+    <div role="tablist" aria-orientation={orientation} className={tabListClasses}>
+      {children}
+    </div>
+  )
+}
 
-  const getTabClasses = (tab: Tab, isActive: boolean) => {
+export interface TabsTriggerProps {
+  value: string
+  children: React.ReactNode
+  disabled?: boolean
+  icon?: React.ComponentType<{ className?: string }>
+  badge?: number
+}
+
+export const TabsTrigger = ({
+  value,
+  children,
+  disabled,
+  icon: IconComponent,
+  badge,
+}: TabsTriggerProps) => {
+  const { activeTab, setActiveTab, variant } = useTabs()
+  const isActive = activeTab === value
+
+  const getTabClasses = (isActive: boolean) => {
     const baseClasses =
       'relative flex items-center gap-2 px-3 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-primaryBlue focus:ring-offset-2'
 
-    if (tab.disabled) {
+    if (disabled) {
       return cn(baseClasses, 'cursor-not-allowed opacity-50')
     }
 
@@ -85,58 +139,57 @@ export const Tabs = ({
   }
 
   return (
-    <div className={cn('w-full', className)}>
-      <div
-        className={cn(
-          'flex',
-          orientation === 'vertical' ? 'gap-6' : 'flex-col'
-        )}
-      >
-        {/* Tab List */}
-        <div
-          role="tablist"
-          aria-orientation={orientation}
-          className={tabListClasses}
-        >
-          {tabs.map(tab => {
-            const isActive = activeTab === tab.value
-            const IconComponent = tab.icon
+    <button
+      key={value}
+      role="tab"
+      aria-selected={isActive}
+      aria-controls={`tabpanel-${value}`}
+      id={`tab-${value}`}
+      disabled={disabled}
+      className={getTabClasses(isActive)}
+      onClick={() => !disabled && setActiveTab(value)}
+    >
+      {IconComponent && <IconComponent className="h-4 w-4" />}
+      <span>{children}</span>
+      {badge && (
+        <Badge variant="secondary" size="sm">
+          {badge}
+        </Badge>
+      )}
+    </button>
+  )
+}
 
-            return (
-              <button
-                key={tab.value}
-                role="tab"
-                aria-selected={isActive}
-                aria-controls={`tabpanel-${tab.value}`}
-                id={`tab-${tab.value}`}
-                disabled={tab.disabled}
-                className={getTabClasses(tab, isActive)}
-                onClick={() => !tab.disabled && handleTabChange(tab.value)}
-              >
-                {IconComponent && <IconComponent className="h-4 w-4" />}
-                <span>{tab.label}</span>
-                {tab.badge && (
-                  <Badge variant="secondary" size="sm">
-                    {tab.badge}
-                  </Badge>
-                )}
-              </button>
-            )
-          })}
-        </div>
+export interface TabsContentProps {
+  value: string
+  children: React.ReactNode
+  className?: string
+}
 
-        {/* Tab Panels */}
-        <div className={cn('flex-1', orientation === 'vertical' ? '' : 'mt-4')}>
-          <div
-            role="tabpanel"
-            id={`tabpanel-${activeTab}`}
-            aria-labelledby={`tab-${activeTab}`}
-            className="focus:outline-none"
-          >
-            {children(activeTab)}
-          </div>
-        </div>
-      </div>
+export const TabsContent = ({
+  value,
+  children,
+  className,
+}: TabsContentProps) => {
+  const { activeTab, orientation } = useTabs()
+  const isActive = activeTab === value
+
+  if (!isActive) {
+    return null
+  }
+
+  return (
+    <div
+      role="tabpanel"
+      id={`tabpanel-${value}`}
+      aria-labelledby={`tab-${value}`}
+      className={cn(
+        'flex-1 focus:outline-none',
+        orientation === 'horizontal' && 'mt-4',
+        className
+      )}
+    >
+      {children}
     </div>
   )
 }

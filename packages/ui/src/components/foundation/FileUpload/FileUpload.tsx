@@ -1,9 +1,9 @@
 'use client'
-
-import { DocumentIcon, XMarkIcon } from '@heroicons/react/24/outline'
+/* global FileList, URL */
+import { DocumentIcon, XMarkIcon } from '../../../lib/icons'
 import * as React from 'react';
-import { useState, useCallback, useEffect } from 'react';
-import { Control, FieldValues, Path, RegisterOptions, useController } from 'react-hook-form'
+import { useState, useCallback } from 'react';
+import { useController } from 'react-hook-form'
 import { cn } from '../../../utils/cn'
 import type { FileWithPreview, FileUploadProps } from '../../../types'
 

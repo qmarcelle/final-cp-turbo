@@ -1,24 +1,10 @@
 import React from 'react'
 import {
   useController,
-  Control,
   FieldValues,
-  Path,
-  RegisterOptions,
 } from 'react-hook-form'
 import clsx from 'clsx'
-
-export interface ToggleProps<T extends FieldValues = FieldValues> {
-  name: Path<T>
-  control: Control<T>
-  label?: string
-  required?: boolean
-  disabled?: boolean
-  size?: 'sm' | 'md' | 'lg'
-  className?: string
-  validation?: RegisterOptions<T, Path<T>>
-  'data-cy'?: string
-}
+import type { ToggleProps } from '../../../types'
 
 export const Toggle = function Toggle<T extends FieldValues>({
   name,

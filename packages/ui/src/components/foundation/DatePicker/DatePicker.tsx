@@ -5,69 +5,10 @@ import 'react-datepicker/dist/react-datepicker.css'
 // react-datepicker CSS is now imported in the Storybook CSS file
 
 import * as React from 'react'
-import {
-  useController,
-  Control,
-  FieldValues,
-  Path,
-  RegisterOptions,
-} from 'react-hook-form'
+import { useController } from 'react-hook-form'
 import ReactDatePicker from 'react-datepicker'
-import type { DatePickerProps as ReactDatePickerProps } from 'react-datepicker'
 import { cn } from '../../../utils/cn'
-
-// Type declarations
-export type DateFormat =
-  | 'MM/dd/yyyy'
-  | 'MM/dd/yyyy h:mm aa'
-  | 'MM/dd/yyyy HH:mm'
-  | 'yyyy-MM-dd'
-  | 'yyyy-MM-dd HH:mm'
-  | string
-
-export interface DateRange {
-  startDate: Date | null
-  endDate: Date | null
-}
-
-type DatePickerCustomProps = {
-  customInput?: React.ReactElement
-  popperPlacement?: ReactDatePickerProps['popperPlacement']
-}
-
-export interface DatePickerProps<
-  TFieldValues extends FieldValues = FieldValues,
-> {
-  name: Path<TFieldValues>
-  control: Control<TFieldValues>
-  label?: string
-  required?: boolean
-  disabled?: boolean
-  placeholder?: string
-  className?: string
-  minDate?: Date
-  maxDate?: Date
-  excludeDates?: Date[]
-  includeDates?: Date[]
-  filterDate?: (date: Date) => boolean
-  showTime?: boolean
-  timeIntervals?: number
-  timeFormat?: '12h' | '24h'
-  mode?: 'single' | 'range'
-  dateFormat?: DateFormat
-  showMonthYearPicker?: boolean
-  showYearPicker?: boolean
-  showQuarterPicker?: boolean
-  showWeekNumbers?: boolean
-  isClearable?: boolean
-  validation?: RegisterOptions<TFieldValues>
-  locale?: string
-  customInput?: DatePickerCustomProps['customInput']
-  popperPlacement?: DatePickerCustomProps['popperPlacement']
-  portalId?: string
-  'data-cy'?: string
-  hint?: string
-}
+import type { DatePickerProps } from '../../../types'
 
 export const DatePicker = React.forwardRef<
   ReactDatePicker,

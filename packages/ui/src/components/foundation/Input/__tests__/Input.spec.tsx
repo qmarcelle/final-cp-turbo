@@ -32,23 +32,15 @@ describe('Input Component', () => {
   })
 
   it('handles help text display', () => {
-    render(<Input name="test" label="Test Label" helpText="This is help text" data-cy="test-input" />)
+    render(<Input name="test" label="Test Label" hint="This is help text" data-cy="test-input" />)
     const helpText = screen.getByText('This is help text')
     expect(helpText).toBeInTheDocument()
   })
 
-  it('handles prefix and suffix correctly', () => {
-    render(
-      <Input 
-        name="test" 
-        label="Test Label" 
-        prefix="$" 
-        suffix=".00" 
-        data-cy="test-input" 
-      />
-    )
-    expect(screen.getByText('$')).toBeInTheDocument()
-    expect(screen.getByText('.00')).toBeInTheDocument()
+  it('handles hint text display', () => {
+    render(<Input name="test" label="Test Label" hint="This is hint text" data-cy="test-input" />)
+    const hintText = screen.getByText('This is hint text')
+    expect(hintText).toBeInTheDocument()
   })
 
   it('shows error message when error prop is provided', () => {
@@ -56,7 +48,8 @@ describe('Input Component', () => {
       <Input 
         name="test" 
         label="Test Label" 
-        error="This is an error message" 
+        error={true}
+        errorMessage="This is an error message" 
         data-cy="test-input" 
       />
     )

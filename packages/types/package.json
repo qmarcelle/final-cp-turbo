@@ -17,7 +17,8 @@
     "dev": "echo 'No dev mode needed for types-only package'",
     "test": "echo 'No tests needed for types-only package'",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "@portals/tsconfig": "workspace:*",

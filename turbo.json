@@ -1,28 +1,14 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "ui": "tui",
+  "ui": "stream",
   "globalDependencies": ["**/.env.*local", "global-config.json"],
-  "globalEnv": [
-    "NODE_ENV",
-    "CI",
-    "VERCEL",
-    "PORT",
-    "NEXT_PUBLIC_*"
-  ],
+  "globalEnv": ["NODE_ENV", "CI", "VERCEL", "PORT", "NEXT_PUBLIC_*"],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [
-        "dist/**",
-        ".next/**",
-        "!.next/cache/**"
-      ],
+      "outputs": ["dist/**", ".next/**", "!.next/cache/**"],
       "cache": true,
       "persistent": false
-    },
-    "@portals/types#build": {
-      "outputs": ["dist/**"],
-      "cache": true
     },
     "dev": {
       "cache": false,
@@ -32,31 +18,17 @@
     "lint": {
       "outputs": [],
       "cache": true,
-      "inputs": [
-        "src/**/*.{ts,tsx,js,jsx}",
-        "**/.eslintrc.*",
-        "**/eslint.config.*"
-      ]
+      "inputs": ["src/**/*.{ts,tsx,js,jsx}", "**/.eslintrc.*", "**/eslint.config.*"]
     },
     "lint:fix": {
       "outputs": [],
       "cache": false,
-      "inputs": [
-        "src/**/*.{ts,tsx,js,jsx}",
-        "**/.eslintrc.*",
-        "**/eslint.config.*"
-      ]
+      "inputs": ["src/**/*.{ts,tsx,js,jsx}", "**/.eslintrc.*", "**/eslint.config.*"]
     },
     "test": {
       "dependsOn": ["^build"],
       "outputs": ["coverage/**"],
-      "inputs": [
-        "src/**/*.{ts,tsx}",
-        "test/**/*.{ts,tsx}",
-        "__tests__/**/*.{ts,tsx}",
-        "jest.config.*",
-        "package.json"
-      ],
+      "inputs": ["src/**/*.{ts,tsx}", "test/**/*.{ts,tsx}", "__tests__/**/*.{ts,tsx}", "jest.config.*", "package.json"],
       "cache": true
     },
     "test:watch": {
@@ -78,12 +50,9 @@
       "cache": true,
       "outputs": ["test-results/**", "playwright-report/**"]
     },
-    "check-types": {
+    "typecheck": {
       "cache": true,
-      "inputs": [
-        "src/**/*.{ts,tsx}",
-        "**/tsconfig*.json"
-      ],
+      "inputs": ["src/**/*.{ts,tsx}", "**/tsconfig*.json"],
       "outputs": []
     },
     "clean": {
@@ -93,20 +62,12 @@
     "format": {
       "cache": true,
       "outputs": [],
-      "inputs": [
-        "**/*.{ts,tsx,js,jsx,json,md,yml,yaml,css}",
-        ".prettierrc*",
-        "prettier.config.*"
-      ]
+      "inputs": ["**/*.{ts,tsx,js,jsx,json,md,yml,yaml,css}", ".prettierrc*", "prettier.config.*"]
     },
     "format:check": {
       "cache": true,
       "outputs": [],
-      "inputs": [
-        "**/*.{ts,tsx,js,jsx,json,md,yml,yaml,css}",
-        ".prettierrc*",
-        "prettier.config.*"
-      ]
+      "inputs": ["**/*.{ts,tsx,js,jsx,json,md,yml,yaml,css}", ".prettierrc*", "prettier.config.*"]
     }
   }
 }
