@@ -1,79 +1,128 @@
 'use client'
 
-import * as React from 'react'
-import * as CheckboxPrimitive from '@radix-ui/react-checkbox'
-import { CheckIcon, MinusIcon } from '../../../lib/icons'
-import { cn } from '../../../lib/utils'
-import type { CheckboxProps } from '../../../types'
+import * as React from 'react';
+import { useController, Control, FieldValues, Path, RegisterOptions } from 'react-hook-form'
+import { cn } from '../../../utils/cn'
 
-const Checkbox = React.forwardRef<
-  React.ElementRef<typeof CheckboxPrimitive.Root>,
-  CheckboxProps
->(
-  (
-    {
-      className,
-      label,
-      hint,
-      required,
-      indeterminate,
-      onChange,
-      checked,
-      ...props
+export interface CheckboxProps<T extends FieldValues = FieldValues> {
+  name: Path<T>
+  control: Control<T>
+  label?: string
+  required?: boolean
+  disabled?: boolean
+  indeterminate?: boolean
+  className?: string
+  validation?: RegisterOptions<T>
+  'data-cy'?: string
+  hint?: string
+}
+
+export function Checkbox<T extends FieldValues = FieldValues>({
+  name,
+  control,
+  label,
+  required,
+  disabled,
+  indeterminate,
+  className,
+  validation,
+  'data-cy': dataCy,
+  hint,
+}: CheckboxProps<T>) {
+  // Use a mutable object reference instead of useRef
+  const checkboxRef = { current: null as HTMLInputElement | null };
+
+  const {
+    field: { value, onChange, ref, ...fieldProps },
+    fieldState: { error }
+  } = useController({
+    name,
+    control,
+    rules: {
+      ...validation,
+      required: required ? (validation?.required || 'This field is required') : false,
     },
-    ref
-  ) => {
-    const handleCheckedChange = (checkedState: boolean | 'indeterminate') => {
-      onChange?.(checkedState)
+  })
+
+  // Handle indeterminate state
+  React.useEffect(() => {
+    if (checkboxRef.current) {
+      checkboxRef.current.indeterminate = !!indeterminate
     }
+  }, [indeterminate])
 
-    // Handle indeterminate state properly - pass the correct checked state
-    const checkedState = indeterminate ? 'indeterminate' : checked
+  // Generate unique ID for accessibility
+  const id = `${name}`.replace(/\./g, '-');
 
-    return (
-      <div className="flex items-start space-x-2">
-        <CheckboxPrimitive.Root
-          ref={ref}
+  // Handle ref assignment
+  const assignRef = (element: HTMLInputElement) => {
+    checkboxRef.current = element;
+    if (typeof ref === 'function') {
+      ref(element);
+    }
+  };
+
+  return (
+    <div className={cn('form-control', className)}>
+      <div className="flex items-start gap-2 relative">
+        <input
+          id={id}
+          type="checkbox"
+          checked={!!value}
+          onChange={(e) => onChange(e.target.checked)}
+          disabled={disabled}
+          data-cy={dataCy}
           className={cn(
-            'peer h-5 w-5 shrink-0 rounded-sm border-2 border-primaryBlue bg-white ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primaryBlue focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primaryBlue data-[state=checked]:text-primary-foreground data-[state=indeterminate]:bg-primaryBlue data-[state=indeterminate]:text-primary-foreground relative',
-            'hover:border-secondaryBlue2',
-            className
+            'form-checkbox',
+            error && 'border-error',
+            disabled && 'opacity-50 cursor-not-allowed',
+            indeterminate && 'bg-primary border-primary opacity-80'
           )}
-          checked={checkedState}
-          onCheckedChange={handleCheckedChange}
-          {...props}
-        >
-          <CheckboxPrimitive.Indicator
+          ref={assignRef}
+          aria-invalid={!!error}
+          aria-describedby={
+            error 
+              ? `${name}-error` 
+              : hint 
+                ? `${name}-hint` 
+                : undefined
+          }
+          aria-required={required}
+          aria-checked={indeterminate ? 'mixed' : !!value}
+          {...fieldProps}
+        />
+        {label && (
+          <label 
+            htmlFor={id} 
             className={cn(
-              'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 leading-none'
+              'text-sm text-neutral-700 cursor-pointer select-none pt-0.5',
+              required && 'after:content-["*"] after:ml-0.5 after:text-error',
+              disabled && 'opacity-50 cursor-not-allowed'
             )}
-          >
-            {indeterminate ? (
-              <MinusIcon className="h-2.5 w-2.5 text-white block" />
-            ) : (
-              <CheckIcon className="h-2.5 w-2.5 text-white block" />
-            )}
-          </CheckboxPrimitive.Indicator>
-        </CheckboxPrimitive.Root>
-        <div className="grid gap-1.5 leading-none">
-          <label
-            htmlFor={props.id}
-            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer text-tertiary-gray1"
           >
             {label}
-            {required && <span className="text-red-500 ml-1">*</span>}
           </label>
-          {hint && (
-            <p className="text-xs text-tertiary-gray3 leading-relaxed">
-              {hint}
-            </p>
-          )}
-        </div>
+        )}
       </div>
-    )
-  }
-)
-
-Checkbox.displayName = CheckboxPrimitive.Root.displayName
-
-export { Checkbox }
+      
+      {error && (
+        <div 
+          className="form-error mt-1" 
+          id={`${name}-error`}
+          role="alert"
+        >
+          {error.message as string}
+        </div>
+      )}
+      
+      {hint && !error && (
+        <div 
+          className="form-hint mt-1"
+          id={`${name}-hint`}
+        >
+          {hint}
+        </div>
+      )}
+    </div>
+  )
+} 

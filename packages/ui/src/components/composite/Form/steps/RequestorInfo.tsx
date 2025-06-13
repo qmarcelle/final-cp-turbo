@@ -1,7 +1,5 @@
-"use client";
-
-import { Controller, Control, FieldValues, Path } from 'react-hook-form';
-import { Input } from '../../../foundation/Input';
+import { Control, FieldValues, Path } from 'react-hook-form';
+import { Input  } from '../../../foundation/Input';
 import { BaseStep, type BaseStepProps, getFieldName } from './BaseStep';
 import { FormSection } from '../FormSection';
 
@@ -40,51 +38,25 @@ export function RequestorInfoStep<T extends FieldValues = FieldValues>({
           description="Please provide information about the person making this request"
         >
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Controller
+            <Input
               name={getField('firstName')}
               control={control}
-              rules={{ required: required ? 'First name is required' : false }}
-              render={({ field, fieldState: { error } }) => (
-                <Input
-                  {...field}
-                  label="First Name"
-                  required={required}
-                  placeholder="Enter your legal first name"
-                  error={error?.message}
-                  helpText="Enter your legal first name"
-                  data-cy="requestor-firstName"
-                />
-              )}
+              label="First Name"
+              required={required}
+              helpText="Enter your legal first name"
             />
-            <Controller
+            <Input
               name={getField('middleInitial')}
               control={control}
-              render={({ field, fieldState: { error } }) => (
-                <Input
-                  {...field}
-                  label="Middle Initial"
-                  placeholder="Optional"
-                  error={error?.message}
-                  helpText="Optional"
-                  data-cy="requestor-middleInitial"
-                />
-              )}
+              label="Middle Initial"
+              helpText="Optional"
             />
-            <Controller
+            <Input
               name={getField('lastName')}
               control={control}
-              rules={{ required: required ? 'Last name is required' : false }}
-              render={({ field, fieldState: { error } }) => (
-                <Input
-                  {...field}
-                  label="Last Name"
-                  required={required}
-                  placeholder="Enter your legal last name"
-                  error={error?.message}
-                  helpText="Enter your legal last name"
-                  data-cy="requestor-lastName"
-                />
-              )}
+              label="Last Name"
+              required={required}
+              helpText="Enter your legal last name"
             />
           </div>
         </FormSection>
@@ -95,38 +67,21 @@ export function RequestorInfoStep<T extends FieldValues = FieldValues>({
           description="How can we reach you?"
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Controller
+            <Input
               name={getField('relationship')}
               control={control}
-              rules={{ required: required ? 'Relationship to Enrollee is required' : false }}
-              render={({ field, fieldState: { error } }) => (
-                <Input
-                  {...field}
-                  label="Relationship to Enrollee"
-                  required={required}
-                  placeholder="Specify your relationship"
-                  error={error?.message}
-                  helpText="Specify your relationship to the enrollee (e.g., family member, attorney, physician)"
-                  data-cy="requestor-relationship"
-                />
-              )}
+              label="Relationship to Enrollee"
+              required={required}
+              helpText="Specify your relationship to the enrollee (e.g., family member, attorney, physician)"
             />
-            <Controller
+            <Input
               name={getField('phone')}
               control={control}
-              rules={{ required: required ? 'Phone number is required' : false }}
-              render={({ field, fieldState: { error } }) => (
-                <Input
-                  {...field}
-                  label="Phone Number"
-                  type="tel"
-                  required={required}
-                  placeholder="(XXX) XXX-XXXX"
-                  error={error?.message}
-                  helpText="Enter your primary phone number"
-                  data-cy="requestor-phone"
-                />
-              )}
+              label="Phone Number"
+              type="tel"
+              required={required}
+              helpText="Enter your primary phone number"
+              placeholder="(XXX) XXX-XXXX"
             />
           </div>
         </FormSection>
@@ -137,82 +92,38 @@ export function RequestorInfoStep<T extends FieldValues = FieldValues>({
           description="Where should we send correspondence?"
         >
           <div className="space-y-4">
-            <Controller
+            <Input
               name={getField('address1')}
               control={control}
-              rules={{ required: required ? 'Street address is required' : false }}
-              render={({ field, fieldState: { error } }) => (
-                <Input
-                  {...field}
-                  label="Street Address"
-                  required={required}
-                  placeholder="Enter your street address"
-                  error={error?.message}
-                  helpText="Enter your street address"
-                  data-cy="requestor-address1"
-                />
-              )}
+              label="Street Address"
+              required={required}
+              helpText="Enter your street address"
             />
-            <Controller
+            <Input
               name={getField('address2')}
               control={control}
-              render={({ field, fieldState: { error } }) => (
-                <Input
-                  {...field}
-                  label="Apt/Suite/Unit"
-                  placeholder="Optional"
-                  error={error?.message}
-                  helpText="Optional - Enter additional address information"
-                  data-cy="requestor-address2"
-                />
-              )}
+              label="Apt/Suite/Unit"
+              helpText="Optional - Enter additional address information"
             />
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <Controller
+              <Input
                 name={getField('city')}
                 control={control}
-                rules={{ required: required ? 'City is required' : false }}
-                render={({ field, fieldState: { error } }) => (
-                  <Input
-                    {...field}
-                    label="City"
-                    required={required}
-                    placeholder="Enter city"
-                    error={error?.message}
-                    data-cy="requestor-city"
-                  />
-                )}
+                label="City"
+                required={required}
               />
-              <Controller
+              <Input
                 name={getField('state')}
                 control={control}
-                rules={{ required: required ? 'State is required' : false }}
-                render={({ field, fieldState: { error } }) => (
-                  <Input
-                    {...field}
-                    label="State"
-                    required={required}
-                    placeholder="Enter state"
-                    error={error?.message}
-                    data-cy="requestor-state"
-                  />
-                )}
+                label="State"
+                required={required}
               />
-              <Controller
+              <Input
                 name={getField('zipCode')}
                 control={control}
-                rules={{ required: required ? 'ZIP code is required' : false }}
-                render={({ field, fieldState: { error } }) => (
-                  <Input
-                    {...field}
-                    label="ZIP Code"
-                    required={required}
-                    placeholder="Enter 5-digit ZIP code"
-                    error={error?.message}
-                    helpText="Enter your 5-digit ZIP code"
-                    data-cy="requestor-zipCode"
-                  />
-                )}
+                label="ZIP Code"
+                required={required}
+                helpText="Enter your 5-digit ZIP code"
               />
             </div>
           </div>

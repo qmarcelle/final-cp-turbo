@@ -1,14 +1,11 @@
-"use client";
-
-import React from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
-import { FormColumn } from '../FormColumn'
-import { Input } from '../../foundation/Input'
-import { useForm, Control, FieldValues, Controller } from 'react-hook-form'
+import { FormColumn } from './FormColumn'
+import { Input  } from '../../foundation/Input/Input'
+import { useForm, Control, FieldValues } from 'react-hook-form'
 import { ReactNode } from 'react'
 
 const meta = {
-  title: '📐 Layout/FormColumn',
+  title: 'Composite/FormColumn',
   component: FormColumn,
   parameters: {
     layout: 'centered',
@@ -34,45 +31,24 @@ const FormWrapper = ({ children }: FormWrapperProps) => {
 
 const PersonalInfoForm = ({ control }: { control: Control<FieldValues> }) => (
   <FormColumn data-cy="personal-info">
-    <Controller
+    <Input
       name="firstName"
+      label="First Name"
       control={control}
-      rules={{ required: 'First name is required' }}
-      render={({ field, fieldState: { error } }) => (
-        <Input
-          {...field}
-          label="First Name"
-          required
-          error={error?.message}
-        />
-      )}
+      required
     />
-    <Controller
+    <Input
       name="lastName"
+      label="Last Name"
       control={control}
-      rules={{ required: 'Last name is required' }}
-      render={({ field, fieldState: { error } }) => (
-        <Input
-          {...field}
-          label="Last Name"
-          required
-          error={error?.message}
-        />
-      )}
+      required
     />
-    <Controller
+    <Input
       name="email"
+      label="Email"
+      type="email"
       control={control}
-      rules={{ required: 'Email is required' }}
-      render={({ field, fieldState: { error } }) => (
-        <Input
-          {...field}
-          label="Email"
-          type="email"
-          required
-          error={error?.message}
-        />
-      )}
+      required
     />
   </FormColumn>
 )
@@ -94,38 +70,20 @@ const AddressForm = ({ control }: { control: Control<FieldValues> }) => (
     className="space-y-6"
     data-cy="address-info"
   >
-    <Controller
+    <Input
       name="street"
+      label="Street Address"
       control={control}
-      render={({ field, fieldState: { error } }) => (
-        <Input
-          {...field}
-          label="Street Address"
-          error={error?.message}
-        />
-      )}
     />
-    <Controller
+    <Input
       name="city"
+      label="City"
       control={control}
-      render={({ field, fieldState: { error } }) => (
-        <Input
-          {...field}
-          label="City"
-          error={error?.message}
-        />
-      )}
     />
-    <Controller
+    <Input
       name="zipCode"
+      label="ZIP Code"
       control={control}
-      render={({ field, fieldState: { error } }) => (
-        <Input
-          {...field}
-          label="ZIP Code"
-          error={error?.message}
-        />
-      )}
     />
   </FormColumn>
 )
@@ -154,41 +112,23 @@ const ReadOnlyForm = () => {
 
   return (
     <FormColumn data-cy="readonly-info">
-      <Controller
+      <Input
         name="username"
+        label="Username"
         control={form.control}
-        render={({ field, fieldState: { error } }) => (
-          <Input
-            {...field}
-            label="Username"
-            disabled
-            error={error?.message}
-          />
-        )}
+        disabled
       />
-      <Controller
+      <Input
         name="role"
+        label="Role"
         control={form.control}
-        render={({ field, fieldState: { error } }) => (
-          <Input
-            {...field}
-            label="Role"
-            disabled
-            error={error?.message}
-          />
-        )}
+        disabled
       />
-      <Controller
+      <Input
         name="lastLogin"
+        label="Last Login"
         control={form.control}
-        render={({ field, fieldState: { error } }) => (
-          <Input
-            {...field}
-            label="Last Login"
-            disabled
-            error={error?.message}
-          />
-        )}
+        disabled
       />
     </FormColumn>
   )

@@ -1,170 +1,493 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { Input, TextField } from './Input';
+import * as React from 'react';
+import type { Meta, StoryObj } from '@storybook/react'
+import { Input } from './Input'
+import { useForm, FormProvider, Control, FieldValues } from 'react-hook-form'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { EnvelopeIcon, PhoneIcon, CurrencyDollarIcon } from '@heroicons/react/24/outline'
+import type { IMaskInput } from 'react-imask'
 
-const meta: Meta<typeof Input> = {
-  title: '⚛️ Atoms/Input',
-  component: TextField,
+// Define the mask type based on IMaskInput type
+type MaskType = any // Simplified to avoid complex type extraction
+
+export type InputMask = {
+  mask: MaskType
+  definitions?: { [key: string]: RegExp }
+  prepare?: (value: string) => string
+  commit?: (value: string) => string
+  scale?: number
+  signed?: boolean
+  thousandsSeparator?: string
+  padFractionalZeros?: boolean
+  normalizeZeros?: boolean
+  radix?: string
+}
+
+// Type for form field values
+export type FormFieldValues = FieldValues
+
+// Typed control for form fields
+export type TypedControl<T extends FormFieldValues> = Control<T>
+
+// Create a wrapper component to provide form context with better styling
+interface StoryFormWrapperProps<T extends FormFieldValues = FormFieldValues> {
+  children: (props: { control: TypedControl<T> }) => React.ReactNode
+  defaultValues?: Partial<T>
+  schema?: z.ZodType<T>
+  title?: string
+  description?: string
+}
+
+function FormWrapper<T extends FormFieldValues>({ 
+  children, 
+  defaultValues, 
+  schema,
+  title,
+  description 
+}: StoryFormWrapperProps<T>) {
+  const form = useForm<T>({
+    defaultValues: defaultValues as T,
+    ...(schema && { resolver: zodResolver(schema) })
+  })
+  
+  return (
+    <FormProvider {...form}>
+      <div className="p-6 bg-white dark:bg-neutral-800 rounded-lg shadow-sm border border-neutral-200 dark:border-neutral-700 max-w-md">
+        {title && <h3 className="text-lg font-medium text-neutral-800 dark:text-white mb-4">{title}</h3>}
+        {children({ control: form.control })}
+        {description && <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-4">{description}</p>}
+      </div>
+    </FormProvider>
+  )
+}
+
+type InputProps<T extends FormFieldValues = FormFieldValues> = {
+  name: string
+  label?: string
+  type?: 'text' | 'email' | 'password' | 'tel' | 'number' | 'textarea'
+  required?: boolean
+  disabled?: boolean
+  placeholder?: string
+  maxLength?: number
+  showCount?: boolean
+  autoResize?: boolean
+  debounceMs?: number
+  minRows?: number
+  maxRows?: number
+  control: TypedControl<T>
+}
+
+const meta = {
+  title: 'Foundation/Input',
+  component: Input,
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         component: `
-# 📝 Input Component
+### Input Component
 
-Text fields allow users to enter and edit text. Supports validation states and various input types.
+A versatile form input component that supports various types of text input with validation, error states, masking, and accessibility features.
 
-## Features
-- **Multiple types**: text, email, password, tel, number
-- **Responsive sizes**: sm, default, lg
-- **Validation states**: error handling with messages
-- **Accessibility**: proper labeling and ARIA attributes
-- **Design system**: consistent styling with design tokens
-- **Form integration**: works with form libraries
+#### Features
+- 🎯 React Hook Form integration
+- ✨ Advanced validation with Zod
+- 🎭 Input masking
+- 🔤 Prefix/suffix support
+- 📝 Character count
+- ⌨️ Debounced input
+- 📱 Auto-resize textarea
+- 🌙 Dark mode support
+- ♿️ Full accessibility
 
-## Usage
+#### Usage
+
 \`\`\`tsx
-<Input 
-  label="Email Address"
-  type="email"
-  placeholder="Enter your email"
-  required
-  error={hasError}
-  errorMessage="Please enter a valid email"
-/>
+import { Input  } from '../Input'
+import { useForm } from 'react-hook-form'
+
+// Basic usage with masking
+function PhoneInput() {
+  const { control } = useForm()
+  return (
+    <Input
+      name="phone"
+      control={control}
+      label="Phone"
+      mask={{
+        mask: '+1 (000) 000-0000'
+      }}
+      prefix={<PhoneIcon className="h-5 w-5" />}
+    />
+  )
+}
+
+// With character count
+function MessageInput() {
+  const { control } = useForm()
+  return (
+    <Input
+      name="message"
+      control={control}
+      type="textarea"
+      label="Message"
+      maxLength={500}
+      showCount
+      autoResize
+    />
+  )
+}
 \`\`\`
-        `
+`,
       },
     },
   },
   argTypes: {
+    name: { control: 'text' },
+    label: { control: 'text' },
     type: {
       control: 'select',
-      options: ['text', 'email', 'password', 'tel', 'number'],
-      description: 'Type of input field',
+      options: ['text', 'email', 'password', 'tel', 'number', 'textarea'],
     },
-    size: {
-      control: 'radio',
-      options: ['sm', 'default', 'lg'],
-      description: 'Size of the input field',
-    },
-    error: {
-      control: 'boolean',
-      description: 'Whether the input has an error state',
-    },
-    disabled: {
-      control: 'boolean',
-      description: 'Whether the input is disabled',
-    },
-    required: {
-      control: 'boolean',
-      description: 'Whether the input is required',
-    },
-    placeholder: {
-      control: 'text',
-      description: 'Placeholder text',
-    },
-    label: {
-      control: 'text',
-      description: 'Label for the input field',
-    },
-    hint: {
-      control: 'text',
-      description: 'Helper text displayed below the input',
-    },
-    errorMessage: {
-      control: 'text',
-      description: 'Error message to display',
-    },
+    required: { control: 'boolean' },
+    disabled: { control: 'boolean' },
+    placeholder: { control: 'text' },
+    maxLength: { control: 'number' },
+    showCount: { control: 'boolean' },
+    autoResize: { control: 'boolean' },
+    debounceMs: { control: 'number' },
   },
-  args: {
-    type: 'text',
-    size: 'default',
-    error: false,
-    disabled: false,
-    required: false,
-    placeholder: 'Enter text...',
-    label: '',
-    hint: '',
-    errorMessage: '',
-  }
-};
+  tags: ['autodocs'],
+} satisfies Meta<typeof Input>
 
-export default meta;
-type Story = StoryObj<typeof TextField>;
+export default meta
+type Story = StoryObj<typeof Input>
 
-export const Default: Story = {
-  args: {
-    placeholder: 'Enter your name',
-    label: 'Full Name',
+type PhoneFormValues = {
+  phone: string
+}
+
+export const WithPhoneMask: Story = {
+  render: () => {
+    const defaultValues = { phone: '' }
+    return (
+      <FormWrapper 
+        defaultValues={defaultValues}
+        title="Phone Input with Mask"
+        description="Phone input with +1 (XXX) XXX-XXXX formatting mask and icon prefix"
+      >
+        {({ control }) => (
+          <Input
+            name="phone"
+            control={control}
+            label="Phone Number"
+            type="tel"
+            required
+            placeholder="Enter phone number"
+            mask={{
+              mask: '+1 (000) 000-0000',
+              definitions: {
+                '0': /[0-9]/,
+              },
+            }}
+            prefix={<PhoneIcon className="h-5 w-5" />}
+          />
+        )}
+      </FormWrapper>
+    )
   },
-};
+}
 
-export const WithHint: Story = {
-  args: {
-    placeholder: 'Enter your email',
-    label: 'Email Address',
-    hint: 'We will never share your email with anyone',
+type AmountFormValues = {
+  amount: string
+}
+
+export const WithCurrencyMask: Story = {
+  render: () => {
+    const defaultValues: AmountFormValues = { amount: '' }
+    return (
+      <FormWrapper<AmountFormValues> 
+        defaultValues={defaultValues}
+        title="Currency Input"
+        description="Currency input with automatic number formatting, decimal places, and dollar sign"
+      >
+        {({ control }) => (
+          <Input<AmountFormValues>
+            name="amount"
+            control={control}
+            label="Amount"
+            required
+            placeholder="Enter amount"
+            mask={{
+              mask: Number,
+              scale: 2,
+              signed: false,
+              thousandsSeparator: ',',
+              padFractionalZeros: true,
+              normalizeZeros: true,
+              radix: '.',
+            }}
+            prefix={<CurrencyDollarIcon className="h-5 w-5" />}
+          />
+        )}
+      </FormWrapper>
+    )
   },
-};
+}
 
-export const Required: Story = {
+type TweetFormValues = {
+  tweet: string
+}
+
+export const WithCharacterCount: Story = {
+  render: () => {
+    const defaultValues: TweetFormValues = { tweet: '' }
+    return (
+      <FormWrapper<TweetFormValues> 
+        defaultValues={defaultValues}
+        title="Input with Character Counter"
+        description="Text input with a character limit counter, perfect for social media posts"
+      >
+        {({ control }) => (
+          <Input
+            name="tweet"
+            control={control}
+            label="Tweet"
+            maxLength={280}
+            showCount
+            placeholder="What's happening?"
+          />
+        )}
+      </FormWrapper>
+    )
+  },
+}
+
+type DescriptionFormValues = {
+  description: string
+}
+
+export const TextareaAutoResize: Story = {
+  render: () => {
+    const defaultValues: DescriptionFormValues = { description: '' }
+    return (
+      <FormWrapper<DescriptionFormValues> 
+        defaultValues={defaultValues}
+        title="Auto-resizing Textarea"
+        description="Textarea that automatically adjusts its height as you type, with a character counter"
+      >
+        {({ control }) => (
+          <Input
+            name="description"
+            control={control}
+            label="Description"
+            type="textarea"
+            autoResize
+            minRows={3}
+            maxRows={10}
+            showCount
+            maxLength={1000}
+            placeholder="Start typing to auto-resize..."
+          />
+        )}
+      </FormWrapper>
+    )
+  },
+}
+
+type EmailFormValues = {
+  email: string
+}
+
+export const WithPrefixSuffix: Story = {
   args: {
-    placeholder: 'Enter your phone number',
-    label: 'Phone Number',
+    name: 'email',
+    label: 'Email',
+    type: 'email',
+    placeholder: 'username',
+  },
+  render: (args) => (
+    <FormWrapper<EmailFormValues>>
+      {({ control }) => (
+        <Input
+          {...args}
+          control={control}
+          prefix={<EnvelopeIcon className="h-5 w-5" />}
+          suffix="@company.com"
+        />
+      )}
+    </FormWrapper>
+  ),
+}
+
+type SearchFormValues = {
+  search: string
+}
+
+export const DebouncedInput: Story = {
+  args: {
+    name: 'search',
+    label: 'Search (with 500ms debounce)',
+    debounceMs: 500,
+    placeholder: 'Start typing...',
+  },
+  render: (args) => {
+    const [value, setValue] = React.useState('')
+    
+    return (
+      <FormWrapper<SearchFormValues>>
+        {({ control }) => (
+          <div className="space-y-4">
+            <Input
+              {...args}
+              control={control}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setValue(e.target.value)}
+            />
+            <div className="text-sm text-gray-500">
+              Debounced value: {value}
+            </div>
+          </div>
+        )}
+      </FormWrapper>
+    )
+  },
+}
+
+type UsernameFormValues = {
+  username: string
+}
+
+export const ValidationExample: Story = {
+  args: {
+    name: 'username',
+    label: 'Username',
     required: true,
+    placeholder: 'Enter username',
   },
-};
+  render: (args) => {
+    const schema = z.object({
+      username: z.string()
+        .min(3, 'Username must be at least 3 characters')
+        .max(20, 'Username cannot exceed 20 characters')
+        .regex(/^[a-zA-Z0-9_]+$/, 'Username can only contain letters, numbers, and underscores'),
+    })
 
-export const WithError: Story = {
+    const form = useForm<UsernameFormValues>({
+      resolver: zodResolver(schema),
+    })
+
+    return (
+      <div className="w-[400px]">
+        <Input
+          {...args}
+          control={form.control}
+          validation={{
+            pattern: {
+              value: /^[a-zA-Z0-9_]+$/,
+              message: 'Username can only contain letters, numbers, and underscores',
+            },
+          }}
+        />
+      </div>
+    )
+  },
+}
+
+type CompleteFormValues = {
+  name: string
+  email: string
+  phone: string
+  amount: string
+  message: string
+}
+
+// Example of a complete form with multiple input types
+export const CompleteFormExample: Story = {
   args: {
-    placeholder: 'Enter your email',
-    label: 'Email Address',
-    error: true,
-    errorMessage: 'Please enter a valid email address',
-    defaultValue: 'invalid-email',
+    name: 'form',
+    label: 'Complete Form Example',
   },
-};
+  render: (args) => {
+    const schema = z.object({
+      name: z.string().min(2, 'Name must be at least 2 characters'),
+      email: z.string().email('Invalid email address'),
+      phone: z.string().min(10, 'Invalid phone number'),
+      amount: z.string().min(1, 'Amount is required'),
+      message: z.string().max(500, 'Message cannot exceed 500 characters'),
+    })
 
-export const Disabled: Story = {
-  args: {
-    placeholder: 'Cannot edit this field',
-    label: 'Disabled Field',
-    disabled: true,
-    defaultValue: 'Read-only value',
+    const form = useForm<CompleteFormValues>({
+      resolver: zodResolver(schema),
+    })
+
+    return (
+      <div className="w-[500px] space-y-6 rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+        <Input
+          name="name"
+          control={form.control}
+          label="Full Name"
+          required
+          placeholder="John Doe"
+        />
+        
+        <Input
+          name="email"
+          control={form.control}
+          label="Email"
+          type="email"
+          required
+          prefix={<EnvelopeIcon className="h-5 w-5" />}
+          placeholder="john@example.com"
+        />
+        
+        <Input
+          name="phone"
+          control={form.control}
+          label="Phone"
+          required
+          mask={{
+            mask: '+1 (000) 000-0000',
+          }}
+          prefix={<PhoneIcon className="h-5 w-5" />}
+          placeholder="(555) 555-5555"
+        />
+        
+        <Input
+          name="amount"
+          control={form.control}
+          label="Amount"
+          required
+          mask={{
+            mask: Number,
+            scale: 2,
+            signed: false,
+            thousandsSeparator: ',',
+            padFractionalZeros: true,
+            normalizeZeros: true,
+            radix: '.',
+          }}
+          prefix={<CurrencyDollarIcon className="h-5 w-5" />}
+          placeholder="0.00"
+        />
+        
+        <Input
+          name="message"
+          control={form.control}
+          label="Message"
+          type="textarea"
+          autoResize
+          maxLength={500}
+          showCount
+          placeholder="Enter your message here..."
+        />
+        
+        <button
+          type="submit"
+          className="w-full rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+        >
+          Submit Form
+        </button>
+      </div>
+    )
   },
-};
-
-export const AllSizes: Story = {
-  render: (args) => (
-    <div className="flex flex-col gap-4 w-80">
-      <TextField {...args} size="sm" label="Small" placeholder="Small input" />
-      <TextField {...args} size="default" label="Default" placeholder="Default input" />
-      <TextField {...args} size="lg" label="Large" placeholder="Large input" />
-    </div>
-  ),
-};
-
-export const InputTypes: Story = {
-  render: (args) => (
-    <div className="flex flex-col gap-4 w-80">
-      <TextField {...args} type="text" label="Text" placeholder="Enter text" />
-      <TextField {...args} type="email" label="Email" placeholder="Enter email" />
-      <TextField {...args} type="password" label="Password" placeholder="Enter password" />
-      <TextField {...args} type="tel" label="Phone" placeholder="Enter phone number" />
-      <TextField {...args} type="number" label="Number" placeholder="Enter number" />
-    </div>
-  ),
-};
-
-export const AllStates: Story = {
-  render: (args) => (
-    <div className="flex flex-col gap-4 w-80">
-      <TextField {...args} label="Default" placeholder="Default state" />
-      <TextField {...args} label="With Value" placeholder="With value" defaultValue="Sample text" />
-      <TextField {...args} label="Required" placeholder="Required field" required />
-      <TextField {...args} label="With Hint" placeholder="With helper text" hint="This is helper text" />
-      <TextField {...args} label="Disabled" placeholder="Disabled state" disabled />
-      <TextField {...args} label="Error" placeholder="Error state" error errorMessage="This field is required" />
-    </div>
-  ),
-};
+} 

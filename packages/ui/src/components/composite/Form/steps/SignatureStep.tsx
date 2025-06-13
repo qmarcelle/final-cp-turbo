@@ -1,8 +1,6 @@
-"use client";
-
-import { Controller, Control, FieldValues, Path } from 'react-hook-form';
-import { Input } from '../../../foundation/Input';
-import { BaseStepProps } from './BaseStep';
+import { FieldValues, Path } from 'react-hook-form';
+import { Input  } from '../../../foundation/Input';
+import { BaseStepProps } from '../BaseForm';
 
 interface SignatureStepProps<T extends FieldValues> extends BaseStepProps<T> {
   fieldPrefix?: string;
@@ -10,7 +8,6 @@ interface SignatureStepProps<T extends FieldValues> extends BaseStepProps<T> {
   showRepresentativeNote?: boolean;
   title?: string;
   description?: string;
-  control: Control<T>;
 }
 
 export function SignatureStep<T extends FieldValues>({
@@ -34,34 +31,20 @@ export function SignatureStep<T extends FieldValues>({
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Controller
+        <Input<T>
           name={getFieldName('signatureData')}
           control={control}
-          rules={{ required }}
-          render={({ field, fieldState: { error } }) => (
-            <Input 
-              {...field} 
-              label="Signature" 
-              required={required} 
-              placeholder="Type your full name" 
-              error={error?.message}
-            />
-          )}
+          label="Signature"
+          required={required}
+          placeholder="Type your full name"
         />
-        <Controller
+        <Input<T>
           name={getFieldName('date')}
           control={control}
-          rules={{ required }}
-          render={({ field, fieldState: { error } }) => (
-            <Input 
-              {...field} 
-              label="Date" 
-              type="text" 
-              placeholder="MM/DD/YYYY" 
-              required={required} 
-              error={error?.message}
-            />
-          )}
+          label="Date"
+          type="text"
+          placeholder="MM/DD/YYYY"
+          required={required}
         />
       </div>
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { FormLayout  } from '../../composite/FormLayout/FormLayout'
-import type { FormColumnProps } from '../../../types'
+import type { FormColumnProps  } from '../types'
 
 export function FormColumn({
   children,

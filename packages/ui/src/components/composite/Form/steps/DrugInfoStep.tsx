@@ -1,9 +1,7 @@
-"use client";
-
-import { Controller, Control, FieldValues, Path } from 'react-hook-form';
-import { Input } from '../../../foundation/Input';
-import { RadioGroup } from '../../../foundation/Radio';
-import { Checkbox } from '../../../foundation/Checkbox';
+import { FieldValues, Path } from 'react-hook-form';
+import { Input  } from '../../../foundation/Input';
+import { RadioGroup  } from '../../../foundation/Radio';
+import { Checkbox  } from '../../../foundation/Checkbox';
 import { BaseStepProps } from '../BaseForm';
 
 interface DrugInfoStepProps<T extends FieldValues> extends BaseStepProps<T> {
@@ -12,7 +10,6 @@ interface DrugInfoStepProps<T extends FieldValues> extends BaseStepProps<T> {
   showRequestType?: boolean;
   showPurchaseInfo?: boolean;
   showQuantityPerMonth?: boolean;
-  control: Control<T>; 
 }
 
 const requestTypeOptions = [
@@ -42,107 +39,61 @@ export function DrugInfoStep<T extends FieldValues>({
     <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="md:col-span-2">
-          <Controller
+          <Input<T>
             name={getFieldName('name')}
             control={control}
-            rules={{ required: required ? 'Drug name is required' : false }}
-            render={({ field, fieldState: { error } }) => (
-              <Input
-                {...field}
-                label="Drug Name"
-                required={required}
-                error={error?.message}
-              />
-            )}
+            label="Drug Name"
+            required={required}
           />
         </div>
-        <Controller
+        <Input<T>
           name={getFieldName('strength')}
           control={control}
-          rules={{ required: required ? 'Drug strength is required' : false }}
-          render={({ field, fieldState: { error } }) => (
-            <Input
-              {...field}
-              label="Drug Strength"
-              required={required}
-              error={error?.message}
-            />
-          )}
+          label="Drug Strength"
+          required={required}
         />
-        <Controller
+        <Input<T>
           name={getFieldName('quantity')}
           control={control}
-          rules={{ required: required ? 'Quantity is required' : false }}
-          render={({ field, fieldState: { error } }) => (
-            <Input
-              {...field}
-              label="Quantity"
-              required={required}
-              error={error?.message}
-            />
-          )}
+          label="Quantity"
+          required={required}
         />
         {showQuantityPerMonth && (
-          <Controller
+          <Input<T>
             name={getFieldName('quantityPerMonth')}
             control={control}
-            rules={{ required: required ? 'Quantity per month is required' : false }}
-            render={({ field, fieldState: { error } }) => (
-              <Input
-                {...field}
-                label="Quantity Requested per Month"
-                required={required}
-                error={error?.message}
-              />
-            )}
+            label="Quantity Requested per Month"
+            required={required}
           />
         )}
       </div>
 
       {showPurchaseInfo && (
         <div className="space-y-4">
-          <Checkbox<T> 
+          <Checkbox
             name={getFieldName('purchasedPending')}
             control={control}
             label="Have you already purchased this drug?"
           />
-          <Controller
+          <Input<T>
             name={getFieldName('datePurchased')}
             control={control}
-            render={({ field, fieldState: { error } }) => (
-              <Input
-                {...field}
-                type="text"
-                placeholder="MM/DD/YYYY"
-                label="Date Purchased"
-                error={error?.message}
-              />
-            )}
+            type="text"
+            placeholder="MM/DD/YYYY"
+            label="Date Purchased"
           />
-          <Controller
+          <Input<T>
             name={getFieldName('amountPaid')}
             control={control}
-            render={({ field, fieldState: { error } }) => (
-              <Input
-                {...field}
-                type="text"
-                label="Amount Paid"
-                error={error?.message}
-              />
-            )}
+            type="text"
+            label="Amount Paid"
           />
-          <Controller
+          <Input<T>
             name={getFieldName('pharmacyInfo')}
             control={control}
-            render={({ field, fieldState: { error } }) => (
-              <Input
-                {...field}
-                label="Pharmacy Information"
-                type="textarea"
-                placeholder="Please provide the pharmacy name, address, and any other relevant information"
-                error={error?.message}
-              />
-            )}
+            label="Pharmacy Information"
+            type="textarea"
+            placeholder="Please provide the pharmacy name, address, and any other relevant information"
           />
         </div>
       )}

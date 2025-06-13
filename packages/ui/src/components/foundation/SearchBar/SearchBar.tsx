@@ -1,7 +1,6 @@
-import { MagnifyingGlassIcon, XMarkIcon } from '../../../lib/icons'
-import { cn } from '../../../lib/utils'
+import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import clsx from 'clsx'
 import * as React from 'react';
-import { useState, useCallback, useRef } from 'react';
 import { useController, Control, FieldValues, Path } from 'react-hook-form'
 
 export interface SearchSuggestion {
@@ -144,7 +143,7 @@ export function ControlledSearchBar<T extends FieldValues>({
       {label && (
         <label
           htmlFor={name}
-          className="mb-2 block text-sm font-medium text-tertiary-gray-1"
+          className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-200"
           data-cy={`${dataCy || name}-label`}
         >
           {label}
@@ -152,15 +151,15 @@ export function ControlledSearchBar<T extends FieldValues>({
       )}
       <div className="relative">
         <div
-          className={cn(
+          className={clsx(
             'group relative flex rounded-lg shadow-sm',
-            error && 'shadow-status-error/10',
+            error && 'shadow-red-500/10',
             className
           )}
         >
           <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
             <MagnifyingGlassIcon
-              className="h-5 w-5 text-tertiary-gray-3"
+              className="h-5 w-5 text-gray-400"
               aria-hidden="true"
             />
           </div>
@@ -175,10 +174,14 @@ export function ControlledSearchBar<T extends FieldValues>({
             onChange={handleInputChange}
             onFocus={handleInputFocus}
             onBlur={handleInputBlur}
-            className={cn(
-              'block w-full rounded-lg border border-tertiary-gray-4 bg-transparent pl-10 pr-10 text-base/6 text-tertiary-gray-1 placeholder:text-tertiary-gray-3 focus:outline-none focus:ring-2 focus:ring-primary-blue sm:text-sm/6',
-              'hover:border-tertiary-gray-3',
-              error && 'border-status-error'
+            className={clsx(
+              'block w-full rounded-lg pl-10 pr-10',
+              'px-[calc(--spacing(3.5)-1px)] py-[calc(--spacing(2.5)-1px)] sm:px-[calc(--spacing(3)-1px)] sm:py-[calc(--spacing(1.5)-1px)]',
+              'text-base/6 text-zinc-950 placeholder:text-zinc-500 sm:text-sm/6 dark:text-white',
+              'border border-zinc-950/10 data-hover:border-zinc-950/20 dark:border-white/10 dark:data-hover:border-white/20',
+              'bg-transparent dark:bg-white/5',
+              'focus:outline-none focus:ring-2 focus:ring-blue-500',
+              error && 'border-red-500'
             )}
             data-cy={dataCy || name}
           />
@@ -190,7 +193,7 @@ export function ControlledSearchBar<T extends FieldValues>({
               data-cy={`${dataCy || name}-clear`}
             >
               <XMarkIcon
-                className="h-5 w-5 text-tertiary-gray-3 hover:text-tertiary-gray-1"
+                className="h-5 w-5 text-gray-400 hover:text-gray-500"
                 aria-hidden="true"
               />
             </button>
@@ -198,15 +201,15 @@ export function ControlledSearchBar<T extends FieldValues>({
         </div>
         {showSuggestions && (localSuggestions.length > 0 || isLoading) && (
           <div
-            className={cn(
+            className={clsx(
               'absolute z-10 mt-1 w-full overflow-hidden rounded-md',
-              'bg-white shadow-lg',
+              'bg-white shadow-lg dark:bg-zinc-800',
               'text-base ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm'
             )}
             data-cy={`${dataCy || name}-suggestions`}
           >
             {isLoading ? (
-              <div className="px-4 py-2 text-sm text-tertiary-gray-3">
+              <div className="px-4 py-2 text-sm text-gray-500 dark:text-gray-400">
                 Loading...
               </div>
             ) : (
@@ -215,22 +218,22 @@ export function ControlledSearchBar<T extends FieldValues>({
                   <div
                     key={suggestion.id}
                     onClick={() => handleSuggestionClick(suggestion)}
-                    className={cn(
+                    className={clsx(
                       'relative cursor-pointer select-none px-4 py-2',
                       activeSuggestion === index
-                        ? 'bg-secondary-blue-1-accent text-secondary-blue-2'
-                        : 'text-tertiary-gray-1 hover:bg-tertiary-gray-5'
+                        ? 'bg-blue-100 text-blue-900 dark:bg-blue-900 dark:text-blue-100'
+                        : 'text-zinc-950 hover:bg-zinc-50 dark:text-white dark:hover:bg-zinc-700'
                     )}
                     data-cy={`${dataCy || name}-suggestion-${suggestion.id}`}
                   >
                     {suggestion.category && (
-                      <span className="mb-1 block text-xs font-medium text-tertiary-gray-3">
+                      <span className="mb-1 block text-xs font-medium text-zinc-500 dark:text-zinc-400">
                         {suggestion.category}
                       </span>
                     )}
                     <div className="font-medium">{suggestion.label}</div>
                     {suggestion.description && (
-                      <div className="mt-1 text-sm text-tertiary-gray-3">
+                      <div className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
                         {suggestion.description}
                       </div>
                     )}
@@ -239,11 +242,11 @@ export function ControlledSearchBar<T extends FieldValues>({
               </div>
             )}
             {showAdvancedSearch && (
-              <div className="border-t border-tertiary-gray-5 px-4 py-2">
+              <div className="border-t border-zinc-100 px-4 py-2 dark:border-zinc-700">
                 <button
                   type="button"
                   onClick={() => handleSearch(field.value)}
-                  className="text-sm font-medium text-primary-blue hover:text-secondary-blue-2"
+                  className="text-sm font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300"
                   data-cy={`${dataCy || name}-advanced-search`}
                 >
                   Advanced Search
@@ -382,7 +385,7 @@ export function SearchBar({
   return (
     <div className="relative">
       <div
-        className={cn(
+        className={clsx(
           'group relative flex rounded-lg shadow-sm',
           className
         )}
@@ -402,7 +405,7 @@ export function SearchBar({
           onChange={handleInputChange}
           onFocus={handleInputFocus}
           onBlur={handleInputBlur}
-          className={cn(
+          className={clsx(
             'block w-full rounded-lg pl-10 pr-10',
             'px-[calc(--spacing(3.5)-1px)] py-[calc(--spacing(2.5)-1px)] sm:px-[calc(--spacing(3)-1px)] sm:py-[calc(--spacing(1.5)-1px)]',
             'text-base/6 text-zinc-950 placeholder:text-zinc-500 sm:text-sm/6 dark:text-white',
@@ -429,7 +432,7 @@ export function SearchBar({
       </div>
       {showSuggestions && (localSuggestions.length > 0 || isLoading) && (
         <div
-          className={cn(
+          className={clsx(
             'absolute z-10 mt-1 w-full overflow-hidden rounded-md',
             'bg-white shadow-lg dark:bg-zinc-800',
             'text-base ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm'
@@ -446,7 +449,7 @@ export function SearchBar({
                 <div
                   key={suggestion.id}
                   onClick={() => handleSuggestionClick(suggestion)}
-                  className={cn(
+                  className={clsx(
                     'relative cursor-pointer select-none px-4 py-2',
                     activeSuggestion === index
                       ? 'bg-blue-100 text-blue-900 dark:bg-blue-900 dark:text-blue-100'

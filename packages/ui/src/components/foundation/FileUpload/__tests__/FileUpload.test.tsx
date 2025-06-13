@@ -9,24 +9,12 @@ window.URL.createObjectURL = jest.fn(() => 'mock-url');
 window.URL.revokeObjectURL = jest.fn();
 
 // Test component wrapper for FileUpload
-interface TestFileUploadProps {
-  multiple?: boolean;
-  maxSize?: number;
-  maxFiles?: number;
-  accept?: string;
-  onUpload?: (files: File[]) => Promise<void>;
-  disabled?: boolean;
-  required?: boolean;
-  preview?: boolean;
-  validation?: Record<string, any>;
-}
-
-const TestFileUpload: React.FC<TestFileUploadProps> = ({
+const TestFileUpload = ({
   multiple = false,
-  maxSize = 5 * 1024 * 1024, // 5MB default
-  maxFiles = 1,
-  accept = "*",
-  onUpload = async () => {},
+  maxSize,
+  maxFiles,
+  accept,
+  onUpload,
   disabled = false,
   required = false,
   preview = true,
@@ -58,7 +46,7 @@ const TestFileUpload: React.FC<TestFileUploadProps> = ({
 };
 
 // Mock file creation helper
-const createFile = (name: string, size: number, type: string) => {
+const createFile = (name, size, type) => {
   const file = new File(["test-content"], name, { type });
   Object.defineProperty(file, 'size', {
     get() { return size; }

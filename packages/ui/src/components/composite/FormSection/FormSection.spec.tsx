@@ -3,7 +3,7 @@ import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
 import { FormSection  } from '../FormSection'
 import { FormGroup  } from '../FormGroup'
-import { Input  } from '../../foundation/Input/Input'
+import { Input  } from '../../foundation/Input'
 
 describe('FormSection Component', () => {
   it('renders title and description', () => {

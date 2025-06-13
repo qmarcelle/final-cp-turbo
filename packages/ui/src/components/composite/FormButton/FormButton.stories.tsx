@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { FormButton } from './FormButton'
 
 const meta = {
-  title: '🧬 Molecules/FormButton',
+  title: 'Composite/FormButton',
   component: FormButton,
   parameters: {
     layout: 'centered',

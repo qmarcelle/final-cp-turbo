@@ -2,15 +2,14 @@
  * @jest-environment jsdom
  */
 
-import React from 'react'
-import { render, screen } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
-import '@testing-library/jest-dom'
-import { FieldValues, Control } from 'react-hook-form'
-import { z } from 'zod'
-
-import { Input } from '../../Input';
-import type { InputProps } from '..';
+import * as React from 'react';
+import { screen, fireEvent, waitFor, render as rtlRender } from '@testing-library/react';
+import { FormProvider, useForm, Controller } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Input  } from '../../../foundation/Input/Input';
+import type { InputProps } from '../Input';
+import { z } from 'zod';
+import '@testing-library/jest-dom';
 
 // Mock the IMask component to avoid issues with masked input tests
 jest.mock('react-imask', () => ({
@@ -64,36 +63,36 @@ const SimpleInput: React.FC<Partial<InputProps<TestFormValues>>> = (props) => {
 describe('Input Component', () => {
   describe('Basic Rendering', () => {
     it('renders with basic props', () => {
-      render(<SimpleInput />);
+      rtlRender(<SimpleInput />);
       const input = screen.getByLabelText('Test Label');
       expect(input).toBeInTheDocument();
     });
 
     it('handles disabled state', () => {
-      render(<SimpleInput disabled={true} />);
+      rtlRender(<SimpleInput disabled={true} />);
       const input = screen.getByLabelText('Test Label');
       expect(input).toBeDisabled();
     });
 
     it('renders with placeholder', () => {
-      render(<SimpleInput placeholder="Test Placeholder" />);
+      rtlRender(<SimpleInput placeholder="Test Placeholder" />);
       const input = screen.getByPlaceholderText('Test Placeholder');
       expect(input).toBeInTheDocument();
     });
 
     it('applies custom className', () => {
-      const { container } = render(<SimpleInput className="custom-class" />);
+      const { container } = rtlRender(<SimpleInput className="custom-class" />);
       // Check if the component rendered successfully
       expect(container).toBeInTheDocument();
     });
 
     it('handles help text display', () => {
-      render(<SimpleInput helpText="This is help text" />);
+      rtlRender(<SimpleInput helpText="This is help text" />);
       expect(screen.getByText('This is help text')).toBeInTheDocument();
     });
 
     it('handles prefix and suffix correctly', () => {
-      render(<SimpleInput prefix="$" suffix=".00" />);
+      rtlRender(<SimpleInput prefix="$" suffix=".00" />);
       const prefix = screen.getByText('$');
       const suffix = screen.getByText('.00');
       expect(prefix).toBeInTheDocument();
@@ -103,7 +102,7 @@ describe('Input Component', () => {
 
   describe('Form Validation', () => {
     it('shows required field validation', () => {
-      render(
+      rtlRender(
         <SimpleInput
           error="This field is required"
           validation={{ required: true }}
@@ -114,7 +113,7 @@ describe('Input Component', () => {
     });
 
     it('validates email format', () => {
-      render(
+      rtlRender(
         <SimpleInput
           type="email"
           error="Invalid email format"
@@ -125,7 +124,7 @@ describe('Input Component', () => {
     });
 
     it('validates maximum length', () => {
-      render(
+      rtlRender(
         <SimpleInput
           error="Maximum 50 characters allowed"
         />
@@ -137,7 +136,7 @@ describe('Input Component', () => {
 
   describe('Error States', () => {
     it('displays error message and styling', () => {
-      render(
+      rtlRender(
         <SimpleInput 
           error="Custom error message"
         />
@@ -150,7 +149,7 @@ describe('Input Component', () => {
 
   describe('Additional Features', () => {
     it('shows character count', () => {
-      render(<SimpleInput showCount={true} maxLength={10} value="test" />);
+      rtlRender(<SimpleInput showCount={true} maxLength={10} value="test" />);
       
       // Character count should be displayed
       expect(screen.getByText('4/10')).toBeInTheDocument();
@@ -158,7 +157,7 @@ describe('Input Component', () => {
 
     it('handles debounced onChange', () => {
       const onChange = jest.fn();
-      render(<SimpleInput onChange={onChange} debounceMs={100} />);
+      rtlRender(<SimpleInput onChange={onChange} debounceMs={100} />);
       
       const input = screen.getByLabelText('Test Label');
       expect(input).toBeInTheDocument();
@@ -167,7 +166,7 @@ describe('Input Component', () => {
     it('handles masked input', () => {
       // For masked input, we don't pass the mask directly to the DOM element
       // Instead, we mock the IMaskInput component
-      const { container } = render(
+      const { container } = rtlRender(
         <SimpleInput
           mask={{
             mask: '(000) 000-0000'

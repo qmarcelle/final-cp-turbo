@@ -1,11 +1,12 @@
 import React from 'react'
-import { useForm, Controller, Control } from 'react-hook-form'
+import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { Input  } from '../../foundation/Input/Input'
-import { TextArea  } from '../../foundation/TextArea'
-import { FormLayout  } from '../../composite/FormLayout'
-import { FormField  } from '../../composite/FormField'
+import { TextArea  } from '../../foundation/TextArea/TextArea'
+import { FormLayout  } from '../../composite/FormLayout/FormLayout'
+import { FormField  } from '../../composite/FormField/FormField'
+import type { TypedControl  } from '../../../utils/../types/form'
 import { cn } from '../../../utils/cn'
 
 const beneficiarySchema = z.object({
@@ -50,7 +51,7 @@ export function MedicareRedeterminationForm() {
     console.log(data)
   }
 
-  const control = methods.control as Control<RedeterminationFormData>
+  const control = methods.control as TypedControl<RedeterminationFormData>
 
   return (
     <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-6">

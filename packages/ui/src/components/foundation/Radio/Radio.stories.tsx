@@ -1,7 +1,7 @@
 import React from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
 import { Radio, RadioGroup } from './Radio'
-import type { RadioOption } from '../../../types'
+import type { RadioOption } from './Radio'
 import { useForm, FormProvider } from 'react-hook-form'
 
 // Create a wrapper component to provide form context with better styling
@@ -60,45 +60,13 @@ const RadioGroupWithForm = (props: any) => {
 }
 
 const meta: Meta<typeof RadioWithForm> = {
-  title: '⚛️ Atoms/Radio',
+  title: 'Foundation/Radio',
   component: RadioWithForm,
   parameters: {
     layout: 'centered',
     docs: {
       description: {
-        component: `
-# 🔘 Radio Component
-
-A modern, accessible radio component that integrates with React Hook Form. Supports single radio buttons and radio button groups.
-
-## Features
-- **Accessibility**: Full ARIA support with proper labeling
-- **Form Integration**: Works seamlessly with React Hook Form
-- **Validation**: Error states and required field indicators
-- **Flexibility**: Single radio or grouped options
-- **Design System**: Uses design tokens for consistent styling
-
-## Usage
-\`\`\`tsx
-<Radio 
-  name="agreement"
-  control={control}
-  label="I agree to the terms"
-  value="agree"
-  required
-/>
-
-<RadioGroup 
-  name="paymentMethod"
-  control={control}
-  label="Payment Method"
-  options={[
-    { value: 'credit', label: 'Credit Card' },
-    { value: 'debit', label: 'Debit Card' }
-  ]}
-/>
-\`\`\`
-        `
+        component: 'A modern, accessible radio component that integrates with React Hook Form. Supports single radio buttons and radio button groups.'
       }
     }
   },
@@ -312,4 +280,4 @@ export const RadioGroupWithValidationError: StoryObj<typeof RadioGroupWithForm> 
       </FormProvider>
     )
   },
-}
+} 

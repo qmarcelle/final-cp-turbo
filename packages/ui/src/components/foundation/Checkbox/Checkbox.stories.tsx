@@ -1,276 +1,329 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { Checkbox } from './Checkbox';
-import type { CheckboxProps } from '../../../types';
-import { useState } from 'react';
-import * as React from 'react';
+import React from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
+import { useForm, FormProvider } from 'react-hook-form'
+import { Checkbox } from './Checkbox'
 
-const meta: Meta<typeof Checkbox> = {
-  title: '⚛️ Atoms/Checkbox',
+// Create a wrapper component to provide form context with better styling
+const FormWrapper = ({ 
+  children,
+  defaultValues = { checkbox: false },
+  title,
+  description,
+}: {
+  children: React.ReactNode,
+  defaultValues?: Record<string, any>,
+  title?: string,
+  description?: string
+}) => {
+  const methods = useForm({ defaultValues })
+  return (
+    <FormProvider {...methods}>
+      <div className="storybook-form-container">
+        {title && <h3 className="text-lg font-medium text-neutral-800 mb-4">{title}</h3>}
+        {children}
+        {description && <p className="text-sm text-neutral-600 mt-4">{description}</p>}
+      </div>
+    </FormProvider>
+  )
+}
+
+// Define the type for the Checkbox stories
+// This separates story-specific props from component props
+type CheckboxStoryProps = {
+  defaultChecked?: boolean;
+  storyTitle?: string;
+  description?: string;
+}
+
+const meta = {
+  title: 'Foundation/Checkbox',
   component: Checkbox,
   parameters: {
     layout: 'centered',
     docs: {
       description: {
-        component: `
-# ✅ Checkbox Component
-
-A fully accessible checkbox component with support for controlled and uncontrolled states, validation, and custom styling.
-
-## Features
-- **Accessibility**: Full ARIA support with proper labeling
-- **Validation**: Error states and required field indicators  
-- **Flexibility**: Works with or without form libraries
-- **Design System**: Uses design tokens for consistent styling
-- **States**: Support for checked, unchecked, indeterminate, and disabled states
-
-## Usage
-\`\`\`tsx
-<Checkbox 
-  label="I agree to the terms and conditions"
-  checked={checked}
-  onChange={setChecked}
-  required
-/>
-\`\`\`
-        `
+        component: 'A modern, accessible checkbox component that integrates with React Hook Form. Supports various states including indeterminate.'
       }
+    },
+    // Controls for specific story props that shouldn't be passed to component
+    controls: {
+      exclude: ['defaultChecked', 'storyTitle', 'description']
     }
   },
+  tags: ['autodocs'],
   argTypes: {
-    checked: {
-      control: 'boolean',
-      description: 'Whether the checkbox is checked'
+    name: {
+      control: 'text',
+      description: 'The name of the form field',
+      defaultValue: 'checkbox'
     },
-    disabled: {
-      control: 'boolean',
-      description: 'Whether the checkbox is disabled'
-    },
-    indeterminate: {
-      control: 'boolean',
-      description: 'Whether the checkbox is in an indeterminate state'
-    },
-    label: {
+    label: { 
       control: 'text',
       description: 'The label text for the checkbox'
     },
+    required: { 
+      control: 'boolean',
+      description: 'Whether the field is required'
+    },
+    disabled: { 
+      control: 'boolean',
+      description: 'Whether the field is disabled'
+    },
+    indeterminate: { 
+      control: 'boolean', 
+      description: 'Whether the checkbox is in an indeterminate state'
+    },
+    className: { 
+      control: 'text',
+      description: 'Additional classes to apply to the component'
+    },
     hint: {
       control: 'text',
-      description: 'Optional hint text displayed below the label'
-    },
-    required: {
-      control: 'boolean',
-      description: 'Whether the checkbox is required (shows asterisk)'
-    },
+      description: 'Hint text to display below the checkbox'
+    }
   },
-  args: {
-    label: 'I agree to the terms and conditions',
-    checked: false,
-    disabled: false,
-    indeterminate: false,
-    required: false,
-    hint: '',
-  },
-}
+} satisfies Meta<typeof Checkbox>
 
 export default meta
-type Story = StoryObj<typeof Checkbox>
+type Story = StoryObj<typeof Checkbox>;
 
+// Basic checkbox story
 export const Default: Story = {
-  render: (args: CheckboxProps) => {
-    const [checked, setChecked] = useState(args.checked || false)
-    return (
-      <div className="p-4">
-        <Checkbox 
-          {...args} 
-          checked={checked} 
-          onChange={(value) => setChecked(value === true)}
-        />
-      </div>
-    )
+  decorators: [
+    (Story) => (
+      <FormWrapper 
+        title="Default Checkbox"
+        description="Basic unchecked checkbox with a label"
+      >
+        <Story />
+      </FormWrapper>
+    ),
+  ],
+  args: {
+    name: 'acceptTerms',
+    label: 'Accept terms and conditions',
   },
 }
 
+// Checked checkbox story
 export const Checked: Story = {
-  args: {
-    checked: true,
-    label: 'Checked by default'
-  },
-  render: (args: CheckboxProps) => {
-    const [checked, setChecked] = useState(args.checked || false)
-    return (
-      <div className="p-4">
-        <Checkbox 
-          {...args} 
-          checked={checked} 
-          onChange={(value) => setChecked(value === true)}
-        />
-      </div>
-    )
-  },
-}
-
-export const Disabled: Story = {
-  args: {
-    disabled: true,
-    label: 'Disabled checkbox'
-  },
-  render: (args: CheckboxProps) => {
-    const [checked, setChecked] = useState(args.checked || false)
-    return (
-      <div className="p-4">
-        <Checkbox 
-          {...args} 
-          checked={checked} 
-          onChange={(value) => setChecked(value === true)}
-        />
-      </div>
-    )
-  },
-}
-
-export const Indeterminate: Story = {
-  args: {
-    indeterminate: true,
-    label: 'Indeterminate state'
-  },
-  render: (args: CheckboxProps) => {
-    const [checked, setChecked] = useState(args.checked || false)
-    return (
-      <div className="p-4">
-        <Checkbox 
-          {...args} 
-          checked={checked} 
-          onChange={(value) => setChecked(value === true)}
-        />
-      </div>
-    )
-  },
-}
-
-export const WithHint: Story = {
-  args: {
-    label: 'Send me email notifications',
-    hint: 'You can change this setting later in your preferences'
-  },
-  render: (args: CheckboxProps) => {
-    const [checked, setChecked] = useState(args.checked || false)
-    return (
-      <div className="p-4">
-        <Checkbox 
-          {...args} 
-          checked={checked} 
-          onChange={(value) => setChecked(value === true)}
-        />
-      </div>
-    )
-  },
-}
-
-export const Required: Story = {
-  args: {
-    required: true,
-    label: 'I accept the privacy policy'
-  },
-  render: (args: CheckboxProps) => {
-    const [checked, setChecked] = useState(args.checked || false)
-    return (
-      <div className="p-4">
-        <Checkbox 
-          {...args} 
-          checked={checked} 
-          onChange={(value) => setChecked(value === true)}
-        />
-      </div>
-    )
-  },
-}
-
-export const AllStates: Story = {
-  render: () => (
-    <div className="space-y-6 p-4">
-      <h3 className="text-lg font-semibold text-tertiary-gray1 mb-4">All Checkbox States</h3>
+  decorators: [
+    (Story) => {
+      const methods = useForm({
+        defaultValues: { acceptTerms: true }
+      })
       
-      <div className="space-y-4">
-        <Checkbox label="✅ Unchecked" checked={false} onChange={() => {}} />
-        <Checkbox label="✅ Checked" checked={true} onChange={() => {}} />
-        <Checkbox label="⚡ Indeterminate" indeterminate={true} onChange={() => {}} />
-        <Checkbox label="🚫 Disabled unchecked" disabled checked={false} onChange={() => {}} />
-        <Checkbox label="🚫 Disabled checked" disabled checked={true} onChange={() => {}} />
-        <Checkbox label="⭐ Required with hint" required hint="This field is required for account creation" checked={false} onChange={() => {}} />
-      </div>
-    </div>
-  ),
+      return (
+        <FormProvider {...methods}>
+          <div className="storybook-form-container">
+            <h3 className="text-lg font-medium text-neutral-800 mb-4">Checked Checkbox</h3>
+            <Story />
+            <p className="text-sm text-neutral-600 mt-4">Checkbox in a checked state</p>
+          </div>
+        </FormProvider>
+      )
+    },
+  ],
+  args: {
+    name: 'acceptTerms',
+    label: 'Accept terms and conditions',
+  },
 }
 
-export const InteractiveExample: Story = {
-  render: () => {
-    const [preferences, setPreferences] = useState({
-      emails: false,
-      newsletters: true,
-      updates: false,
-      terms: false
-    });
+// Checkbox with hint text
+export const WithHint: Story = {
+  decorators: [
+    (Story) => (
+      <FormWrapper 
+        title="Checkbox with Hint Text"
+        description="Checkbox with additional hint text for clarification"
+      >
+        <Story />
+      </FormWrapper>
+    ),
+  ],
+  args: {
+    name: 'newsletter',
+    label: 'Subscribe to newsletter',
+    hint: 'We will send you updates about our products',
+  },
+}
 
-    const handleChange = (key: keyof typeof preferences) => (checked: boolean | 'indeterminate') => {
-      setPreferences(prev => ({ ...prev, [key]: checked === true }));
-    };
+// Required checkbox
+export const Required: Story = {
+  decorators: [
+    (Story) => (
+      <FormWrapper 
+        title="Required Checkbox"
+        description="Required checkbox with a visual indicator (*)"
+      >
+        <Story />
+      </FormWrapper>
+    ),
+  ],
+  args: {
+    name: 'acceptTerms',
+    label: 'Accept terms and conditions',
+    required: true,
+  },
+}
 
-    const allSelected = Object.values(preferences).every(Boolean);
-    const someSelected = Object.values(preferences).some(Boolean);
+// Disabled checkbox
+export const Disabled: Story = {
+  decorators: [
+    (Story) => (
+      <FormWrapper 
+        title="Disabled Checkbox"
+        description="Checkbox in a disabled state"
+      >
+        <Story />
+      </FormWrapper>
+    ),
+  ],
+  args: {
+    name: 'acceptTerms',
+    label: 'Accept terms and conditions',
+    disabled: true,
+  },
+}
 
-    return (
-      <div className="p-6 bg-white border rounded-lg shadow-sm max-w-md">
-        <h3 className="text-lg font-semibold text-tertiary-gray1 mb-4">📧 Email Preferences</h3>
-        
-        <div className="space-y-4 mb-4">
-          <Checkbox
-            label="Select All"
-            checked={allSelected}
-            indeterminate={someSelected && !allSelected}
-            onChange={(checked) => {
-              const newState = Object.keys(preferences).reduce((acc, key) => ({
-                ...acc, [key]: checked === true
-              }), {} as typeof preferences);
-              setPreferences(newState);
-            }}
-          />
-          
-          <hr className="divider" />
-          
-          <Checkbox
-            label="📬 Marketing emails"
-            checked={preferences.emails}
-            onChange={handleChange('emails')}
-            hint="Receive promotional offers and product updates"
-          />
-          
-          <Checkbox
-            label="📰 Weekly newsletter"
-            checked={preferences.newsletters}
-            onChange={handleChange('newsletters')}
-            hint="Stay updated with our weekly digest"
-          />
-          
-          <Checkbox
-            label="🔔 Product updates"
-            checked={preferences.updates}
-            onChange={handleChange('updates')}
-            hint="Get notified about new features and improvements"
-          />
-          
-          <Checkbox
-            label="📋 Terms and conditions"
-            required
-            checked={preferences.terms}
-            onChange={handleChange('terms')}
-            hint="Required to use our services"
-          />
-        </div>
-        
-        <div className="text-sm text-tertiary-gray3 mt-4 p-3 bg-tertiary-gray5 rounded">
-          <strong>Current selection:</strong> {Object.entries(preferences).filter(([_, value]) => value).map(([key]) => key).join(', ') || 'None'}
-        </div>
-      </div>
-    );
-  }
-};
+// Disabled and checked checkbox
+export const DisabledChecked: Story = {
+  decorators: [
+    (Story) => {
+      const methods = useForm({
+        defaultValues: { acceptTerms: true }
+      })
+      
+      return (
+        <FormProvider {...methods}>
+          <div className="storybook-form-container">
+            <h3 className="text-lg font-medium text-neutral-800 mb-4">Disabled and Checked</h3>
+            <Story />
+            <p className="text-sm text-neutral-600 mt-4">Checkbox that is both disabled and checked</p>
+          </div>
+        </FormProvider>
+      )
+    },
+  ],
+  args: {
+    name: 'acceptTerms',
+    label: 'Accept terms and conditions',
+    disabled: true,
+  },
+}
+
+// Indeterminate checkbox
+export const Indeterminate: Story = {
+  decorators: [
+    (Story) => (
+      <FormWrapper 
+        title="Indeterminate Checkbox"
+        description="Checkbox in an indeterminate state, indicating a partial selection"
+      >
+        <Story />
+      </FormWrapper>
+    ),
+  ],
+  args: {
+    name: 'selectAll',
+    label: 'Select all items',
+    indeterminate: true,
+  },
+}
+
+// Checkbox with validation error
+export const WithValidationError: Story = {
+  decorators: [
+    (Story) => {
+      const methods = useForm({
+        defaultValues: { acceptTerms: false },
+        mode: 'onChange',
+      })
+      
+      methods.setError('acceptTerms', {
+        type: 'required',
+        message: 'You must accept the terms and conditions'
+      })
+      
+      return (
+        <FormProvider {...methods}>
+          <div className="storybook-form-container">
+            <h3 className="text-lg font-medium text-neutral-800 mb-4">Checkbox with Validation Error</h3>
+            <Story />
+            <p className="text-sm text-neutral-600 mt-4">Checkbox displaying a validation error message</p>
+          </div>
+        </FormProvider>
+      )
+    },
+  ],
+  args: {
+    name: 'acceptTerms',
+    label: 'Accept terms and conditions',
+    required: true,
+  },
+}
+
+// Group of checkboxes
+export const GroupOfCheckboxes: Story = {
+  decorators: [
+    (Story) => {
+      const methods = useForm({
+        defaultValues: {
+          notification_email: true,
+          notification_sms: false,
+          notification_push: false,
+        }
+      })
+      
+      return (
+        <FormProvider {...methods}>
+          <div className="storybook-form-container">
+            <h3 className="text-lg font-medium text-neutral-800 mb-4">Group of Checkboxes</h3>
+            <fieldset className="space-y-3 border border-neutral-200 rounded-md p-4">
+              <legend className="text-sm font-medium text-neutral-700 px-2">
+                Notification preferences
+              </legend>
+              <Checkbox 
+                name="notification_email" 
+                label="Email notifications" 
+                control={methods.control} 
+              />
+              <Checkbox 
+                name="notification_sms" 
+                label="SMS notifications" 
+                control={methods.control} 
+              />
+              <Checkbox 
+                name="notification_push" 
+                label="Push notifications" 
+                control={methods.control} 
+                hint="Receive notifications on your device" 
+              />
+            </fieldset>
+            <p className="text-sm text-neutral-600 mt-4">Multiple checkboxes in a group</p>
+          </div>
+        </FormProvider>
+      )
+    },
+  ],
+  args: {}, // No args needed since we define everything in the decorator
+}
+
+// Checkbox with long label
+export const WithLongLabel: Story = {
+  decorators: [
+    (Story) => (
+      <FormWrapper 
+        title="Checkbox with Long Label"
+        description="Checkbox with a long label that wraps to multiple lines"
+      >
+        <Story />
+      </FormWrapper>
+    ),
+  ],
+  args: {
+    name: 'marketing',
+    label: 'I agree to receive marketing communications and understand I can unsubscribe at any time by clicking the link in the footer of any email.',
+  },
+}

@@ -1,11 +1,29 @@
+import { CheckIcon } from '@heroicons/react/24/outline'
 import { cn } from '../../../utils/cn'
-import { CheckIcon } from '../../../lib/icons'
 import * as React from 'react';
-import { useState, useCallback } from 'react';
-import { DefaultValues, FieldValues, useForm } from 'react-hook-form'
+import { Control, DefaultValues, FieldValues, useForm } from 'react-hook-form'
+import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { FormProvider } from '../FormContext/FormContext'
-import type { FormStepperProps } from '../../../types'
+
+export interface Step<T extends FieldValues> {
+  id: string
+  title: string
+  description?: string
+  shortLabel?: string
+  component: (props: { control: Control<T> }) => React.ReactNode
+  schema: z.ZodType<T>
+  isOptional?: boolean
+}
+
+export interface FormStepperProps<T extends FieldValues> {
+  steps: Step<T>[]
+  currentStep?: number
+  onStepChange?: (step: number) => void
+  onComplete?: (data: T) => void | Promise<void>
+  className?: string
+  'data-cy'?: string
+}
 
 export function FormStepper<T extends FieldValues>({
   steps,

@@ -1,9 +1,24 @@
-import { XMarkIcon } from '../../../lib/icons'
+import { XMarkIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
 import * as React from 'react';
-import { useState, useCallback, useRef } from 'react';
 import { useController, Control, FieldValues, Path } from 'react-hook-form'
-import type { Tag, TagInputProps } from '../../../types'
+
+export interface Tag {
+  id: string
+  label: string
+}
+
+export interface TagInputProps<T extends FieldValues = FieldValues> {
+  name: Path<T>
+  control: Control<T>
+  label?: string
+  className?: string
+  placeholder?: string
+  suggestions?: Tag[]
+  maxTags?: number
+  validation?: Record<string, any>
+  'data-cy'?: string
+}
 
 function generateId(): string {
   return Math.random().toString(36).substring(2) + Date.now().toString(36)

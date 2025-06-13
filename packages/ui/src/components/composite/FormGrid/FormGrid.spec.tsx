@@ -2,8 +2,31 @@ import React from 'react'
 import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
 import { FormGrid  } from '../FormGrid'
+import { useForm, FormProvider } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
+import type { FormFieldValues  } from '../../../utils/../types/form'
+
+const schema = z.object({
+  firstName: z.string(),
+  lastName: z.string(),
+})
+
+type FormData = z.infer<typeof schema>
 
 describe('FormGrid Component', () => {
+  const renderWithForm = (children: React.ReactNode) => {
+    const methods = useForm<FormData>({
+      resolver: zodResolver(schema)
+    })
+    
+    return render(
+      <FormProvider {...methods}>
+        {children}
+      </FormProvider>
+    )
+  }
+
   it('renders children correctly', () => {
     render(
       <FormGrid data-cy="test-grid">

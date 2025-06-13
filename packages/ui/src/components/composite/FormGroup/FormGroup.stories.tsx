@@ -5,7 +5,7 @@ import { Input  } from '../../foundation/Input'
 import { TextArea  } from '../../foundation/TextArea'
 
 const meta = {
-  title: '🧬 Molecules/FormGroup',
+  title: 'Composite/FormGroup',
   component: FormGroup,
   parameters: {
     layout: 'centered',

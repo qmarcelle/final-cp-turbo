@@ -5,7 +5,7 @@ import { FormGroup  } from '../FormGroup'
 import { Input  } from '../../foundation/Input'
 
 const meta = {
-  title: '📐 Layout/FormGrid',
+  title: 'Composite/FormGrid',
   component: FormGrid,
   parameters: {
     layout: 'centered',

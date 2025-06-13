@@ -1,8 +1,8 @@
 'use client'
 
 import * as React from 'react';
-import { createContext, useContext } from 'react';
-import { UseFormReturn, FieldValues, Path, RegisterOptions } from 'react-hook-form'
+import { useForm, UseFormReturn, FieldValues, Path, RegisterOptions, DefaultValues } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { FormProvider as RHFFormProvider } from 'react-hook-form'
 
@@ -12,6 +12,8 @@ interface FormContextProps<T extends FieldValues = FieldValues> {
 }
 
 const FormContext = createContext<FormContextProps<FieldValues> | undefined>(undefined)
+
+const defaultSchema = z.object({}) as z.ZodType<FieldValues>
 
 export interface FormProviderProps<T extends FieldValues> extends UseFormReturn<T> {
   children: React.ReactNode

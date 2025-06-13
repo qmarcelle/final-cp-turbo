@@ -5,7 +5,7 @@ import { Button  } from '../../foundation/Button'
 import type { FormActionsProps } from './FormActions'
 
 const meta = {
-  title: '🦠 Organisms/FormActions',
+  title: 'Composite/FormActions',
   component: FormActions as any,
   parameters: {
     layout: 'padded',
