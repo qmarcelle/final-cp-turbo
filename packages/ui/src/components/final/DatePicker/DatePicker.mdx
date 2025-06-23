@@ -1,0 +1,181 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
+import { DatePicker } from './DatePicker';
+
+<Meta title="Molecules/DatePicker/Documentation" component={DatePicker} />
+
+# DatePicker
+
+The DatePicker component is a versatile date selection input that supports both single date and date range selection, with optional time selection capabilities.
+
+## Features
+
+- Single date selection
+- Date range selection
+- Optional time selection
+- Form integration with React Hook Form
+- Keyboard navigation
+- Accessibility support
+- Date constraints (min/max dates, disabled dates)
+- Custom date formatting
+- Error and hint messages
+
+## Usage
+
+```tsx
+import { DatePicker } from '@/components/molecules/DatePicker';
+
+// Basic usage
+function MyComponent() {
+  return <DatePicker placeholder="Select a date" />;
+}
+
+// With form integration
+function MyForm() {
+  const { control } = useForm();
+  return (
+    <DatePicker
+      name="eventDate"
+      control={control}
+      label="Event Date"
+      required
+    />
+  );
+}
+
+// Date range selection
+function DateRangeSelector() {
+  return (
+    <DatePicker
+      mode="range"
+      label="Select Dates"
+      placeholder="Choose start and end dates"
+    />
+  );
+}
+
+// With time selection
+function TimeSelector() {
+  return (
+    <DatePicker
+      showTime
+      timeFormat="12h"
+      label="Appointment Time"
+      placeholder="Select date and time"
+    />
+  );
+}
+
+// With date constraints
+function ConstrainedDatePicker() {
+  return (
+    <DatePicker
+      label="Booking Date"
+      minDate={new Date()}
+      maxDate={addDays(new Date(), 30)}
+      disabledDaysOfWeek={[0, 6]} // Disable weekends
+      placeholder="Select a date"
+    />
+  );
+}
+```
+
+## Props
+
+<ArgsTable of={DatePicker} />
+
+## Examples
+
+### Default
+
+<Canvas>
+  <Story id="molecules-datepicker--default" />
+</Canvas>
+
+### With Label
+
+<Canvas>
+  <Story id="molecules-datepicker--with-label" />
+</Canvas>
+
+### With Error
+
+<Canvas>
+  <Story id="molecules-datepicker--with-error" />
+</Canvas>
+
+### With Hint
+
+<Canvas>
+  <Story id="molecules-datepicker--with-hint" />
+</Canvas>
+
+### Date Range Selection
+
+<Canvas>
+  <Story id="molecules-datepicker--with-date-range" />
+</Canvas>
+
+### Time Selection
+
+<Canvas>
+  <Story id="molecules-datepicker--with-time-selection" />
+</Canvas>
+
+### With Date Constraints
+
+<Canvas>
+  <Story id="molecules-datepicker--with-date-constraints" />
+</Canvas>
+
+## Accessibility
+
+The DatePicker component follows WAI-ARIA guidelines for accessibility:
+
+- Keyboard navigation support
+- ARIA labels and roles
+- Focus management
+- Screen reader support
+
+### Keyboard Navigation
+
+- `Tab`: Focus the date picker button
+- `Enter` or `Space`: Open/close the calendar popover
+- `Arrow keys`: Navigate between dates in the calendar
+- `Enter`: Select the focused date
+- `Escape`: Close the calendar popover
+
+## Design Tokens
+
+The DatePicker uses the following design tokens:
+
+- Colors:
+  - Primary color for selected dates
+  - Neutral colors for calendar background and text
+  - Error color for validation messages
+- Typography:
+  - Font sizes for labels, dates, and messages
+  - Font weights for various elements
+- Spacing:
+  - Padding and margins for consistent layout
+  - Gap between elements
+- Border radius:
+  - Rounded corners for buttons and calendar
+- Shadows:
+  - Drop shadow for the calendar popover
+
+## Best Practices
+
+1. Always provide a clear label that describes the expected input
+2. Use placeholder text to provide additional context if needed
+3. Include validation messages when appropriate
+4. Consider date constraints based on business logic
+5. Test keyboard navigation and screen reader compatibility
+6. Ensure proper form validation when used in forms
+7. Use appropriate date formats for your locale
+
+## Related Components
+
+- Input: Base text input component
+- Form: Container for form elements
+- FormField: Wrapper for form inputs with labels
+- Popover: Used for the calendar dropdown 

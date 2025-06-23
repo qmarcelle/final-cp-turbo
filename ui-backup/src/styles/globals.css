@@ -1,0 +1,256 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ================================
+   Design System CSS Custom Properties
+   ================================ */
+
+:root {
+  /* Primary Colors */
+  --color-primary-blue: #005eb9;
+  --color-primary-blue-inactive: #7faedc;
+
+  /* Secondary Colors */
+  --color-secondary-blue-1: #5dc1fd;
+  --color-secondary-blue-1-accent: #e7f6ff;
+  --color-secondary-blue-2: #00497e;
+  --color-secondary-blue-3: #067dac;
+  --color-secondary-blue-3-accent: #008cc9;
+
+  /* Tertiary Colors (Grays) */
+  --color-tertiary-gray-1: #333333;
+  --color-tertiary-gray-3: #737373;
+  --color-tertiary-gray-4: #cccccc;
+  --color-tertiary-gray-5: #f2f2f2;
+  --color-tertiary-gray-6: #fafafa;
+
+  /* Status Colors */
+  --color-status-error: #eb001b;
+  --color-status-success: #508316;
+  --color-status-warning: #f5a623;
+
+  /* Label Colors */
+  --color-label-success: #e2f0d3;
+  --color-label-error: #efdddf;
+  --color-label-warning: #fff3cd;
+  --color-label-neutral: #f2f2f2;
+
+  /* Base Colors */
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  /* Spacing Scale */
+  --spacing-xxs: 4px;
+  --spacing-xs: 8px;
+  --spacing-sm: 12px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-xxl: 48px;
+  --spacing-xxxl: 64px;
+
+  /* Typography */
+  --font-family-light: 'Univers-45', Arial, sans-serif;
+  --font-family-regular: 'Univers-55', Arial, sans-serif;
+  --font-family-bold: 'Univers-65', Arial, sans-serif;
+
+  /* Shadows */
+  --shadow-elevated: 0px 1px 16px 0px rgba(0, 73, 126, 0.32);
+  --shadow-card:
+    0px 1px 4px 0px rgba(0, 73, 126, 0.24),
+    0px 1px 8px 0px rgba(0, 73, 126, 0.16);
+  --shadow-focus-blue: 0px 0px 0px 3px rgba(0, 144, 237, 0.4);
+
+  /* Z-index layers */
+  --z-dropdown: 1000;
+  --z-modal: 1100;
+  --z-tooltip: 1200;
+
+  /* New Radix UI Compatible Variables */
+  
+  /* Border Radius */
+  --radius-sm: 0.125rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-full: 9999px;
+
+  /* Animation */
+  --duration-fast: 150ms;
+  --duration-normal: 200ms;
+  --duration-slow: 300ms;
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+
+  /* Ring */
+  --ring-offset: var(--color-white);
+  --ring-color: var(--color-primary-blue);
+  --ring-width: 2px;
+  --ring-offset-width: 2px;
+
+  /* Navigation Specific */
+  --nav-height: 4rem;
+  --nav-height-mobile: 3.5rem;
+  --nav-item-height: 2.5rem;
+  --nav-gap: 0.5rem;
+
+  /* Component States */
+  --state-hover-opacity: 0.8;
+  --state-active-opacity: 0.7;
+  --state-disabled-opacity: 0.5;
+
+  /* Z-index Refinements */
+  --z-negative: -1;
+  --z-0: 0;
+  --z-10: 10;
+  --z-20: 20;
+  --z-30: 30;
+  --z-40: 40;
+  --z-50: 50;
+  --z-popover: 1000;
+  --z-navigation: 1100;
+  --z-overlay: 1200;
+  --z-modal: 1300;
+  --z-toast: 1400;
+  --z-tooltip: 1500;
+
+  /* Semantic Color Mappings */
+  --color-background: var(--color-white);
+  --color-foreground: var(--color-tertiary-gray-1);
+  --color-muted: var(--color-tertiary-gray-5);
+  --color-muted-foreground: var(--color-tertiary-gray-3);
+  --color-card: var(--color-white);
+  --color-card-foreground: var(--color-tertiary-gray-1);
+  --color-popover: var(--color-white);
+  --color-popover-foreground: var(--color-tertiary-gray-1);
+  --color-border: var(--color-tertiary-gray-4);
+  --color-input: var(--color-white);
+  --color-input-foreground: var(--color-tertiary-gray-1);
+  --color-focus: var(--color-primary-blue);
+  --color-focus-visible: var(--color-primary-blue);
+  --color-accent: var(--color-secondary-blue-1-accent);
+  --color-accent-foreground: var(--color-primary-blue);
+}
+
+/* Dark Mode Overrides - Prepare for future dark mode support */
+.dark {
+  --color-background: var(--color-tertiary-gray-1);
+  --color-foreground: var(--color-tertiary-gray-6);
+  --color-muted: var(--color-tertiary-gray-3);
+  --color-muted-foreground: var(--color-tertiary-gray-5);
+  --color-card: var(--color-tertiary-gray-1);
+  --color-card-foreground: var(--color-tertiary-gray-6);
+  --color-popover: var(--color-tertiary-gray-1);
+  --color-popover-foreground: var(--color-tertiary-gray-6);
+  --color-border: var(--color-tertiary-gray-3);
+  --color-input: var(--color-tertiary-gray-1);
+  --color-input-foreground: var(--color-tertiary-gray-6);
+  --color-accent: var(--color-secondary-blue-3);
+  --color-accent-foreground: var(--color-white);
+}
+
+/* ================================
+   Font Face Declarations
+   ================================ */
+
+@font-face {
+  font-family: 'Univers-45';
+  src: url('/styles/UniversLTPro-45Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Univers-55';
+  src: url('/styles/UniversLTPro-55Roman.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Univers-65';
+  src: url('/styles/UniversLTPro-65Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ================================
+   Base Styles
+   ================================ */
+
+body {
+  font-family: var(--font-family-regular);
+  line-height: 1.6;
+  color: var(--color-foreground);
+  background-color: var(--color-background);
+}
+
+/* Improve default focus styles */
+:focus-visible {
+  outline: var(--ring-width) solid var(--color-focus-visible);
+  outline-offset: var(--ring-offset-width);
+}
+
+/* Smooth scrolling for the whole page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Remove default focus outline for mouse users */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Component Base Styles */
+@layer components {
+  .nav-container {
+    height: var(--nav-height);
+    @apply relative flex items-center;
+    @apply bg-background border-b border-border;
+    @screen md {
+      height: var(--nav-height);
+    }
+  }
+
+  .nav-content {
+    @apply container mx-auto px-4;
+    @apply flex items-center justify-between;
+  }
+
+  .nav-item {
+    height: var(--nav-item-height);
+    @apply flex items-center px-4;
+    @apply text-sm font-medium;
+    @apply transition-colors duration-normal ease-in-out;
+    @apply rounded-md;
+    @apply hover:bg-muted/80;
+    @apply focus-visible:outline-none focus-visible:ring-2;
+    @apply focus-visible:ring-focus focus-visible:ring-offset-2;
+  }
+}
+
+/* Utility Classes */
+@layer utilities {
+  .text-shadow {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  .transition-fast {
+    transition-duration: var(--duration-fast);
+    transition-timing-function: var(--ease-out);
+  }
+
+  .transition-normal {
+    transition-duration: var(--duration-normal);
+    transition-timing-function: var(--ease-in-out);
+  }
+
+  .transition-slow {
+    transition-duration: var(--duration-slow);
+    transition-timing-function: var(--ease-in-out);
+  }
+}

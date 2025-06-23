@@ -1,51 +1,70 @@
-import type { StorybookConfig } from '@storybook/react-vite'
+import type { StorybookConfig } from '@storybook/nextjs-vite'
 import path from 'path'
+import tailwindConfig from '../../../packages/ui/tailwind.config.js'
+import { loadEnv } from 'vite'
 
 const config: StorybookConfig = {
   stories: [
-    // Import stories from the built UI package
-    '../../../packages/ui/src/**/*.stories.@(js|jsx|ts|tsx|mdx)',
-    // Also include any local stories
-    '../src/**/*.stories.@(js|jsx|ts|tsx|mdx)',
+    '../../../packages/ui/src/components/final/Demo/**/*.mdx',
+    '../../../packages/ui/src/components/final/Demo/**/*.stories.@(js|jsx|ts|tsx)'
   ],
 
   staticDirs: ['../public'],
 
-  addons: ['@storybook/addon-links', '@storybook/addon-a11y'],
+  // In Storybook 9, most addons are consolidated into the core package
+  addons: [
+    '@storybook/addon-a11y',
+  ],
+  
   framework: {
-    name: '@storybook/react-vite',
-    options: {},
-  },
-
-  typescript: {
-    check: false,
-    reactDocgen: 'react-docgen-typescript',
-    reactDocgenTypescriptOptions: {
-      shouldExtractLiteralValuesFromEnum: true,
-      propFilter: prop =>
-        prop.parent ? !/node_modules/.test(prop.parent.fileName) : true,
+    name: '@storybook/nextjs-vite',
+    options: {
+      builder: {
+        viteConfigPath: 'vite.config.ts',
+      },
     },
   },
-  async viteFinal(config, { configType }) {
-    // Import CSS from the UI package
-    if (!config.css) {
-      config.css = {}
+
+  docs: {
+    defaultName: 'Documentation',
+  },
+
+  core: {
+    disableTelemetry: true,
+    enableCrashReports: false,
+  },
+
+  viteFinal: async (config) => {
+    // Resolve paths
+    config.resolve = config.resolve || {}
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': path.resolve(__dirname, '../../../packages/ui/src'),
+      '@/components': path.resolve(__dirname, '../../../packages/ui/src/components'),
+      '@/lib': path.resolve(__dirname, '../../../packages/ui/src/lib'),
+      '@/utils': path.resolve(__dirname, '../../../packages/ui/src/utils'),
+      '@/styles': path.resolve(__dirname, '../../../packages/ui/src/styles'),
+      '@/types': path.resolve(__dirname, '../../../packages/types/src'),
     }
 
-    // Add process polyfill for Next.js components
-    if (!config.define) {
-      config.define = {}
+    // Load environment variables
+    const env = loadEnv('', process.cwd(), '')
+    config.define = {
+      ...config.define,
+      ...Object.keys(env).reduce((prev, key) => {
+        prev[`process.env.${key}`] = JSON.stringify(env[key])
+        return prev
+      }, {}),
     }
-    config.define.global = 'globalThis'
-    config.define.process = 'globalThis.process'
 
-    if (!config.optimizeDeps) {
-      config.optimizeDeps = {}
+    // Configure CSS
+    config.css = config.css || {}
+    config.css.postcss = {
+      plugins: [
+        require('tailwindcss')(tailwindConfig),
+        require('autoprefixer'),
+      ],
     }
-    if (!config.optimizeDeps.include) {
-      config.optimizeDeps.include = []
-    }
-    config.optimizeDeps.include.push('react-hook-form', '@portals/ui')
 
     return config
   },

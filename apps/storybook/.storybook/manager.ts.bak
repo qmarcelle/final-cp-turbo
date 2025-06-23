@@ -1,0 +1,14 @@
+import { addons } from '@storybook/manager-api';
+import { themes } from '@storybook/theming';
+
+addons.setConfig({
+  theme: {
+    ...themes.light,
+    brandTitle: '🎨 BCBST Design System',
+    brandUrl: 'https://bcbst.com',
+    brandImage: '/assets/bcbst-logo.png',
+    colorPrimary: '#00539B',
+    colorSecondary: '#009CDC',
+    fontBase: 'var(--font-family-regular)',
+  },
+});

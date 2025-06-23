@@ -1,9 +1,8 @@
 import type { Preview } from '@storybook/react'
 import React from 'react'
 import { useForm, FormProvider } from 'react-hook-form'
-
-// Import UI package styles
-import '@portals/ui/styles'
+import '../../../packages/ui/src/styles/globals.css'
+import '../../../packages/ui/src/components/final/Demo/styles/styles.css'
 
 // Polyfill process for Next.js components
 if (typeof global !== 'undefined') {
@@ -25,54 +24,18 @@ const preview: Preview = {
     options: {
       storySort: {
         order: [
-          '🎨 Design System',
-          [
-            'Design Tokens',
-            'Colors',
-            'Typography',
-            'Spacing',
-            'Breakpoints',
-            '*',
-          ],
+          'Design System',
+          ['Introduction', 'Colors', 'Typography', 'Spacing', 'Shadows', '*'],
           '⚛️ Atoms',
-          [
-            'Button',
-            'Input',
-            'TextField',
-            'Checkbox',
-            'Radio',
-            'Select',
-            'TextArea',
-            'Toggle',
-            'DatePicker',
-            'NumberInput',
-            'FileUpload',
-            'Alert',
-            'StatusLabel',
-            'Tooltip',
-            '*',
-          ],
+          ['Button', 'Input', 'Select', 'Badge', '*'],
           '🧬 Molecules',
-          ['SearchBar', 'InputGroup', 'TagInput', 'AutoComplete', '*'],
+          ['Alert', 'Card', 'StatBlock', '*'],
           '🦠 Organisms',
-          [
-            'Navigation',
-            'Breadcrumb',
-            'Card',
-            'Accordion',
-            'Modal',
-            'Pagination',
-            'FormLayout',
-            '*',
-          ],
-          '📐 Layout',
-          ['FormGrid', 'FormColumn', 'FormLayout', 'Container', 'Section', '*'],
-          '🧪 Experimental',
-          ['Pagination (Experimental)', '*'],
-          '📦 Templates',
-          ['*'],
-          '📑 Pages',
-          ['*'],
+          ['SiteHeader', 'Footer', 'QuickLinksPanel', '*'],
+          '📐 Templates',
+          ['DashboardLayout', 'ReportingLayout', '*'],
+          '📄 Pages',
+          ['BrokerDashboardPage', 'BookOfBusinessPage', '*'],
           '*',
         ],
       },
@@ -82,6 +45,44 @@ const preview: Preview = {
         base: 'light',
         brandTitle: '🎨 BCBST Design System',
         brandUrl: 'https://bcbst.com',
+      },
+      toc: true,
+    },
+    // Enable a11y addon by default
+    a11y: {
+      config: {
+        rules: [
+          {
+            id: 'color-contrast',
+            enabled: true
+          }
+        ]
+      }
+    },
+    // Default viewport settings
+    viewport: {
+      viewports: {
+        mobile: {
+          name: 'Mobile',
+          styles: {
+            width: '375px',
+            height: '667px',
+          },
+        },
+        tablet: {
+          name: 'Tablet',
+          styles: {
+            width: '768px',
+            height: '1024px',
+          },
+        },
+        desktop: {
+          name: 'Desktop',
+          styles: {
+            width: '1440px',
+            height: '900px',
+          },
+        },
       },
     },
   },

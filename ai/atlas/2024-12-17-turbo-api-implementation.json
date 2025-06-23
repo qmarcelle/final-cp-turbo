@@ -1,0 +1,13 @@
+{
+  "actionable": "Start with Phase 1 - implement the HTTP client core using axios and your existing auth package. This gives you a working foundation to build on.",
+  "pattern": "Facade pattern with Result types, MSW for all environments, shared between multiple Next.js apps in monorepo",
+  "briefings": {
+    "exec": "API client package implementation that serves both broker and employer portals with type-safe, mocked development",
+    "techLead": "Leveraging existing Turborepo structure with axios + React Query + MSW v2 for consistent API layer across apps",
+    "newDev": "API client in packages/ provides facades, hooks, and server actions that both portal apps can use"
+  },
+  "selfEval": "Approach builds on existing foundation without disruption. Missing: SOAP integration, WebSocket support",
+  "memory": "[MCP-ANCHOR:turbo-api-implementation] Building out api-client package in existing Turborepo with MSW v2, React 19, Next.js 15",
+  "nextPrompt": "Should we add GraphQL support, or focus on REST + SOAP first? Also, do you need real-time updates via WebSocket?",
+  "missing": "What are your actual backend API endpoints? Do you have OpenAPI specs? What auth provider does @portals/auth use?"
+}
