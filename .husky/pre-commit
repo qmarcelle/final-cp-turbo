@@ -1,7 +1,7 @@
-#!/usr/bin/env sh
+#!/bin/sh
 
 # Run lint-staged for automated quality gates
-npx lint-staged
+pnpm lint-staged
 
 # Run type checking
-pnpm check-types
+pnpm typecheck
