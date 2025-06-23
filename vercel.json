@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "apps/storybook/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "buildCommand": "cd ../.. && pnpm install && cd apps/storybook && pnpm storybook:build",
+        "outputDirectory": "storybook-static"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/apps/storybook/storybook-static/$1"
+    }
+  ]
+} 

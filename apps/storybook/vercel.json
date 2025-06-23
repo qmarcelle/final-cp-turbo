@@ -1,0 +1,26 @@
+{
+  "name": "bcbst-design-system-storybook",
+  "version": 2,
+  "buildCommand": "pnpm storybook:build",
+  "outputDirectory": "storybook-static",
+  "installCommand": "pnpm install",
+  "framework": null,
+  "public": false,
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ]
+} 
