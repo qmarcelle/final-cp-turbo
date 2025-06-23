@@ -14,6 +14,7 @@ const config: StorybookConfig = {
   // In Storybook 9, most addons are consolidated into the core package
   addons: [
     '@storybook/addon-a11y',
+    '@storybook/addon-docs'
   ],
   
   framework: {

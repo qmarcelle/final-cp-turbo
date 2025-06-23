@@ -35,7 +35,10 @@
   "devDependencies": {
     "@commitlint/config-conventional": "^19.8.1",
     "@esbuild/darwin-x64": "^0.25.5",
+    "@mdx-js/react": "^3.0.0",
+    "@mdx-js/rollup": "^3.1.0",
     "@rollup/rollup-darwin-x64": "^4.42.0",
+    "@storybook/addon-docs": "^9.0.12",
     "@turbo/gen": "^2.4.4",
     "@types/node": "^22.13.10",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
@@ -52,7 +55,7 @@
     "postcss-preset-env": "^10.2.0",
     "prettier": "^3.5.3",
     "rimraf": "^6.0.1",
-    "turbo": "^2.4.4",
+    "turbo": "^2.5.4",
     "typescript": "^5.8.2"
   },
   "dependencies": {

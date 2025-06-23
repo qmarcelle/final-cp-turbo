@@ -40,7 +40,7 @@ export default defineConfig({
       'react': path.resolve(__dirname, '../../node_modules/react'),
       'react-dom': path.resolve(__dirname, '../../node_modules/react-dom'),
     },
-    extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.d.ts']
+    extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.mdx', '.d.ts']
   },
   optimizeDeps: {
     include: [
@@ -48,6 +48,7 @@ export default defineConfig({
       'react-dom',
       'react-hook-form',
       '@portals/ui',
+      '@mdx-js/react',
     ],
     exclude: ['@portals/ui'],
   },

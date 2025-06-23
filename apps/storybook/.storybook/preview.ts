@@ -3,6 +3,7 @@ import React from 'react'
 import { useForm, FormProvider } from 'react-hook-form'
 import '../../../packages/ui/src/styles/globals.css'
 import '../../../packages/ui/src/components/final/Demo/styles/styles.css'
+import './styles.css'
 
 // Polyfill process for Next.js components
 if (typeof global !== 'undefined') {
@@ -47,6 +48,9 @@ const preview: Preview = {
         brandUrl: 'https://bcbst.com',
       },
       toc: true,
+      source: {
+        type: 'code',
+      },
     },
     // Enable a11y addon by default
     a11y: {
