@@ -22,5 +22,10 @@
   "framework": null,
   "env": {
     "NODEJS_VERSION": "20.11.0"
+  },
+  "build": {
+    "env": {
+      "NODEJS_VERSION": "20.11.0"
+    }
   }
 } 
