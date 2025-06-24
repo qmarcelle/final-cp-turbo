@@ -40,9 +40,9 @@ const inputVariants = cva(
         ].join(' '),
       },
       inputSize: {
-        sm: 'h-8 text-sm',
-        md: 'h-10',
-        lg: 'h-12 text-lg',
+        sm: 'h-8 text-sm px-2 py-1',
+        md: 'h-10 text-base px-3 py-2',
+        lg: 'h-12 text-lg px-4 py-3',
       },
     },
     defaultVariants: {
@@ -161,11 +161,11 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     }
 
     return (
-      <div className="form-control">
+      <div className="space-y-2">
         {label && (
           <label
             className={cn(
-              'block text-sm font-medium text-gray-700 mb-1',
+              'block text-sm font-medium text-gray-700 mb-1.5',
               required && "after:content-['*'] after:ml-0.5 after:text-red-500"
             )}
           >
@@ -207,7 +207,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         {(error || helperText) && (
           <p
             className={cn(
-              'mt-1 text-sm flex items-center gap-1',
+              'mt-1.5 text-sm flex items-center gap-1.5',
               error ? 'text-red-600' : 'text-gray-500'
             )}
           >
@@ -217,7 +217,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         )}
 
         {showCount && maxLength && (
-          <div className="mt-1 text-sm text-gray-500 text-right">
+          <div className="mt-1.5 text-sm text-gray-500 text-right">
             {value.length}/{maxLength}
           </div>
         )}

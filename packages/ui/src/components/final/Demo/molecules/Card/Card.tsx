@@ -1,13 +1,13 @@
-"use client";
+'use client'
 
-import * as React from 'react';
-import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '../../../../../utils/cn';
-import { ChevronRight } from 'lucide-react';
-import Link from 'next/link';
+import * as React from 'react'
+import { cva, type VariantProps } from 'class-variance-authority'
+import { cn } from '../../../../../utils/cn'
+import { ChevronRight } from 'lucide-react'
+import Link from 'next/link'
 
 const cardVariants = cva(
-  'rounded-lg border bg-card text-card-foreground',
+  'rounded-lg border bg-card text-card-foreground min-w-0 overflow-hidden',
   {
     variants: {
       variant: {
@@ -52,72 +52,78 @@ const cardVariants = cva(
       isCompact: false,
     },
   }
-);
+)
 
 export interface CardProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'>,
     VariantProps<typeof cardVariants> {
   /** Title of the card */
-  title?: React.ReactNode;
+  title?: React.ReactNode
   /** Subtitle or secondary text */
-  subtitle?: React.ReactNode;
+  subtitle?: React.ReactNode
   /** Icon to display */
-  icon?: React.ReactNode;
+  icon?: React.ReactNode
   /** Action buttons or links */
-  actions?: React.ReactNode;
+  actions?: React.ReactNode
   /** Whether to show a chevron icon */
-  showChevron?: boolean;
+  showChevron?: boolean
   /** URL for the entire card to be clickable */
-  actionHref?: string;
+  actionHref?: string
   /** Text for the action button */
-  actionText?: string;
+  actionText?: string
   /** Click handler for the action */
-  onAction?: () => void;
+  onAction?: () => void
   /** Key-value pairs to display as properties */
   properties?: Array<{
-    label: string;
-    value: React.ReactNode;
-  }>;
+    label: string
+    value: React.ReactNode
+  }>
   /** Date to display */
-  date?: string | Date;
+  date?: string | Date
 
   // Deprecated props
   /** @deprecated Use `variant` instead */
-  type?: 'main' | 'highlight' | 'neutral' | 'elevated' | 'info' | 'button';
+  type?: 'main' | 'highlight' | 'neutral' | 'elevated' | 'info' | 'button'
   /** @deprecated Use `variant` instead */
-  backgroundColor?: string;
+  backgroundColor?: string
   /** @deprecated Use `title` instead */
-  label?: string;
+  label?: string
   /** @deprecated Use `children` instead */
-  body?: string;
+  body?: string
   /** @deprecated Use `icon` instead */
-  iconSrc?: string;
+  iconSrc?: string
   /** @deprecated Use `actionHref` instead */
-  link?: string;
+  link?: string
   /** @deprecated Use `actions` instead */
-  suffix?: React.ReactNode;
+  suffix?: React.ReactNode
   /** @deprecated Use standard props instead */
-  documentName?: string;
+  documentName?: string
   /** @deprecated Use `date` instead */
-  receivedDate?: string;
+  receivedDate?: string
   /** @deprecated Use `subtitle` instead */
-  memberName?: string;
+  memberName?: string
 }
 
 // Map deprecated type values to new variant values
-const typeToVariantMap: Record<NonNullable<CardProps['type']>, NonNullable<CardProps['variant']>> = {
+const typeToVariantMap: Record<
+  NonNullable<CardProps['type']>,
+  NonNullable<CardProps['variant']>
+> = {
   main: 'default',
   highlight: 'highlight',
   neutral: 'neutral',
   elevated: 'elevated',
   info: 'info',
   button: 'default',
-};
+}
 
-interface CardComponent extends React.ForwardRefExoticComponent<CardProps & React.RefAttributes<HTMLDivElement>> {
-  Header: typeof CardHeader;
-  Content: typeof CardContent;
-  Footer: typeof CardFooter;
+interface CardComponent
+  extends React.ForwardRefExoticComponent<
+    CardProps & React.RefAttributes<HTMLDivElement>
+  > {
+  Header: typeof CardHeader
+  Content: typeof CardContent
+  Footer: typeof CardFooter
 }
 
 /**
@@ -125,75 +131,71 @@ interface CardComponent extends React.ForwardRefExoticComponent<CardProps & Reac
  * Can be used for information display, actions, and navigation.
  */
 const CardBase = React.forwardRef<HTMLDivElement, CardProps>(
-  ({
-    className,
-    variant,
-    size,
-    status,
-    hoverable,
-    isCompact,
-    title,
-    subtitle,
-    icon,
-    actions,
-    showChevron,
-    actionHref,
-    actionText,
-    onAction,
-    properties,
-    date,
-    children,
+  (
+    {
+      className,
+      variant,
+      size,
+      status,
+      hoverable,
+      isCompact,
+      title,
+      subtitle,
+      icon,
+      actions,
+      showChevron,
+      actionHref,
+      actionText,
+      onAction,
+      properties,
+      date,
+      children,
+      // Handle deprecated props
+      type,
+      backgroundColor,
+      label,
+      body,
+      iconSrc,
+      link,
+      suffix,
+      documentName,
+      receivedDate,
+      memberName,
+      style,
+      ...props
+    },
+    ref
+  ) => {
     // Handle deprecated props
-    type,
-    backgroundColor,
-    label,
-    body,
-    iconSrc,
-    link,
-    suffix,
-    documentName,
-    receivedDate,
-    memberName,
-    style,
-    ...props
-  }, ref) => {
-    // Handle deprecated props
-    const finalVariant = type ? typeToVariantMap[type] : variant;
-    const finalTitle = title || label || documentName;
-    const finalSubtitle = subtitle || memberName;
-    const finalDate = date || receivedDate;
-    const finalIcon = icon || (iconSrc && <img src={iconSrc} alt="" />);
-    const finalActions = actions || suffix;
-    const finalHref = actionHref || link;
+    const finalVariant = type ? typeToVariantMap[type] : variant
+    const finalTitle = title || label || documentName
+    const finalSubtitle = subtitle || memberName
+    const finalDate = date || receivedDate
+    const finalIcon = icon || (iconSrc && <img src={iconSrc} alt="" />)
+    const finalActions = actions || suffix
+    const finalHref = actionHref || link
     const finalStyle = {
       ...(backgroundColor ? { backgroundColor } : {}),
       ...style,
-    };
+    }
 
     // Format date if needed
-    const formattedDate = finalDate instanceof Date
-      ? finalDate.toLocaleDateString()
-      : finalDate;
+    const formattedDate =
+      finalDate instanceof Date ? finalDate.toLocaleDateString() : finalDate
 
     // Render card content
     const cardContent = (
       <>
         {(finalIcon || finalTitle || finalSubtitle || formattedDate) && (
-          <div className={cn(
-            'flex items-start gap-3',
-            isCompact ? 'flex-row items-center' : 'flex-col'
-          )}>
-            {finalIcon && (
-              <div className="flex-shrink-0">
-                {finalIcon}
-              </div>
+          <div
+            className={cn(
+              'flex items-start gap-3',
+              isCompact ? 'flex-row items-center' : 'flex-col'
             )}
+          >
+            {finalIcon && <div className="flex-shrink-0">{finalIcon}</div>}
             <div className="flex-grow">
-              {finalTitle && (
-                <h3 className="font-medium">
-                  {finalTitle}
-                </h3>
-              )}
+              {finalTitle && <h3 className="font-medium">{finalTitle}</h3>}
               {finalSubtitle && (
                 <p className="mt-1 text-sm text-muted-foreground">
                   {finalSubtitle}
@@ -209,13 +211,19 @@ const CardBase = React.forwardRef<HTMLDivElement, CardProps>(
         )}
 
         {properties && properties.length > 0 && (
-          <dl className={cn(
-            'mt-4 grid gap-4',
-            isCompact ? 'grid-cols-2 sm:grid-cols-4' : 'grid-cols-1 sm:grid-cols-2'
-          )}>
+          <dl
+            className={cn(
+              'mt-4 grid gap-4',
+              isCompact
+                ? 'grid-cols-2 sm:grid-cols-4'
+                : 'grid-cols-1 sm:grid-cols-2'
+            )}
+          >
             {properties.map(({ label, value }) => (
               <div key={label}>
-                <dt className="text-sm font-medium text-muted-foreground">{label}</dt>
+                <dt className="text-sm font-medium text-muted-foreground">
+                  {label}
+                </dt>
                 <dd className="mt-1 text-sm">{value}</dd>
               </div>
             ))}
@@ -244,7 +252,7 @@ const CardBase = React.forwardRef<HTMLDivElement, CardProps>(
           </div>
         )}
       </>
-    );
+    )
 
     // Wrap in link if href is provided
     if (finalHref) {
@@ -267,7 +275,7 @@ const CardBase = React.forwardRef<HTMLDivElement, CardProps>(
         >
           {cardContent}
         </Link>
-      );
+      )
     }
 
     // Regular card
@@ -289,35 +297,38 @@ const CardBase = React.forwardRef<HTMLDivElement, CardProps>(
       >
         {cardContent}
       </div>
-    );
+    )
   }
-) as CardComponent;
+) as CardComponent
 
-CardBase.displayName = 'Card';
+CardBase.displayName = 'Card'
 
-const CardHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn('p-6 pb-4', className)} {...props} />
-  )
-);
-CardHeader.displayName = 'CardHeader';
+const CardHeader = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div ref={ref} className={cn('p-6 pb-4', className)} {...props} />
+))
+CardHeader.displayName = 'CardHeader'
 
-const CardContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn('p-6 pt-0', className)} {...props} />
-  )
-);
-CardContent.displayName = 'CardContent';
+const CardContent = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div ref={ref} className={cn('px-6 py-4', className)} {...props} />
+))
+CardContent.displayName = 'CardContent'
 
-const CardFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn('p-6 pt-4', className)} {...props} />
-  )
-);
-CardFooter.displayName = 'CardFooter';
+const CardFooter = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div ref={ref} className={cn('p-6 pt-4', className)} {...props} />
+))
+CardFooter.displayName = 'CardFooter'
 
 export const Card = Object.assign(CardBase, {
   Header: CardHeader,
   Content: CardContent,
   Footer: CardFooter,
-}) as CardComponent;
+}) as CardComponent

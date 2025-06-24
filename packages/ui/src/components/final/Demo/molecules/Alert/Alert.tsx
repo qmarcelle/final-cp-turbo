@@ -19,9 +19,15 @@ const alertVariants = cva(
         error:
           'border-red-200 bg-red-50 text-red-900 dark:border-red-200/30 dark:bg-red-900/30 dark:text-red-50 [&>svg]:text-red-500',
       },
+      size: {
+        sm: 'p-2 text-sm',
+        md: 'p-4',
+        lg: 'p-6',
+      },
     },
     defaultVariants: {
       variant: 'default',
+      size: 'md',
     },
   }
 )
@@ -59,7 +65,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
           <Icon className="h-4 w-4 mt-1 flex-shrink-0" />
           <div className="flex-1">
             {title && (
-              <h5 className="mb-1 font-medium leading-none tracking-tight">
+              <h5 className="mb-2 font-medium leading-none tracking-tight">
                 {title}
               </h5>
             )}
@@ -70,10 +76,12 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
           {onClose && (
             <button
               onClick={onClose}
-              className="flex-shrink-0 rounded-md p-1 -mt-1 -mr-1 transition-opacity hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+              className="flex-shrink-0 rounded-md p-1.5 -mt-1 -mr-1 transition-all duration-200 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 group relative"
             >
               <X className="h-4 w-4" />
-              <span className="sr-only">Close</span>
+              <span className="sr-only group-hover:not-sr-only group-hover:absolute group-hover:-right-12 group-hover:top-1/2 group-hover:-translate-y-1/2 group-hover:bg-gray-900 group-hover:text-white group-hover:px-2 group-hover:py-1 group-hover:rounded group-hover:text-xs group-hover:whitespace-nowrap">
+                Close
+              </span>
             </button>
           )}
         </div>

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite'
 import { Navigation } from './Navigation'
 
 const meta: Meta<typeof Navigation> = {
-  title: 'Organisms/Navigation (Experimental)',
+  title: '🧬 Molecules/📊 Navigation',
   component: Navigation,
   tags: ['autodocs'],
   parameters: {
@@ -55,7 +55,7 @@ export const Default: StoryObj<typeof Navigation> = {
             <span className="text-xl font-bold">Brand</span>
           </div>
           <ul className="hidden md:flex space-x-8">
-            {navItems.map((item) => (
+            {navItems.map(item => (
               <li key={item.href}>
                 <a href={item.href} className="hover:text-gray-300">
                   {item.label}

@@ -383,7 +383,9 @@ const ReportingOverviewPage = React.forwardRef<
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredCategories.map(category => (
-              <ReportCategoryCard key={category.id} category={category} />
+              <div key={category.id} className="h-full">
+                <ReportCategoryCard category={category} />
+              </div>
             ))}
           </div>
         </div>
@@ -401,7 +403,7 @@ const ReportingOverviewPage = React.forwardRef<
 
           <Card>
             <Card.Content className="p-0">
-              <div className="overflow-x-auto">
+              <div className="overflow-x-auto min-w-0">
                 <table className="w-full">
                   <thead className="bg-gray-50 border-b border-gray-200">
                     <tr>
@@ -429,12 +431,16 @@ const ReportingOverviewPage = React.forwardRef<
                     {recentReports.map(report => (
                       <tr key={report.id} className="hover:bg-gray-50">
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm font-medium text-gray-900">
+                          <div className="text-sm font-medium text-gray-900 truncate max-w-[200px]">
                             {report.name}
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <Badge variant="outline" size="sm">
+                          <Badge
+                            variant="outline"
+                            size="sm"
+                            className="truncate max-w-full"
+                          >
                             {report.type}
                           </Badge>
                         </td>
@@ -454,6 +460,7 @@ const ReportingOverviewPage = React.forwardRef<
                                   : 'error'
                             }
                             size="sm"
+                            className="truncate max-w-full"
                           >
                             {report.status}
                           </Badge>
@@ -559,8 +566,8 @@ const ReportingOverviewPage = React.forwardRef<
 ReportingOverviewPage.displayName = 'ReportingOverviewPage'
 
 const ReportCategoryCard = ({ category }: { category: ReportCategory }) => (
-  <Card className="flex flex-col h-full transition-all duration-200 hover:shadow-lg">
-    <Card.Header>
+  <Card className="flex flex-col h-full">
+    <Card.Header className="pb-4">
       <div className="flex items-start gap-4">
         <div
           className={`flex-shrink-0 w-12 h-12 rounded-lg flex items-center justify-center ${
@@ -609,32 +616,42 @@ const ReportCategoryCard = ({ category }: { category: ReportCategory }) => (
           </svg>
         </div>
         <div className="flex-1 min-w-0">
-          <h3 className="text-lg font-semibold text-gray-900 truncate">
+          <h3 className="text-xl font-semibold text-gray-900 truncate leading-tight mb-1">
             {category.title}
           </h3>
-          <p className="mt-1 text-sm text-gray-500">
+          <p className="text-sm text-gray-500 truncate">
             Last updated: {new Date(category.lastUpdated).toLocaleDateString()}
           </p>
         </div>
       </div>
     </Card.Header>
-    <Card.Content className="flex-1">
-      <p className="text-sm text-gray-600 mb-4">{category.description}</p>
-      <div className="flex flex-wrap gap-2">
-        <Badge variant="secondary" size="sm">
+    <Card.Content className="flex-1 flex flex-col">
+      <p className="text-sm text-gray-600 mb-4 line-clamp-3 flex-grow">
+        {category.description}
+      </p>
+      <div className="flex flex-wrap gap-2 mt-auto">
+        <Badge variant="secondary" size="sm" className="truncate max-w-[150px]">
           {category.reportCount} reports
         </Badge>
-        <Badge variant="outline" size="sm">
+        <Badge variant="outline" size="sm" className="truncate max-w-[150px]">
           {category.category}
         </Badge>
       </div>
     </Card.Content>
-    <Card.Footer className="mt-auto">
-      <div className="flex gap-2">
-        <Button variant="outline" size="sm" className="flex-1">
+    <Card.Footer className="mt-4 pt-4 border-t border-gray-100">
+      <div className="flex flex-wrap gap-2">
+        <Button
+          variant="outline"
+          size="sm"
+          className="flex-1 min-w-[120px] justify-center"
+        >
           Browse Reports
         </Button>
-        <Button variant="primary" size="sm" className="flex-1">
+        <Button
+          variant="primary"
+          size="sm"
+          className="flex-1 min-w-[120px] justify-center"
+        >
           Generate New
         </Button>
       </div>

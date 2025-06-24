@@ -1,9 +1,9 @@
 {
   "name": "bcbst-design-system-storybook",
   "version": 2,
-  "buildCommand": "pnpm storybook:build",
+  "buildCommand": "cd ../.. && pnpm build:storybook",
   "outputDirectory": "storybook-static",
-  "installCommand": "pnpm install",
+  "installCommand": "cd ../.. && pnpm install",
   "framework": null,
   "public": false,
   "rewrites": [
@@ -23,4 +23,4 @@
       ]
     }
   ]
-} 
+}

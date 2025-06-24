@@ -335,7 +335,7 @@ const BookOfBusinessPage = React.forwardRef<
             <StatBlock
               value={commissionData.averageCommissionRate}
               label="Avg Commission Rate"
-              format="percentage"
+              format="number"
               variant="default"
             />
           </div>

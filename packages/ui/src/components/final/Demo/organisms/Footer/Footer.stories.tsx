@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { userEvent, within } from 'storybook/test'
-import { Footer } from './Footer'
+import { Footer, type FooterProps } from './Footer'
 import { getStoryMeta } from '../../utils/getStoryMeta'
 
 const meta = {
@@ -69,11 +69,11 @@ export const WithSocialLinks: Story = {
 export const WithCustomLinks: Story = {
   args: {
     customLinks: [
-      { title: 'Privacy Policy', url: '/privacy' },
-      { title: 'Terms of Service', url: '/terms' },
-      { title: 'Cookie Policy', url: '/cookies' },
-      { title: 'Contact Us', url: '/contact' },
-      { title: 'Help Center', url: 'https://help.bcbst.com', external: true },
+      { label: 'Privacy Policy', href: '/privacy' },
+      { label: 'Terms of Service', href: '/terms' },
+      { label: 'Cookie Policy', href: '/cookies' },
+      { label: 'Contact Us', href: '/contact' },
+      { label: 'Help Center', href: 'https://help.bcbst.com' },
     ],
   },
   parameters: {
@@ -103,31 +103,30 @@ export const WithCustomCopyright: Story = {
 // Additional Sections
 export const WithAdditionalSections: Story = {
   args: {
-    additionalSections: (
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div>
-          <h4 className="text-sm font-semibold text-gray-900 mb-4">
-            Important Notice
-          </h4>
-          <p className="text-xs text-gray-600">
-            This portal is for licensed insurance brokers only. All information
-            contained herein is confidential and proprietary to BlueCross
-            BlueShield of Tennessee.
-          </p>
-        </div>
-        <div>
-          <h4 className="text-sm font-semibold text-gray-900 mb-4">
-            Support Hours
-          </h4>
-          <div className="text-xs text-gray-600 space-y-1">
-            <p>Monday - Friday: 8:00 AM - 6:00 PM EST</p>
-            <p>Saturday: 9:00 AM - 2:00 PM EST</p>
-            <p>Sunday: Closed</p>
-            <p className="mt-2">Emergency Support: 24/7</p>
-          </div>
-        </div>
-      </div>
-    ),
+    additionalSections: [
+      {
+        title: 'Important Notice',
+        links: [
+          {
+            label: 'This portal is for licensed insurance brokers only.',
+            href: '#',
+          },
+          {
+            label: 'View Confidentiality Agreement',
+            href: '/confidentiality',
+          },
+        ],
+      },
+      {
+        title: 'Support Hours',
+        links: [
+          { label: 'Monday - Friday: 8:00 AM - 6:00 PM EST', href: '#' },
+          { label: 'Saturday: 9:00 AM - 2:00 PM EST', href: '#' },
+          { label: 'Sunday: Closed', href: '#' },
+          { label: 'Emergency Support: 24/7', href: '/emergency-support' },
+        ],
+      },
+    ],
   },
   parameters: {
     docs: {
@@ -306,8 +305,8 @@ export const MinimalFooter: Story = {
     compact: true,
     showLogo: false,
     customLinks: [
-      { title: 'Privacy', url: '/privacy' },
-      { title: 'Terms', url: '/terms' },
+      { label: 'Privacy', href: '/privacy' },
+      { label: 'Terms', href: '/terms' },
     ],
     customCopyright: '© 2024 BCBST',
   },
@@ -323,55 +322,38 @@ export const MinimalFooter: Story = {
 export const RichFooter: Story = {
   args: {
     showSocial: true,
-    additionalSections: (
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div>
-          <h4 className="text-sm font-semibold text-gray-900 mb-4">
-            Contact Information
-          </h4>
-          <div className="text-xs text-gray-600 space-y-1">
-            <p>Broker Support: (800) 555-0123</p>
-            <p>Technical Support: (800) 555-0456</p>
-            <p>Email: brokers@bcbst.com</p>
-          </div>
-        </div>
-        <div>
-          <h4 className="text-sm font-semibold text-gray-900 mb-4">
-            Business Hours
-          </h4>
-          <div className="text-xs text-gray-600 space-y-1">
-            <p>Monday - Friday: 8:00 AM - 6:00 PM</p>
-            <p>Saturday: 9:00 AM - 2:00 PM</p>
-            <p>Emergency Support: 24/7</p>
-          </div>
-        </div>
-        <div>
-          <h4 className="text-sm font-semibold text-gray-900 mb-4">
-            Quick Access
-          </h4>
-          <div className="text-xs text-gray-600 space-y-1">
-            <a
-              href="/broker/mobile-app"
-              className="block hover:text-gray-900 transition-colors"
-            >
-              Download Mobile App
-            </a>
-            <a
-              href="/broker/api-access"
-              className="block hover:text-gray-900 transition-colors"
-            >
-              API Documentation
-            </a>
-            <a
-              href="/broker/system-status"
-              className="block hover:text-gray-900 transition-colors"
-            >
-              System Status
-            </a>
-          </div>
-        </div>
-      </div>
-    ),
+    additionalSections: [
+      {
+        title: 'Contact Information',
+        links: [
+          { label: 'Broker Support: (800) 555-0123', href: 'tel:8005550123' },
+          {
+            label: 'Technical Support: (800) 555-0456',
+            href: 'tel:8005550456',
+          },
+          {
+            label: 'Email: brokers@bcbst.com',
+            href: 'mailto:brokers@bcbst.com',
+          },
+        ],
+      },
+      {
+        title: 'Business Hours',
+        links: [
+          { label: 'Monday - Friday: 8:00 AM - 6:00 PM', href: '#' },
+          { label: 'Saturday: 9:00 AM - 2:00 PM', href: '#' },
+          { label: 'Emergency Support: 24/7', href: '/emergency-support' },
+        ],
+      },
+      {
+        title: 'Quick Access',
+        links: [
+          { label: 'Download Mobile App', href: '/broker/mobile-app' },
+          { label: 'API Documentation', href: '/broker/api-access' },
+          { label: 'System Status', href: '/broker/system-status' },
+        ],
+      },
+    ],
   },
   parameters: {
     docs: {
@@ -389,9 +371,9 @@ export const LoadingFooter: Story = {
     <Footer
       customCopyright="Loading..."
       customLinks={[
-        { title: 'Loading...', url: '#' },
-        { title: 'Loading...', url: '#' },
-        { title: 'Loading...', url: '#' },
+        { label: 'Loading...', href: '#' },
+        { label: 'Loading...', href: '#' },
+        { label: 'Loading...', href: '#' },
       ]}
     />
   ),

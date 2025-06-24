@@ -1,198 +1,239 @@
-import React, { useState } from 'react';
-import { cn } from '../../../../../utils/cn';
-import { brokerPortalConfig, type NavigationItem } from '../../config/brokerPortalConfig';
-import { Button } from '../../atoms/Button/Button';
-import { Badge } from '../../atoms/Badge/Badge';
+import React, { useState } from 'react'
+import { cn } from '../../../../../utils/cn'
+import { Button } from '../../atoms/Button/Button'
+
+export interface NavigationItem {
+  id: number
+  title: string
+  url: string
+  childPages?: Array<{
+    id: number
+    title: string
+    description?: string
+    url: string
+  }>
+}
 
 export interface User {
-  name: string;
-  email: string;
-  avatar?: string;
-  role: string;
-  agency?: string;
+  name: string
+  email: string
+  role: string
+  agency: string
 }
 
 export interface SiteHeaderProps {
   /** Current user information */
-  user?: User;
-  /** Whether to show the mobile menu */
-  showMobileMenu?: boolean;
-  /** Callback when mobile menu is toggled */
-  onMobileMenuToggle?: () => void;
+  user?: User
   /** Current active navigation path */
-  activePath?: string;
-  /** Whether to show notifications */
-  showNotifications?: boolean;
-  /** Number of unread notifications */
-  notificationCount?: number;
+  activePath?: string
   /** Custom className */
-  className?: string;
-  /** Whether to use compact layout */
-  compact?: boolean;
-  /** Custom navigation items (overrides default config) */
-  navigationItems?: NavigationItem[];
+  className?: string
+  /** Navigation items */
+  navigationItems?: NavigationItem[]
+  /** Mobile menu state */
+  showMobileMenu?: boolean
+  /** Mobile menu toggle callback */
+  onMobileMenuToggle?: () => void
 }
+
+const defaultNavigationItems: NavigationItem[] = [
+  {
+    id: 1,
+    title: 'Sales & Quoting',
+    url: '/sales-quoting',
+    childPages: [
+      {
+        id: 11,
+        title: 'Quick Quote',
+        description: 'Generate instant quotes',
+        url: '/sales-quoting/quick-quote',
+      },
+      {
+        id: 12,
+        title: 'Group Quotes',
+        description: 'Employer group quotes',
+        url: '/sales-quoting/group-quotes',
+      },
+    ],
+  },
+  {
+    id: 2,
+    title: 'Member Support',
+    url: '/member-support',
+    childPages: [
+      {
+        id: 21,
+        title: 'Member Search',
+        description: 'Find and manage members',
+        url: '/member-support/search',
+      },
+      {
+        id: 22,
+        title: 'Claims',
+        description: 'View and manage claims',
+        url: '/member-support/claims',
+      },
+    ],
+  },
+  {
+    id: 3,
+    title: 'Reporting',
+    url: '/reporting',
+    childPages: [
+      {
+        id: 31,
+        title: 'Commission Reports',
+        description: 'View commission details',
+        url: '/reporting/commission',
+      },
+      {
+        id: 32,
+        title: 'Book of Business',
+        description: 'Business overview',
+        url: '/reporting/book-of-business',
+      },
+    ],
+  },
+  {
+    id: 4,
+    title: 'Materials & Forms',
+    url: '/materials-forms',
+    childPages: [
+      {
+        id: 41,
+        title: 'Marketing Materials',
+        description: 'Access marketing resources',
+        url: '/materials-forms/marketing',
+      },
+      {
+        id: 42,
+        title: 'Forms Library',
+        description: 'Download forms',
+        url: '/materials-forms/forms',
+      },
+    ],
+  },
+  {
+    id: 5,
+    title: 'Learning Center',
+    url: '/learning-center',
+    childPages: [
+      {
+        id: 51,
+        title: 'Training',
+        description: 'Access training materials',
+        url: '/learning-center/training',
+      },
+      {
+        id: 52,
+        title: 'Resources',
+        description: 'Helpful resources',
+        url: '/learning-center/resources',
+      },
+    ],
+  },
+]
 
 const SiteHeader = React.forwardRef<HTMLElement, SiteHeaderProps>(
   (
     {
       user,
+      activePath = '',
+      className,
+      navigationItems = defaultNavigationItems,
       showMobileMenu = false,
       onMobileMenuToggle,
-      activePath = '',
-      showNotifications = true,
-      notificationCount = 0,
-      className,
-      compact = false,
-      navigationItems = brokerPortalConfig.navigation,
       ...props
     },
     ref
   ) => {
-    const [showUserMenu, setShowUserMenu] = useState(false);
-    const [showNavDropdown, setShowNavDropdown] = useState<string | null>(null);
+    const [showNavDropdown, setShowNavDropdown] = useState<string | null>(null)
+    const [showUserMenu, setShowUserMenu] = useState(false)
 
     const isActivePath = (path: string) => {
-      return activePath === path || activePath.startsWith(path + '/');
-    };
+      return activePath === path || activePath.startsWith(path + '/')
+    }
 
     const NavDropdown = ({ item }: { item: NavigationItem }) => {
-      if (!item.childPages || item.childPages.length === 0) return null;
+      if (!item.childPages?.length) return null
 
       return (
-        <div className="absolute top-full left-0 mt-1 w-80 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
-          <div className="p-4">
-            {item.template && (
-              <div className="grid grid-cols-3 gap-4 mb-4 text-xs font-medium text-gray-500 uppercase tracking-wide">
-                <div>{item.template.secondCol}</div>
-                <div>{item.template.thirdCol}</div>
-                <div>{item.template.fourthCol}</div>
-              </div>
-            )}
-            <div className="grid grid-cols-3 gap-4">
-              {item.childPages.map((child) => (
-                <a
-                  key={child.id}
-                  href={child.url}
-                  className="block p-2 rounded-md hover:bg-gray-50 transition-colors"
-                  target={child.openInNewWindow ? '_blank' : undefined}
-                  rel={child.openInNewWindow ? 'noopener noreferrer' : undefined}
-                >
-                  <div className="font-medium text-sm text-gray-900">{child.title}</div>
-                  <div className="text-xs text-gray-500 mt-1">{child.description}</div>
-                </a>
-              ))}
-            </div>
-            {item.shortLinks && item.shortLinks.length > 0 && (
-              <div className="border-t pt-4 mt-4">
-                <div className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">
-                  Quick Links
+        <div className="absolute top-full left-0 mt-1 w-64 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+          <div className="p-2">
+            {item.childPages.map(child => (
+              <a
+                key={child.id}
+                href={child.url}
+                className="block p-3 hover:bg-gray-50 rounded-md transition-colors"
+              >
+                <div className="font-medium text-sm text-gray-900">
+                  {child.title}
                 </div>
-                <div className="space-y-1">
-                  {item.shortLinks.map((link, index) => (
-                    <a
-                      key={index}
-                      href={link.link}
-                      className="block text-sm text-blue-600 hover:text-blue-800 transition-colors"
-                    >
-                      {link.title}
-                    </a>
-                  ))}
-                </div>
-              </div>
-            )}
+                {child.description && (
+                  <div className="text-xs text-gray-500 mt-1">
+                    {child.description}
+                  </div>
+                )}
+              </a>
+            ))}
           </div>
         </div>
-      );
-    };
+      )
+    }
 
     const UserMenu = () => (
-      <div className="absolute right-0 top-full mt-1 w-64 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
-        <div className="p-4 border-b border-gray-100">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-              {user?.avatar ? (
-                <img src={user.avatar} alt={user.name} className="w-10 h-10 rounded-full" />
-              ) : (
-                <span className="text-sm font-medium text-blue-700">
-                  {user?.name?.split(' ').map(n => n[0]).join('').toUpperCase() || 'U'}
-                </span>
-              )}
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="font-medium text-sm text-gray-900 truncate">{user?.name}</div>
-              <div className="text-xs text-gray-500 truncate">{user?.email}</div>
-              {user?.agency && (
-                <div className="text-xs text-gray-500 truncate">{user.agency}</div>
-              )}
-            </div>
-          </div>
-        </div>
+      <div className="absolute right-0 top-full mt-1 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
         <div className="p-2">
           <a
-            href="/broker/profile"
+            href="/profile"
             className="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md transition-colors"
           >
             Profile Settings
           </a>
           <a
-            href="/broker/preferences"
+            href="/preferences"
             className="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md transition-colors"
           >
             Preferences
           </a>
-          <a
-            href="/broker/support"
-            className="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md transition-colors"
-          >
-            Support
-          </a>
           <div className="border-t border-gray-100 mt-2 pt-2">
             <button
               className="block w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md transition-colors"
-              onClick={() => {/* Handle sign out */}}
+              onClick={() => {
+                /* Handle sign out */
+              }}
             >
               Sign Out
             </button>
           </div>
         </div>
       </div>
-    );
+    )
 
     return (
       <header
         ref={ref}
         className={cn(
-          'bg-white border-b border-gray-200 sticky top-0 z-40',
-          compact && 'py-2',
-          !compact && 'py-4',
+          'bg-white border-b border-gray-200 sticky top-0 z-40 py-4',
           className
         )}
         {...props}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
-            {/* Logo and Brand */}
+            {/* Logo and Navigation */}
             <div className="flex items-center gap-8">
-              <div className="flex items-center gap-3">
+              <a href="/" className="flex-shrink-0">
                 <img
-                  src={brokerPortalConfig.logo.full}
-                  alt={brokerPortalConfig.logo.alt}
-                  className={cn(
-                    'h-8 w-auto',
-                    compact && 'h-6'
-                  )}
+                  src="/assets/logos/bcbst_blue.svg"
+                  alt="BlueCross BlueShield of Tennessee"
+                  className="h-8 w-auto"
                 />
-                <div className="hidden md:block">
-                  <span className="text-lg font-semibold text-gray-900">
-                    {brokerPortalConfig.name}
-                  </span>
-                </div>
-              </div>
+              </a>
 
               {/* Main Navigation */}
-              <nav className="hidden lg:flex items-center space-x-1">
-                {navigationItems.map((item) => (
+              <nav className="hidden lg:flex items-center space-x-6">
+                {navigationItems.map(item => (
                   <div
                     key={item.id}
                     className="relative"
@@ -202,13 +243,21 @@ const SiteHeader = React.forwardRef<HTMLElement, SiteHeaderProps>(
                     <a
                       href={item.url}
                       className={cn(
-                        'px-3 py-2 rounded-md text-sm font-medium transition-colors',
+                        'px-1 py-2 text-sm font-medium transition-colors relative group',
                         isActivePath(item.url)
-                          ? 'bg-blue-50 text-blue-700'
-                          : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                          ? 'text-blue-700'
+                          : 'text-gray-600 hover:text-gray-900'
                       )}
                     >
                       {item.title}
+                      <div
+                        className={cn(
+                          'absolute bottom-0 left-0 w-full h-0.5 transition-colors',
+                          isActivePath(item.url)
+                            ? 'bg-blue-700'
+                            : 'bg-transparent group-hover:bg-gray-200'
+                        )}
+                      />
                     </a>
                     {showNavDropdown === item.id.toString() && (
                       <NavDropdown item={item} />
@@ -219,57 +268,76 @@ const SiteHeader = React.forwardRef<HTMLElement, SiteHeaderProps>(
             </div>
 
             {/* Right Side Actions */}
-            <div className="flex items-center gap-3">
-              {/* Notifications */}
-              {showNotifications && (
-                <div className="relative">
+            <div className="flex items-center gap-6">
+              {/* Search */}
+              <div className="relative hidden md:block">
+                <div className="flex items-center">
+                  <input
+                    type="search"
+                    placeholder="Search"
+                    className="w-64 px-4 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  />
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="relative p-2"
-                    aria-label="Notifications"
+                    className="ml-2"
+                    aria-label="Search"
                   >
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                      />
                     </svg>
-                    {notificationCount > 0 && (
-                      <Badge
-                        variant="error"
-                        className="absolute -top-1 -right-1 min-w-[1.25rem] h-5 text-xs"
-                      >
-                        {notificationCount > 99 ? '99+' : notificationCount}
-                      </Badge>
-                    )}
                   </Button>
                 </div>
-              )}
+              </div>
 
-              {/* User Menu */}
+              {/* Support */}
+              <Button
+                variant="ghost"
+                size="sm"
+                className="hidden md:flex items-center gap-2 text-blue-700"
+                aria-label="Support"
+              >
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                <span>Support</span>
+              </Button>
+
+              {/* User Profile */}
               {user && (
                 <div className="relative">
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="flex items-center gap-2 p-2"
+                    className="flex items-center gap-2"
                     onClick={() => setShowUserMenu(!showUserMenu)}
-                    aria-label="User menu"
                   >
-                    <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                      {user.avatar ? (
-                        <img src={user.avatar} alt={user.name} className="w-8 h-8 rounded-full" />
-                      ) : (
-                        <span className="text-sm font-medium text-blue-700">
-                          {user.name.split(' ').map(n => n[0]).join('').toUpperCase()}
-                        </span>
-                      )}
+                    <div className="text-right">
+                      <div className="text-sm text-gray-500">My Profile:</div>
+                      <div className="text-sm font-medium text-gray-900">
+                        {user.name}
+                      </div>
                     </div>
-                    <div className="hidden md:block text-left">
-                      <div className="text-sm font-medium text-gray-900">{user.name}</div>
-                      <div className="text-xs text-gray-500">{user.role}</div>
-                    </div>
-                    <svg className="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                    </svg>
                   </Button>
                   {showUserMenu && <UserMenu />}
                 </div>
@@ -279,15 +347,30 @@ const SiteHeader = React.forwardRef<HTMLElement, SiteHeaderProps>(
               <Button
                 variant="ghost"
                 size="sm"
-                className="lg:hidden p-2"
+                className="lg:hidden"
                 onClick={onMobileMenuToggle}
                 aria-label="Toggle mobile menu"
               >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   {showMobileMenu ? (
-                    <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
                   ) : (
-                    <path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 6h16M4 12h16M4 18h16"
+                    />
                   )}
                 </svg>
               </Button>
@@ -298,14 +381,14 @@ const SiteHeader = React.forwardRef<HTMLElement, SiteHeaderProps>(
           {showMobileMenu && (
             <div className="lg:hidden mt-4 pb-4 border-t border-gray-200">
               <nav className="mt-4 space-y-1">
-                {navigationItems.map((item) => (
+                {navigationItems.map(item => (
                   <div key={item.id}>
                     <a
                       href={item.url}
                       className={cn(
                         'block px-3 py-2 rounded-md text-base font-medium transition-colors',
                         isActivePath(item.url)
-                          ? 'bg-blue-50 text-blue-700'
+                          ? 'text-blue-700 bg-blue-50'
                           : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                       )}
                     >
@@ -313,11 +396,11 @@ const SiteHeader = React.forwardRef<HTMLElement, SiteHeaderProps>(
                     </a>
                     {item.childPages && item.childPages.length > 0 && (
                       <div className="ml-4 mt-1 space-y-1">
-                        {item.childPages.map((child) => (
+                        {item.childPages.map(child => (
                           <a
                             key={child.id}
                             href={child.url}
-                            className="block px-3 py-1 text-sm text-gray-500 hover:text-gray-700 transition-colors"
+                            className="block px-3 py-2 text-sm text-gray-500 hover:text-gray-700 hover:bg-gray-50 rounded-md transition-colors"
                           >
                             {child.title}
                           </a>
@@ -327,14 +410,45 @@ const SiteHeader = React.forwardRef<HTMLElement, SiteHeaderProps>(
                   </div>
                 ))}
               </nav>
+
+              {/* Mobile Search */}
+              <div className="mt-4 px-3">
+                <div className="flex items-center">
+                  <input
+                    type="search"
+                    placeholder="Search"
+                    className="w-full px-4 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  />
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="ml-2"
+                    aria-label="Search"
+                  >
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                      />
+                    </svg>
+                  </Button>
+                </div>
+              </div>
             </div>
           )}
         </div>
       </header>
-    );
+    )
   }
-);
+)
 
-SiteHeader.displayName = 'SiteHeader';
+SiteHeader.displayName = 'SiteHeader'
 
-export { SiteHeader };
+export { SiteHeader }

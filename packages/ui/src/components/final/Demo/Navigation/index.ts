@@ -1,6 +1,6 @@
 /**
  * Navigation & Breadcrumb Components
- * 
+ *
  * Re-exports all navigation and breadcrumb related components
  */
 
@@ -20,7 +20,10 @@ export {
   type NavigationItemProps,
   type NavigationDropdownProps,
   type BreadcrumbItemProps,
-} from './Navigation';
+} from './Navigation'
 
-export { AppBreadcrumbs, type AppBreadcrumbsProps } from './AppBreadcrumbs';
-export { type BreadcrumbConfig, type BreadcrumbItemData } from './BreadcrumbConfig'; 
+export { AppBreadcrumbs, type AppBreadcrumbsProps } from './AppBreadcrumbs'
+export {
+  type BreadcrumbConfig,
+  type BreadcrumbItemData,
+} from './BreadcrumbConfig'

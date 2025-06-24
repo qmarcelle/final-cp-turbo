@@ -10,6 +10,7 @@
     "build": "turbo build",
     "build:packages": "turbo build --filter='./packages/*'",
     "build:apps": "turbo build --filter='./apps/*'",
+    "build:storybook": "pnpm build:packages && pnpm --filter storybook-app storybook:build",
     "dev": "turbo dev",
     "storybook": "pnpm --filter storybook-app storybook",
     "lint": "turbo lint",

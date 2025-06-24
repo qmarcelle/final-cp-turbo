@@ -460,7 +460,7 @@ export const ReportingDashboard: Story = {
           <StatBlock
             value={8.2}
             label="Average Rate"
-            format="percentage"
+            format="number"
             variant="info"
           />
         </div>

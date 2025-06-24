@@ -1,9 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { userEvent, within } from 'storybook/test'
 import { StatBlock } from './StatBlock'
-import { getStoryMeta } from '../../utils/getStoryMeta'
 import { mockCommissionSummary } from '../../utils/mockData'
-import { Button } from '../../atoms/Button/Button'
 
 const meta = {
   title: '🧬 Molecules/📊 StatBlock',
@@ -12,8 +10,20 @@ const meta = {
   parameters: {
     docs: {
       description: {
-        component:
-          'Statistical data display component for KPIs, commission data, and metrics in the broker portal',
+        component: `
+Statistical data display component for KPIs, commission data, and metrics in the broker portal.
+
+### Spacing Guidelines
+- Small (sm): Uses p-sm (8px) padding and space-y-xs (4px) vertical spacing
+- Medium (md): Uses p-md (16px) padding and space-y-sm (8px) vertical spacing
+- Large (lg): Uses p-lg (24px) padding and space-y-md (16px) vertical spacing
+
+Internal spacing follows our design system tokens:
+- xs: 4px (0.25rem) - Minimal spacing between closely related elements
+- sm: 8px (0.5rem) - Standard spacing between elements
+- md: 16px (1rem) - Comfortable spacing for content sections
+- lg: 24px (1.5rem) - Generous spacing for major sections
+`,
       },
     },
   },
@@ -25,14 +35,14 @@ type Story = StoryObj<typeof meta>
 // Basic StatBlock Examples
 export const Default: Story = {
   args: {
-    value: '1,256',
+    value: 1256,
     label: 'Total Members',
   },
 }
 
 export const WithIcon: Story = {
   args: {
-    value: '47',
+    value: 47,
     label: 'Active Groups',
     icon: (
       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -60,7 +70,7 @@ export const Percentage: Story = {
   args: {
     value: 8.2,
     label: 'Average Commission Rate',
-    format: 'percentage',
+    format: 'number',
     variant: 'info',
   },
 }
@@ -80,23 +90,10 @@ export const WithTrend: Story = {
 
 export const WithSubtitle: Story = {
   args: {
-    value: '324',
+    value: 324,
     label: 'New Enrollments',
     subtitle: 'This quarter',
     variant: 'success',
-  },
-}
-
-export const WithAction: Story = {
-  args: {
-    value: '12',
-    label: 'Pending Applications',
-    variant: 'warning',
-    action: (
-      <Button size="sm" variant="outline">
-        Review
-      </Button>
-    ),
   },
 }
 
@@ -141,11 +138,6 @@ export const PendingCommission: Story = {
     format: 'currency',
     variant: 'warning',
     subtitle: 'Awaiting payment processing',
-    action: (
-      <Button size="sm" variant="outline">
-        Details
-      </Button>
-    ),
   },
   parameters: {
     docs: {
@@ -193,37 +185,59 @@ export const GroupCount: Story = {
   },
 }
 
-// Size Variants
-export const SmallSize: Story = {
+// Size Variants with Spacing Documentation
+export const SizeVariants: Story = {
   args: {
-    value: '45',
-    label: 'New This Month',
-    size: 'sm',
+    value: 45,
+    label: 'Size Variants Example',
   },
-}
-
-export const LargeSize: Story = {
-  args: {
-    value: 125486.5,
-    label: 'Annual Commission',
-    format: 'currency',
-    size: 'lg',
-    variant: 'success',
+  render: () => (
+    <div className="space-y-6">
+      <div>
+        <h3 className="text-lg font-semibold mb-4">Small Size (sm)</h3>
+        <StatBlock
+          value={45}
+          label="New This Month"
+          size="sm"
+          subtitle="Uses p-sm (8px) padding"
+        />
+      </div>
+      <div>
+        <h3 className="text-lg font-semibold mb-4">Medium Size (md)</h3>
+        <StatBlock
+          value={125486.5}
+          label="Annual Commission"
+          format="currency"
+          size="md"
+          variant="success"
+          subtitle="Uses p-md (16px) padding"
+        />
+      </div>
+      <div>
+        <h3 className="text-lg font-semibold mb-4">Large Size (lg)</h3>
+        <StatBlock
+          value={1256}
+          label="Total Members"
+          size="lg"
+          subtitle="Uses p-lg (24px) padding"
+        />
+      </div>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Demonstrates the three size variants and their corresponding spacing values from our design system.',
+      },
+    },
   },
 }
 
 // State Examples
-export const Loading: Story = {
-  args: {
-    value: '0',
-    label: 'Loading...',
-    loading: true,
-  },
-}
-
 export const Hoverable: Story = {
   args: {
-    value: '1,256',
+    value: 1256,
     label: 'Total Members',
     hoverable: true,
     onClick: () => {
@@ -243,40 +257,52 @@ export const Hoverable: Story = {
 }
 
 // Trend Direction Examples
-export const TrendUp: Story = {
+export const TrendDirections: Story = {
   args: {
     value: 28975.25,
-    label: 'Q3 Commission',
-    format: 'currency',
-    trend: {
-      value: 18.7,
-      direction: 'up',
-      period: 'Q2',
-    },
+    label: 'Trend Examples',
   },
-}
-
-export const TrendDown: Story = {
-  args: {
-    value: 234,
-    label: 'Active Members',
-    trend: {
-      value: 5.2,
-      direction: 'down',
-      period: 'last month',
-    },
-    variant: 'warning',
-  },
-}
-
-export const TrendNeutral: Story = {
-  args: {
-    value: 15,
-    label: 'New Groups',
-    trend: {
-      value: 0.8,
-      direction: 'neutral',
-      period: 'last quarter',
+  render: () => (
+    <div className="space-y-6">
+      <StatBlock
+        value={28975.25}
+        label="Q3 Commission"
+        format="currency"
+        trend={{
+          value: 18.7,
+          direction: 'up',
+          period: 'Q2',
+        }}
+      />
+      <StatBlock
+        value={234}
+        label="Active Members"
+        format="number"
+        trend={{
+          value: 5.2,
+          direction: 'down',
+          period: 'last month',
+        }}
+        variant="warning"
+      />
+      <StatBlock
+        value={15}
+        label="New Groups"
+        format="number"
+        trend={{
+          value: 0.8,
+          direction: 'neutral',
+          period: 'last quarter',
+        }}
+      />
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Shows different trend indicators with consistent spacing using gap-xs (4px) between elements.',
+      },
     },
   },
 }
@@ -284,11 +310,11 @@ export const TrendNeutral: Story = {
 // Dashboard Grid Example
 export const DashboardGrid: Story = {
   args: {
-    value: '0',
-    label: 'Dashboard Grid Example',
+    value: mockCommissionSummary[0].totalCommission,
+    label: 'Dashboard Example',
   },
   render: () => (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-lg">
       <StatBlock
         value={mockCommissionSummary[0].totalCommission}
         label="YTD Commission"
@@ -311,11 +337,6 @@ export const DashboardGrid: Story = {
         label="Pending Commission"
         format="currency"
         variant="warning"
-        action={
-          <Button size="sm" variant="outline">
-            View
-          </Button>
-        }
       />
       <StatBlock
         value={mockCommissionSummary[0].groupCount}
@@ -333,7 +354,8 @@ export const DashboardGrid: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Example dashboard grid showing key broker portal metrics',
+        story:
+          'Example dashboard grid showing key broker portal metrics with consistent gap-lg (24px) spacing between blocks.',
       },
     },
   },
@@ -342,7 +364,7 @@ export const DashboardGrid: Story = {
 // Commission Summary Card
 export const CommissionSummaryCard: Story = {
   args: {
-    value: '0',
+    value: 0,
     label: 'Commission Summary Card Example',
   },
   render: () => (
@@ -366,7 +388,7 @@ export const CommissionSummaryCard: Story = {
           value={mockCommissionSummary[0].averageCommissionRate}
           label="Average Rate"
           subtitle="Across all groups"
-          format="percentage"
+          format="number"
           variant="info"
         />
         <StatBlock
@@ -395,22 +417,23 @@ export const CommissionSummaryCard: Story = {
 // Variant Showcase
 export const VariantShowcase: Story = {
   args: {
-    value: '0',
-    label: 'Variant Showcase Example',
+    value: 1234,
+    label: 'Variant Examples',
   },
   render: () => (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-      <StatBlock value="1,234" label="Default" variant="default" />
-      <StatBlock value="5,678" label="Success" variant="success" />
-      <StatBlock value="890" label="Warning" variant="warning" />
-      <StatBlock value="123" label="Error" variant="error" />
-      <StatBlock value="456" label="Info" variant="info" />
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-md">
+      <StatBlock value={1234} label="Default" variant="default" />
+      <StatBlock value={5678} label="Success" variant="success" />
+      <StatBlock value={890} label="Warning" variant="warning" />
+      <StatBlock value={123} label="Error" variant="error" />
+      <StatBlock value={456} label="Info" variant="info" />
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'All available StatBlock variants and their color schemes',
+        story:
+          'All available StatBlock variants with consistent gap-md (16px) spacing between blocks.',
       },
     },
   },
