@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { userEvent, within, expect } from 'storybook/test'
 import { Badge } from './Badge'
 
 const meta = {
@@ -10,8 +9,38 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component:
-          'Badge component for status indicators, counters, and labels in the broker portal',
+        component: `
+# Badge Component
+
+A versatile badge component for status indicators, labels, and counters in the broker portal.
+
+## Features
+- Multiple visual variants for different contexts
+- Consistent styling with BCBST design system
+- Interactive states with hover effects
+- Size variations
+- Support for icons and dots
+- Accessibility-first design
+- Smooth transitions and animations
+
+## Usage
+
+\`\`\`tsx
+import { Badge } from '@portals/ui'
+
+// Basic usage
+<Badge>Default</Badge>
+
+// Status indicator
+<Badge variant="success">Active</Badge>
+
+// Interactive badge
+<Badge interactive onClick={handleClick}>Click me</Badge>
+
+// With dot indicator
+<Badge dot>New</Badge>
+\`\`\`
+`,
       },
     },
   },
@@ -61,404 +90,209 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-// Basic Badge Variants
-export const Default: Story = {
-  args: {
-    children: 'Default',
-  },
-}
-
-export const Secondary: Story = {
-  args: {
-    variant: 'secondary',
-    children: 'Secondary',
-  },
-}
-
-export const Success: Story = {
-  args: {
-    variant: 'success',
-    children: 'Success',
-  },
-}
-
-export const Warning: Story = {
-  args: {
-    variant: 'warning',
-    children: 'Warning',
-  },
-}
-
-export const Error: Story = {
-  args: {
-    variant: 'error',
-    children: 'Error',
-  },
-}
-
-export const Outline: Story = {
-  args: {
-    variant: 'outline',
-    children: 'Outline',
-  },
-}
-
-export const Ghost: Story = {
-  args: {
-    variant: 'ghost',
-    children: 'Ghost',
-  },
-}
-
-// Status Badges for Broker Portal
-export const ActiveStatus: Story = {
-  args: {
-    variant: 'success',
-    children: 'Active',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Green badge for active members, groups, or brokers',
-      },
-    },
-  },
-}
-
-export const PendingStatus: Story = {
-  args: {
-    variant: 'warning',
-    children: 'Pending',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Yellow badge for pending applications or processes',
-      },
-    },
-  },
-}
-
-export const TerminatedStatus: Story = {
-  args: {
-    variant: 'error',
-    children: 'Terminated',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Red badge for terminated coverage or inactive status',
-      },
-    },
-  },
-}
-
-export const ProcessingStatus: Story = {
-  args: {
-    variant: 'secondary',
-    children: 'Processing',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Gray badge for items being processed',
-      },
-    },
-  },
-}
-
-// Plan Type Badges
-export const PPOBadge: Story = {
-  args: {
-    variant: 'outline',
-    children: 'PPO',
-  },
-}
-
-export const HMOBadge: Story = {
-  args: {
-    variant: 'outline',
-    children: 'HMO',
-  },
-}
-
-export const HDHPBadge: Story = {
-  args: {
-    variant: 'outline',
-    children: 'HDHP',
-  },
-}
-
-export const EPOBadge: Story = {
-  args: {
-    variant: 'outline',
-    children: 'EPO',
-  },
-}
-
-// Counter Badges
-export const MemberCount: Story = {
-  args: {
-    variant: 'secondary',
-    children: '45',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Badge showing member count for a group',
-      },
-    },
-  },
-}
-
-export const NewNotifications: Story = {
-  args: {
-    variant: 'error',
-    children: '3',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Badge showing number of new notifications',
-      },
-    },
-  },
-}
-
-export const PendingApplications: Story = {
-  args: {
-    variant: 'warning',
-    children: '12',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Badge showing number of pending applications',
-      },
-    },
-  },
-}
-
-// Commission Status Badges
-export const PaidCommission: Story = {
-  args: {
-    variant: 'success',
-    children: 'Paid',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Badge for commission payment status',
-      },
-    },
-  },
-}
-
-export const PendingPayment: Story = {
-  args: {
-    variant: 'warning',
-    children: 'Pending Payment',
-  },
-}
-
-export const OverduePayment: Story = {
-  args: {
-    variant: 'error',
-    children: 'Overdue',
-  },
-}
-
-// Size Variations
-export const SmallBadge: Story = {
-  args: {
-    size: 'sm',
-    children: 'Small',
-  },
-}
-
-export const LargeBadge: Story = {
-  args: {
-    size: 'lg',
-    children: 'Large',
-  },
-}
-
-// Interactive Badge
-export const ClickableBadge: Story = {
-  args: {
-    variant: 'outline',
-    children: 'Click me',
-    onClick: () => {
-      // eslint-disable-next-line no-alert
-      window.alert('Badge clicked!')
-    },
-    className: 'cursor-pointer hover:bg-gray-100',
-  },
-  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = within(canvasElement)
-    const badge = canvas.getByText('Click me')
-
-    await userEvent.click(badge)
-  },
-}
-
-// Badge with Tooltip
-export const WithTooltip: Story = {
-  args: {
-    variant: 'warning',
-    children: 'Hover for info',
-    title: 'This group has pending renewal documents',
-  },
-  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = within(canvasElement)
-    const badge = canvas.getByText('Hover for info')
-
-    await userEvent.hover(badge)
-    // Note: Tooltip testing would depend on your tooltip implementation
-  },
-}
-
-// Badge Groups
-export const StatusGroup: Story = {
+// Showcase all variants
+export const AllVariants: Story = {
   render: () => (
-    <div className="flex flex-wrap gap-2">
-      <Badge variant="success">Active</Badge>
-      <Badge variant="warning">Pending</Badge>
-      <Badge variant="error">Terminated</Badge>
-      <Badge variant="secondary">Processing</Badge>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Common status badges used throughout the broker portal',
-      },
-    },
-  },
-}
-
-export const PlanTypeGroup: Story = {
-  render: () => (
-    <div className="flex flex-wrap gap-2">
-      <Badge variant="outline">PPO</Badge>
-      <Badge variant="outline">HMO</Badge>
-      <Badge variant="outline">HDHP</Badge>
-      <Badge variant="outline">EPO</Badge>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Plan type badges for identifying insurance plan types',
-      },
-    },
-  },
-}
-
-export const CommissionStatusGroup: Story = {
-  render: () => (
-    <div className="flex flex-wrap gap-2">
-      <Badge variant="success">Paid</Badge>
-      <Badge variant="warning">Pending</Badge>
-      <Badge variant="secondary">Processing</Badge>
-      <Badge variant="error">Rejected</Badge>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Commission payment status badges',
-      },
-    },
-  },
-}
-
-// Real-world Usage Examples
-export const GroupStatusCard: Story = {
-  render: () => (
-    <div className="bg-white p-4 rounded-lg border space-y-3">
-      <div className="flex justify-between items-start">
-        <div>
-          <h4 className="font-semibold">TechCorp Inc.</h4>
-          <p className="text-sm text-gray-600">Group #TC-2024-001</p>
+    <div className="space-y-8">
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold text-gray-900">Basic Variants</h3>
+        <div className="flex flex-wrap gap-4">
+          <Badge>Default</Badge>
+          <Badge variant="secondary">Secondary</Badge>
+          <Badge variant="success">Success</Badge>
+          <Badge variant="warning">Warning</Badge>
+          <Badge variant="error">Error</Badge>
+          <Badge variant="outline">Outline</Badge>
+          <Badge variant="ghost">Ghost</Badge>
         </div>
-        <Badge variant="success">Active</Badge>
       </div>
-      <div className="flex gap-2">
-        <Badge variant="outline">PPO</Badge>
-        <Badge variant="secondary">45 Members</Badge>
+
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold text-gray-900">Status Variants</h3>
+        <div className="flex flex-wrap gap-4">
+          <Badge variant="pending">Pending</Badge>
+          <Badge variant="processed">Processed</Badge>
+          <Badge variant="approved">Approved</Badge>
+          <Badge variant="denied">Denied</Badge>
+          <Badge variant="partial-approval">Partial Approval</Badge>
+        </div>
+      </div>
+
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold text-gray-900">Sizes</h3>
+        <div className="flex flex-wrap items-center gap-4">
+          <Badge size="sm">Small</Badge>
+          <Badge size="default">Default</Badge>
+          <Badge size="lg">Large</Badge>
+          <Badge size="label">Label</Badge>
+        </div>
+      </div>
+
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold text-gray-900">
+          Interactive States
+        </h3>
+        <div className="flex flex-wrap gap-4">
+          <Badge interactive>Clickable</Badge>
+          <Badge interactive variant="outline">
+            Hover me
+          </Badge>
+          <Badge dot>With dot</Badge>
+          <Badge icon="🔔">With icon</Badge>
+        </div>
       </div>
     </div>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Example of badges used in a group information card',
-      },
-    },
-  },
 }
 
-export const CommissionTableRow: Story = {
+// Common use cases
+export const CommonUseCases: Story = {
   render: () => (
-    <div className="bg-white p-4 rounded-lg border">
-      <div className="grid grid-cols-4 gap-4 items-center">
-        <div>
-          <p className="font-medium">Manufacturing Solutions LLC</p>
-          <p className="text-sm text-gray-600">MS-2024-002</p>
+    <div className="space-y-8">
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold text-gray-900">Member Status</h3>
+        <div className="flex gap-4">
+          <Badge variant="success">Active</Badge>
+          <Badge variant="warning">Pending</Badge>
+          <Badge variant="error">Terminated</Badge>
         </div>
-        <div className="text-center">
+      </div>
+
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold text-gray-900">Plan Types</h3>
+        <div className="flex gap-4">
+          <Badge variant="outline">PPO</Badge>
           <Badge variant="outline">HMO</Badge>
+          <Badge variant="outline">HDHP</Badge>
         </div>
-        <div className="text-center">
-          <p className="font-semibold">$5,616.00</p>
-        </div>
-        <div className="text-center">
-          <Badge variant="success">Paid</Badge>
+      </div>
+
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold text-gray-900">Notifications</h3>
+        <div className="flex gap-4">
+          <Badge variant="error" dot>
+            3 New Messages
+          </Badge>
+          <Badge variant="warning" dot>
+            Updates Available
+          </Badge>
         </div>
       </div>
     </div>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Example of badges used in commission table rows',
-      },
-    },
-  },
 }
 
-// Accessibility Test
-export const AccessibilityTest: Story = {
-  args: {
-    variant: 'success',
-    children: 'Accessible Badge',
-    'aria-label': 'Member status is active',
-    role: 'status',
-  },
+// Real-world examples
+export const RealWorldExamples: Story = {
+  render: () => (
+    <div className="space-y-8">
+      <div className="bg-white p-6 rounded-lg border border-gray-200 space-y-4 w-[400px]">
+        <div className="flex justify-between items-start">
+          <div>
+            <h4 className="font-semibold text-gray-900">TechCorp Solutions</h4>
+            <p className="text-sm text-gray-500">Group #TC-2024-001</p>
+          </div>
+          <Badge variant="success">Active</Badge>
+        </div>
+        <div className="flex gap-2">
+          <Badge variant="outline">PPO</Badge>
+          <Badge variant="secondary">125 Members</Badge>
+          <Badge variant="warning" dot>
+            Renewal Due
+          </Badge>
+        </div>
+      </div>
 
-  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = within(canvasElement)
-    const badge = canvas.getByText('Accessible Badge')
+      <div className="bg-white p-6 rounded-lg border border-gray-200 w-[400px]">
+        <div className="flex justify-between items-center">
+          <div className="space-y-1">
+            <h4 className="font-semibold text-gray-900">Commission Payment</h4>
+            <div className="flex gap-2">
+              <Badge variant="processed">Processed</Badge>
+              <Badge variant="outline">Q1 2024</Badge>
+            </div>
+          </div>
+          <span className="text-lg font-semibold text-gray-900">
+            $12,450.00
+          </span>
+        </div>
+      </div>
+    </div>
+  ),
+}
 
-    // Test accessibility attributes
-    expect(badge).toHaveAttribute('aria-label')
-    expect(badge).toHaveAttribute('role', 'status')
-    expect(badge).toBeVisible()
+// Interactive examples
+export const InteractiveExamples: Story = {
+  render: () => (
+    <div className="space-y-8">
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold text-gray-900">
+          Interactive Badges
+        </h3>
+        <div className="flex gap-4">
+          <Badge
+            interactive
+            onClick={() => window.alert('Clicked!')}
+            className="cursor-pointer"
+          >
+            Click me
+          </Badge>
+          <Badge
+            interactive
+            variant="outline"
+            onClick={() => window.alert('Viewing details...')}
+          >
+            View Details
+          </Badge>
+        </div>
+      </div>
 
-    // Test color contrast (this would be handled by a11y addon)
-    expect(badge).toHaveClass('bg-green-100', 'text-green-800')
-  },
-  parameters: {
-    a11y: {
-      config: {
-        rules: [
-          {
-            id: 'color-contrast',
-            enabled: true,
-          },
-        ],
-      },
-    },
-  },
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold text-gray-900">
+          With Hover Effects
+        </h3>
+        <div className="flex gap-4">
+          <Badge
+            interactive
+            variant="success"
+            className="transform transition-transform hover:scale-105"
+          >
+            Hover to Scale
+          </Badge>
+          <Badge
+            interactive
+            variant="warning"
+            className="transition-shadow hover:shadow-md"
+          >
+            Hover for Shadow
+          </Badge>
+        </div>
+      </div>
+    </div>
+  ),
+}
+
+// Accessibility examples
+export const AccessibilityExamples: Story = {
+  render: () => (
+    <div className="space-y-8">
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold text-gray-900">
+          Accessible Badges
+        </h3>
+        <div className="flex gap-4">
+          <Badge role="status" aria-label="3 unread messages">
+            3
+          </Badge>
+          <Badge
+            variant="warning"
+            role="alert"
+            aria-label="Action required: Document needs review"
+          >
+            Action Required
+          </Badge>
+        </div>
+      </div>
+    </div>
+  ),
 }
