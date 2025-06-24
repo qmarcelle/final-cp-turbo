@@ -19,5 +19,8 @@
   "buildCommand": "pnpm --filter storybook-app storybook:build",
   "outputDirectory": "apps/storybook/storybook-static",
   "installCommand": "pnpm install --no-frozen-lockfile",
-  "framework": null
+  "framework": null,
+  "env": {
+    "NODEJS_VERSION": "20.11.0"
+  }
 } 
