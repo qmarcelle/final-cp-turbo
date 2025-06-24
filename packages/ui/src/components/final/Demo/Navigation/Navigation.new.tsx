@@ -27,6 +27,17 @@ import type {
   NavigationDropdownItemProps,
 } from '../../../../../../types/src/components'
 
+export interface NavigationMenuListProps
+  extends React.ComponentPropsWithRef<typeof NavigationMenuPrimitive.List> {}
+export interface NavigationMenuItemProps
+  extends React.ComponentPropsWithRef<typeof NavigationMenuPrimitive.Item> {}
+export interface NavigationMenuTriggerProps
+  extends React.ComponentPropsWithRef<typeof NavigationMenuPrimitive.Trigger> {}
+export interface NavigationMenuContentProps
+  extends React.ComponentPropsWithRef<typeof NavigationMenuPrimitive.Content> {}
+export interface NavigationMenuLinkProps
+  extends React.ComponentPropsWithRef<typeof NavigationMenuPrimitive.Link> {}
+
 // Navigation container variants
 export const navigationVariants = cva('nav-container', {
   variants: {
@@ -199,30 +210,24 @@ const NavigationToggle: React.FC<NavigationToggleProps> = ({
 
 NavigationToggle.displayName = 'NavigationToggle'
 
-const NavigationMenu = React.forwardRef<HTMLDivElement, NavigationMenuProps>(
-  ({ className, children, ...props }, ref) => {
-    const { isMobile } = useNavigationContext()
+const NavigationMenu = React.forwardRef<
+  React.ElementRef<typeof NavigationMenuPrimitive.Root>,
+  NavigationMenuProps
+>(({ className, children, ...props }, ref) => (
+  <NavigationMenuPrimitive.Root
+    ref={ref}
+    className={cn(
+      'relative z-10 flex max-w-max flex-1 items-center justify-center',
+      className
+    )}
+    {...props}
+  >
+    {children}
+    <NavigationMenuViewport />
+  </NavigationMenuPrimitive.Root>
+))
 
-    return (
-      <NavigationMenuPrimitive.Root
-        ref={ref}
-        className={cn('relative z-10', isMobile ? 'w-full' : 'flex', className)}
-        {...props}
-      >
-        <NavigationMenuPrimitive.List
-          className={cn(
-            'flex gap-nav-gap',
-            isMobile ? 'flex-col w-full' : 'items-center'
-          )}
-        >
-          {children}
-        </NavigationMenuPrimitive.List>
-      </NavigationMenuPrimitive.Root>
-    )
-  }
-)
-
-NavigationMenu.displayName = 'NavigationMenu'
+NavigationMenu.displayName = NavigationMenuPrimitive.Root.displayName
 
 const NavigationItem = React.forwardRef<HTMLLIElement, NavigationItemProps>(
   ({ className, variant, href, active, children, ...props }, ref) => {

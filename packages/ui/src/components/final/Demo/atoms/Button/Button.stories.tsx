@@ -75,10 +75,10 @@ import { Button } from '@portals/ui';
     },
     size: {
       control: 'select',
-      options: ['sm', 'default', 'md', 'lg'],
+      options: ['sm', 'md', 'lg'],
       description: 'The size of the button',
       table: {
-        defaultValue: { summary: 'default' },
+        defaultValue: { summary: 'md' },
       },
     },
     loading: {
@@ -332,9 +332,6 @@ export const SizeVariants: Story = {
         <div className="flex gap-4 items-center">
           <Button variant="primary" size="sm">
             Small
-          </Button>
-          <Button variant="primary" size="default">
-            Default
           </Button>
           <Button variant="primary" size="md">
             Medium
