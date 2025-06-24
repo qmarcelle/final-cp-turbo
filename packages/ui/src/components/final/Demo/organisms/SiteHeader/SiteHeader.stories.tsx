@@ -1,27 +1,40 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { userEvent, within, expect } from 'storybook/test';
-import { SiteHeader } from './SiteHeader';
-import { getStoryMeta } from '../../utils/getStoryMeta';
-import { mockBrokers } from '../../utils/mockData';
+import type { Meta, StoryObj } from '@storybook/react'
+import { userEvent, within } from '@storybook/testing-library'
+import { expect } from '@storybook/jest'
+import { SiteHeader } from './SiteHeader'
+import { mockBrokers } from '../../utils/mockData'
 
-// Get the meta data from the utility function
-const metaData = getStoryMeta({
+const meta = {
+  title: '🦠 Organisms/🎯 SiteHeader',
   component: SiteHeader,
-  category: 'organisms',
-  name: 'SiteHeader',
-  description: 'Main site header with navigation, user menu, and broker portal branding',
+  tags: ['autodocs'],
   parameters: {
     layout: 'fullscreen',
+    docs: {
+      description: {
+        component:
+          'Main site header with navigation, user menu, and broker portal branding',
+      },
+    },
+    backgrounds: {
+      default: 'light',
+      values: [
+        { name: 'light', value: '#FFFFFF' },
+        { name: 'dark', value: '#111827' },
+      ],
+    },
+    themes: {
+      default: 'light',
+      list: [
+        { name: 'light', class: 'light', color: '#FFFFFF' },
+        { name: 'dark', class: 'dark', color: '#111827' },
+      ],
+    },
   },
-});
+} satisfies Meta<typeof SiteHeader>
 
-// Create the meta object that satisfies Storybook's requirements
-const meta = {
-  ...metaData,
-} satisfies Meta<typeof SiteHeader>;
-
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 // Sample user data
 const sampleUser = {
@@ -29,31 +42,32 @@ const sampleUser = {
   email: mockBrokers[0].email,
   role: 'Licensed Broker',
   agency: mockBrokers[0].agencyName,
-};
+}
 
 const sampleUserWithAvatar = {
   ...sampleUser,
-  avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop&crop=face',
-};
+  avatar:
+    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop&crop=face',
+}
 
 // Basic Header States
 export const Default: Story = {
   args: {
     user: sampleUser,
   },
-};
+}
 
 export const WithAvatar: Story = {
   args: {
     user: sampleUserWithAvatar,
   },
-};
+}
 
 export const WithoutUser: Story = {
   args: {
     // No user prop - shows header without user menu
   },
-};
+}
 
 export const WithNotifications: Story = {
   args: {
@@ -61,7 +75,7 @@ export const WithNotifications: Story = {
     showNotifications: true,
     notificationCount: 3,
   },
-};
+}
 
 export const ManyNotifications: Story = {
   args: {
@@ -69,14 +83,14 @@ export const ManyNotifications: Story = {
     showNotifications: true,
     notificationCount: 127,
   },
-};
+}
 
 export const NoNotifications: Story = {
   args: {
     user: sampleUser,
     showNotifications: false,
   },
-};
+}
 
 // Navigation States
 export const WithActiveNavigation: Story = {
@@ -91,14 +105,14 @@ export const WithActiveNavigation: Story = {
       },
     },
   },
-};
+}
 
 export const DifferentActivePath: Story = {
   args: {
     user: sampleUser,
     activePath: '/broker/reporting',
   },
-};
+}
 
 // Mobile States
 export const MobileMenuClosed: Story = {
@@ -111,7 +125,7 @@ export const MobileMenuClosed: Story = {
       defaultViewport: 'mobile',
     },
   },
-};
+}
 
 export const MobileMenuOpen: Story = {
   args: {
@@ -123,7 +137,7 @@ export const MobileMenuOpen: Story = {
       defaultViewport: 'mobile',
     },
   },
-};
+}
 
 // Layout Variants
 export const Compact: Story = {
@@ -138,7 +152,7 @@ export const Compact: Story = {
       },
     },
   },
-};
+}
 
 // Interactive Examples
 export const UserMenuInteraction: Story = {
@@ -147,17 +161,17 @@ export const UserMenuInteraction: Story = {
     notificationCount: 5,
   },
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = within(canvasElement);
-    
+    const canvas = within(canvasElement)
+
     // Find and click the user menu button
-    const userMenuButton = canvas.getByLabelText('User menu');
-    await userEvent.click(userMenuButton);
-    
+    const userMenuButton = canvas.getByLabelText('User menu')
+    await userEvent.click(userMenuButton)
+
     // Verify user menu is open
-    expect(canvas.getByText('Profile Settings')).toBeInTheDocument();
-    expect(canvas.getByText('Sign Out')).toBeInTheDocument();
+    expect(canvas.getByText('Profile Settings')).toBeInTheDocument()
+    expect(canvas.getByText('Sign Out')).toBeInTheDocument()
   },
-};
+}
 
 export const NotificationInteraction: Story = {
   args: {
@@ -166,17 +180,17 @@ export const NotificationInteraction: Story = {
     notificationCount: 12,
   },
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = within(canvasElement);
-    
+    const canvas = within(canvasElement)
+
     // Find and click the notifications button
-    const notificationButton = canvas.getByLabelText('Notifications');
-    await userEvent.click(notificationButton);
-    
+    const notificationButton = canvas.getByLabelText('Notifications')
+    await userEvent.click(notificationButton)
+
     // Verify notification badge is visible
-    const badge = canvas.getByText('12');
-    expect(badge).toBeInTheDocument();
+    const badge = canvas.getByText('12')
+    expect(badge).toBeInTheDocument()
   },
-};
+}
 
 export const MobileMenuInteraction: Story = {
   args: {
@@ -184,7 +198,7 @@ export const MobileMenuInteraction: Story = {
     showMobileMenu: false,
     onMobileMenuToggle: () => {
       // eslint-disable-next-line no-alert
-      window.alert('Mobile menu toggled!');
+      window.alert('Mobile menu toggled!')
     },
   },
   parameters: {
@@ -193,13 +207,13 @@ export const MobileMenuInteraction: Story = {
     },
   },
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = within(canvasElement);
-    
+    const canvas = within(canvasElement)
+
     // Find and click the mobile menu toggle
-    const menuButton = canvas.getByLabelText('Toggle mobile menu');
-    await userEvent.click(menuButton);
+    const menuButton = canvas.getByLabelText('Toggle mobile menu')
+    await userEvent.click(menuButton)
   },
-};
+}
 
 // Different User Roles
 export const AdminUser: Story = {
@@ -219,7 +233,7 @@ export const AdminUser: Story = {
       },
     },
   },
-};
+}
 
 export const AgencyManager: Story = {
   args: {
@@ -230,7 +244,7 @@ export const AgencyManager: Story = {
       agency: 'Davis Insurance Solutions',
     },
   },
-};
+}
 
 // Content States
 export const LongAgencyName: Story = {
@@ -245,11 +259,12 @@ export const LongAgencyName: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Header handling long user names and agency names with proper truncation',
+        story:
+          'Header handling long user names and agency names with proper truncation',
       },
     },
   },
-};
+}
 
 // Loading State
 export const LoadingUser: Story = {
@@ -269,7 +284,7 @@ export const LoadingUser: Story = {
       },
     },
   },
-};
+}
 
 // Custom Navigation
 export const CustomNavigation: Story = {
@@ -305,11 +320,12 @@ export const CustomNavigation: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Header with custom navigation items instead of default broker portal navigation',
+        story:
+          'Header with custom navigation items instead of default broker portal navigation',
       },
     },
   },
-};
+}
 
 // Real-world Usage Examples
 export const BrokerDashboard: Story = {
@@ -325,7 +341,7 @@ export const BrokerDashboard: Story = {
       },
     },
   },
-};
+}
 
 export const CommissionReporting: Story = {
   args: {
@@ -336,11 +352,12 @@ export const CommissionReporting: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Header on commission reporting pages with reporting navigation active',
+        story:
+          'Header on commission reporting pages with reporting navigation active',
       },
     },
   },
-};
+}
 
 export const MemberSearch: Story = {
   args: {
@@ -350,11 +367,12 @@ export const MemberSearch: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Header on member search pages with member services navigation active',
+        story:
+          'Header on member search pages with member services navigation active',
       },
     },
   },
-};
+}
 
 // Page Layout Context
 export const WithPageContent: Story = {
@@ -369,7 +387,7 @@ export const WithPageContent: Story = {
         <div className="bg-white rounded-lg border p-6">
           <h1 className="text-2xl font-bold text-gray-900 mb-4">Dashboard</h1>
           <p className="text-gray-600">
-            This demonstrates how the SiteHeader integrates with page content, 
+            This demonstrates how the SiteHeader integrates with page content,
             showing proper spacing and layout behavior.
           </p>
           <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -398,7 +416,7 @@ export const WithPageContent: Story = {
       },
     },
   },
-};
+}
 
 // Accessibility Test
 export const AccessibilityTest: Story = {
@@ -407,34 +425,34 @@ export const AccessibilityTest: Story = {
     notificationCount: 5,
   },
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = within(canvasElement);
-    
+    const canvas = within(canvasElement)
+
     // Test header structure
-    const header = canvas.getByRole('banner');
-    expect(header).toBeInTheDocument();
-    
+    const header = canvas.getByRole('banner')
+    expect(header).toBeInTheDocument()
+
     // Test navigation
-    const nav = canvas.getByRole('navigation');
-    expect(nav).toBeInTheDocument();
-    
+    const nav = canvas.getByRole('navigation')
+    expect(nav).toBeInTheDocument()
+
     // Test user menu button accessibility
-    const userMenuButton = canvas.getByLabelText('User menu');
-    expect(userMenuButton).toBeInTheDocument();
-    expect(userMenuButton).toHaveAttribute('aria-label');
-    
+    const userMenuButton = canvas.getByLabelText('User menu')
+    expect(userMenuButton).toBeInTheDocument()
+    expect(userMenuButton).toHaveAttribute('aria-label')
+
     // Test notification button accessibility
-    const notificationButton = canvas.getByLabelText('Notifications');
-    expect(notificationButton).toBeInTheDocument();
-    expect(notificationButton).toHaveAttribute('aria-label');
-    
+    const notificationButton = canvas.getByLabelText('Notifications')
+    expect(notificationButton).toBeInTheDocument()
+    expect(notificationButton).toHaveAttribute('aria-label')
+
     // Test keyboard navigation
-    await userEvent.tab();
-    await userEvent.tab();
-    
+    await userEvent.tab()
+    await userEvent.tab()
+
     // Test user menu interaction
-    await userEvent.click(userMenuButton);
-    const signOutButton = canvas.getByText('Sign Out');
-    expect(signOutButton).toBeInTheDocument();
+    await userEvent.click(userMenuButton)
+    const signOutButton = canvas.getByText('Sign Out')
+    expect(signOutButton).toBeInTheDocument()
   },
   parameters: {
     a11y: {
@@ -442,18 +460,18 @@ export const AccessibilityTest: Story = {
         rules: [
           {
             id: 'color-contrast',
-            enabled: true
+            enabled: true,
           },
           {
             id: 'keyboard-navigation',
-            enabled: true
+            enabled: true,
           },
           {
             id: 'aria-labels',
-            enabled: true
-          }
-        ]
-      }
-    }
-  }
-};
+            enabled: true,
+          },
+        ],
+      },
+    },
+  },
+}

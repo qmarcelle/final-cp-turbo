@@ -1,31 +1,30 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { userEvent, within } from 'storybook/test';
-import { Footer } from './Footer';
-import { getStoryMeta } from '../../utils/getStoryMeta';
+import type { Meta, StoryObj } from '@storybook/react'
+import { userEvent, within } from 'storybook/test'
+import { Footer } from './Footer'
+import { getStoryMeta } from '../../utils/getStoryMeta'
 
-// Get the meta data from the utility function
-const metaData = getStoryMeta({
+const meta = {
+  title: '🦠 Organisms/👣 Footer',
   component: Footer,
-  category: 'organisms',
-  name: 'Footer',
-  description: 'Site footer with links, copyright, and contact information for the broker portal',
+  tags: ['autodocs'],
   parameters: {
     layout: 'fullscreen',
+    docs: {
+      description: {
+        component:
+          'Site footer with links, copyright, and contact information for the broker portal',
+      },
+    },
   },
-});
+} satisfies Meta<typeof Footer>
 
-// Create the meta object that satisfies Storybook's requirements
-const meta = {
-  ...metaData,
-} satisfies Meta<typeof Footer>;
-
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 // Basic Footer Variants
 export const Default: Story = {
   args: {},
-};
+}
 
 export const Compact: Story = {
   args: {
@@ -38,7 +37,7 @@ export const Compact: Story = {
       },
     },
   },
-};
+}
 
 export const WithoutLogo: Story = {
   args: {
@@ -51,7 +50,7 @@ export const WithoutLogo: Story = {
       },
     },
   },
-};
+}
 
 export const WithSocialLinks: Story = {
   args: {
@@ -64,7 +63,7 @@ export const WithSocialLinks: Story = {
       },
     },
   },
-};
+}
 
 // Custom Content
 export const WithCustomLinks: Story = {
@@ -84,11 +83,12 @@ export const WithCustomLinks: Story = {
       },
     },
   },
-};
+}
 
 export const WithCustomCopyright: Story = {
   args: {
-    customCopyright: '© 2024 Custom Healthcare Solutions. All rights reserved.',
+    customCopyright:
+      '© 2024 Custom Healthcare Solutions. All rights reserved.',
     customAddress: '123 Custom Street, Custom City, ST 12345',
   },
   parameters: {
@@ -98,7 +98,7 @@ export const WithCustomCopyright: Story = {
       },
     },
   },
-};
+}
 
 // Additional Sections
 export const WithAdditionalSections: Story = {
@@ -106,14 +106,19 @@ export const WithAdditionalSections: Story = {
     additionalSections: (
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
-          <h4 className="text-sm font-semibold text-gray-900 mb-4">Important Notice</h4>
+          <h4 className="text-sm font-semibold text-gray-900 mb-4">
+            Important Notice
+          </h4>
           <p className="text-xs text-gray-600">
-            This portal is for licensed insurance brokers only. All information contained 
-            herein is confidential and proprietary to BlueCross BlueShield of Tennessee.
+            This portal is for licensed insurance brokers only. All information
+            contained herein is confidential and proprietary to BlueCross
+            BlueShield of Tennessee.
           </p>
         </div>
         <div>
-          <h4 className="text-sm font-semibold text-gray-900 mb-4">Support Hours</h4>
+          <h4 className="text-sm font-semibold text-gray-900 mb-4">
+            Support Hours
+          </h4>
           <div className="text-xs text-gray-600 space-y-1">
             <p>Monday - Friday: 8:00 AM - 6:00 PM EST</p>
             <p>Saturday: 9:00 AM - 2:00 PM EST</p>
@@ -131,7 +136,7 @@ export const WithAdditionalSections: Story = {
       },
     },
   },
-};
+}
 
 // Interactive Examples
 export const InteractiveLinks: Story = {
@@ -139,19 +144,19 @@ export const InteractiveLinks: Story = {
     showSocial: true,
   },
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = within(canvasElement);
-    
+    const canvas = within(canvasElement)
+
     // Test footer link interaction
-    const privacyLink = canvas.getByText('Privacy & Security');
-    await userEvent.hover(privacyLink);
-    
+    const privacyLink = canvas.getByText('Privacy & Security')
+    await userEvent.hover(privacyLink)
+
     // Test social link interaction (if present)
-    const socialLinks = canvas.getAllByLabelText(/Facebook|Twitter|LinkedIn/i);
+    const socialLinks = canvas.getAllByLabelText(/Facebook|Twitter|LinkedIn/i)
     if (socialLinks.length > 0) {
-      await userEvent.hover(socialLinks[0]);
+      await userEvent.hover(socialLinks[0])
     }
   },
-};
+}
 
 // Different Layout Contexts
 export const FullPageExample: Story = {
@@ -163,14 +168,15 @@ export const FullPageExample: Story = {
           <h1 className="text-xl font-semibold">Broker Portal</h1>
         </div>
       </header>
-      
+
       {/* Main Content */}
       <main className="flex-1 bg-gray-50 py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-white rounded-lg border p-6">
             <h2 className="text-lg font-semibold mb-4">Page Content</h2>
             <p className="text-gray-600 mb-4">
-              This demonstrates how the footer appears in a full page layout with proper spacing and positioning.
+              This demonstrates how the footer appears in a full page layout
+              with proper spacing and positioning.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="bg-gray-50 p-4 rounded-lg">
@@ -189,7 +195,7 @@ export const FullPageExample: Story = {
           </div>
         </div>
       </main>
-      
+
       {/* Footer */}
       <Footer showSocial />
     </div>
@@ -202,7 +208,7 @@ export const FullPageExample: Story = {
       },
     },
   },
-};
+}
 
 export const CompactPageExample: Story = {
   render: () => (
@@ -213,7 +219,7 @@ export const CompactPageExample: Story = {
           <h1 className="text-lg font-semibold">Quick Quote Tool</h1>
         </div>
       </header>
-      
+
       {/* Main Content */}
       <main className="flex-1 bg-gray-50 py-6">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -222,7 +228,9 @@ export const CompactPageExample: Story = {
             <div className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium mb-1">Group Name</label>
+                  <label className="block text-sm font-medium mb-1">
+                    Group Name
+                  </label>
                   <input
                     type="text"
                     className="w-full px-3 py-2 border border-gray-300 rounded-md"
@@ -230,7 +238,9 @@ export const CompactPageExample: Story = {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-1">Employee Count</label>
+                  <label className="block text-sm font-medium mb-1">
+                    Employee Count
+                  </label>
                   <input
                     type="number"
                     className="w-full px-3 py-2 border border-gray-300 rounded-md"
@@ -242,7 +252,7 @@ export const CompactPageExample: Story = {
           </div>
         </div>
       </main>
-      
+
       {/* Compact Footer */}
       <Footer compact />
     </div>
@@ -255,7 +265,7 @@ export const CompactPageExample: Story = {
       },
     },
   },
-};
+}
 
 // Mobile Responsive
 export const MobileView: Story = {
@@ -272,7 +282,7 @@ export const MobileView: Story = {
       },
     },
   },
-};
+}
 
 export const TabletView: Story = {
   args: {
@@ -288,7 +298,7 @@ export const TabletView: Story = {
       },
     },
   },
-};
+}
 
 // Content Variations
 export const MinimalFooter: Story = {
@@ -308,7 +318,7 @@ export const MinimalFooter: Story = {
       },
     },
   },
-};
+}
 
 export const RichFooter: Story = {
   args: {
@@ -316,7 +326,9 @@ export const RichFooter: Story = {
     additionalSections: (
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div>
-          <h4 className="text-sm font-semibold text-gray-900 mb-4">Contact Information</h4>
+          <h4 className="text-sm font-semibold text-gray-900 mb-4">
+            Contact Information
+          </h4>
           <div className="text-xs text-gray-600 space-y-1">
             <p>Broker Support: (800) 555-0123</p>
             <p>Technical Support: (800) 555-0456</p>
@@ -324,7 +336,9 @@ export const RichFooter: Story = {
           </div>
         </div>
         <div>
-          <h4 className="text-sm font-semibold text-gray-900 mb-4">Business Hours</h4>
+          <h4 className="text-sm font-semibold text-gray-900 mb-4">
+            Business Hours
+          </h4>
           <div className="text-xs text-gray-600 space-y-1">
             <p>Monday - Friday: 8:00 AM - 6:00 PM</p>
             <p>Saturday: 9:00 AM - 2:00 PM</p>
@@ -332,15 +346,26 @@ export const RichFooter: Story = {
           </div>
         </div>
         <div>
-          <h4 className="text-sm font-semibold text-gray-900 mb-4">Quick Access</h4>
+          <h4 className="text-sm font-semibold text-gray-900 mb-4">
+            Quick Access
+          </h4>
           <div className="text-xs text-gray-600 space-y-1">
-            <a href="/broker/mobile-app" className="block hover:text-gray-900 transition-colors">
+            <a
+              href="/broker/mobile-app"
+              className="block hover:text-gray-900 transition-colors"
+            >
               Download Mobile App
             </a>
-            <a href="/broker/api-access" className="block hover:text-gray-900 transition-colors">
+            <a
+              href="/broker/api-access"
+              className="block hover:text-gray-900 transition-colors"
+            >
               API Documentation
             </a>
-            <a href="/broker/system-status" className="block hover:text-gray-900 transition-colors">
+            <a
+              href="/broker/system-status"
+              className="block hover:text-gray-900 transition-colors"
+            >
               System Status
             </a>
           </div>
@@ -351,11 +376,12 @@ export const RichFooter: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Rich footer with comprehensive information and multiple sections',
+        story:
+          'Rich footer with comprehensive information and multiple sections',
       },
     },
   },
-};
+}
 
 // Loading State
 export const LoadingFooter: Story = {
@@ -376,7 +402,7 @@ export const LoadingFooter: Story = {
       },
     },
   },
-};
+}
 
 // Dark Theme Example
 export const DarkTheme: Story = {
@@ -392,10 +418,13 @@ export const DarkTheme: Story = {
                 className="h-8 w-auto"
               />
             </div>
-            <h3 className="text-lg font-semibold text-white mb-4">Broker Portal</h3>
+            <h3 className="text-lg font-semibold text-white mb-4">
+              Broker Portal
+            </h3>
             <p className="text-sm text-gray-300 mb-4 max-w-md">
-              Your trusted partner for health insurance solutions. Access comprehensive 
-              broker tools, commission reporting, and member services all in one place.
+              Your trusted partner for health insurance solutions. Access
+              comprehensive broker tools, commission reporting, and member
+              services all in one place.
             </p>
           </div>
           <div>
@@ -403,13 +432,22 @@ export const DarkTheme: Story = {
               Quick Links
             </h4>
             <nav className="space-y-2">
-              <a href="#" className="block text-sm text-gray-300 hover:text-white transition-colors">
+              <a
+                href="#"
+                className="block text-sm text-gray-300 hover:text-white transition-colors"
+              >
                 Sales & Quoting
               </a>
-              <a href="#" className="block text-sm text-gray-300 hover:text-white transition-colors">
+              <a
+                href="#"
+                className="block text-sm text-gray-300 hover:text-white transition-colors"
+              >
                 Member Services
               </a>
-              <a href="#" className="block text-sm text-gray-300 hover:text-white transition-colors">
+              <a
+                href="#"
+                className="block text-sm text-gray-300 hover:text-white transition-colors"
+              >
                 Commission Reports
               </a>
             </nav>
@@ -419,13 +457,22 @@ export const DarkTheme: Story = {
               Support
             </h4>
             <nav className="space-y-2">
-              <a href="#" className="block text-sm text-gray-300 hover:text-white transition-colors">
+              <a
+                href="#"
+                className="block text-sm text-gray-300 hover:text-white transition-colors"
+              >
                 Help Center
               </a>
-              <a href="#" className="block text-sm text-gray-300 hover:text-white transition-colors">
+              <a
+                href="#"
+                className="block text-sm text-gray-300 hover:text-white transition-colors"
+              >
                 Contact Us
               </a>
-              <a href="#" className="block text-sm text-gray-300 hover:text-white transition-colors">
+              <a
+                href="#"
+                className="block text-sm text-gray-300 hover:text-white transition-colors"
+              >
                 System Status
               </a>
             </nav>
@@ -450,4 +497,4 @@ export const DarkTheme: Story = {
       },
     },
   },
-};
+}

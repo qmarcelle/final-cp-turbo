@@ -3,6 +3,8 @@ const plugin = require('tailwindcss/plugin')
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
+    '../../apps/storybook/.storybook/**/*.{js,ts,jsx,tsx}',
+    '../../apps/storybook/src/**/*.{js,ts,jsx,tsx}',
     './src/components/**/*.{js,ts,jsx,tsx}',
     './src/lib/**/*.{js,ts,jsx,tsx}',
     './src/styles/**/*.css',
@@ -10,6 +12,69 @@ module.exports = {
     '../../apps/employer-portal/src/**/*.{js,ts,jsx,tsx}',
     '../../apps/storybook/src/**/*.{js,ts,jsx,tsx}',
     '!**/node_modules/**',
+  ],
+  darkMode: ['class', '[data-theme="dark"]'],
+  safelist: [
+    // Primary colors
+    'text-primary-blue',
+    'bg-primary-blue',
+    'border-primary-blue',
+    'text-primary-blue-inactive',
+    'bg-primary-blue-inactive',
+    'border-primary-blue-inactive',
+
+    // Secondary colors
+    'text-secondary-blue1',
+    'bg-secondary-blue1',
+    'border-secondary-blue1',
+    'text-secondary-blue2',
+    'bg-secondary-blue2',
+    'border-secondary-blue2',
+    'text-secondary-blue3',
+    'bg-secondary-blue3',
+    'border-secondary-blue3',
+
+    // Status colors
+    'text-status-error',
+    'bg-status-error',
+    'border-status-error',
+    'text-status-success',
+    'bg-status-success',
+    'border-status-success',
+    'text-status-warning',
+    'bg-status-warning',
+    'border-status-warning',
+
+    // Label colors
+    'text-label-success',
+    'bg-label-success',
+    'border-label-success',
+    'text-label-error',
+    'bg-label-error',
+    'border-label-error',
+    'text-label-warning',
+    'bg-label-warning',
+    'border-label-warning',
+    'text-label-neutral',
+    'bg-label-neutral',
+    'border-label-neutral',
+
+    // Gray scale
+    'text-tertiary-gray1',
+    'bg-tertiary-gray1',
+    'border-tertiary-gray1',
+    'text-tertiary-gray3',
+    'bg-tertiary-gray3',
+    'border-tertiary-gray3',
+    'text-tertiary-gray4',
+    'bg-tertiary-gray4',
+    'border-tertiary-gray4',
+    'text-tertiary-gray5',
+    'bg-tertiary-gray5',
+    'border-tertiary-gray5',
+    'text-tertiary-gray6',
+    'bg-tertiary-gray6',
+    'border-tertiary-gray6',
   ],
   theme: {
     extend: {
@@ -66,7 +131,12 @@ module.exports = {
         light: 'var(--font-family-light)',
         regular: 'var(--font-family-regular)',
         bold: 'var(--font-family-bold)',
-        sans: ['var(--font-family-regular)', 'Arial', 'system-ui', 'sans-serif'],
+        sans: [
+          'var(--font-family-regular)',
+          'Arial',
+          'system-ui',
+          'sans-serif',
+        ],
       },
       spacing: {
         xxs: 'var(--spacing-xxs)',

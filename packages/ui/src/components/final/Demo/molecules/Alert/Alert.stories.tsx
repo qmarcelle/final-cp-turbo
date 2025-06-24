@@ -1,24 +1,25 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { userEvent, within, expect } from 'storybook/test';
-import { Alert } from './Alert';
-import { getStoryMeta } from '../../utils/getStoryMeta';
-import { Button } from '../../atoms/Button/Button';
+import type { Meta, StoryObj } from '@storybook/react'
+import { userEvent, within, expect } from 'storybook/test'
+import { Alert } from './Alert'
+import { Button } from '../../atoms/Button/Button'
+import { getStoryMeta } from '../../utils/getStoryMeta'
 
 // Get the meta data from the utility function
 const metaData = getStoryMeta({
+  title: '🧬 Molecules/Alert⚠️',
   component: Alert,
-  category: 'molecules',
-  name: 'Alert',
-  description: 'Alert component for notifications, warnings, and status messages in the broker portal',
-});
+  tags: ['autodocs'],
+  description:
+    'Alert component for notifications, warnings, and status messages in the broker portal',
+})
 
 // Create the meta object that satisfies Storybook's requirements
 const meta = {
   ...metaData,
-} satisfies Meta<typeof Alert>;
+} satisfies Meta<typeof Alert>
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 // Basic Alert Types
 export const Info: Story = {
@@ -27,7 +28,7 @@ export const Info: Story = {
     title: 'Information',
     children: 'This is an informational message with important details.',
   },
-};
+}
 
 export const Success: Story = {
   args: {
@@ -35,7 +36,7 @@ export const Success: Story = {
     title: 'Success',
     children: 'Your action was completed successfully.',
   },
-};
+}
 
 export const Warning: Story = {
   args: {
@@ -43,7 +44,7 @@ export const Warning: Story = {
     title: 'Warning',
     children: 'Please review this important warning before proceeding.',
   },
-};
+}
 
 export const Error: Story = {
   args: {
@@ -51,7 +52,7 @@ export const Error: Story = {
     title: 'Error',
     children: 'An error occurred while processing your request.',
   },
-};
+}
 
 // Without Title
 export const InfoNoTitle: Story = {
@@ -59,14 +60,14 @@ export const InfoNoTitle: Story = {
     variant: 'info',
     children: 'This is an informational message without a title.',
   },
-};
+}
 
 export const SuccessNoTitle: Story = {
   args: {
     variant: 'success',
     children: 'Operation completed successfully.',
   },
-};
+}
 
 // Dismissible Alerts
 export const Dismissible: Story = {
@@ -77,24 +78,25 @@ export const Dismissible: Story = {
     dismissible: true,
     onDismiss: () => {
       // eslint-disable-next-line no-alert
-     // alert('Alert dismissed!');
+      // alert('Alert dismissed!');
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const dismissButton = canvas.getByRole('button', { name: /dismiss/i });
-    
+    const canvas = within(canvasElement)
+    const dismissButton = canvas.getByRole('button', { name: /dismiss/i })
+
     // Test dismiss interaction
-    await userEvent.click(dismissButton);
+    await userEvent.click(dismissButton)
   },
-};
+}
 
 // Broker Portal Specific Alerts
 export const ApplicationSubmitted: Story = {
   args: {
     variant: 'success',
     title: 'Application Submitted',
-    children: 'The member application has been successfully submitted for processing. You will receive a confirmation email shortly.',
+    children:
+      'The member application has been successfully submitted for processing. You will receive a confirmation email shortly.',
     dismissible: true,
   },
   parameters: {
@@ -104,13 +106,14 @@ export const ApplicationSubmitted: Story = {
       },
     },
   },
-};
+}
 
 export const CommissionProcessing: Story = {
   args: {
     variant: 'info',
     title: 'Commission Processing',
-    children: 'Your commission payment is currently being processed and will be available within 2-3 business days.',
+    children:
+      'Your commission payment is currently being processed and will be available within 2-3 business days.',
   },
   parameters: {
     docs: {
@@ -119,13 +122,14 @@ export const CommissionProcessing: Story = {
       },
     },
   },
-};
+}
 
 export const GroupTerminationWarning: Story = {
   args: {
     variant: 'warning',
     title: 'Group Termination Pending',
-    children: 'This group has a pending termination date of March 31, 2024. Please ensure all members are notified and alternative coverage is arranged.',
+    children:
+      'This group has a pending termination date of March 31, 2024. Please ensure all members are notified and alternative coverage is arranged.',
   },
   parameters: {
     docs: {
@@ -134,13 +138,14 @@ export const GroupTerminationWarning: Story = {
       },
     },
   },
-};
+}
 
 export const SystemMaintenance: Story = {
   args: {
     variant: 'warning',
     title: 'Scheduled Maintenance',
-    children: 'The broker portal will be unavailable for scheduled maintenance on Sunday, January 28th from 2:00 AM to 6:00 AM EST.',
+    children:
+      'The broker portal will be unavailable for scheduled maintenance on Sunday, January 28th from 2:00 AM to 6:00 AM EST.',
   },
   parameters: {
     docs: {
@@ -149,13 +154,14 @@ export const SystemMaintenance: Story = {
       },
     },
   },
-};
+}
 
 export const QuoteExpiration: Story = {
   args: {
     variant: 'warning',
     title: 'Quote Expiring Soon',
-    children: 'Your quote for TechCorp Inc. will expire on January 30, 2024. Please complete the enrollment process to avoid re-quoting.',
+    children:
+      'Your quote for TechCorp Inc. will expire on January 30, 2024. Please complete the enrollment process to avoid re-quoting.',
   },
   parameters: {
     docs: {
@@ -164,13 +170,14 @@ export const QuoteExpiration: Story = {
       },
     },
   },
-};
+}
 
 export const PaymentError: Story = {
   args: {
     variant: 'error',
     title: 'Payment Processing Error',
-    children: 'There was an error processing the premium payment for Group #TC-2024-001. Please contact support for assistance.',
+    children:
+      'There was an error processing the premium payment for Group #TC-2024-001. Please contact support for assistance.',
   },
   parameters: {
     docs: {
@@ -179,7 +186,7 @@ export const PaymentError: Story = {
       },
     },
   },
-};
+}
 
 export const ValidationErrors: Story = {
   args: {
@@ -203,14 +210,15 @@ export const ValidationErrors: Story = {
       },
     },
   },
-};
+}
 
 // Alerts with Actions
 export const WithAction: Story = {
   args: {
     variant: 'info',
     title: 'New Commission Statement Available',
-    children: 'Your Q4 2024 commission statement is now available for download.',
+    children:
+      'Your Q4 2024 commission statement is now available for download.',
     action: (
       <Button variant="outline" size="sm">
         Download Statement
@@ -224,13 +232,14 @@ export const WithAction: Story = {
       },
     },
   },
-};
+}
 
 export const WithMultipleActions: Story = {
   args: {
     variant: 'warning',
     title: 'Pending Group Renewal',
-    children: 'The renewal for Manufacturing Solutions LLC is due within 30 days. Please review the renewal terms.',
+    children:
+      'The renewal for Manufacturing Solutions LLC is due within 30 days. Please review the renewal terms.',
     action: (
       <div className="flex gap-2">
         <Button variant="outline" size="sm">
@@ -249,7 +258,7 @@ export const WithMultipleActions: Story = {
       },
     },
   },
-};
+}
 
 // Complex Content Alert
 export const ComplexContent: Story = {
@@ -258,7 +267,9 @@ export const ComplexContent: Story = {
     title: 'New Features Available',
     children: (
       <div className="space-y-3">
-        <p>We've released new features to improve your broker portal experience:</p>
+        <p>
+          We've released new features to improve your broker portal experience:
+        </p>
         <ul className="list-disc pl-5 space-y-1">
           <li>Enhanced commission reporting with trend analysis</li>
           <li>Bulk member enrollment capabilities</li>
@@ -266,7 +277,11 @@ export const ComplexContent: Story = {
           <li>Real-time notification system</li>
         </ul>
         <p className="text-sm">
-          Visit our <a href="#" className="text-blue-600 hover:underline">training center</a> to learn more about these features.
+          Visit our{' '}
+          <a href="#" className="text-blue-600 hover:underline">
+            training center
+          </a>{' '}
+          to learn more about these features.
         </p>
       </div>
     ),
@@ -279,7 +294,7 @@ export const ComplexContent: Story = {
       },
     },
   },
-};
+}
 
 // Alert Banner (Full Width)
 export const Banner: Story = {
@@ -290,7 +305,8 @@ export const Banner: Story = {
         title="Service Disruption Notice"
         className="rounded-none border-x-0"
       >
-        Due to unexpected high volume, some services may experience delays. We're working to resolve this as quickly as possible.
+        Due to unexpected high volume, some services may experience delays.
+        We're working to resolve this as quickly as possible.
       </Alert>
     </div>
   ),
@@ -301,7 +317,7 @@ export const Banner: Story = {
       },
     },
   },
-};
+}
 
 // Inline Alert (Compact)
 export const Compact: Story = {
@@ -317,7 +333,7 @@ export const Compact: Story = {
       },
     },
   },
-};
+}
 
 // Alert Stack Example
 export const AlertStack: Story = {
@@ -346,18 +362,20 @@ export const AlertStack: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Multiple alerts stacked vertically as they might appear in a dashboard',
+        story:
+          'Multiple alerts stacked vertically as they might appear in a dashboard',
       },
     },
   },
-};
+}
 
 // Interactive Examples
 export const InteractiveAlert: Story = {
   args: {
     variant: 'warning',
     title: 'Confirm Action',
-    children: 'Are you sure you want to terminate coverage for this group? This action cannot be undone.',
+    children:
+      'Are you sure you want to terminate coverage for this group? This action cannot be undone.',
     action: (
       <div className="flex gap-2">
         <Button variant="outline" size="sm">
@@ -370,15 +388,15 @@ export const InteractiveAlert: Story = {
     ),
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const cancelButton = canvas.getByText('Cancel');
-    const confirmButton = canvas.getByText('Confirm Termination');
-    
+    const canvas = within(canvasElement)
+    const cancelButton = canvas.getByText('Cancel')
+    const confirmButton = canvas.getByText('Confirm Termination')
+
     // Test interaction
-    await userEvent.hover(confirmButton);
-    await userEvent.click(cancelButton);
+    await userEvent.hover(confirmButton)
+    await userEvent.click(cancelButton)
   },
-};
+}
 
 // Form Validation Context
 export const FormValidationExample: Story = {
@@ -391,7 +409,9 @@ export const FormValidationExample: Story = {
       />
       <div className="space-y-3">
         <div>
-          <label className="block text-sm font-medium mb-1">Email Address</label>
+          <label className="block text-sm font-medium mb-1">
+            Email Address
+          </label>
           <input
             type="email"
             className="w-full px-3 py-2 border border-red-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
@@ -419,7 +439,7 @@ export const FormValidationExample: Story = {
       },
     },
   },
-};
+}
 
 // Accessibility Test
 export const AccessibilityTest: Story = {
@@ -431,17 +451,17 @@ export const AccessibilityTest: Story = {
     'aria-live': 'polite',
   },
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = within(canvasElement);
-    const alert = canvas.getByRole('alert');
-    
+    const canvas = within(canvasElement)
+    const alert = canvas.getByRole('alert')
+
     // Test accessibility attributes
-    expect(alert).toHaveAttribute('role', 'alert');
-    expect(alert).toHaveAttribute('aria-live');
-    expect(alert).toBeVisible();
-    
+    expect(alert).toHaveAttribute('role', 'alert')
+    expect(alert).toHaveAttribute('aria-live')
+    expect(alert).toBeVisible()
+
     // Test content structure
-    const title = canvas.getByText('Error Alert');
-    expect(title).toBeInTheDocument();
+    const title = canvas.getByText('Error Alert')
+    expect(title).toBeInTheDocument()
   },
   parameters: {
     a11y: {
@@ -449,14 +469,14 @@ export const AccessibilityTest: Story = {
         rules: [
           {
             id: 'color-contrast',
-            enabled: true
+            enabled: true,
           },
           {
             id: 'aria-roles',
-            enabled: true
-          }
-        ]
-      }
-    }
-  }
-};
+            enabled: true,
+          },
+        ],
+      },
+    },
+  },
+}

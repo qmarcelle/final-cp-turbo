@@ -74,7 +74,7 @@
 
 @font-face {
   font-family: 'Univers-45';
-  src: url('/styles/UniversLTPro-45Light.woff2') format('woff2');
+  src: url('/UniversLTPro-45Light.woff2') format('woff2');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -82,7 +82,7 @@
 
 @font-face {
   font-family: 'Univers-55';
-  src: url('/styles/UniversLTPro-55Roman.woff2') format('woff2');
+  src: url('/UniversLTPro-55Roman.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -90,7 +90,7 @@
 
 @font-face {
   font-family: 'Univers-65';
-  src: url('/styles/UniversLTPro-65Bold.woff2') format('woff2');
+  src: url('/UniversLTPro-65Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;

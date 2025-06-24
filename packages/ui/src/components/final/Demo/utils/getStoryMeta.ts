@@ -1,43 +1,78 @@
-import type { Meta } from '@storybook/react';
-import { designSystemConfig } from '../config/designSystemConfig';
+import type { Meta } from '@storybook/react'
+import { designSystemConfig } from '../config/designSystemConfig'
+import { StoryMetaOptions } from '../../types'
 
-export type AtomicCategory = 'foundation' | 'atoms' | 'molecules' | 'organisms' | 'templates' | 'pages';
+export type AtomicCategory =
+  | 'foundation'
+  | 'atoms'
+  | 'molecules'
+  | 'organisms'
+  | 'templates'
+  | 'pages'
 
 export interface StoryMetaOptions {
-  component: any;
-  category: AtomicCategory;
-  name: string;
-  description?: string;
-  tags?: string[];
-  parameters?: Record<string, any>;
+  component: any
+  category: AtomicCategory
+  name: string
+  description?: string
+  tags?: string[]
+  parameters?: Record<string, any>
 }
 
-const categoryIcons = {
-  foundation: '🎨',
-  atoms: '⚛️',
-  molecules: '🧬',
-  organisms: '🦠',
-  templates: '📐',
-  pages: '📄',
-};
-
-const categoryTitles = {
+const categoryTitles: Record<AtomicCategory, string> = {
   foundation: 'Design System',
   atoms: 'Atoms',
-  molecules: 'Molecules', 
+  molecules: 'Molecules',
   organisms: 'Organisms',
   templates: 'Templates',
   pages: 'Pages',
-};
+}
+
+const componentEmojis: Record<string, string> = {
+  // Atoms
+  Button: '🔘',
+  Badge: '🏷️',
+  Input: '⌨️',
+  Select: '📝',
+  // Foundation
+  Colors: '🎨',
+  Typography: '📜',
+  Spacing: '📏',
+  Shadows: '🌗',
+  // Molecules
+  Alert: '⚠️',
+  Card: '🃏',
+  StatBlock: '📊',
+  // Organisms
+  Footer: '👣',
+  SiteHeader: '🎯',
+  // Pages
+  BookOfBusinessPage: '📚',
+  BrokerDashboardPage: '📊',
+  ReportingOverviewPage: '📈',
+  // Templates
+  DashboardLayout: '📋',
+}
+
+function getComponentEmoji(name: string): string {
+  return componentEmojis[name] || ''
+}
 
 export function getStoryMeta(options: StoryMetaOptions): Meta {
-  const { component, category, name, description, tags = ['autodocs'], parameters = {} } = options;
-  
-  const categoryIcon = categoryIcons[category] || '';
-  const categoryTitle = categoryTitles[category] || category;
-  
+  const {
+    component,
+    category,
+    name,
+    description,
+    tags = ['autodocs'],
+    parameters = {},
+  } = options
+
+  const categoryTitle = categoryTitles[category] || category
+  const componentEmoji = getComponentEmoji(name)
+
   return {
-    title: `${categoryIcon} ${categoryTitle}/${name}`,
+    title: `${categoryTitle}/${name} ${componentEmoji}`,
     component,
     tags,
     parameters: {
@@ -54,7 +89,7 @@ export function getStoryMeta(options: StoryMetaOptions): Meta {
         description: 'Additional CSS classes to apply',
       },
     },
-  } satisfies Meta;
+  } satisfies Meta
 }
 
 export function getFoundationMeta(name: string, description?: string): Meta {
@@ -69,12 +104,12 @@ export function getFoundationMeta(name: string, description?: string): Meta {
       },
       layout: 'padded',
     },
-  } satisfies Meta;
+  } satisfies Meta
 }
 
 export function getPageMeta(name: string, description?: string): Meta {
   return {
-    title: `📄 Pages/${name}`,
+    title: `Pages/${name} 📄`,
     tags: ['autodocs'],
     parameters: {
       layout: 'fullscreen',
@@ -84,7 +119,7 @@ export function getPageMeta(name: string, description?: string): Meta {
         },
       },
     },
-  } satisfies Meta;
+  } satisfies Meta
 }
 
 // Helper to find component config in design system
@@ -92,15 +127,15 @@ export function findComponentConfig(componentName: string) {
   function searchCategories(categories: any[]): any {
     for (const category of categories) {
       if (category.name.toLowerCase() === componentName.toLowerCase()) {
-        return category;
+        return category
       }
       if (category.children) {
-        const found = searchCategories(category.children);
-        if (found) return found;
+        const found = searchCategories(category.children)
+        if (found) return found
       }
     }
-    return null;
+    return null
   }
-  
-  return searchCategories(designSystemConfig);
+
+  return searchCategories(designSystemConfig)
 }

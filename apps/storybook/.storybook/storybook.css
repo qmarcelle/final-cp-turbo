@@ -1,0 +1,182 @@
+/* Tailwind imports */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 
+ * Story Canvas Centering
+ * The 'centered' layout parameter handles most centering,
+ * but these styles ensure consistent behavior
+ */
+.sb-show-main.sb-main-centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+/* Story wrapper adjustments for better component isolation */
+.sb-story {
+  /* Ensure components don't stretch full width when centered */
+  max-width: fit-content;
+  margin: 0 auto;
+}
+
+/* 
+ * MDX Documentation Styles
+ * Clean, readable documentation with BCBST brand alignment
+ */
+.docs-story {
+  /* Center story previews in docs */
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  background: var(--color-tertiary-gray-6, #fafafa);
+  border-radius: 8px;
+  margin: 1.5rem 0;
+}
+
+/* MDX content typography */
+.sb-unstyled {
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  color: var(--color-tertiary-gray-1, #333333);
+}
+
+.sb-unstyled h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: var(--color-secondary-blue-2, #00497e);
+}
+
+.sb-unstyled h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 2rem 0 1rem;
+  color: var(--color-secondary-blue-2, #00497e);
+}
+
+.sb-unstyled h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 1.5rem 0 0.75rem;
+}
+
+.sb-unstyled p {
+  margin: 1rem 0;
+}
+
+.sb-unstyled code {
+  background-color: var(--color-tertiary-gray-5, #f2f2f2);
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-family: 'Monaco', 'Consolas', monospace;
+  font-size: 0.875em;
+}
+
+.sb-unstyled pre {
+  background-color: var(--color-tertiary-gray-5, #f2f2f2);
+  padding: 1rem;
+  border-radius: 4px;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+/* Tables in documentation */
+.sb-unstyled table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+}
+
+.sb-unstyled th,
+.sb-unstyled td {
+  padding: 0.75rem;
+  border: 1px solid var(--color-tertiary-gray-4, #cccccc);
+  text-align: left;
+}
+
+.sb-unstyled th {
+  background-color: var(--color-tertiary-gray-5, #f2f2f2);
+  font-weight: 600;
+  color: var(--color-secondary-blue-2, #00497e);
+}
+
+/* Links with BCBST brand color */
+.sb-unstyled a {
+  color: var(--color-primary-blue, #005eb9);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.sb-unstyled a:hover {
+  color: var(--color-secondary-blue-3, #067dac);
+  text-decoration: underline;
+}
+
+/* Blockquotes */
+.sb-unstyled blockquote {
+  border-left: 4px solid var(--color-secondary-blue-1, #5dc1fd);
+  margin: 1.5rem 0;
+  padding: 0.5rem 1rem;
+  background-color: var(--color-secondary-blue-1-accent, #e7f6ff);
+  color: var(--color-secondary-blue-2, #00497e);
+}
+
+/* 
+ * Dark mode support for documentation
+ * Automatically switches with theme addon
+ */
+[data-theme='dark'] .sb-unstyled {
+  color: #e0e0e0;
+}
+
+[data-theme='dark'] .sb-unstyled h1,
+[data-theme='dark'] .sb-unstyled h2,
+[data-theme='dark'] .sb-unstyled h3 {
+  color: var(--color-secondary-blue-1, #5dc1fd);
+}
+
+[data-theme='dark'] .sb-unstyled code,
+[data-theme='dark'] .sb-unstyled pre {
+  background-color: #2a2a2a;
+  color: #e0e0e0;
+}
+
+[data-theme='dark'] .sb-unstyled th {
+  background-color: #2a2a2a;
+  color: var(--color-secondary-blue-1, #5dc1fd);
+}
+
+[data-theme='dark'] .sb-unstyled blockquote {
+  background-color: rgba(93, 193, 253, 0.1);
+  border-left-color: var(--color-secondary-blue-1, #5dc1fd);
+  color: #e0e0e0;
+}
+
+/* 
+ * Component preview backgrounds
+ * Helps visualize transparent components
+ */
+.sb-preview-background {
+  background-image:
+    linear-gradient(45deg, #f0f0f0 25%, transparent 25%),
+    linear-gradient(-45deg, #f0f0f0 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #f0f0f0 75%),
+    linear-gradient(-45deg, transparent 75%, #f0f0f0 75%);
+  background-size: 20px 20px;
+  background-position:
+    0 0,
+    0 10px,
+    10px -10px,
+    -10px 0px;
+}
+
+/* Ensure emojis render correctly in sidebar */
+.sidebar-item {
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+}

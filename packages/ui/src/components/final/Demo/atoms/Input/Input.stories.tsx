@@ -1,16 +1,19 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { userEvent, within } from '@storybook/testing-library';
-import { useForm, FormProvider } from 'react-hook-form';
-import { Input } from './Input';
-import { getStoryMeta } from '../../utils/getStoryMeta';
+import type { Meta, StoryObj } from '@storybook/react'
+import { useForm, FormProvider } from 'react-hook-form'
+import { Input } from './Input'
 
 const meta = {
-  ...getStoryMeta({
-    component: Input,
-    category: 'atoms',
-    name: 'Input',
-    description: 'Input field component with validation, icons, and various input types for broker portal forms',
-  }),
+  title: '⚛️ Atoms/⌨️ Input',
+  component: Input,
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'Input field component with validation, icons, and various input types for broker portal forms',
+      },
+    },
+  },
   argTypes: {
     type: {
       control: 'select',
@@ -38,16 +41,16 @@ const meta = {
       description: 'Default value for the input',
     },
   },
-} satisfies Meta<typeof Input>;
+} satisfies Meta<typeof Input>
 
-export default meta;
-type Story = StoryObj<typeof Input>;
+export default meta
+type Story = StoryObj<typeof Input>
 
 export const Default: Story = {
   args: {
     placeholder: 'Enter text...',
   },
-};
+}
 
 export const WithLabel: Story = {
   args: {
@@ -55,7 +58,7 @@ export const WithLabel: Story = {
     placeholder: 'Enter your email',
     type: 'email',
   },
-};
+}
 
 export const WithError: Story = {
   args: {
@@ -64,7 +67,7 @@ export const WithError: Story = {
     error: 'Password must be at least 8 characters',
     placeholder: 'Enter password',
   },
-};
+}
 
 export const Disabled: Story = {
   args: {
@@ -73,7 +76,7 @@ export const Disabled: Story = {
     defaultValue: 'john.doe',
     placeholder: 'Enter username',
   },
-};
+}
 
 export const WithIcon: Story = {
   args: {
@@ -81,12 +84,22 @@ export const WithIcon: Story = {
     type: 'search',
     placeholder: 'Search...',
     leftIcon: (
-      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+      <svg
+        className="w-4 h-4"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+        />
       </svg>
     ),
   },
-};
+}
 
 export const WithValidation: Story = {
   render: () => {
@@ -94,7 +107,7 @@ export const WithValidation: Story = {
       defaultValues: {
         email: '',
       },
-    });
+    })
 
     return (
       <FormProvider {...form}>
@@ -113,9 +126,9 @@ export const WithValidation: Story = {
           />
         </form>
       </FormProvider>
-    );
+    )
   },
-};
+}
 
 export const NumberInput: Story = {
   args: {
@@ -125,14 +138,14 @@ export const NumberInput: Story = {
     min: 0,
     max: 120,
   },
-};
+}
 
 export const DateInput: Story = {
   args: {
     label: 'Date of Birth',
     type: 'date',
   },
-};
+}
 
 export const ReadOnly: Story = {
   args: {
@@ -140,16 +153,17 @@ export const ReadOnly: Story = {
     defaultValue: 'MEM123456',
     readOnly: true,
   },
-};
+}
 
 export const WithHelperText: Story = {
   args: {
     label: 'Password',
     type: 'password',
     placeholder: 'Enter password',
-    helperText: 'Must be at least 8 characters with one number and special character',
+    helperText:
+      'Must be at least 8 characters with one number and special character',
   },
-};
+}
 
 export const Required: Story = {
   args: {
@@ -157,7 +171,7 @@ export const Required: Story = {
     placeholder: 'Enter your full name',
     required: true,
   },
-};
+}
 
 export const WithMaxLength: Story = {
   args: {
@@ -165,4 +179,4 @@ export const WithMaxLength: Story = {
     placeholder: 'Tell us about yourself',
     maxLength: 100,
   },
-};
+}

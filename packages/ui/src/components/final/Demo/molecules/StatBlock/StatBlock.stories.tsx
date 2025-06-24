@@ -1,25 +1,26 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { userEvent, within } from 'storybook/test';
-import { StatBlock } from './StatBlock';
-import { getStoryMeta } from '../../utils/getStoryMeta';
-import { mockCommissionSummary } from '../../utils/mockData';
-import { Button } from '../../atoms/Button/Button';
+import type { Meta, StoryObj } from '@storybook/react'
+import { userEvent, within } from 'storybook/test'
+import { StatBlock } from './StatBlock'
+import { getStoryMeta } from '../../utils/getStoryMeta'
+import { mockCommissionSummary } from '../../utils/mockData'
+import { Button } from '../../atoms/Button/Button'
 
-// Get the meta data from the utility function
-const metaData = getStoryMeta({
-  component: StatBlock,
-  category: 'molecules',
-  name: 'StatBlock',
-  description: 'Statistical data display component for KPIs, commission data, and metrics in the broker portal',
-});
-
-// Create the meta object that satisfies Storybook's requirements
 const meta = {
-  ...metaData,
-} satisfies Meta<typeof StatBlock>;
+  title: '🧬 Molecules/📊 StatBlock',
+  component: StatBlock,
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'Statistical data display component for KPIs, commission data, and metrics in the broker portal',
+      },
+    },
+  },
+} satisfies Meta<typeof StatBlock>
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 // Basic StatBlock Examples
 export const Default: Story = {
@@ -27,7 +28,7 @@ export const Default: Story = {
     value: '1,256',
     label: 'Total Members',
   },
-};
+}
 
 export const WithIcon: Story = {
   args: {
@@ -36,20 +37,24 @@ export const WithIcon: Story = {
     icon: (
       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
         <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4z" />
-        <path fillRule="evenodd" d="M3 8h14v7a2 2 0 01-2 2H5a2 2 0 01-2-2V8zm5 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" clipRule="evenodd" />
+        <path
+          fillRule="evenodd"
+          d="M3 8h14v7a2 2 0 01-2 2H5a2 2 0 01-2-2V8zm5 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"
+          clipRule="evenodd"
+        />
       </svg>
     ),
   },
-};
+}
 
 export const Currency: Story = {
   args: {
-    value: 125486.50,
+    value: 125486.5,
     label: 'YTD Commission',
     format: 'currency',
     variant: 'success',
   },
-};
+}
 
 export const Percentage: Story = {
   args: {
@@ -58,7 +63,7 @@ export const Percentage: Story = {
     format: 'percentage',
     variant: 'info',
   },
-};
+}
 
 export const WithTrend: Story = {
   args: {
@@ -71,7 +76,7 @@ export const WithTrend: Story = {
       period: 'last quarter',
     },
   },
-};
+}
 
 export const WithSubtitle: Story = {
   args: {
@@ -80,7 +85,7 @@ export const WithSubtitle: Story = {
     subtitle: 'This quarter',
     variant: 'success',
   },
-};
+}
 
 export const WithAction: Story = {
   args: {
@@ -93,7 +98,7 @@ export const WithAction: Story = {
       </Button>
     ),
   },
-};
+}
 
 // Broker Portal Commission Examples
 export const YTDCommission: Story = {
@@ -111,18 +116,23 @@ export const YTDCommission: Story = {
     icon: (
       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
         <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z" />
-        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clipRule="evenodd" />
+        <path
+          fillRule="evenodd"
+          d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z"
+          clipRule="evenodd"
+        />
       </svg>
     ),
   },
   parameters: {
     docs: {
       description: {
-        story: 'Main commission dashboard showing year-to-date earnings with trend data',
+        story:
+          'Main commission dashboard showing year-to-date earnings with trend data',
       },
     },
   },
-};
+}
 
 export const PendingCommission: Story = {
   args: {
@@ -144,7 +154,7 @@ export const PendingCommission: Story = {
       },
     },
   },
-};
+}
 
 export const MemberCount: Story = {
   args: {
@@ -163,7 +173,7 @@ export const MemberCount: Story = {
       </svg>
     ),
   },
-};
+}
 
 export const GroupCount: Story = {
   args: {
@@ -173,11 +183,15 @@ export const GroupCount: Story = {
     variant: 'info',
     icon: (
       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-        <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2H4zm0 2h12v8H4V6z" clipRule="evenodd" />
+        <path
+          fillRule="evenodd"
+          d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2H4zm0 2h12v8H4V6z"
+          clipRule="evenodd"
+        />
       </svg>
     ),
   },
-};
+}
 
 // Size Variants
 export const SmallSize: Story = {
@@ -186,17 +200,17 @@ export const SmallSize: Story = {
     label: 'New This Month',
     size: 'sm',
   },
-};
+}
 
 export const LargeSize: Story = {
   args: {
-    value: 125486.50,
+    value: 125486.5,
     label: 'Annual Commission',
     format: 'currency',
     size: 'lg',
     variant: 'success',
   },
-};
+}
 
 // State Examples
 export const Loading: Story = {
@@ -205,7 +219,7 @@ export const Loading: Story = {
     label: 'Loading...',
     loading: true,
   },
-};
+}
 
 export const Hoverable: Story = {
   args: {
@@ -218,15 +232,15 @@ export const Hoverable: Story = {
     },
   },
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = within(canvasElement);
-    const statBlock = canvas.getByText('Total Members').closest('div');
-    
+    const canvas = within(canvasElement)
+    const statBlock = canvas.getByText('Total Members').closest('div')
+
     if (statBlock) {
-      await userEvent.hover(statBlock);
-      await userEvent.click(statBlock);
+      await userEvent.hover(statBlock)
+      await userEvent.click(statBlock)
     }
   },
-};
+}
 
 // Trend Direction Examples
 export const TrendUp: Story = {
@@ -240,7 +254,7 @@ export const TrendUp: Story = {
       period: 'Q2',
     },
   },
-};
+}
 
 export const TrendDown: Story = {
   args: {
@@ -253,7 +267,7 @@ export const TrendDown: Story = {
     },
     variant: 'warning',
   },
-};
+}
 
 export const TrendNeutral: Story = {
   args: {
@@ -265,10 +279,14 @@ export const TrendNeutral: Story = {
       period: 'last quarter',
     },
   },
-};
+}
 
 // Dashboard Grid Example
 export const DashboardGrid: Story = {
+  args: {
+    value: '0',
+    label: 'Dashboard Grid Example',
+  },
   render: () => (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
       <StatBlock
@@ -319,10 +337,14 @@ export const DashboardGrid: Story = {
       },
     },
   },
-};
+}
 
 // Commission Summary Card
 export const CommissionSummaryCard: Story = {
+  args: {
+    value: '0',
+    label: 'Commission Summary Card Example',
+  },
   render: () => (
     <div className="space-y-4">
       <h3 className="text-lg font-semibold">Commission Summary</h3>
@@ -368,37 +390,21 @@ export const CommissionSummaryCard: Story = {
       },
     },
   },
-};
+}
 
 // Variant Showcase
 export const VariantShowcase: Story = {
+  args: {
+    value: '0',
+    label: 'Variant Showcase Example',
+  },
   render: () => (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-      <StatBlock
-        value="1,234"
-        label="Default"
-        variant="default"
-      />
-      <StatBlock
-        value="5,678"
-        label="Success"
-        variant="success"
-      />
-      <StatBlock
-        value="890"
-        label="Warning"
-        variant="warning"
-      />
-      <StatBlock
-        value="123"
-        label="Error"
-        variant="error"
-      />
-      <StatBlock
-        value="456"
-        label="Info"
-        variant="info"
-      />
+      <StatBlock value="1,234" label="Default" variant="default" />
+      <StatBlock value="5,678" label="Success" variant="success" />
+      <StatBlock value="890" label="Warning" variant="warning" />
+      <StatBlock value="123" label="Error" variant="error" />
+      <StatBlock value="456" label="Info" variant="info" />
     </div>
   ),
   parameters: {
@@ -408,4 +414,4 @@ export const VariantShowcase: Story = {
       },
     },
   },
-};
+}

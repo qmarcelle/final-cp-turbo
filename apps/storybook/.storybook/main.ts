@@ -3,6 +3,7 @@ import path from 'path'
 import tailwindConfig from '../../../packages/ui/tailwind.config.js'
 import { loadEnv } from 'vite'
 import remarkGfm from 'remark-gfm'
+import react from '@vitejs/plugin-react'
 
 const config: StorybookConfig = {
   // Keep your exact story paths
@@ -114,8 +115,9 @@ const config: StorybookConfig = {
       ],
     }
 
-    // Add MDX handling
+    // Add React plugin
     config.plugins = [
+      react(),
       ...(config.plugins || []),
       {
         name: 'mdx-fix',

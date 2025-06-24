@@ -1,26 +1,33 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { userEvent, within } from 'storybook/test';
-import { Card } from './Card';
-import { getStoryMeta } from '../../utils/getStoryMeta';
-import { mockGroups, mockQuickLinks, mockReportCategories, type QuickLink } from '../../utils/mockData';
-import { Button } from '../../atoms/Button/Button';
-import { Badge } from '../../atoms/Badge/Badge';
+import type { Meta, StoryObj } from '@storybook/react'
+import { userEvent, within } from 'storybook/test'
+import { Card } from './Card'
+import { getStoryMeta } from '../../utils/getStoryMeta'
+import {
+  mockGroups,
+  mockQuickLinks,
+  mockReportCategories,
+  type QuickLink,
+} from '../../utils/mockData'
+import { Button } from '../../atoms/Button/Button'
+import { Badge } from '../../atoms/Badge/Badge'
 
 // Get the meta data from the utility function
-const metaData = getStoryMeta({
-  component: Card,
-  category: 'molecules',
-  name: 'Card',
-  description: 'Card component for organizing content in the broker portal with headers, footers, and various layouts',
-});
-
-// Create the meta object that satisfies Storybook's requirements
 const meta = {
-  ...metaData,
-} satisfies Meta<typeof Card>;
+  title: '🧬 Molecules/Card 🃏',
+  component: Card,
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'Card component for organizing content in the broker portal with headers, footers, and various layouts',
+      },
+    },
+  },
+} satisfies Meta<typeof Card>
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 // Basic Card Variants
 export const Default: Story = {
@@ -28,11 +35,13 @@ export const Default: Story = {
     children: (
       <div className="p-4">
         <h3 className="font-semibold mb-2">Default Card</h3>
-        <p className="text-gray-600">This is a basic card with default styling.</p>
+        <p className="text-gray-600">
+          This is a basic card with default styling.
+        </p>
       </div>
     ),
   },
-};
+}
 
 export const Outline: Story = {
   args: {
@@ -44,7 +53,7 @@ export const Outline: Story = {
       </div>
     ),
   },
-};
+}
 
 export const Filled: Story = {
   args: {
@@ -56,7 +65,7 @@ export const Filled: Story = {
       </div>
     ),
   },
-};
+}
 
 export const Elevated: Story = {
   args: {
@@ -68,14 +77,14 @@ export const Elevated: Story = {
       </div>
     ),
   },
-};
+}
 
 export const Interactive: Story = {
   args: {
     hoverable: true,
     onClick: () => {
       // eslint-disable-next-line no-alert
-      window.alert('Card clicked!');
+      window.alert('Card clicked!')
     },
     children: (
       <div className="p-4">
@@ -85,15 +94,15 @@ export const Interactive: Story = {
     ),
   },
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = within(canvasElement);
-    const card = canvas.getByText('Interactive Card').closest('div');
-    
+    const canvas = within(canvasElement)
+    const card = canvas.getByText('Interactive Card').closest('div')
+
     if (card) {
-      await userEvent.hover(card);
-      await userEvent.click(card);
+      await userEvent.hover(card)
+      await userEvent.click(card)
     }
   },
-};
+}
 
 // Card with Header and Footer
 export const WithHeaderAndFooter: Story = {
@@ -107,23 +116,28 @@ export const WithHeaderAndFooter: Story = {
       </Card.Header>
       <Card.Content>
         <p className="text-gray-600">
-          This card demonstrates the header and footer components with proper spacing and layout.
+          This card demonstrates the header and footer components with proper
+          spacing and layout.
         </p>
       </Card.Content>
       <Card.Footer>
         <div className="flex justify-end gap-2">
-          <Button variant="outline" size="sm">Cancel</Button>
-          <Button variant="primary" size="sm">Save</Button>
+          <Button variant="outline" size="sm">
+            Cancel
+          </Button>
+          <Button variant="primary" size="sm">
+            Save
+          </Button>
         </div>
       </Card.Footer>
     </Card>
   ),
-};
+}
 
 // Broker Portal Specific Examples
 export const GroupCard: Story = {
   render: () => {
-    const group = mockGroups[0];
+    const group = mockGroups[0]
     return (
       <Card hoverable className="max-w-md">
         <Card.Header>
@@ -149,11 +163,15 @@ export const GroupCard: Story = {
             </div>
             <div className="flex justify-between">
               <span className="text-sm text-gray-600">Premium:</span>
-              <span className="font-medium">${group.premiumAmount.toLocaleString()}</span>
+              <span className="font-medium">
+                ${group.premiumAmount.toLocaleString()}
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-sm text-gray-600">Renewal:</span>
-              <span className="text-sm">{new Date(group.renewalDate).toLocaleDateString()}</span>
+              <span className="text-sm">
+                {new Date(group.renewalDate).toLocaleDateString()}
+              </span>
             </div>
           </div>
         </Card.Content>
@@ -168,27 +186,36 @@ export const GroupCard: Story = {
           </div>
         </Card.Footer>
       </Card>
-    );
+    )
   },
   parameters: {
     docs: {
       description: {
-        story: 'Group information card with status, metrics, and action buttons',
+        story:
+          'Group information card with status, metrics, and action buttons',
       },
     },
   },
-};
+}
 
 export const QuickLinkCard: Story = {
   render: () => {
-    const quickLink = mockQuickLinks[0];
+    const quickLink = mockQuickLinks[0]
     return (
       <Card hoverable className="max-w-sm">
         <Card.Content className="text-center p-6">
           <div className="mb-4">
             <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto">
-              <svg className="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z" clipRule="evenodd" />
+              <svg
+                className="w-6 h-6 text-blue-600"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z"
+                  clipRule="evenodd"
+                />
               </svg>
             </div>
           </div>
@@ -199,7 +226,7 @@ export const QuickLinkCard: Story = {
           </Button>
         </Card.Content>
       </Card>
-    );
+    )
   },
   parameters: {
     docs: {
@@ -208,25 +235,34 @@ export const QuickLinkCard: Story = {
       },
     },
   },
-};
+}
 
 export const ReportCategoryCard: Story = {
   render: () => {
-    const category = mockReportCategories[0];
+    const category = mockReportCategories[0]
     return (
       <Card hoverable className="max-w-sm">
         <Card.Header>
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-              <svg className="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+              <svg
+                className="w-5 h-5 text-green-600"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
                 <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z" />
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clipRule="evenodd" />
+                <path
+                  fillRule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z"
+                  clipRule="evenodd"
+                />
               </svg>
             </div>
             <div className="flex-1">
               <h3 className="font-semibold">{category.title}</h3>
               <p className="text-xs text-gray-500">
-                Last updated: {new Date(category.lastUpdated).toLocaleDateString()}
+                Last updated:{' '}
+                {new Date(category.lastUpdated).toLocaleDateString()}
               </p>
             </div>
           </div>
@@ -234,7 +270,9 @@ export const ReportCategoryCard: Story = {
         <Card.Content>
           <p className="text-sm text-gray-600 mb-3">{category.description}</p>
           <div className="flex justify-between items-center">
-            <span className="text-sm text-gray-500">{category.reportCount} reports available</span>
+            <span className="text-sm text-gray-500">
+              {category.reportCount} reports available
+            </span>
             <Badge variant="secondary">{category.category}</Badge>
           </div>
         </Card.Content>
@@ -244,7 +282,7 @@ export const ReportCategoryCard: Story = {
           </Button>
         </Card.Footer>
       </Card>
-    );
+    )
   },
   parameters: {
     docs: {
@@ -253,7 +291,7 @@ export const ReportCategoryCard: Story = {
       },
     },
   },
-};
+}
 
 // Commission Summary Card
 export const CommissionSummaryCard: Story = {
@@ -307,7 +345,7 @@ export const CommissionSummaryCard: Story = {
       },
     },
   },
-};
+}
 
 // Card Grid Layout
 export const DashboardCardGrid: Story = {
@@ -318,8 +356,16 @@ export const DashboardCardGrid: Story = {
           <Card.Content className="text-center p-6">
             <div className="mb-4">
               <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto">
-                <svg className="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z" clipRule="evenodd" />
+                <svg
+                  className="w-6 h-6 text-blue-600"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z"
+                    clipRule="evenodd"
+                  />
                 </svg>
               </div>
             </div>
@@ -340,7 +386,7 @@ export const DashboardCardGrid: Story = {
       },
     },
   },
-};
+}
 
 // Loading State
 export const LoadingCard: Story = {
@@ -374,7 +420,7 @@ export const LoadingCard: Story = {
       },
     },
   },
-};
+}
 
 // Error State
 export const ErrorCard: Story = {
@@ -383,8 +429,16 @@ export const ErrorCard: Story = {
       <Card.Content className="text-center p-6">
         <div className="mb-4">
           <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mx-auto">
-            <svg className="w-6 h-6 text-red-600" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+            <svg
+              className="w-6 h-6 text-red-600"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fillRule="evenodd"
+                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                clipRule="evenodd"
+              />
             </svg>
           </div>
         </div>
@@ -405,7 +459,7 @@ export const ErrorCard: Story = {
       },
     },
   },
-};
+}
 
 // Compact Card
 export const CompactCard: Story = {
@@ -414,7 +468,11 @@ export const CompactCard: Story = {
       <Card.Content className="p-4">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-            <svg className="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+            <svg
+              className="w-5 h-5 text-blue-600"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
               <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
             </svg>
           </div>
@@ -433,4 +491,4 @@ export const CompactCard: Story = {
       },
     },
   },
-};
+}

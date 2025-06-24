@@ -1,58 +1,141 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { getFoundationMeta } from '../../utils/getStoryMeta';
+import type { Meta, StoryObj } from '@storybook/react'
 
-// Get the meta data from the utility function
-const metaData = getFoundationMeta(
-  'Colors',
-  'BCBST brand colors, status colors, and neutral palette with accessibility guidelines'
-);
-
-// Create the meta object that satisfies Storybook's requirements
 const meta = {
-  ...metaData,
-} satisfies Meta;
+  title: '🎨 Foundation/Colors 🌈',
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'BCBST brand colors, status colors, and neutral palette with accessibility guidelines',
+      },
+    },
+  },
+} satisfies Meta
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 // Color palette data
 const brandColors = [
-  { name: 'Primary Blue', value: '#1E40AF', hex: '#1E40AF', usage: 'Primary actions, links, brand elements' },
-  { name: 'Primary Blue Light', value: '#3B82F6', hex: '#3B82F6', usage: 'Hover states, secondary actions' },
-  { name: 'Primary Blue Dark', value: '#1E3A8A', hex: '#1E3A8A', usage: 'Active states, emphasis' },
-  { name: 'BCBST Blue', value: '#0066CC', hex: '#0066CC', usage: 'Brand identity, logos' },
-  { name: 'BCBST Blue Light', value: '#EBF4FF', hex: '#EBF4FF', usage: 'Background tints, subtle highlights' },
-];
+  {
+    name: 'Primary Blue',
+    value: 'var(--color-primary-blue)',
+    hex: '#005eb9',
+    usage: 'Primary actions, links, brand elements',
+  },
+  {
+    name: 'Primary Blue Inactive',
+    value: 'var(--color-primary-blue-inactive)',
+    hex: '#7faedc',
+    usage: 'Disabled states',
+  },
+  {
+    name: 'Secondary Blue 1',
+    value: 'var(--color-secondary-blue-1)',
+    hex: '#5dc1fd',
+    usage: 'Secondary actions',
+  },
+  {
+    name: 'Secondary Blue 2',
+    value: 'var(--color-secondary-blue-2)',
+    hex: '#00497e',
+    usage: 'Darker accents',
+  },
+  {
+    name: 'Secondary Blue 3',
+    value: 'var(--color-secondary-blue-3)',
+    hex: '#067dac',
+    usage: 'Additional brand colors',
+  },
+]
 
 const statusColors = [
-  { name: 'Success', value: '#10B981', hex: '#10B981', usage: 'Success states, positive feedback' },
-  { name: 'Success Light', value: '#D1FAE5', hex: '#D1FAE5', usage: 'Success backgrounds' },
-  { name: 'Warning', value: '#F59E0B', hex: '#F59E0B', usage: 'Warning states, caution' },
-  { name: 'Warning Light', value: '#FEF3C7', hex: '#FEF3C7', usage: 'Warning backgrounds' },
-  { name: 'Error', value: '#EF4444', hex: '#EF4444', usage: 'Error states, destructive actions' },
-  { name: 'Error Light', value: '#FEE2E2', hex: '#FEE2E2', usage: 'Error backgrounds' },
-  { name: 'Info', value: '#3B82F6', hex: '#3B82F6', usage: 'Information, neutral actions' },
-  { name: 'Info Light', value: '#DBEAFE', hex: '#DBEAFE', usage: 'Info backgrounds' },
-];
+  {
+    name: 'Success',
+    value: 'var(--color-status-success)',
+    hex: '#508316',
+    usage: 'Success states, positive feedback',
+  },
+  {
+    name: 'Success Light',
+    value: 'var(--color-label-success)',
+    hex: '#e2f0d3',
+    usage: 'Success backgrounds',
+  },
+  {
+    name: 'Warning',
+    value: 'var(--color-status-warning)',
+    hex: '#f5a623',
+    usage: 'Warning states, caution',
+  },
+  {
+    name: 'Warning Light',
+    value: 'var(--color-label-warning)',
+    hex: '#fff3cd',
+    usage: 'Warning backgrounds',
+  },
+  {
+    name: 'Error',
+    value: 'var(--color-status-error)',
+    hex: '#eb001b',
+    usage: 'Error states, destructive actions',
+  },
+  {
+    name: 'Error Light',
+    value: 'var(--color-label-error)',
+    hex: '#efdddf',
+    usage: 'Error backgrounds',
+  },
+]
 
 const neutralColors = [
-  { name: 'Gray 900', value: '#111827', hex: '#111827', usage: 'Primary text, headings' },
-  { name: 'Gray 800', value: '#1F2937', hex: '#1F2937', usage: 'Secondary text' },
-  { name: 'Gray 700', value: '#374151', hex: '#374151', usage: 'Muted text' },
-  { name: 'Gray 600', value: '#4B5563', hex: '#4B5563', usage: 'Placeholder text' },
-  { name: 'Gray 500', value: '#6B7280', hex: '#6B7280', usage: 'Disabled text' },
-  { name: 'Gray 400', value: '#9CA3AF', hex: '#9CA3AF', usage: 'Border, dividers' },
-  { name: 'Gray 300', value: '#D1D5DB', hex: '#D1D5DB', usage: 'Light borders' },
-  { name: 'Gray 200', value: '#E5E7EB', hex: '#E5E7EB', usage: 'Background borders' },
-  { name: 'Gray 100', value: '#F3F4F6', hex: '#F3F4F6', usage: 'Light backgrounds' },
-  { name: 'Gray 50', value: '#F9FAFB', hex: '#F9FAFB', usage: 'Page backgrounds' },
-  { name: 'White', value: '#FFFFFF', hex: '#FFFFFF', usage: 'Card backgrounds, content areas' },
-];
+  {
+    name: 'Gray 1',
+    value: 'var(--color-tertiary-gray-1)',
+    hex: '#333333',
+    usage: 'Primary text, headings',
+  },
+  {
+    name: 'Gray 3',
+    value: 'var(--color-tertiary-gray-3)',
+    hex: '#737373',
+    usage: 'Secondary text',
+  },
+  {
+    name: 'Gray 4',
+    value: 'var(--color-tertiary-gray-4)',
+    hex: '#cccccc',
+    usage: 'Borders, dividers',
+  },
+  {
+    name: 'Gray 5',
+    value: 'var(--color-tertiary-gray-5)',
+    hex: '#f2f2f2',
+    usage: 'Light backgrounds',
+  },
+  {
+    name: 'Gray 6',
+    value: 'var(--color-tertiary-gray-6)',
+    hex: '#fafafa',
+    usage: 'Page backgrounds',
+  },
+  {
+    name: 'White',
+    value: 'var(--color-white)',
+    hex: '#ffffff',
+    usage: 'Card backgrounds, content areas',
+  },
+]
 
 // Color swatch component
-const ColorSwatch = ({ color }: { color: { name: string; value: string; hex: string; usage: string } }) => (
+const ColorSwatch = ({
+  color,
+}: {
+  color: { name: string; value: string; hex: string; usage: string }
+}) => (
   <div className="group cursor-pointer">
-    <div 
+    <div
       className="w-full h-20 rounded-lg shadow-sm border border-gray-200 mb-3 transition-transform group-hover:scale-105"
       style={{ backgroundColor: color.value }}
       title={`${color.name}: ${color.hex}`}
@@ -63,7 +146,7 @@ const ColorSwatch = ({ color }: { color: { name: string; value: string; hex: str
       <p className="text-xs text-gray-500">{color.usage}</p>
     </div>
   </div>
-);
+)
 
 // Accessibility information component
 const AccessibilityInfo = () => (
@@ -71,7 +154,9 @@ const AccessibilityInfo = () => (
     <h3 className="font-semibold text-blue-900">Accessibility Guidelines</h3>
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
       <div>
-        <h4 className="font-medium text-blue-800 mb-2">Contrast Requirements</h4>
+        <h4 className="font-medium text-blue-800 mb-2">
+          Contrast Requirements
+        </h4>
         <ul className="space-y-1 text-blue-700">
           <li>• Normal text: 4.5:1 minimum ratio</li>
           <li>• Large text: 3:1 minimum ratio</li>
@@ -90,7 +175,7 @@ const AccessibilityInfo = () => (
       </div>
     </div>
   </div>
-);
+)
 
 // Stories
 export const BrandColors: Story = {
@@ -99,16 +184,17 @@ export const BrandColors: Story = {
       <div>
         <h2 className="text-2xl font-bold text-gray-900 mb-2">Brand Colors</h2>
         <p className="text-gray-600 mb-6">
-          Primary brand colors representing BlueCross BlueShield of Tennessee identity and values.
+          Primary brand colors representing BlueCross BlueShield of Tennessee
+          identity and values.
         </p>
       </div>
-      
+
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-        {brandColors.map((color) => (
+        {brandColors.map(color => (
           <ColorSwatch key={color.name} color={color} />
         ))}
       </div>
-      
+
       <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
         <h4 className="font-medium text-gray-900 mb-2">Usage Examples</h4>
         <div className="flex flex-wrap gap-4">
@@ -118,12 +204,14 @@ export const BrandColors: Story = {
           <button className="border border-blue-600 text-blue-600 px-4 py-2 rounded-md hover:bg-blue-50 transition-colors">
             Secondary Button
           </button>
-          <a href="#" className="text-blue-600 hover:text-blue-800 underline">Primary Link</a>
+          <a href="#" className="text-blue-600 hover:text-blue-800 underline">
+            Primary Link
+          </a>
         </div>
       </div>
     </div>
   ),
-};
+}
 
 export const StatusColors: Story = {
   render: () => (
@@ -131,16 +219,17 @@ export const StatusColors: Story = {
       <div>
         <h2 className="text-2xl font-bold text-gray-900 mb-2">Status Colors</h2>
         <p className="text-gray-600 mb-6">
-          Semantic colors for communicating status, feedback, and state information to users.
+          Semantic colors for communicating status, feedback, and state
+          information to users.
         </p>
       </div>
-      
+
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-        {statusColors.map((color) => (
+        {statusColors.map(color => (
           <ColorSwatch key={color.name} color={color} />
         ))}
       </div>
-      
+
       <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 space-y-4">
         <h4 className="font-medium text-gray-900 mb-2">Status Examples</h4>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -164,54 +253,74 @@ export const StatusColors: Story = {
       </div>
     </div>
   ),
-};
+}
 
 export const NeutralColors: Story = {
   render: () => (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Neutral Colors</h2>
+        <h2 className="text-2xl font-bold text-gray-900 mb-2">
+          Neutral Colors
+        </h2>
         <p className="text-gray-600 mb-6">
-          Grayscale palette for text, borders, backgrounds, and structural elements.
+          Grayscale palette for text, borders, backgrounds, and structural
+          elements.
         </p>
       </div>
-      
+
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-        {neutralColors.map((color) => (
+        {neutralColors.map(color => (
           <ColorSwatch key={color.name} color={color} />
         ))}
       </div>
-      
+
       <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 space-y-4">
-        <h4 className="font-medium text-gray-900 mb-2">Text Hierarchy Examples</h4>
+        <h4 className="font-medium text-gray-900 mb-2">
+          Text Hierarchy Examples
+        </h4>
         <div className="space-y-2">
-          <h1 className="text-2xl font-bold text-gray-900">Primary Heading (Gray 900)</h1>
-          <h2 className="text-xl font-semibold text-gray-800">Secondary Heading (Gray 800)</h2>
-          <p className="text-gray-700">Body text with good readability (Gray 700)</p>
-          <p className="text-gray-600">Secondary text for less important content (Gray 600)</p>
-          <p className="text-gray-500">Muted text for captions and metadata (Gray 500)</p>
-          <p className="text-gray-400">Disabled or placeholder text (Gray 400)</p>
+          <h1 className="text-2xl font-bold text-gray-900">
+            Primary Heading (Gray 1)
+          </h1>
+          <h2 className="text-xl font-semibold text-gray-800">
+            Secondary Heading (Gray 3)
+          </h2>
+          <p className="text-gray-700">
+            Body text with good readability (Gray 3)
+          </p>
+          <p className="text-gray-600">
+            Secondary text for less important content (Gray 3)
+          </p>
+          <p className="text-gray-500">
+            Muted text for captions and metadata (Gray 5)
+          </p>
+          <p className="text-gray-400">Disabled or placeholder text (Gray 4)</p>
         </div>
       </div>
     </div>
   ),
-};
+}
 
 export const AccessibilityGuidelines: Story = {
   render: () => (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Color Accessibility</h2>
+        <h2 className="text-2xl font-bold text-gray-900 mb-2">
+          Color Accessibility
+        </h2>
         <p className="text-gray-600 mb-6">
-          Guidelines and examples for accessible color usage in the broker portal.
+          Guidelines and examples for accessible color usage in the broker
+          portal.
         </p>
       </div>
-      
+
       <AccessibilityInfo />
-      
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-gray-900">✓ Good Examples</h3>
+          <h3 className="text-lg font-semibold text-gray-900">
+            ✓ Good Examples
+          </h3>
           <div className="space-y-3">
             <div className="bg-blue-600 text-white px-4 py-3 rounded-md">
               <span className="font-medium">High contrast text (4.5:1+)</span>
@@ -226,7 +335,7 @@ export const AccessibilityGuidelines: Story = {
             </div>
           </div>
         </div>
-        
+
         <div className="space-y-4">
           <h3 className="text-lg font-semibold text-gray-900">✗ Avoid These</h3>
           <div className="space-y-3">
@@ -244,18 +353,21 @@ export const AccessibilityGuidelines: Story = {
       </div>
     </div>
   ),
-};
+}
 
 export const ColorCombinations: Story = {
   render: () => (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Recommended Color Combinations</h2>
+        <h2 className="text-2xl font-bold text-gray-900 mb-2">
+          Recommended Color Combinations
+        </h2>
         <p className="text-gray-600 mb-6">
-          Tested color combinations that meet accessibility standards and brand guidelines.
+          Tested color combinations that meet accessibility standards and brand
+          guidelines.
         </p>
       </div>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {/* Primary combinations */}
         <div className="space-y-3">
@@ -269,7 +381,7 @@ export const ColorCombinations: Story = {
             <p className="text-sm text-blue-700">Contrast ratio: 12.4:1</p>
           </div>
         </div>
-        
+
         {/* Status combinations */}
         <div className="space-y-3">
           <h4 className="font-medium text-gray-900">Status Combinations</h4>
@@ -282,34 +394,36 @@ export const ColorCombinations: Story = {
             <p className="text-sm">Contrast ratio: 6.1:1</p>
           </div>
         </div>
-        
+
         {/* Neutral combinations */}
         <div className="space-y-3">
           <h4 className="font-medium text-gray-900">Neutral Combinations</h4>
           <div className="bg-gray-100 text-gray-900 p-4 rounded-lg border border-gray-200">
-            <p className="font-medium">Gray 900 on Gray 100</p>
+            <p className="font-medium">Gray 1 on Gray 5</p>
             <p className="text-sm text-gray-600">Contrast ratio: 16.7:1</p>
           </div>
           <div className="bg-white text-gray-700 p-4 rounded-lg border border-gray-200">
-            <p className="font-medium">Gray 700 on White</p>
+            <p className="font-medium">Gray 3 on White</p>
             <p className="text-sm text-gray-600">Contrast ratio: 8.9:1</p>
           </div>
         </div>
       </div>
     </div>
   ),
-};
+}
 
 export const InteractiveStates: Story = {
   render: () => (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Interactive State Colors</h2>
+        <h2 className="text-2xl font-bold text-gray-900 mb-2">
+          Interactive State Colors
+        </h2>
         <p className="text-gray-600 mb-6">
           Color variations for hover, focus, active, and disabled states.
         </p>
       </div>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="space-y-4">
           <h3 className="text-lg font-semibold text-gray-900">Button States</h3>
@@ -326,16 +440,22 @@ export const InteractiveStates: Story = {
             <button className="w-full bg-blue-600 text-white px-4 py-2 rounded-md ring-2 ring-blue-300 ring-offset-2">
               Focus State (Ring)
             </button>
-            <button className="w-full bg-gray-300 text-gray-500 px-4 py-2 rounded-md cursor-not-allowed" disabled>
+            <button
+              className="w-full bg-gray-300 text-gray-500 px-4 py-2 rounded-md cursor-not-allowed"
+              disabled
+            >
               Disabled State
             </button>
           </div>
         </div>
-        
+
         <div className="space-y-4">
           <h3 className="text-lg font-semibold text-gray-900">Link States</h3>
           <div className="space-y-2 text-sm">
-            <a href="#" className="block text-blue-600 hover:text-blue-800 underline">
+            <a
+              href="#"
+              className="block text-blue-600 hover:text-blue-800 underline"
+            >
               Normal Link (Blue 600)
             </a>
             <a href="#" className="block text-blue-800 underline">
@@ -352,4 +472,4 @@ export const InteractiveStates: Story = {
       </div>
     </div>
   ),
-};
+}

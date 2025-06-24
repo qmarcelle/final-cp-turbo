@@ -1,23 +1,37 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { userEvent, within, expect } from 'storybook/test';
-import { Badge } from './Badge';
+import type { Meta, StoryObj } from '@storybook/react'
+import { userEvent, within, expect } from 'storybook/test'
+import { Badge } from './Badge'
 
 const meta = {
-  title: '⚛️ Atoms/Badge',
+  title: '⚛️ Atoms/Badge 🏷️',
   component: Badge,
   tags: ['autodocs'],
   parameters: {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Badge component for status indicators, counters, and labels in the broker portal',
+        component:
+          'Badge component for status indicators, counters, and labels in the broker portal',
       },
     },
   },
   argTypes: {
     variant: {
       control: 'select',
-      options: ['default', 'secondary', 'success', 'warning', 'error', 'outline', 'ghost', 'pending', 'processed', 'denied', 'approved', 'partial-approval'],
+      options: [
+        'default',
+        'secondary',
+        'success',
+        'warning',
+        'error',
+        'outline',
+        'ghost',
+        'pending',
+        'processed',
+        'denied',
+        'approved',
+        'partial-approval',
+      ],
       description: 'The visual style variant of the badge',
     },
     size: {
@@ -42,59 +56,59 @@ const meta = {
       description: 'Additional CSS classes',
     },
   },
-} satisfies Meta<typeof Badge>;
+} satisfies Meta<typeof Badge>
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 // Basic Badge Variants
 export const Default: Story = {
   args: {
     children: 'Default',
   },
-};
+}
 
 export const Secondary: Story = {
   args: {
     variant: 'secondary',
     children: 'Secondary',
   },
-};
+}
 
 export const Success: Story = {
   args: {
     variant: 'success',
     children: 'Success',
   },
-};
+}
 
 export const Warning: Story = {
   args: {
     variant: 'warning',
     children: 'Warning',
   },
-};
+}
 
 export const Error: Story = {
   args: {
     variant: 'error',
     children: 'Error',
   },
-};
+}
 
 export const Outline: Story = {
   args: {
     variant: 'outline',
     children: 'Outline',
   },
-};
+}
 
 export const Ghost: Story = {
   args: {
     variant: 'ghost',
     children: 'Ghost',
   },
-};
+}
 
 // Status Badges for Broker Portal
 export const ActiveStatus: Story = {
@@ -109,7 +123,7 @@ export const ActiveStatus: Story = {
       },
     },
   },
-};
+}
 
 export const PendingStatus: Story = {
   args: {
@@ -123,7 +137,7 @@ export const PendingStatus: Story = {
       },
     },
   },
-};
+}
 
 export const TerminatedStatus: Story = {
   args: {
@@ -137,7 +151,7 @@ export const TerminatedStatus: Story = {
       },
     },
   },
-};
+}
 
 export const ProcessingStatus: Story = {
   args: {
@@ -151,7 +165,7 @@ export const ProcessingStatus: Story = {
       },
     },
   },
-};
+}
 
 // Plan Type Badges
 export const PPOBadge: Story = {
@@ -159,28 +173,28 @@ export const PPOBadge: Story = {
     variant: 'outline',
     children: 'PPO',
   },
-};
+}
 
 export const HMOBadge: Story = {
   args: {
     variant: 'outline',
     children: 'HMO',
   },
-};
+}
 
 export const HDHPBadge: Story = {
   args: {
     variant: 'outline',
     children: 'HDHP',
   },
-};
+}
 
 export const EPOBadge: Story = {
   args: {
     variant: 'outline',
     children: 'EPO',
   },
-};
+}
 
 // Counter Badges
 export const MemberCount: Story = {
@@ -195,7 +209,7 @@ export const MemberCount: Story = {
       },
     },
   },
-};
+}
 
 export const NewNotifications: Story = {
   args: {
@@ -209,7 +223,7 @@ export const NewNotifications: Story = {
       },
     },
   },
-};
+}
 
 export const PendingApplications: Story = {
   args: {
@@ -223,7 +237,7 @@ export const PendingApplications: Story = {
       },
     },
   },
-};
+}
 
 // Commission Status Badges
 export const PaidCommission: Story = {
@@ -238,21 +252,21 @@ export const PaidCommission: Story = {
       },
     },
   },
-};
+}
 
 export const PendingPayment: Story = {
   args: {
     variant: 'warning',
     children: 'Pending Payment',
   },
-};
+}
 
 export const OverduePayment: Story = {
   args: {
     variant: 'error',
     children: 'Overdue',
   },
-};
+}
 
 // Size Variations
 export const SmallBadge: Story = {
@@ -260,14 +274,14 @@ export const SmallBadge: Story = {
     size: 'sm',
     children: 'Small',
   },
-};
+}
 
 export const LargeBadge: Story = {
   args: {
     size: 'lg',
     children: 'Large',
   },
-};
+}
 
 // Interactive Badge
 export const ClickableBadge: Story = {
@@ -276,17 +290,17 @@ export const ClickableBadge: Story = {
     children: 'Click me',
     onClick: () => {
       // eslint-disable-next-line no-alert
-      window.alert('Badge clicked!');
+      window.alert('Badge clicked!')
     },
     className: 'cursor-pointer hover:bg-gray-100',
   },
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = within(canvasElement);
-    const badge = canvas.getByText('Click me');
-    
-    await userEvent.click(badge);
+    const canvas = within(canvasElement)
+    const badge = canvas.getByText('Click me')
+
+    await userEvent.click(badge)
   },
-};
+}
 
 // Badge with Tooltip
 export const WithTooltip: Story = {
@@ -296,13 +310,13 @@ export const WithTooltip: Story = {
     title: 'This group has pending renewal documents',
   },
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = within(canvasElement);
-    const badge = canvas.getByText('Hover for info');
-    
-    await userEvent.hover(badge);
+    const canvas = within(canvasElement)
+    const badge = canvas.getByText('Hover for info')
+
+    await userEvent.hover(badge)
     // Note: Tooltip testing would depend on your tooltip implementation
   },
-};
+}
 
 // Badge Groups
 export const StatusGroup: Story = {
@@ -321,7 +335,7 @@ export const StatusGroup: Story = {
       },
     },
   },
-};
+}
 
 export const PlanTypeGroup: Story = {
   render: () => (
@@ -339,7 +353,7 @@ export const PlanTypeGroup: Story = {
       },
     },
   },
-};
+}
 
 export const CommissionStatusGroup: Story = {
   render: () => (
@@ -357,7 +371,7 @@ export const CommissionStatusGroup: Story = {
       },
     },
   },
-};
+}
 
 // Real-world Usage Examples
 export const GroupStatusCard: Story = {
@@ -383,7 +397,7 @@ export const GroupStatusCard: Story = {
       },
     },
   },
-};
+}
 
 export const CommissionTableRow: Story = {
   render: () => (
@@ -412,7 +426,7 @@ export const CommissionTableRow: Story = {
       },
     },
   },
-};
+}
 
 // Accessibility Test
 export const AccessibilityTest: Story = {
@@ -424,16 +438,16 @@ export const AccessibilityTest: Story = {
   },
 
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = within(canvasElement);
-    const badge = canvas.getByText('Accessible Badge');
-    
+    const canvas = within(canvasElement)
+    const badge = canvas.getByText('Accessible Badge')
+
     // Test accessibility attributes
-    expect(badge).toHaveAttribute('aria-label');
-    expect(badge).toHaveAttribute('role', 'status');
-    expect(badge).toBeVisible();
-    
+    expect(badge).toHaveAttribute('aria-label')
+    expect(badge).toHaveAttribute('role', 'status')
+    expect(badge).toBeVisible()
+
     // Test color contrast (this would be handled by a11y addon)
-    expect(badge).toHaveClass('bg-green-100', 'text-green-800');
+    expect(badge).toHaveClass('bg-green-100', 'text-green-800')
   },
   parameters: {
     a11y: {
@@ -441,10 +455,10 @@ export const AccessibilityTest: Story = {
         rules: [
           {
             id: 'color-contrast',
-            enabled: true
-          }
-        ]
-      }
-    }
-  }
-};
+            enabled: true,
+          },
+        ],
+      },
+    },
+  },
+}

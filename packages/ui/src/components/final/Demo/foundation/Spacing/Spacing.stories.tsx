@@ -1,33 +1,94 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { getFoundationMeta } from '../../utils/getStoryMeta';
+import type { Meta, StoryObj } from '@storybook/react'
 
-// Get the meta data from the utility function
-const metaData = getFoundationMeta(
-  'Spacing',
-  'Consistent spacing scale and layout principles for the BCBST broker portal design system'
-);
-
-// Create the meta object that satisfies Storybook's requirements
 const meta = {
-  ...metaData,
-} satisfies Meta;
+  title: '🎨 Foundation/Spacing📏',
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'Consistent spacing scale and layout principles for the BCBST broker portal design system',
+      },
+    },
+  },
+} satisfies Meta
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 // Spacing scale data
 const spacingScale = [
-  { name: 'XXS', value: '2px', rem: '0.125rem', className: 'space-0.5', usage: 'Tight borders, fine adjustments' },
-  { name: 'XS', value: '4px', rem: '0.25rem', className: 'space-1', usage: 'Small borders, close elements' },
-  { name: 'SM', value: '8px', rem: '0.5rem', className: 'space-2', usage: 'Form field spacing, tight margins' },
-  { name: 'MD', value: '12px', rem: '0.75rem', className: 'space-3', usage: 'Default spacing between related elements' },
-  { name: 'LG', value: '16px', rem: '1rem', className: 'space-4', usage: 'Standard component spacing' },
-  { name: 'XL', value: '20px', rem: '1.25rem', className: 'space-5', usage: 'Generous spacing between components' },
-  { name: 'XXL', value: '24px', rem: '1.5rem', className: 'space-6', usage: 'Section spacing, card padding' },
-  { name: 'XXXL', value: '32px', rem: '2rem', className: 'space-8', usage: 'Large section breaks, page margins' },
-  { name: '4XL', value: '48px', rem: '3rem', className: 'space-12', usage: 'Major section separation' },
-  { name: '5XL', value: '64px', rem: '4rem', className: 'space-16', usage: 'Page-level spacing' },
-];
+  {
+    name: 'XXS',
+    value: '2px',
+    rem: '0.125rem',
+    className: 'space-0.5',
+    usage: 'Tight borders, fine adjustments',
+  },
+  {
+    name: 'XS',
+    value: '4px',
+    rem: '0.25rem',
+    className: 'space-1',
+    usage: 'Small borders, close elements',
+  },
+  {
+    name: 'SM',
+    value: '8px',
+    rem: '0.5rem',
+    className: 'space-2',
+    usage: 'Form field spacing, tight margins',
+  },
+  {
+    name: 'MD',
+    value: '12px',
+    rem: '0.75rem',
+    className: 'space-3',
+    usage: 'Default spacing between related elements',
+  },
+  {
+    name: 'LG',
+    value: '16px',
+    rem: '1rem',
+    className: 'space-4',
+    usage: 'Standard component spacing',
+  },
+  {
+    name: 'XL',
+    value: '20px',
+    rem: '1.25rem',
+    className: 'space-5',
+    usage: 'Generous spacing between components',
+  },
+  {
+    name: 'XXL',
+    value: '24px',
+    rem: '1.5rem',
+    className: 'space-6',
+    usage: 'Section spacing, card padding',
+  },
+  {
+    name: 'XXXL',
+    value: '32px',
+    rem: '2rem',
+    className: 'space-8',
+    usage: 'Large section breaks, page margins',
+  },
+  {
+    name: '4XL',
+    value: '48px',
+    rem: '3rem',
+    className: 'space-12',
+    usage: 'Major section separation',
+  },
+  {
+    name: '5XL',
+    value: '64px',
+    rem: '4rem',
+    className: 'space-16',
+    usage: 'Page-level spacing',
+  },
+]
 
 const containerSizes = [
   { name: 'SM', maxWidth: '640px', usage: 'Forms, focused content' },
@@ -35,10 +96,16 @@ const containerSizes = [
   { name: 'LG', maxWidth: '1024px', usage: 'Wide content layouts' },
   { name: 'XL', maxWidth: '1280px', usage: 'Dashboard layouts' },
   { name: '2XL', maxWidth: '1536px', usage: 'Full-width applications' },
-];
+]
 
 // Spacing demonstration component
-const SpacingDemo = ({ spacing, showLabel = true }: { spacing: typeof spacingScale[0]; showLabel?: boolean }) => (
+const SpacingDemo = ({
+  spacing,
+  showLabel = true,
+}: {
+  spacing: (typeof spacingScale)[0]
+  showLabel?: boolean
+}) => (
   <div className="flex items-center gap-4 py-3 border-b border-gray-100 last:border-b-0">
     <div className="w-20 text-right">
       <span className="text-sm font-mono text-gray-600">{spacing.name}</span>
@@ -55,12 +122,10 @@ const SpacingDemo = ({ spacing, showLabel = true }: { spacing: typeof spacingSca
       </div>
     </div>
     {showLabel && (
-      <div className="w-64 text-sm text-gray-600">
-        {spacing.usage}
-      </div>
+      <div className="w-64 text-sm text-gray-600">{spacing.usage}</div>
     )}
   </div>
-);
+)
 
 // Stories
 export const SpacingScale: Story = {
@@ -69,19 +134,22 @@ export const SpacingScale: Story = {
       <div>
         <h2 className="text-2xl font-bold text-gray-900 mb-2">Spacing Scale</h2>
         <p className="text-gray-600 mb-6">
-          Consistent spacing units that create visual rhythm and hierarchy throughout the broker portal.
+          Consistent spacing units that create visual rhythm and hierarchy
+          throughout the broker portal.
         </p>
       </div>
-      
+
       <div className="bg-white border border-gray-200 rounded-lg p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Base Spacing Units</h3>
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+          Base Spacing Units
+        </h3>
         <div className="space-y-1">
-          {spacingScale.map((spacing) => (
+          {spacingScale.map(spacing => (
             <SpacingDemo key={spacing.name} spacing={spacing} />
           ))}
         </div>
       </div>
-      
+
       <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
         <h4 className="font-medium text-gray-900 mb-3">Implementation</h4>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
@@ -107,25 +175,32 @@ export const SpacingScale: Story = {
       </div>
     </div>
   ),
-};
+}
 
 export const LayoutExamples: Story = {
   render: () => (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Layout Spacing Examples</h2>
+        <h2 className="text-2xl font-bold text-gray-900 mb-2">
+          Layout Spacing Examples
+        </h2>
         <p className="text-gray-600 mb-6">
-          Real-world examples of how spacing creates visual hierarchy and improves usability.
+          Real-world examples of how spacing creates visual hierarchy and
+          improves usability.
         </p>
       </div>
-      
+
       {/* Card Spacing */}
       <div className="bg-white border border-gray-200 rounded-lg p-6 space-y-6">
-        <h3 className="text-lg font-semibold text-gray-900">Card Component Spacing</h3>
-        
+        <h3 className="text-lg font-semibold text-gray-900">
+          Card Component Spacing
+        </h3>
+
         <div className="border border-gray-200 rounded-lg p-6">
           <div className="flex items-center justify-between mb-4">
-            <h4 className="text-base font-semibold text-gray-900">Commission Summary</h4>
+            <h4 className="text-base font-semibold text-gray-900">
+              Commission Summary
+            </h4>
             <span className="text-sm text-gray-500">24px bottom margin</span>
           </div>
           <div className="space-y-4">
@@ -133,7 +208,9 @@ export const LayoutExamples: Story = {
               <div>
                 <p className="text-2xl font-bold text-green-600">$125,486</p>
                 <p className="text-sm text-gray-500 mt-1">YTD Commission</p>
-                <span className="text-xs text-gray-400">16px gap between number and label</span>
+                <span className="text-xs text-gray-400">
+                  16px gap between number and label
+                </span>
               </div>
               <div>
                 <p className="text-lg font-medium text-gray-900">47 Groups</p>
@@ -144,16 +221,20 @@ export const LayoutExamples: Story = {
               <button className="bg-blue-600 text-white px-4 py-2 rounded-md">
                 View Details
               </button>
-              <span className="text-xs text-gray-400 ml-2">16px padding top border</span>
+              <span className="text-xs text-gray-400 ml-2">
+                16px padding top border
+              </span>
             </div>
           </div>
         </div>
       </div>
-      
+
       {/* Form Spacing */}
       <div className="bg-white border border-gray-200 rounded-lg p-6 space-y-6">
-        <h3 className="text-lg font-semibold text-gray-900">Form Spacing Patterns</h3>
-        
+        <h3 className="text-lg font-semibold text-gray-900">
+          Form Spacing Patterns
+        </h3>
+
         <div className="max-w-md">
           <div className="space-y-4">
             <div>
@@ -165,10 +246,14 @@ export const LayoutExamples: Story = {
                 className="w-full px-3 py-2 border border-gray-300 rounded-md"
                 placeholder="ABC123456"
               />
-              <p className="text-xs text-gray-500 mt-1">Enter the subscriber ID</p>
-              <span className="text-xs text-gray-400">4px margin between input and help text</span>
+              <p className="text-xs text-gray-500 mt-1">
+                Enter the subscriber ID
+              </p>
+              <span className="text-xs text-gray-400">
+                4px margin between input and help text
+              </span>
             </div>
-            
+
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Last Name
@@ -178,9 +263,11 @@ export const LayoutExamples: Story = {
                 className="w-full px-3 py-2 border border-gray-300 rounded-md"
                 placeholder="Smith"
               />
-              <span className="text-xs text-gray-400">16px gap between form fields</span>
+              <span className="text-xs text-gray-400">
+                16px gap between form fields
+              </span>
             </div>
-            
+
             <div className="pt-2">
               <button className="bg-blue-600 text-white px-4 py-2 rounded-md mr-3">
                 Search
@@ -188,61 +275,91 @@ export const LayoutExamples: Story = {
               <button className="border border-gray-300 text-gray-700 px-4 py-2 rounded-md">
                 Clear
               </button>
-              <span className="text-xs text-gray-400 block mt-2">8px padding top, 12px gap between buttons</span>
+              <span className="text-xs text-gray-400 block mt-2">
+                8px padding top, 12px gap between buttons
+              </span>
             </div>
           </div>
         </div>
       </div>
-      
+
       {/* Navigation Spacing */}
       <div className="bg-white border border-gray-200 rounded-lg p-6 space-y-6">
-        <h3 className="text-lg font-semibold text-gray-900">Navigation Spacing</h3>
-        
+        <h3 className="text-lg font-semibold text-gray-900">
+          Navigation Spacing
+        </h3>
+
         <nav className="space-y-1">
-          <a href="#" className="block px-3 py-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-md">
+          <a
+            href="#"
+            className="block px-3 py-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-md"
+          >
             Dashboard
           </a>
-          <a href="#" className="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">
+          <a
+            href="#"
+            className="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md"
+          >
             Commission Reports
           </a>
-          <a href="#" className="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md">
+          <a
+            href="#"
+            className="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md"
+          >
             Member Services
           </a>
           <div className="pl-6 space-y-1">
-            <a href="#" className="block px-3 py-1 text-sm text-gray-600 hover:bg-gray-50 rounded-md">
+            <a
+              href="#"
+              className="block px-3 py-1 text-sm text-gray-600 hover:bg-gray-50 rounded-md"
+            >
               Member Search
             </a>
-            <a href="#" className="block px-3 py-1 text-sm text-gray-600 hover:bg-gray-50 rounded-md">
+            <a
+              href="#"
+              className="block px-3 py-1 text-sm text-gray-600 hover:bg-gray-50 rounded-md"
+            >
               Claims History
             </a>
           </div>
           <span className="text-xs text-gray-400 block mt-2">
-            12px horizontal padding, 8px vertical padding, 24px left indent for subnav
+            12px horizontal padding, 8px vertical padding, 24px left indent for
+            subnav
           </span>
         </nav>
       </div>
     </div>
   ),
-};
+}
 
 export const ContainerSizes: Story = {
   render: () => (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Container Sizes</h2>
+        <h2 className="text-2xl font-bold text-gray-900 mb-2">
+          Container Sizes
+        </h2>
         <p className="text-gray-600 mb-6">
-          Responsive container widths that adapt to different screen sizes and content types.
+          Responsive container widths that adapt to different screen sizes and
+          content types.
         </p>
       </div>
-      
+
       <div className="space-y-4">
-        {containerSizes.map((container) => (
-          <div key={container.name} className="bg-white border border-gray-200 rounded-lg p-4">
+        {containerSizes.map(container => (
+          <div
+            key={container.name}
+            className="bg-white border border-gray-200 rounded-lg p-4"
+          >
             <div className="flex items-center justify-between mb-2">
-              <h4 className="font-medium text-gray-900">{container.name} Container</h4>
-              <span className="text-sm text-gray-500 font-mono">{container.maxWidth}</span>
+              <h4 className="font-medium text-gray-900">
+                {container.name} Container
+              </h4>
+              <span className="text-sm text-gray-500 font-mono">
+                {container.maxWidth}
+              </span>
             </div>
-            <div 
+            <div
               className="bg-blue-100 border border-blue-200 rounded p-3 mx-auto"
               style={{ maxWidth: container.maxWidth }}
             >
@@ -251,7 +368,7 @@ export const ContainerSizes: Story = {
           </div>
         ))}
       </div>
-      
+
       <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
         <h4 className="font-medium text-gray-900 mb-3">Responsive Behavior</h4>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-600">
@@ -279,48 +396,58 @@ export const ContainerSizes: Story = {
       </div>
     </div>
   ),
-};
+}
 
 export const VerticalRhythm: Story = {
   render: () => (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Vertical Rhythm</h2>
+        <h2 className="text-2xl font-bold text-gray-900 mb-2">
+          Vertical Rhythm
+        </h2>
         <p className="text-gray-600 mb-6">
-          Consistent vertical spacing that creates harmonious content flow and improves readability.
+          Consistent vertical spacing that creates harmonious content flow and
+          improves readability.
         </p>
       </div>
-      
+
       <div className="bg-white border border-gray-200 rounded-lg p-6">
         <div className="space-y-6">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">Page Title</h1>
+            <h1 className="text-3xl font-bold text-gray-900 mb-4">
+              Page Title
+            </h1>
             <p className="text-lg text-gray-600 mb-6">
-              Subtitle or introduction text that provides context for the page content.
+              Subtitle or introduction text that provides context for the page
+              content.
             </p>
           </div>
-          
+
           <div>
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">Section Heading</h2>
+            <h2 className="text-xl font-semibold text-gray-900 mb-3">
+              Section Heading
+            </h2>
             <p className="text-base text-gray-700 mb-4">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-              Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </p>
             <p className="text-base text-gray-700 mb-4">
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
+              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
               nisi ut aliquip ex ea commodo consequat.
             </p>
           </div>
-          
+
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Subsection</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              Subsection
+            </h3>
             <ul className="space-y-2 text-gray-700 mb-4">
               <li>• First list item with consistent spacing</li>
               <li>• Second list item maintains rhythm</li>
               <li>• Third item continues the pattern</li>
             </ul>
           </div>
-          
+
           <div className="pt-4 border-t border-gray-200">
             <button className="bg-blue-600 text-white px-4 py-2 rounded-md mr-3">
               Primary Action
@@ -330,7 +457,7 @@ export const VerticalRhythm: Story = {
             </button>
           </div>
         </div>
-        
+
         <div className="mt-6 p-4 bg-gray-50 rounded-lg">
           <h4 className="font-medium text-gray-900 mb-2">Spacing Pattern</h4>
           <div className="text-sm text-gray-600 space-y-1">
@@ -346,27 +473,34 @@ export const VerticalRhythm: Story = {
       </div>
     </div>
   ),
-};
+}
 
 export const ResponsiveSpacing: Story = {
   render: () => (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Responsive Spacing</h2>
+        <h2 className="text-2xl font-bold text-gray-900 mb-2">
+          Responsive Spacing
+        </h2>
         <p className="text-gray-600 mb-6">
-          How spacing adapts across different screen sizes to maintain optimal user experience.
+          How spacing adapts across different screen sizes to maintain optimal
+          user experience.
         </p>
       </div>
-      
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Desktop Spacing */}
         <div className="bg-white border border-gray-200 rounded-lg p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Desktop (1024px+)</h3>
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">
+            Desktop (1024px+)
+          </h3>
           <div className="space-y-6">
             <div className="grid grid-cols-2 gap-6">
               <div className="bg-gray-100 p-4 rounded">
                 <h4 className="font-medium mb-2">Content Block</h4>
-                <p className="text-sm text-gray-600">24px gap between columns</p>
+                <p className="text-sm text-gray-600">
+                  24px gap between columns
+                </p>
               </div>
               <div className="bg-gray-100 p-4 rounded">
                 <h4 className="font-medium mb-2">Content Block</h4>
@@ -379,10 +513,12 @@ export const ResponsiveSpacing: Story = {
             </div>
           </div>
         </div>
-        
+
         {/* Mobile Spacing */}
         <div className="bg-white border border-gray-200 rounded-lg p-4">
-          <h3 className="text-base font-semibold text-gray-900 mb-3">Mobile (&lt; 768px)</h3>
+          <h3 className="text-base font-semibold text-gray-900 mb-3">
+            Mobile (&lt; 768px)
+          </h3>
           <div className="space-y-4">
             <div className="bg-gray-100 p-3 rounded">
               <h4 className="font-medium text-sm mb-2">Content Block</h4>
@@ -399,12 +535,16 @@ export const ResponsiveSpacing: Story = {
           </div>
         </div>
       </div>
-      
+
       <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
-        <h4 className="font-medium text-gray-900 mb-3">Responsive Guidelines</h4>
+        <h4 className="font-medium text-gray-900 mb-3">
+          Responsive Guidelines
+        </h4>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
           <div>
-            <h5 className="font-medium text-gray-800 mb-2">Mobile (&lt; 768px)</h5>
+            <h5 className="font-medium text-gray-800 mb-2">
+              Mobile (&lt; 768px)
+            </h5>
             <ul className="text-gray-600 space-y-1">
               <li>• Reduce padding by 25-50%</li>
               <li>• Stack content vertically</li>
@@ -422,7 +562,9 @@ export const ResponsiveSpacing: Story = {
             </ul>
           </div>
           <div>
-            <h5 className="font-medium text-gray-800 mb-2">Desktop (1024px+)</h5>
+            <h5 className="font-medium text-gray-800 mb-2">
+              Desktop (1024px+)
+            </h5>
             <ul className="text-gray-600 space-y-1">
               <li>• Full spacing scale</li>
               <li>• Multi-column layouts</li>
@@ -434,21 +576,26 @@ export const ResponsiveSpacing: Story = {
       </div>
     </div>
   ),
-};
+}
 
 export const AccessibilityConsiderations: Story = {
   render: () => (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Spacing Accessibility</h2>
+        <h2 className="text-2xl font-bold text-gray-900 mb-2">
+          Spacing Accessibility
+        </h2>
         <p className="text-gray-600 mb-6">
-          Ensuring adequate spacing for users with motor impairments and assistive technologies.
+          Ensuring adequate spacing for users with motor impairments and
+          assistive technologies.
         </p>
       </div>
-      
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-gray-900">✓ Accessible Spacing</h3>
+          <h3 className="text-lg font-semibold text-gray-900">
+            ✓ Accessible Spacing
+          </h3>
           <div className="bg-white border border-gray-200 rounded-lg p-6 space-y-4">
             <button className="bg-blue-600 text-white px-6 py-3 rounded-md mr-4 mb-4">
               Large Touch Target
@@ -457,13 +604,16 @@ export const AccessibilityConsiderations: Story = {
               Adequate Spacing
             </button>
             <p className="text-sm text-gray-600 mt-4">
-              44px minimum height for touch targets, 16px gap between interactive elements.
+              44px minimum height for touch targets, 16px gap between
+              interactive elements.
             </p>
           </div>
         </div>
-        
+
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-gray-900">✗ Problematic Spacing</h3>
+          <h3 className="text-lg font-semibold text-gray-900">
+            ✗ Problematic Spacing
+          </h3>
           <div className="bg-white border border-gray-200 rounded-lg p-6 space-y-2">
             <button className="bg-blue-600 text-white px-2 py-1 text-xs rounded mr-1">
               Too Small
@@ -472,14 +622,17 @@ export const AccessibilityConsiderations: Story = {
               Cramped
             </button>
             <p className="text-sm text-gray-600 mt-2">
-              Small touch targets and insufficient spacing can cause accessibility issues.
+              Small touch targets and insufficient spacing can cause
+              accessibility issues.
             </p>
           </div>
         </div>
       </div>
-      
+
       <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-        <h4 className="font-medium text-blue-900 mb-3">Accessibility Requirements</h4>
+        <h4 className="font-medium text-blue-900 mb-3">
+          Accessibility Requirements
+        </h4>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-blue-800">
           <div>
             <h5 className="font-medium mb-2">Touch Targets</h5>
@@ -503,4 +656,4 @@ export const AccessibilityConsiderations: Story = {
       </div>
     </div>
   ),
-};
+}

@@ -1,27 +1,26 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { userEvent, within, expect } from 'storybook/test';
-import { ReportingOverviewPage } from './ReportingOverviewPage';
-import { getStoryMeta } from '../../utils/getStoryMeta';
-import { mockBrokers } from '../../utils/mockData';
+import type { Meta, StoryObj } from '@storybook/react'
+import { userEvent, within, expect } from 'storybook/test'
+import { ReportingOverviewPage } from './ReportingOverviewPage'
+import { getStoryMeta } from '../../utils/getStoryMeta'
+import { mockBrokers } from '../../utils/mockData'
 
-// Get the meta data from the utility function
-const metaData = getStoryMeta({
+const meta = {
+  title: '📄 Pages/📊 ReportingOverviewPage',
   component: ReportingOverviewPage,
-  category: 'pages',
-  name: 'ReportingOverviewPage',
-  description: 'Reporting overview page with commission data, report categories, and quick access tools',
+  tags: ['autodocs'],
   parameters: {
     layout: 'fullscreen',
+    docs: {
+      description: {
+        component:
+          'Reporting overview page with commission data, report categories, and quick access tools',
+      },
+    },
   },
-});
+} satisfies Meta<typeof ReportingOverviewPage>
 
-// Create the meta object that satisfies Storybook's requirements
-const meta = {
-  ...metaData,
-} satisfies Meta<typeof ReportingOverviewPage>;
-
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 // Sample user data
 const sampleUser = {
@@ -29,21 +28,21 @@ const sampleUser = {
   email: mockBrokers[0].email,
   role: 'Licensed Broker',
   agency: mockBrokers[0].agencyName,
-};
+}
 
 const analystUser = {
   name: 'Sarah Chen',
   email: 'sarah.chen@analytics.com',
   role: 'Business Intelligence Analyst',
   agency: 'Analytics Pro Insurance',
-};
+}
 
 const managerUser = {
   name: 'Michael Rodriguez',
   email: 'mrodriguez@management.com',
   role: 'Regional Sales Manager',
   agency: 'Management Solutions Group',
-};
+}
 
 // Basic Page States
 export const Default: Story = {
@@ -54,11 +53,12 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Default reporting overview page with quick access sidebar and all report categories',
+        story:
+          'Default reporting overview page with quick access sidebar and all report categories',
       },
     },
   },
-};
+}
 
 export const WithoutQuickAccess: Story = {
   args: {
@@ -68,11 +68,12 @@ export const WithoutQuickAccess: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Reporting overview without quick access sidebar for focused report browsing',
+        story:
+          'Reporting overview without quick access sidebar for focused report browsing',
       },
     },
   },
-};
+}
 
 export const WithNotifications: Story = {
   args: {
@@ -83,11 +84,12 @@ export const WithNotifications: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Reporting page with notifications indicating new reports or scheduled reports ready',
+        story:
+          'Reporting page with notifications indicating new reports or scheduled reports ready',
       },
     },
   },
-};
+}
 
 // Featured Categories
 export const CommissionFocused: Story = {
@@ -99,11 +101,12 @@ export const CommissionFocused: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Reporting overview focused on commission-related reports and analytics',
+        story:
+          'Reporting overview focused on commission-related reports and analytics',
       },
     },
   },
-};
+}
 
 export const MemberAnalytics: Story = {
   args: {
@@ -114,11 +117,12 @@ export const MemberAnalytics: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Member analytics focused view for business intelligence analysts',
+        story:
+          'Member analytics focused view for business intelligence analysts',
       },
     },
   },
-};
+}
 
 export const GroupManagement: Story = {
   args: {
@@ -130,11 +134,12 @@ export const GroupManagement: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Group management reporting view for regional managers and supervisors',
+        story:
+          'Group management reporting view for regional managers and supervisors',
       },
     },
   },
-};
+}
 
 // User Role Variations
 export const BusinessAnalystView: Story = {
@@ -146,11 +151,12 @@ export const BusinessAnalystView: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Business intelligence analyst view with focus on data analysis and insights',
+        story:
+          'Business intelligence analyst view with focus on data analysis and insights',
       },
     },
   },
-};
+}
 
 export const RegionalManagerView: Story = {
   args: {
@@ -162,11 +168,12 @@ export const RegionalManagerView: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Regional manager view with comprehensive oversight reporting capabilities',
+        story:
+          'Regional manager view with comprehensive oversight reporting capabilities',
       },
     },
   },
-};
+}
 
 export const ComplianceOfficerView: Story = {
   args: {
@@ -183,11 +190,12 @@ export const ComplianceOfficerView: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Compliance officer view with focus on regulatory reporting and member data',
+        story:
+          'Compliance officer view with focus on regulatory reporting and member data',
       },
     },
   },
-};
+}
 
 // State Examples
 export const Loading: Story = {
@@ -199,16 +207,18 @@ export const Loading: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Loading state while report categories and data are being fetched',
+        story:
+          'Loading state while report categories and data are being fetched',
       },
     },
   },
-};
+}
 
 export const Error: Story = {
   args: {
     user: sampleUser,
-    error: 'Unable to load reporting data. The business intelligence service is temporarily unavailable.',
+    error:
+      'Unable to load reporting data. The business intelligence service is temporarily unavailable.',
     showQuickAccess: true,
   },
   parameters: {
@@ -218,7 +228,7 @@ export const Error: Story = {
       },
     },
   },
-};
+}
 
 // Interactive Examples
 export const InteractiveFiltering: Story = {
@@ -227,26 +237,26 @@ export const InteractiveFiltering: Story = {
     showQuickAccess: true,
   },
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = within(canvasElement);
-    
+    const canvas = within(canvasElement)
+
     // Test search functionality
-    const searchInput = canvas.getByPlaceholderText('Search reports...');
-    await userEvent.click(searchInput);
-    await userEvent.type(searchInput, 'commission');
-    
+    const searchInput = canvas.getByPlaceholderText('Search reports...')
+    await userEvent.click(searchInput)
+    await userEvent.type(searchInput, 'commission')
+
     // Test category filtering
-    const commissionButton = canvas.getByText('Commission');
-    await userEvent.click(commissionButton);
-    
+    const commissionButton = canvas.getByText('Commission')
+    await userEvent.click(commissionButton)
+
     // Wait and reset
-    await new Promise(resolve => setTimeout(resolve, 500));
-    
+    await new Promise(resolve => setTimeout(resolve, 500))
+
     // Test all categories
-    const allButton = canvas.getByText('All Categories');
-    await userEvent.click(allButton);
-    
+    const allButton = canvas.getByText('All Categories')
+    await userEvent.click(allButton)
+
     // Clear search
-    await userEvent.clear(searchInput);
+    await userEvent.clear(searchInput)
   },
   parameters: {
     docs: {
@@ -255,7 +265,7 @@ export const InteractiveFiltering: Story = {
       },
     },
   },
-};
+}
 
 // Business Scenarios
 export const MonthEndReporting: Story = {
@@ -267,11 +277,12 @@ export const MonthEndReporting: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Month-end reporting scenario with high activity and multiple scheduled reports',
+        story:
+          'Month-end reporting scenario with high activity and multiple scheduled reports',
       },
     },
   },
-};
+}
 
 export const QuarterlyReview: Story = {
   args: {
@@ -287,7 +298,7 @@ export const QuarterlyReview: Story = {
       },
     },
   },
-};
+}
 
 export const AnnualAudit: Story = {
   args: {
@@ -304,11 +315,12 @@ export const AnnualAudit: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Annual audit preparation with comprehensive data access requirements',
+        story:
+          'Annual audit preparation with comprehensive data access requirements',
       },
     },
   },
-};
+}
 
 // Workflow Examples
 export const NewUserOnboarding: Story = {
@@ -329,7 +341,7 @@ export const NewUserOnboarding: Story = {
       },
     },
   },
-};
+}
 
 export const PowerUserWorkflow: Story = {
   args: {
@@ -346,11 +358,12 @@ export const PowerUserWorkflow: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Power user workflow with extensive reporting needs and customization',
+        story:
+          'Power user workflow with extensive reporting needs and customization',
       },
     },
   },
-};
+}
 
 // Mobile Responsive
 export const MobileView: Story = {
@@ -368,7 +381,7 @@ export const MobileView: Story = {
       },
     },
   },
-};
+}
 
 export const TabletView: Story = {
   args: {
@@ -386,7 +399,7 @@ export const TabletView: Story = {
       },
     },
   },
-};
+}
 
 // Specialized Views
 export const ExecutiveDashboard: Story = {
@@ -404,11 +417,12 @@ export const ExecutiveDashboard: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Executive-level reporting with focus on high-level analytics and performance',
+        story:
+          'Executive-level reporting with focus on high-level analytics and performance',
       },
     },
   },
-};
+}
 
 export const OperationsView: Story = {
   args: {
@@ -425,11 +439,12 @@ export const OperationsView: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Operations manager view with focus on member and group management reports',
+        story:
+          'Operations manager view with focus on member and group management reports',
       },
     },
   },
-};
+}
 
 export const MarketingAnalytics: Story = {
   args: {
@@ -446,11 +461,12 @@ export const MarketingAnalytics: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Marketing analytics view with focus on member insights and trend analysis',
+        story:
+          'Marketing analytics view with focus on member insights and trend analysis',
       },
     },
   },
-};
+}
 
 // Time-based Scenarios
 export const MondayMorningReview: Story = {
@@ -462,11 +478,12 @@ export const MondayMorningReview: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Monday morning weekly review with fresh reports and weekend processing results',
+        story:
+          'Monday morning weekly review with fresh reports and weekend processing results',
       },
     },
   },
-};
+}
 
 export const YearEndProcessing: Story = {
   args: {
@@ -478,11 +495,12 @@ export const YearEndProcessing: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Year-end processing period with high volume of reports and analytics',
+        story:
+          'Year-end processing period with high volume of reports and analytics',
       },
     },
   },
-};
+}
 
 // Custom Scenarios
 export const ScheduledReportsFocused: Story = {
@@ -499,11 +517,12 @@ export const ScheduledReportsFocused: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Report administrator view with focus on scheduled and automated reporting',
+        story:
+          'Report administrator view with focus on scheduled and automated reporting',
       },
     },
   },
-};
+}
 
 // Print/Export Ready
 export const PrintableView: Story = {
@@ -514,11 +533,12 @@ export const PrintableView: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Print-friendly view without sidebar for clean report catalog printing',
+        story:
+          'Print-friendly view without sidebar for clean report catalog printing',
       },
     },
   },
-};
+}
 
 // Accessibility Test
 export const AccessibilityTest: Story = {
@@ -528,33 +548,33 @@ export const AccessibilityTest: Story = {
     notificationCount: 7,
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    
+    const canvas = within(canvasElement)
+
     // Test keyboard navigation
-    await userEvent.tab();
-    await userEvent.tab();
-    await userEvent.tab();
-    
+    await userEvent.tab()
+    await userEvent.tab()
+    await userEvent.tab()
+
     // Test search input accessibility
-    const searchInput = canvas.getByRole('searchbox');
-    expect(searchInput).toBeInTheDocument();
-    await userEvent.click(searchInput);
-    
+    const searchInput = canvas.getByRole('searchbox')
+    expect(searchInput).toBeInTheDocument()
+    await userEvent.click(searchInput)
+
     // Test button accessibility
-    const buttons = canvas.getAllByRole('button');
-    expect(buttons.length).toBeGreaterThan(0);
-    
+    const buttons = canvas.getAllByRole('button')
+    expect(buttons.length).toBeGreaterThan(0)
+
     // Test table accessibility
-    const table = canvas.getByRole('table');
-    expect(table).toBeInTheDocument();
-    
+    const table = canvas.getByRole('table')
+    expect(table).toBeInTheDocument()
+
     // Test heading structure
-    const headings = canvas.getAllByRole('heading');
-    expect(headings.length).toBeGreaterThan(0);
-    
+    const headings = canvas.getAllByRole('heading')
+    expect(headings.length).toBeGreaterThan(0)
+
     // Test link accessibility
-    const links = canvas.getAllByRole('link');
-    expect(links.length).toBeGreaterThan(0);
+    const links = canvas.getAllByRole('link')
+    expect(links.length).toBeGreaterThan(0)
   },
   parameters: {
     a11y: {
@@ -562,31 +582,32 @@ export const AccessibilityTest: Story = {
         rules: [
           {
             id: 'color-contrast',
-            enabled: true
+            enabled: true,
           },
           {
             id: 'heading-order',
-            enabled: true
+            enabled: true,
           },
           {
             id: 'keyboard-navigation',
-            enabled: true
+            enabled: true,
           },
           {
             id: 'table-headers',
-            enabled: true
+            enabled: true,
           },
           {
             id: 'form-labels',
-            enabled: true
-          }
-        ]
-      }
+            enabled: true,
+          },
+        ],
+      },
     },
     docs: {
       description: {
-        story: 'Comprehensive accessibility testing for WCAG compliance and assistive technology support',
+        story:
+          'Comprehensive accessibility testing for WCAG compliance and assistive technology support',
       },
     },
   },
-};
+}

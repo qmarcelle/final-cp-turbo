@@ -1,27 +1,26 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { userEvent, within, expect } from 'storybook/test';
-import { BrokerDashboardPage } from './BrokerDashboardPage';
-import { getStoryMeta } from '../../utils/getStoryMeta';
-import { mockBrokers } from '../../utils/mockData';
+import type { Meta, StoryObj } from '@storybook/react'
+import { userEvent, within, expect } from 'storybook/test'
+import { BrokerDashboardPage } from './BrokerDashboardPage'
+import { getStoryMeta } from '../../utils/getStoryMeta'
+import { mockBrokers } from '../../utils/mockData'
 
-// Get the meta data from the utility function
-const metaData = getStoryMeta({
+const meta = {
+  title: '📄 Pages/📊 BrokerDashboardPage',
   component: BrokerDashboardPage,
-  category: 'pages',
-  name: 'BrokerDashboardPage',
-  description: 'Main broker dashboard with commission data, quick actions, and business overview',
+  tags: ['autodocs'],
   parameters: {
     layout: 'fullscreen',
+    docs: {
+      description: {
+        component:
+          'Main broker dashboard with commission data, quick actions, and business overview',
+      },
+    },
   },
-});
+} satisfies Meta<typeof BrokerDashboardPage>
 
-// Create the meta object that satisfies Storybook's requirements
-const meta = {
-  ...metaData,
-} satisfies Meta<typeof BrokerDashboardPage>;
-
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 // Sample user data
 const sampleUser = {
@@ -29,12 +28,13 @@ const sampleUser = {
   email: mockBrokers[0].email,
   role: 'Licensed Broker',
   agency: mockBrokers[0].agencyName,
-};
+}
 
 const sampleUserWithAvatar = {
   ...sampleUser,
-  avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop&crop=face',
-};
+  avatar:
+    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop&crop=face',
+}
 
 // Basic Dashboard States
 export const Default: Story = {
@@ -48,7 +48,7 @@ export const Default: Story = {
       },
     },
   },
-};
+}
 
 export const WithNotifications: Story = {
   args: {
@@ -62,7 +62,7 @@ export const WithNotifications: Story = {
       },
     },
   },
-};
+}
 
 export const WithAvatar: Story = {
   args: {
@@ -76,7 +76,7 @@ export const WithAvatar: Story = {
       },
     },
   },
-};
+}
 
 export const WithoutQuickActions: Story = {
   args: {
@@ -86,11 +86,12 @@ export const WithoutQuickActions: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Dashboard without the quick actions sidebar for a cleaner layout',
+        story:
+          'Dashboard without the quick actions sidebar for a cleaner layout',
       },
     },
   },
-};
+}
 
 export const WithoutWelcome: Story = {
   args: {
@@ -104,13 +105,14 @@ export const WithoutWelcome: Story = {
       },
     },
   },
-};
+}
 
 // Custom Welcome Messages
 export const CustomWelcome: Story = {
   args: {
     user: sampleUser,
-    welcomeMessage: 'Welcome back! You have 3 pending renewals that need attention.',
+    welcomeMessage:
+      'Welcome back! You have 3 pending renewals that need attention.',
     notificationCount: 3,
   },
   parameters: {
@@ -120,12 +122,13 @@ export const CustomWelcome: Story = {
       },
     },
   },
-};
+}
 
 export const MorningGreeting: Story = {
   args: {
     user: sampleUser,
-    welcomeMessage: 'Good morning, John! Start your day with these important updates.',
+    welcomeMessage:
+      'Good morning, John! Start your day with these important updates.',
   },
   parameters: {
     docs: {
@@ -134,7 +137,7 @@ export const MorningGreeting: Story = {
       },
     },
   },
-};
+}
 
 // Different User Types
 export const AgencyManager: Story = {
@@ -150,11 +153,12 @@ export const AgencyManager: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Dashboard for agency manager with different role and higher notification count',
+        story:
+          'Dashboard for agency manager with different role and higher notification count',
       },
     },
   },
-};
+}
 
 export const NewBroker: Story = {
   args: {
@@ -164,7 +168,8 @@ export const NewBroker: Story = {
       role: 'Licensed Broker (New)',
       agency: 'Davis Insurance Solutions',
     },
-    welcomeMessage: 'Welcome to the Broker Portal, Michael! Let\'s get you started with your first quote.',
+    welcomeMessage:
+      "Welcome to the Broker Portal, Michael! Let's get you started with your first quote.",
     showQuickActions: true,
   },
   parameters: {
@@ -174,7 +179,7 @@ export const NewBroker: Story = {
       },
     },
   },
-};
+}
 
 export const SeniorBroker: Story = {
   args: {
@@ -185,7 +190,8 @@ export const SeniorBroker: Story = {
       agency: 'Premium Insurance Group',
     },
     notificationCount: 12,
-    welcomeMessage: 'Good afternoon, Jennifer. Your portfolio is performing exceptionally well this quarter.',
+    welcomeMessage:
+      'Good afternoon, Jennifer. Your portfolio is performing exceptionally well this quarter.',
   },
   parameters: {
     docs: {
@@ -194,7 +200,7 @@ export const SeniorBroker: Story = {
       },
     },
   },
-};
+}
 
 // State Examples
 export const Loading: Story = {
@@ -209,12 +215,13 @@ export const Loading: Story = {
       },
     },
   },
-};
+}
 
 export const Error: Story = {
   args: {
     user: sampleUser,
-    error: 'Unable to load dashboard data. Please check your connection and try again.',
+    error:
+      'Unable to load dashboard data. Please check your connection and try again.',
   },
   parameters: {
     docs: {
@@ -223,7 +230,7 @@ export const Error: Story = {
       },
     },
   },
-};
+}
 
 // Interactive Examples
 export const InteractiveDashboard: Story = {
@@ -233,30 +240,31 @@ export const InteractiveDashboard: Story = {
     showQuickActions: true,
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    
+    const canvas = within(canvasElement)
+
     // Test notification interaction
-    const notificationButton = canvas.getByLabelText('Notifications');
-    await userEvent.hover(notificationButton);
-    
+    const notificationButton = canvas.getByLabelText('Notifications')
+    await userEvent.hover(notificationButton)
+
     // Test user menu interaction
-    const userMenuButton = canvas.getByLabelText('User menu');
-    await userEvent.click(userMenuButton);
-    
+    const userMenuButton = canvas.getByLabelText('User menu')
+    await userEvent.click(userMenuButton)
+
     // Wait for menu to appear
-    await new Promise(resolve => setTimeout(resolve, 100));
-    
+    await new Promise(resolve => setTimeout(resolve, 100))
+
     // Click away to close menu
-    await userEvent.click(canvas.getByText('Broker Dashboard'));
+    await userEvent.click(canvas.getByText('Broker Dashboard'))
   },
   parameters: {
     docs: {
       description: {
-        story: 'Interactive dashboard demonstrating user interactions and hover states',
+        story:
+          'Interactive dashboard demonstrating user interactions and hover states',
       },
     },
   },
-};
+}
 
 // Mobile Responsive
 export const MobileView: Story = {
@@ -274,7 +282,7 @@ export const MobileView: Story = {
       },
     },
   },
-};
+}
 
 export const TabletView: Story = {
   args: {
@@ -292,43 +300,48 @@ export const TabletView: Story = {
       },
     },
   },
-};
+}
 
 // Time-based Scenarios
 export const MondayMorning: Story = {
   args: {
     user: sampleUser,
-    welcomeMessage: 'Good morning, John! Here\'s your weekly summary and priorities for the week ahead.',
+    welcomeMessage:
+      "Good morning, John! Here's your weekly summary and priorities for the week ahead.",
     notificationCount: 7,
   },
   parameters: {
     docs: {
       description: {
-        story: 'Monday morning dashboard with weekly priorities and higher notification count',
+        story:
+          'Monday morning dashboard with weekly priorities and higher notification count',
       },
     },
   },
-};
+}
 
 export const EndOfMonth: Story = {
   args: {
     user: sampleUser,
-    welcomeMessage: 'Month-end approaching! Review your pending applications and commission reports.',
+    welcomeMessage:
+      'Month-end approaching! Review your pending applications and commission reports.',
     notificationCount: 15,
   },
   parameters: {
     docs: {
       description: {
-        story: 'End-of-month dashboard with focus on deadlines and higher activity',
+        story:
+          'End-of-month dashboard with focus on deadlines and higher activity',
       },
     },
   },
-};
+}
 
 export const QuarterEnd: Story = {
   args: {
     user: sampleUser,
-    welcomeMessage: 'Q4 is ending strong! Your commission total is 15.8% above last quarter.',
+    welcomeMessage:
+      'Q4 is ending strong! Your commission total is 15.8% above last quarter.',
     notificationCount: 3,
   },
   parameters: {
@@ -338,7 +351,7 @@ export const QuarterEnd: Story = {
       },
     },
   },
-};
+}
 
 // Performance Scenarios
 export const HighPerformer: Story = {
@@ -347,22 +360,25 @@ export const HighPerformer: Story = {
       ...sampleUser,
       name: 'Top Performer Sarah Chen',
     },
-    welcomeMessage: '🎉 Congratulations! You\'ve exceeded your quarterly goals by 25%. Keep up the excellent work!',
+    welcomeMessage:
+      "🎉 Congratulations! You've exceeded your quarterly goals by 25%. Keep up the excellent work!",
     notificationCount: 1,
   },
   parameters: {
     docs: {
       description: {
-        story: 'Dashboard for high-performing broker with achievement recognition',
+        story:
+          'Dashboard for high-performing broker with achievement recognition',
       },
     },
   },
-};
+}
 
 export const NewGoals: Story = {
   args: {
     user: sampleUser,
-    welcomeMessage: 'New quarterly goals have been set. You\'re off to a great start with 3 new groups this month!',
+    welcomeMessage:
+      "New quarterly goals have been set. You're off to a great start with 3 new groups this month!",
     notificationCount: 5,
   },
   parameters: {
@@ -372,28 +388,31 @@ export const NewGoals: Story = {
       },
     },
   },
-};
+}
 
 // Special Alerts Scenarios
 export const SystemMaintenance: Story = {
   args: {
     user: sampleUser,
-    welcomeMessage: 'System maintenance is scheduled for tonight 2-6 AM EST. Plan accordingly for any urgent tasks.',
+    welcomeMessage:
+      'System maintenance is scheduled for tonight 2-6 AM EST. Plan accordingly for any urgent tasks.',
     notificationCount: 2,
   },
   parameters: {
     docs: {
       description: {
-        story: 'Dashboard with system maintenance notification and planning reminder',
+        story:
+          'Dashboard with system maintenance notification and planning reminder',
       },
     },
   },
-};
+}
 
 export const TrainingReminder: Story = {
   args: {
     user: sampleUser,
-    welcomeMessage: 'Don\'t forget: Required compliance training due by Friday. Complete it in the Training Center.',
+    welcomeMessage:
+      "Don't forget: Required compliance training due by Friday. Complete it in the Training Center.",
     notificationCount: 4,
   },
   parameters: {
@@ -403,13 +422,14 @@ export const TrainingReminder: Story = {
       },
     },
   },
-};
+}
 
 // Real-world Usage Examples
 export const BusyMorning: Story = {
   args: {
     user: sampleUser,
-    welcomeMessage: 'Busy morning ahead! You have 2 renewals due today and 3 new quote requests.',
+    welcomeMessage:
+      'Busy morning ahead! You have 2 renewals due today and 3 new quote requests.',
     notificationCount: 9,
     showQuickActions: true,
   },
@@ -420,12 +440,13 @@ export const BusyMorning: Story = {
       },
     },
   },
-};
+}
 
 export const QuietAfternoon: Story = {
   args: {
     user: sampleUser,
-    welcomeMessage: 'All caught up! Perfect time to review your pipeline and plan for next week.',
+    welcomeMessage:
+      'All caught up! Perfect time to review your pipeline and plan for next week.',
     notificationCount: 0,
   },
   parameters: {
@@ -435,22 +456,24 @@ export const QuietAfternoon: Story = {
       },
     },
   },
-};
+}
 
 export const CriticalAlerts: Story = {
   args: {
     user: sampleUser,
-    welcomeMessage: 'URGENT: 2 groups have coverage gaps that need immediate attention.',
+    welcomeMessage:
+      'URGENT: 2 groups have coverage gaps that need immediate attention.',
     notificationCount: 25,
   },
   parameters: {
     docs: {
       description: {
-        story: 'Dashboard with critical alerts requiring immediate broker attention',
+        story:
+          'Dashboard with critical alerts requiring immediate broker attention',
       },
     },
   },
-};
+}
 
 // Accessibility Test
 export const AccessibilityTest: Story = {
@@ -460,24 +483,24 @@ export const AccessibilityTest: Story = {
     showQuickActions: true,
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    
+    const canvas = within(canvasElement)
+
     // Test keyboard navigation through main elements
-    await userEvent.tab(); // Focus first interactive element
-    await userEvent.tab(); // Move to next element
-    await userEvent.tab(); // Continue navigation
-    
+    await userEvent.tab() // Focus first interactive element
+    await userEvent.tab() // Move to next element
+    await userEvent.tab() // Continue navigation
+
     // Test heading structure
-    const mainHeading = canvas.getByRole('heading', { level: 1 });
-    expect(mainHeading).toBeInTheDocument();
-    
+    const mainHeading = canvas.getByRole('heading', { level: 1 })
+    expect(mainHeading).toBeInTheDocument()
+
     // Test button accessibility
-    const buttons = canvas.getAllByRole('button');
-    expect(buttons.length).toBeGreaterThan(0);
-    
+    const buttons = canvas.getAllByRole('button')
+    expect(buttons.length).toBeGreaterThan(0)
+
     // Test navigation accessibility
-    const nav = canvas.getByRole('navigation');
-    expect(nav).toBeInTheDocument();
+    const nav = canvas.getByRole('navigation')
+    expect(nav).toBeInTheDocument()
   },
   parameters: {
     a11y: {
@@ -485,26 +508,27 @@ export const AccessibilityTest: Story = {
         rules: [
           {
             id: 'color-contrast',
-            enabled: true
+            enabled: true,
           },
           {
             id: 'heading-order',
-            enabled: true
+            enabled: true,
           },
           {
             id: 'keyboard-navigation',
-            enabled: true
-          }
-        ]
-      }
+            enabled: true,
+          },
+        ],
+      },
     },
     docs: {
       description: {
-        story: 'Dashboard tested for accessibility compliance and keyboard navigation',
+        story:
+          'Dashboard tested for accessibility compliance and keyboard navigation',
       },
     },
   },
-};
+}
 
 // Performance Test
 export const PerformanceTest: Story = {
@@ -516,8 +540,9 @@ export const PerformanceTest: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Dashboard stress test with high notification count and all features enabled',
+        story:
+          'Dashboard stress test with high notification count and all features enabled',
       },
     },
   },
-};
+}

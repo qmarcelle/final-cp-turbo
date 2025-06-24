@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { Alert } from './Alert';
+import type { Meta, StoryObj } from '@storybook/react'
+import { Alert } from './Alert'
 
 const meta = {
-  title: '🧬 Molecules/Alert',
+  title: 'Molecules/Alert',
   component: Alert,
   parameters: {
     layout: 'centered',
@@ -40,9 +40,9 @@ import { Alert } from '@portals/ui';
 // With custom icon
 <Alert icon={<CustomIcon />}>Custom icon alert</Alert>
 \`\`\`
-`
-      }
-    }
+`,
+      },
+    },
   },
   argTypes: {
     variant: {
@@ -63,26 +63,22 @@ import { Alert } from '@portals/ui';
       description: 'Additional CSS classes',
     },
   },
-} satisfies Meta<typeof Alert>;
+} satisfies Meta<typeof Alert>
 
-export default meta;
-type Story = StoryObj<typeof Alert>;
+export default meta
+type Story = StoryObj<typeof Alert>
 
 export const Default: Story = {
   args: {
     children: 'This is a default alert message.',
   },
-};
+}
 
 export const Variants: Story = {
   render: () => (
     <div className="space-y-4 w-[500px]">
-      <Alert variant="info">
-        This is an informational message.
-      </Alert>
-      <Alert variant="success">
-        Operation completed successfully!
-      </Alert>
+      <Alert variant="info">This is an informational message.</Alert>
+      <Alert variant="success">Operation completed successfully!</Alert>
       <Alert variant="warning">
         Please review your input before proceeding.
       </Alert>
@@ -91,7 +87,7 @@ export const Variants: Story = {
       </Alert>
     </div>
   ),
-};
+}
 
 export const WithIcons: Story = {
   render: () => (
@@ -110,7 +106,7 @@ export const WithIcons: Story = {
       </Alert>
     </div>
   ),
-};
+}
 
 export const Dismissible: Story = {
   args: {
@@ -118,7 +114,7 @@ export const Dismissible: Story = {
     dismissible: true,
     children: 'Click the X button to dismiss this alert.',
   },
-};
+}
 
 export const WithActions: Story = {
   render: () => (
@@ -138,23 +134,22 @@ export const WithActions: Story = {
         variant="error"
         icon
         action={
-          <button className="underline hover:no-underline">
-            Try Again
-          </button>
+          <button className="underline hover:no-underline">Try Again</button>
         }
       >
         Failed to save changes.
       </Alert>
     </div>
   ),
-};
+}
 
 export const WithCustomContent: Story = {
   render: () => (
     <Alert variant="info" className="w-[500px]">
       <h4 className="font-semibold mb-2">Update Available</h4>
       <p className="text-sm">
-        A new version of the application is available. Please save your work and refresh the page to get the latest features.
+        A new version of the application is available. Please save your work and
+        refresh the page to get the latest features.
       </p>
       <div className="mt-4 flex gap-3">
         <button className="text-sm underline hover:no-underline">
@@ -166,4 +161,4 @@ export const WithCustomContent: Story = {
       </div>
     </Alert>
   ),
-};
+}

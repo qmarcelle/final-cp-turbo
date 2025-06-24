@@ -1,30 +1,29 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { userEvent, within } from 'storybook/test';
-import { DashboardLayout } from './DashboardLayout';
-import { getStoryMeta } from '../../utils/getStoryMeta';
-import { mockBrokers, mockQuickLinks } from '../../utils/mockData';
-import { Button } from '../../atoms/Button/Button';
-import { Card } from '../../molecules/Card/Card';
-import { StatBlock } from '../../molecules/StatBlock/StatBlock';
+import type { Meta, StoryObj } from '@storybook/react'
+import { userEvent, within } from '@storybook/testing-library'
+//import { expect } from '@storybook/jest';
+import { DashboardLayout } from './DashboardLayout'
+import { mockBrokers, mockQuickLinks } from '../../utils/mockData'
+import { Button } from '../../atoms/Button/Button'
+import { Card } from '../../molecules/Card/Card'
+import { StatBlock } from '../../molecules/StatBlock/StatBlock'
 
-// Get the meta data from the utility function
-const metaData = getStoryMeta({
+const meta = {
+  title: '📐 Templates/📊 DashboardLayout',
   component: DashboardLayout,
-  category: 'templates',
-  name: 'DashboardLayout',
-  description: 'Complete dashboard layout template with header, sidebar, main content, and footer',
+  tags: ['autodocs'],
   parameters: {
     layout: 'fullscreen',
+    docs: {
+      description: {
+        component:
+          'Complete dashboard layout template with header, sidebar, main content, and footer',
+      },
+    },
   },
-});
+} satisfies Meta<typeof DashboardLayout>
 
-// Create the meta object that satisfies Storybook's requirements
-const meta = {
-  ...metaData,
-} satisfies Meta<typeof DashboardLayout>;
-
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 // Sample user data
 const sampleUser = {
@@ -32,23 +31,33 @@ const sampleUser = {
   email: mockBrokers[0].email,
   role: 'Licensed Broker',
   agency: mockBrokers[0].agencyName,
-};
+}
 
 // Sample sidebar content
 const SampleSidebar = () => (
   <div className="space-y-6">
     <div>
-      <h3 className="text-sm font-semibold text-gray-900 mb-3">Quick Actions</h3>
+      <h3 className="text-sm font-semibold text-gray-900 mb-3">
+        Quick Actions
+      </h3>
       <nav className="space-y-1">
-        {mockQuickLinks.slice(0, 5).map((link) => (
+        {mockQuickLinks.slice(0, 5).map(link => (
           <a
             key={link.id}
             href={link.url}
             className="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-md hover:bg-gray-100 transition-colors"
           >
             <div className="w-5 h-5 bg-blue-100 rounded flex items-center justify-center">
-              <svg className="w-3 h-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2H4zm0 2h12v8H4V6z" clipRule="evenodd" />
+              <svg
+                className="w-3 h-3 text-blue-600"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2H4zm0 2h12v8H4V6z"
+                  clipRule="evenodd"
+                />
               </svg>
             </div>
             {link.title}
@@ -56,26 +65,32 @@ const SampleSidebar = () => (
         ))}
       </nav>
     </div>
-    
+
     <div>
-      <h3 className="text-sm font-semibold text-gray-900 mb-3">Recent Groups</h3>
+      <h3 className="text-sm font-semibold text-gray-900 mb-3">
+        Recent Groups
+      </h3>
       <div className="space-y-2">
         <div className="p-3 bg-gray-50 rounded-md">
           <p className="text-sm font-medium text-gray-900">TechCorp Inc.</p>
           <p className="text-xs text-gray-500">45 members • Active</p>
         </div>
         <div className="p-3 bg-gray-50 rounded-md">
-          <p className="text-sm font-medium text-gray-900">Manufacturing Solutions</p>
+          <p className="text-sm font-medium text-gray-900">
+            Manufacturing Solutions
+          </p>
           <p className="text-xs text-gray-500">78 members • Active</p>
         </div>
         <div className="p-3 bg-gray-50 rounded-md">
-          <p className="text-sm font-medium text-gray-900">Local Restaurant Group</p>
+          <p className="text-sm font-medium text-gray-900">
+            Local Restaurant Group
+          </p>
           <p className="text-xs text-gray-500">23 members • Pending</p>
         </div>
       </div>
     </div>
   </div>
-);
+)
 
 // Sample content
 const SampleContent = () => (
@@ -83,7 +98,7 @@ const SampleContent = () => (
     {/* Stats Grid */}
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       <StatBlock
-        value={125486.50}
+        value={125486.5}
         label="YTD Commission"
         format="currency"
         variant="success"
@@ -129,7 +144,9 @@ const SampleContent = () => (
               <div className="w-2 h-2 bg-green-500 rounded-full"></div>
               <div className="flex-1">
                 <p className="text-sm font-medium">New member enrolled</p>
-                <p className="text-xs text-gray-500">TechCorp Inc. • 2 hours ago</p>
+                <p className="text-xs text-gray-500">
+                  TechCorp Inc. • 2 hours ago
+                </p>
               </div>
             </div>
             <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-md">
@@ -143,7 +160,9 @@ const SampleContent = () => (
               <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
               <div className="flex-1">
                 <p className="text-sm font-medium">Quote expiring soon</p>
-                <p className="text-xs text-gray-500">Manufacturing LLC • 1 day ago</p>
+                <p className="text-xs text-gray-500">
+                  Manufacturing LLC • 1 day ago
+                </p>
               </div>
             </div>
           </div>
@@ -161,7 +180,7 @@ const SampleContent = () => (
         </Card.Header>
         <Card.Content>
           <div className="grid grid-cols-2 gap-3">
-            {mockQuickLinks.slice(0, 4).map((link) => (
+            {mockQuickLinks.slice(0, 4).map(link => (
               <Button
                 key={link.id}
                 variant="outline"
@@ -169,8 +188,16 @@ const SampleContent = () => (
                 className="h-auto p-4 flex flex-col items-center gap-2"
               >
                 <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                  <svg className="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2H4zm0 2h12v8H4V6z" clipRule="evenodd" />
+                  <svg
+                    className="w-4 h-4 text-blue-600"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2H4zm0 2h12v8H4V6z"
+                      clipRule="evenodd"
+                    />
                   </svg>
                 </div>
                 <span className="text-xs">{link.title}</span>
@@ -181,17 +208,18 @@ const SampleContent = () => (
       </Card>
     </div>
   </div>
-);
+)
 
 // Basic Layout Examples
 export const Default: Story = {
   args: {
     title: 'Broker Dashboard',
-    subtitle: 'Welcome back, John. Here\'s what\'s happening with your accounts today.',
+    subtitle:
+      "Welcome back, John. Here's what's happening with your accounts today.",
     user: sampleUser,
     children: <SampleContent />,
   },
-};
+}
 
 export const WithSidebar: Story = {
   args: {
@@ -202,7 +230,7 @@ export const WithSidebar: Story = {
     sidebar: <SampleSidebar />,
     children: <SampleContent />,
   },
-};
+}
 
 export const WithBreadcrumbs: Story = {
   args: {
@@ -217,7 +245,7 @@ export const WithBreadcrumbs: Story = {
     ],
     children: <SampleContent />,
   },
-};
+}
 
 export const WithActions: Story = {
   args: {
@@ -232,7 +260,7 @@ export const WithActions: Story = {
     ),
     children: <SampleContent />,
   },
-};
+}
 
 // Layout Variants
 export const Compact: Story = {
@@ -248,7 +276,9 @@ export const Compact: Story = {
         <Card.Content>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium mb-1">Group Name</label>
+              <label className="block text-sm font-medium mb-1">
+                Group Name
+              </label>
               <input
                 type="text"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md"
@@ -256,7 +286,9 @@ export const Compact: Story = {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-1">Employee Count</label>
+              <label className="block text-sm font-medium mb-1">
+                Employee Count
+              </label>
               <input
                 type="number"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md"
@@ -267,14 +299,18 @@ export const Compact: Story = {
         </Card.Content>
         <Card.Footer>
           <div className="flex gap-2">
-            <Button variant="outline" className="flex-1">Save Draft</Button>
-            <Button variant="primary" className="flex-1">Generate Quote</Button>
+            <Button variant="outline" className="flex-1">
+              Save Draft
+            </Button>
+            <Button variant="primary" className="flex-1">
+              Generate Quote
+            </Button>
           </div>
         </Card.Footer>
       </Card>
     ),
   },
-};
+}
 
 // State Examples
 export const Loading: Story = {
@@ -282,16 +318,19 @@ export const Loading: Story = {
     title: 'Loading Dashboard',
     user: sampleUser,
     loading: true,
+    children: <div />,
   },
-};
+}
 
 export const Error: Story = {
   args: {
     title: 'Dashboard Error',
     user: sampleUser,
-    error: 'Failed to load dashboard data. Please check your connection and try again.',
+    error:
+      'Failed to load dashboard data. Please check your connection and try again.',
+    children: <div />,
   },
-};
+}
 
 // Complex Layout Examples
 export const FullFeaturedDashboard: Story = {
@@ -302,21 +341,26 @@ export const FullFeaturedDashboard: Story = {
     showSidebar: true,
     sidebar: <SampleSidebar />,
     showBreadcrumbs: true,
-    breadcrumbs: [
-      { label: 'Home', href: '/broker' },
-      { label: 'Dashboard' },
-    ],
+    breadcrumbs: [{ label: 'Home', href: '/broker' }, { label: 'Dashboard' }],
     actions: (
       <div className="flex gap-2">
         <Button variant="outline" size="sm">
           <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" />
+            <path
+              fillRule="evenodd"
+              d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+              clipRule="evenodd"
+            />
           </svg>
           Export Data
         </Button>
         <Button variant="primary" size="sm">
           <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
+            <path
+              fillRule="evenodd"
+              d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+              clipRule="evenodd"
+            />
           </svg>
           New Quote
         </Button>
@@ -332,7 +376,7 @@ export const FullFeaturedDashboard: Story = {
       },
     },
   },
-};
+}
 
 // Mobile Responsive
 export const MobileView: Story = {
@@ -349,7 +393,7 @@ export const MobileView: Story = {
       defaultViewport: 'mobile',
     },
   },
-};
+}
 
 // Interactive Examples
 export const InteractiveSidebar: Story = {
@@ -361,24 +405,24 @@ export const InteractiveSidebar: Story = {
     children: <SampleContent />,
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    
+    const canvas = within(canvasElement)
+
     // On mobile, test sidebar toggle
     if (window.innerWidth < 1024) {
-      const menuButton = canvas.getByLabelText('Toggle mobile menu');
-      await userEvent.click(menuButton);
-      
+      const menuButton = canvas.getByLabelText('Toggle mobile menu')
+      await userEvent.click(menuButton)
+
       // Wait a moment for animation
-      await new Promise(resolve => setTimeout(resolve, 300));
-      
+      await new Promise(resolve => setTimeout(resolve, 300))
+
       // Click overlay to close
-      const overlay = canvas.getByRole('button', { hidden: true });
+      const overlay = canvas.getByRole('button', { hidden: true })
       if (overlay) {
-        await userEvent.click(overlay);
+        await userEvent.click(overlay)
       }
     }
   },
-};
+}
 
 // Different Content Types
 export const ReportingDashboard: Story = {
@@ -392,9 +436,7 @@ export const ReportingDashboard: Story = {
       { label: 'Reporting', href: '/broker/reporting' },
       { label: 'Commission Reports' },
     ],
-    actions: (
-      <Button variant="primary">Download Report</Button>
-    ),
+    actions: <Button variant="primary">Download Report</Button>,
     children: (
       <div className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -422,7 +464,7 @@ export const ReportingDashboard: Story = {
             variant="info"
           />
         </div>
-        
+
         <Card>
           <Card.Header>
             <h3 className="font-semibold">Recent Payments</h3>
@@ -484,7 +526,7 @@ export const ReportingDashboard: Story = {
       },
     },
   },
-};
+}
 
 export const MemberManagement: Story = {
   args: {
@@ -506,7 +548,9 @@ export const MemberManagement: Story = {
           <Card.Content>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
-                <label className="block text-sm font-medium mb-1">Subscriber ID</label>
+                <label className="block text-sm font-medium mb-1">
+                  Subscriber ID
+                </label>
                 <input
                   type="text"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md"
@@ -514,7 +558,9 @@ export const MemberManagement: Story = {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1">Last Name</label>
+                <label className="block text-sm font-medium mb-1">
+                  Last Name
+                </label>
                 <input
                   type="text"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md"
@@ -522,7 +568,9 @@ export const MemberManagement: Story = {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1">Group Number</label>
+                <label className="block text-sm font-medium mb-1">
+                  Group Number
+                </label>
                 <input
                   type="text"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md"
@@ -548,16 +596,24 @@ export const MemberManagement: Story = {
               <div className="flex items-center justify-between p-3 bg-gray-50 rounded-md">
                 <div>
                   <p className="text-sm font-medium">Robert Wilson</p>
-                  <p className="text-xs text-gray-500">TC001001 • TechCorp Inc.</p>
+                  <p className="text-xs text-gray-500">
+                    TC001001 • TechCorp Inc.
+                  </p>
                 </div>
-                <Button variant="outline" size="sm">View</Button>
+                <Button variant="outline" size="sm">
+                  View
+                </Button>
               </div>
               <div className="flex items-center justify-between p-3 bg-gray-50 rounded-md">
                 <div>
                   <p className="text-sm font-medium">Lisa Anderson</p>
-                  <p className="text-xs text-gray-500">MS002001 • Manufacturing Solutions</p>
+                  <p className="text-xs text-gray-500">
+                    MS002001 • Manufacturing Solutions
+                  </p>
                 </div>
-                <Button variant="outline" size="sm">View</Button>
+                <Button variant="outline" size="sm">
+                  View
+                </Button>
               </div>
             </div>
           </Card.Content>
@@ -572,4 +628,4 @@ export const MemberManagement: Story = {
       },
     },
   },
-};
+}

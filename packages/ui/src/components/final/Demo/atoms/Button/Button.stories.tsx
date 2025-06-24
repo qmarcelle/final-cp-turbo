@@ -1,10 +1,10 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { within } from '@storybook/testing-library';
-import { userEvent } from '@storybook/testing-library';
-import { Button } from './Button';
+import type { Meta, StoryObj } from '@storybook/react'
+import { within } from '@storybook/testing-library'
+import { userEvent } from '@storybook/testing-library'
+import { Button } from './Button'
 
 const meta = {
-  title: '⚛️ Atoms/Button',
+  title: '⚛️ Atoms/Button 🔘',
   component: Button,
   tags: ['autodocs'],
   parameters: {
@@ -56,7 +56,18 @@ import { Button } from '@portals/ui';
   argTypes: {
     variant: {
       control: 'select',
-      options: ['primary', 'secondary', 'success', 'warning', 'error', 'outline', 'ghost', 'destructive', 'default', 'link'],
+      options: [
+        'primary',
+        'secondary',
+        'success',
+        'warning',
+        'error',
+        'outline',
+        'ghost',
+        'destructive',
+        'default',
+        'link',
+      ],
       description: 'The visual style variant of the button',
       table: {
         defaultValue: { summary: 'primary' },
@@ -136,10 +147,10 @@ import { Button } from '@portals/ui';
       },
     },
   },
-} satisfies Meta<typeof Button>;
+} satisfies Meta<typeof Button>
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 // Primary Button Stories
 export const Primary: Story = {
@@ -154,7 +165,7 @@ export const Primary: Story = {
       },
     },
   },
-};
+}
 
 export const Secondary: Story = {
   args: {
@@ -168,7 +179,7 @@ export const Secondary: Story = {
       },
     },
   },
-};
+}
 
 export const Success: Story = {
   args: {
@@ -182,7 +193,7 @@ export const Success: Story = {
       },
     },
   },
-};
+}
 
 export const Warning: Story = {
   args: {
@@ -196,7 +207,7 @@ export const Warning: Story = {
       },
     },
   },
-};
+}
 
 export const Error: Story = {
   args: {
@@ -210,7 +221,7 @@ export const Error: Story = {
       },
     },
   },
-};
+}
 
 export const Destructive: Story = {
   args: {
@@ -224,7 +235,7 @@ export const Destructive: Story = {
       },
     },
   },
-};
+}
 
 export const Outline: Story = {
   args: {
@@ -238,7 +249,7 @@ export const Outline: Story = {
       },
     },
   },
-};
+}
 
 export const Ghost: Story = {
   args: {
@@ -252,7 +263,7 @@ export const Ghost: Story = {
       },
     },
   },
-};
+}
 
 export const Link: Story = {
   args: {
@@ -266,7 +277,7 @@ export const Link: Story = {
       },
     },
   },
-};
+}
 
 // Size Variants
 export const Small: Story = {
@@ -281,7 +292,7 @@ export const Small: Story = {
       },
     },
   },
-};
+}
 
 export const Medium: Story = {
   args: {
@@ -295,7 +306,7 @@ export const Medium: Story = {
       },
     },
   },
-};
+}
 
 export const Large: Story = {
   args: {
@@ -309,7 +320,7 @@ export const Large: Story = {
       },
     },
   },
-};
+}
 
 // State Examples
 export const Loading: Story = {
@@ -324,7 +335,7 @@ export const Loading: Story = {
       },
     },
   },
-};
+}
 
 export const Disabled: Story = {
   args: {
@@ -338,7 +349,7 @@ export const Disabled: Story = {
       },
     },
   },
-};
+}
 
 export const WithIcons: Story = {
   args: {
@@ -353,7 +364,7 @@ export const WithIcons: Story = {
       },
     },
   },
-};
+}
 
 export const FullWidth: Story = {
   args: {
@@ -367,7 +378,7 @@ export const FullWidth: Story = {
       },
     },
   },
-};
+}
 
 // Interactive Examples
 export const WithHoverEffect: Story = {
@@ -376,15 +387,15 @@ export const WithHoverEffect: Story = {
     children: 'Hover Me',
   },
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = within(canvasElement);
-    const button = canvas.getByRole('button', { name: /hover me/i });
-    
+    const canvas = within(canvasElement)
+    const button = canvas.getByRole('button', { name: /hover me/i })
+
     // Simulate hover interaction
-    await userEvent.hover(button);
-    await new Promise(resolve => setTimeout(resolve, 500));
-    await userEvent.unhover(button);
+    await userEvent.hover(button)
+    await new Promise(resolve => setTimeout(resolve, 500))
+    await userEvent.unhover(button)
   },
-};
+}
 
 export const WithClickInteraction: Story = {
   args: {
@@ -392,7 +403,7 @@ export const WithClickInteraction: Story = {
     children: 'Click Me',
     onClick: () => console.log('Button clicked!'),
   },
-};
+}
 
 // Button Groups
 export const ButtonGroup: Story = {
@@ -410,7 +421,7 @@ export const ButtonGroup: Story = {
       },
     },
   },
-};
+}
 
 // Broker Portal Specific Examples
 export const QuoteBuilder: Story = {
@@ -419,28 +430,28 @@ export const QuoteBuilder: Story = {
     size: 'lg',
     children: 'Start New Quote',
   },
-};
+}
 
 export const MemberSearch: Story = {
   args: {
     variant: 'secondary',
     children: 'Search Members',
   },
-};
+}
 
 export const CommissionReport: Story = {
   args: {
     variant: 'outline',
     children: 'Download Report',
   },
-};
+}
 
 export const EmergencyAction: Story = {
   args: {
     variant: 'destructive',
     children: 'Terminate Coverage',
   },
-};
+}
 
 // Group of Related Actions
 export const ActionGroup: Story = {
@@ -451,7 +462,7 @@ export const ActionGroup: Story = {
       <Button variant="outline">Cancel</Button>
     </div>
   ),
-};
+}
 
 // Form Action Buttons
 export const FormActions: Story = {
@@ -460,18 +471,21 @@ export const FormActions: Story = {
       <Button variant="ghost">← Back</Button>
       <div className="flex gap-2">
         <Button variant="outline">Save Draft</Button>
-        <Button variant="primary" type="submit">Submit</Button>
+        <Button variant="primary" type="submit">
+          Submit
+        </Button>
       </div>
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Common form action layout with navigation and submission buttons.',
+        story:
+          'Common form action layout with navigation and submission buttons.',
       },
     },
   },
-};
+}
 
 // Accessibility Test
 export const AccessibilityTest: Story = {
@@ -487,14 +501,14 @@ export const AccessibilityTest: Story = {
         rules: [
           {
             id: 'color-contrast',
-            enabled: true
+            enabled: true,
           },
           {
             id: 'keyboard-navigation',
-            enabled: true
-          }
-        ]
-      }
-    }
-  }
-};
+            enabled: true,
+          },
+        ],
+      },
+    },
+  },
+}
